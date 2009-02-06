@@ -1,0 +1,99 @@
+body{
+	background-color: black;
+	color: white;
+}
+
+a{
+	color: #22FF00;
+}
+
+#form{
+	position: absolute;
+	left: 10px;
+	top: 40px;
+	background-color: white;
+	color: black;
+	width: 450px;
+	padding: 18px;
+	border: 2px solid black;
+}
+
+#urlForm{
+	position: absolute;
+	left: 10px;
+	top: 40px;
+	background-color: white;
+	color: black;
+	width: 252px;
+	padding: 18px;
+	border: 2px solid black;
+}
+	
+.thumb{
+	float: left;
+	margin: 0 15px 15px 0;
+	height: 200px;
+}
+
+.normal{
+	margin-top: 20px;
+}
+
+.prevNext{
+	clear: both;
+}
+
+#bPrevNext{
+	clear: left;
+	float: bottom;
+}
+
+#footer{
+	margin-top: 20px;
+}
+
+#adduser{
+	margin-top: 20px;
+}
+
+.delete{
+	margin-left: 20px;
+}
+
+.obscene{
+	display: none;
+}
+
+.badImage{
+	display: none;
+}
+
+.caption{
+	width: 600px;
+}
+.captionAdmin{
+	width: 600px;
+}
+.caption:hover{
+	background-color: white;
+	color: black;
+}	
+.captionAdmin:hover{
+	background-color: white;
+	color: black;
+}	
+
+.tag{
+	width: 600px;
+}
+.tagAdmin{
+	width: 600px;
+}
+.tag:hover{
+	background-color: white;
+	color: black;
+}	
+.tagAdmin:hover{
+	background-color: white;
+	color: black;
+}	

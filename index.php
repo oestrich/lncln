@@ -1,0 +1,153 @@
+<?
+/*
+/	lncln by Eric Oestrich
+/	Version .5
+/
+*/
+
+require_once("config.php");
+require_once("functions.php");
+
+connect($config['mysql']);
+list($isLoggedIn, $isAdmin, $userID) = loggedIn();
+
+//Set up some variables
+$curdir = getcwd() . "/img/";
+$curURL = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']) . "img/";
+$images = array();
+
+if(isset($_GET['thumb'])){
+	$extra = "&thumb=true";
+}
+
+if($_GET['post']){
+	upload($numImgs, $curdir, $curURL);
+	header("location:index.php");
+	exit();
+}
+
+if(isset($_GET['delete']) && $isAdmin){
+	$deletion = delete($_GET['delete']);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if(isset($_GET['obscene']) && $isLoggedIn){
+	$obscene = obscene($_GET['obscene']);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if(isset($_GET['rateUp']) && $isLoggedIn){
+	$rating = 1;
+	if($isAdmin){
+		$rating = 5;
+	}
+	rate($_GET['rateUp'], $userID, $rating);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if(isset($_GET['rateDown']) && $isLoggedIn){
+	$rating = -1;
+	if($isAdmin){
+		$rating = -5;
+	}
+	rate($_GET['rateDown'], $userID, $rating);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if($_GET['viewObscene']){
+	if($_COOKIE['obscene'] == false || !$_COOKIE['obscene']){
+		setcookie('obscene', true, time() + (60 * 60 * 24));
+	}
+	else{
+		setcookie('obscene', true, time() - (60 * 60 * 24));
+	}
+	header("location:index.php");	
+	exit();
+}
+
+if(isset($_GET['refresh']) && $isLoggedIn){
+	$id = stripslashes($_GET['refresh']);
+	$id = mysql_real_escape_string($id);
+	
+	$sql = "SELECT type FROM images WHERE id = " . $id;
+	$result = mysql_query($sql);
+	
+	if(mysql_num_rows($result) == 1){
+		$row = mysql_fetch_assoc($result);
+		thumbnail($id . "." . $row['type']);
+	}
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if($_GET['caption'] && $isLoggedIn){
+	caption($_POST['id'], $_POST['caption']);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+if($_GET['tag'] && $isLoggedIn){
+	tag($_POST['id'], $_POST['tags']);
+	header("location:index.php?img=" . $_GET['img'] . $extra);
+	exit();
+}
+
+list($start, $prev, $next, $numImgs) = init();
+list($images, $type, $extra) = img($start, false);
+
+require_once("header.php");
+
+if($_SESSION['uploaded']){
+	for($i = 0; $i < 10; $i++){
+		$a = $i + 1;
+		switch($_SESSION['upload'][$i]){
+			case 0:
+				break;
+			case 1:
+				echo "Uploaded #$a correctly. <br />";
+				break;
+			case 2:
+				echo "Uploaded #$a to the queue. <br />";
+				break;
+			case 3:
+				echo "#$a is missing tags. <br />";
+				break;
+			case 4:
+				echo "#$a is the wrong file type. <br />";
+				break;
+			case 5:
+				echo "#$a got a 404 error. <br />";
+				break;
+		}
+	}
+	$_SESSION['pages'] += 1;
+	
+	if($_SESSION['pages'] >= 1){
+		unset($_SESSION['uploaded']);
+		unset($_SESSION['upload']);
+	}
+}
+if(isset($deletion)){
+	echo $deletion . "<br />";
+}
+if(isset($obscene)){
+	echo $obscene . "<br />";
+}
+
+echo prevNext($start, $prev, $next, $numImgs, $type);
+
+require_once('listImages.php');
+
+?>
+	<div id='bPrevNext'>
+<?
+echo prevNext($start, $prev, $next, $numImgs, $type);
+?>
+	</div>
+<?
+require_once("footer.php");
+?>
