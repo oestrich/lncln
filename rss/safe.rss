@@ -1,0 +1,50 @@
+<? 
+/*
+/	lncln by Eric Oestrich
+/	Version .5
+/
+*/
+
+header('Content-type: text/xml'); 
+
+require_once("../config.php");
+
+$config = $config['mysql'];
+
+mysql_connect($config['server'], $config['user'], $config['password']);
+mysql_select_db($config['database']);
+
+
+$sql = "SELECT id, caption, postTime, type FROM images WHERE obscene = 0 AND queue = 0 ORDER BY `id` DESC LIMIT 50";
+$result = mysql_query($sql);
+
+$server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/safe.rss", "", $_SERVER['SCRIPT_NAME']);
+
+?>
+<rss version="2.0">
+<channel>
+
+<title>The Archive</title>
+<link><?echo $server;?></link>
+<description>All Images - Minus Obscene</description>
+<lastBuildDate>Mon, 26 Jan 2009 18:37:00 EST</lastBuildDate>
+<language>en-us</language>
+
+<?
+while($row = mysql_fetch_assoc($result)){
+?>
+	<item>
+		<title><?echo $row['id'];?></title>
+		<link><?echo $server;?>image.php?img=<?echo $row['id'];?></link>
+		<guid><?echo $server;?>image.php?img=<?echo $row['id'];?></guid>
+		<pubDate><?echo date('r', $row['postTime']);?></pubDate>
+		<description><![CDATA[ <img src="<?echo $server;?>normal/<?echo $row['id'] . "." . $row['type']?>" alt="<?echo $row['id'];?>"/> <br />
+		<?echo $row['caption'];?>
+		]]></description>
+	</item>
+<?
+}
+?>
+
+</channel>
+</rss>
