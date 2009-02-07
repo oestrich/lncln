@@ -104,7 +104,7 @@ function thumbnail($img){
 	}
 }
 
-function img($start, $queue, $search = ""){
+function img($start, $queue, $isAdmin, $search = ""){
 	$images = array();
 	
 	if($queue){
@@ -123,10 +123,13 @@ function img($start, $queue, $search = ""){
 		}
 	
 		$sql = substr_replace($sql ,"",-3);
-		$sql .= ") ORDER BY id DESC";
+		$sql .= ") AND postTime <= " . time() . " ORDER BY id DESC";
 	}
 	else{
-		$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND id <= " . $start . " ORDER BY `id` DESC LIMIT 50";
+		if($isAdmin != true){
+			$time = "AND postTime <= " . time();
+		}
+		$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND id <= " . $start . " " . $time . " ORDER BY `id` DESC LIMIT 50";
 	}
 	
 	$result = mysql_query($sql);
@@ -174,10 +177,23 @@ function upload($numImgs, $curdir, $curURL){
 	$_SESSION['pages'] = 0;
 	
 	for($i = 0; $i < 10; $i++){
+		$sql = "SELECT MAX(postTime) FROM images";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if(time() >= ($row['MAX(postTime)'] + (60 * 15))){
+			$postTime = time();
+		}
+		else{
+			$postTime = $row['MAX(postTime)'] + (60 * 15);
+		}
+		
+		//if nothing in either style uploads
 		if($_POST['upload' . $i] == "" && $_FILES['upload'.$i]['name'] == ""){
 			$_SESSION['upload'][$i] = 0;
 			continue;
 		}
+		
 		if($_GET['url']){
 			$typeTmp = split("\.", $_POST['upload' . $i]);
 		}
@@ -185,6 +201,7 @@ function upload($numImgs, $curdir, $curURL){
 			//splits the upload name to get the file extension
 			$typeTmp = split("\.", $_FILES['upload'.$i]['name']);
 		}
+		
         //the file extension
 		$type = $typeTmp[count($typeTmp) - 1];
 		
@@ -220,40 +237,44 @@ function upload($numImgs, $curdir, $curURL){
 					$sql = "UPDATE users SET postTime = " . time() . ", numImages = 1 WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 					mysql_query($sql);
 										
-					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . time() . ", '" . $type . "', 0, " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
 					$_SESSION['upload'][$i] = 1;
 				}				
 				else if($row['numImages'] >= 20 && date('d', $row['postTime']) == date('d', time()) && !$row['admin']){
 					$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 					mysql_query($sql);
 					
-					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . time() . ", '" . $type . "', " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
 					$_SESSION['upload'][$i] = 2;
 				}
 				else if($row['numImages'] < 20 && !$row['admin']){
 					$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 					mysql_query($sql);
 					
-					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . time() . ", '" . $type . "', 0, " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
 					$_SESSION['upload'][$i] = 1;
 				}
 				else if($row['admin']){
-					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . time() . ", '" . $type . "', 0, " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
 					$_SESSION['upload'][$i] = 1;
 				}
 				else{
-					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . time() . ", '" . $type . "', " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
 					$_SESSION['upload'][$i] = 2;
 				}
 			}
 			else{
-				$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . time() . ", '" . $type . "', " . $obscene . ")";
+				$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
 				$_SESSION['upload'][$i] = 2;
 			}
+			
+			$_SESSION['uploadTime'][$i] = $postTime;
 			
 			mysql_query($sql);
 			
 			$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
+			
+			$_SESSION['image'][$i] = $imgID . '.' . $type;
 			
 			if($_GET['url']){
 				file_put_contents($curdir . $imgID . '.' . $type, $file);

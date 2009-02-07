@@ -97,7 +97,7 @@ if($_GET['tag'] && $isLoggedIn){
 }
 
 list($start, $prev, $next, $numImgs) = init();
-list($images, $type, $extra) = img($start, false);
+list($images, $type, $extra) = img($start, false, $isAdmin);
 
 require_once("header.php");
 
@@ -108,7 +108,8 @@ if($_SESSION['uploaded']){
 			case 0:
 				break;
 			case 1:
-				echo "Uploaded #$a correctly. <br />";
+				$date = date('h:i:s A - m/d/Y', $_SESSION['uploadTime'][$i] + 3 * 60 * 60);
+				echo "Uploaded #$a correctly. It will appear at $date. To see it now <a href='img/" . $_SESSION['image'][$i] . "'>click here</a>.<br />";
 				break;
 			case 2:
 				echo "Uploaded #$a to the queue. <br />";
@@ -129,6 +130,7 @@ if($_SESSION['uploaded']){
 	if($_SESSION['pages'] >= 1){
 		unset($_SESSION['uploaded']);
 		unset($_SESSION['upload']);
+		unset($_SESSION['uploadTime']);
 	}
 }
 if(isset($deletion)){

@@ -15,7 +15,7 @@ mysql_connect($config['server'], $config['user'], $config['password']);
 mysql_select_db($config['database']);
 
 
-$sql = "SELECT id, caption, postTime, type FROM images WHERE queue = 0 ORDER BY `id` DESC LIMIT 50";
+$sql = "SELECT id, caption, postTime, type FROM images WHERE queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
 $result = mysql_query($sql);
 
 $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/all.rss", "", $_SERVER['SCRIPT_NAME']);

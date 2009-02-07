@@ -50,6 +50,13 @@ foreach ($images as $image){
 			This is a gif.<br />
 <?
 	}
+	
+	if($image['postTime'] > time()){
+?>
+			This is not on the homepage yet.<br />
+<?
+	}
+	
 	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
 ?>
 			<div class="obscene" id="i<?echo $image['id'];?>">

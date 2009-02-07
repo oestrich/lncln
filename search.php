@@ -16,7 +16,7 @@ if(!isset($_POST['search']) || $_POST['search'] == ""){
 	exit();
 }
 
-list($images, $type, $extra) = img($start, false, $_POST['search']);
+list($images, $type, $extra) = img($start, false, $isAdmin, $_POST['search']);
 
 require_once("header.php");
 
