@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: mysql.boomboxlincoln.org
--- Generation Time: Jan 27, 2009 at 08:04 PM
+-- Generation Time: Feb 07, 2009 at 10:50 AM
 -- Server version: 5.0.67
 -- PHP Version: 5.2.6
 
@@ -50,6 +50,19 @@ CREATE TABLE IF NOT EXISTS `rating` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tags`
+--
+
+CREATE TABLE IF NOT EXISTS `tags` (
+  `id` int(12) NOT NULL auto_increment,
+  `picId` int(6) NOT NULL,
+  `tag` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -59,5 +72,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(40) NOT NULL,
   `admin` tinyint(1) NOT NULL default '0',
   `obscene` tinyint(1) NOT NULL default '1',
+  `numImages` int(2) NOT NULL,
+  `postTime` int(32) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;
+
+INSERT INTO `users` (`id`, `name`, `password`, `admin`, `obscene`, `numImages`, `postTime`) VALUES
+(1, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0);
