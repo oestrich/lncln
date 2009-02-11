@@ -32,7 +32,7 @@ if(isset($_GET['obscene']) && $isLoggedIn){
 
 list($start, $prev, $next, $numImgs) = init();
 
-list($images, $type) = img($start, $queue);
+list($images, $type) = img($start, $queue, $isAdmin);
 
 $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);

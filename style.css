@@ -13,20 +13,14 @@ a{
 	top: 40px;
 	background-color: white;
 	color: black;
-	width: 450px;
+	width: 487px;
 	padding: 18px;
 	border: 2px solid black;
 }
 
-#urlForm{
-	position: absolute;
-	left: 10px;
-	top: 40px;
-	background-color: white;
-	color: black;
-	width: 252px;
-	padding: 18px;
-	border: 2px solid black;
+.obCheck{
+	margin-left: 18px;
+	margin-right: 19px;
 }
 	
 .thumb{

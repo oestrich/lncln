@@ -30,15 +30,16 @@ function init(){
 		}
 	}
 	
+	//Getting the number to start the next page
 	$sql = "SELECT id FROM `images` WHERE id <= " . $start . " AND queue = 0 ORDER BY id DESC LIMIT 51";
 	$result = mysql_query($sql);
 	
 	$numRows = mysql_num_rows($result);
 	mysql_data_seek($result, $numRows - 1);
 	$row = mysql_fetch_assoc($result);
-	
 	$next = $row['id'];
-
+	
+	//getting the prevsion page
 	$sql = "SELECT id FROM `images` WHERE id > " . $start . " AND queue = 0 ORDER BY id ASC LIMIT 50";
 	$result = mysql_query($sql);
 	
