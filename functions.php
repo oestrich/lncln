@@ -1,19 +1,37 @@
 <?
-/*
-/	lncln by Eric Oestrich
-/	Version .5
-/
-*/
+/**
+ * lncln by Eric Oestrich
+ * version 0.6.0
+ * 
+ * @package lncln
+ */
 
+/**
+ * Connects to the database
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param array $config Contains the information needed to connect to the database
+ */
 function connect($config){
 	mysql_connect($config['server'], $config['user'], $config['password']);
 	mysql_select_db($config['database']);
 }
 
+/**
+ * Sets up the starting values for lncln
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @return array Contains $start, $prev, $next, $numImgs
+ */
 function init(){
 	$result = mysql_query("SELECT MAX(id) FROM images");
 	$result = mysql_fetch_assoc($result);
 	
+	//Should really rename this
 	$numImgs = $result['MAX(id)'];
 	
 	if(!isset($_GET['img'])){
@@ -55,6 +73,19 @@ function init(){
 	
 	return array($start, $prev, $next, $numImgs);
 }
+
+/**
+ * Creates thumbnails for the site.  Uses ImageMagick.  For gifs
+ * it has to do a temporary jpeg and then back to gif.
+ * 
+ * Should really make it so that if ImageMagick isn't installed
+ * it doesn't die.
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param string $img String containing the filename of the image
+ */
 
 function thumbnail($img){
 	$size = getimagesize("img/" . $img);
@@ -104,6 +135,20 @@ function thumbnail($img){
 		unlink("thumb/" . $img . ".jpg");
 	}
 }
+
+/**
+ * Creates the data required for listImages.php
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $start The highest numbered image to collect
+ * @param bool $queue If true, gathering data for the queue
+ * @param bool $isAdmin If true, user is an admin
+ * @param string $search The string a user is searching for
+ * 
+ * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
+ */
 
 function img($start, $queue, $isAdmin, $search = ""){
 	$images = array();
@@ -172,6 +217,16 @@ function img($start, $queue, $isAdmin, $search = ""){
 	
 	return array($images, $type, $extra);
 }
+
+/**
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $numImgs Number of images to be uploaded //Don't actually thing its needed
+ * @param string $curdir The current directory of the scripts
+ * @param string $curURL The current URL of the scripts
+ */
 
 function upload($numImgs, $curdir, $curURL){
 	$_SESSION['uploaded'] = true;
@@ -326,6 +381,20 @@ function scan($curdir){
 	return "Uploaded " . (count($files) - 2);
 }
 */
+
+/**
+ * Creates the Prev Next links on the page
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $start The highest ID image
+ * @param int $prev The image that is 50 images above it
+ * @param int $next The image that is 50 images below it
+ * @param int $numImgs The highest ID image
+ * 
+ * @return string Contains the links Prev Next
+ */
 function prevNext($start, $prev, $next, $numImgs, $type){
 	if ($type == thumb){
 		$thumb = "&amp;thumb=true";
@@ -342,6 +411,16 @@ function prevNext($start, $prev, $next, $numImgs, $type){
         <a href='index.php?img=" . $next . $thumb . "' class='prevNext'>Next 50</a>";
     }
 }
+
+/**
+ * Checks to see if the user currently has cookies set for them
+ * to be logged in.  Kicks the user if they are logged in.
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @return array An array with $isLoggedIn, bool, $isAdmin, bool, and the users ID
+ */
 
 function loggedIn(){
 	$isAdmin = false;
@@ -387,6 +466,15 @@ function loggedIn(){
 	return array($isLoggedIn, $isAdmin, $userID);
 }
 
+/**
+ * Removes an image from the queue
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $image The image that is to be removed
+ */
+
 function dequeue($images){
 	$numImages = count($images);
 	
@@ -395,6 +483,17 @@ function dequeue($images){
 		mysql_query($sql);
 	}
 }
+
+/**
+ * Adds a user to the site.
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param array $user Contains the users information, username, password, if they're an admin
+ * 
+ * @return string If bad password, or if they were added successfully
+ */
 
 function adduser($user){
 	$username = stripslashes($user['username']);
@@ -419,6 +518,17 @@ function adduser($user){
 	
 	return "User " . $username . " added";
 }
+
+/**
+ * Updates a user's information.
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param array $user Contains the user's updated information
+ * 
+ * @return string Whether it updated or not
+ */
 
 function updateUser($user){
 	$username = stripslashes($user['username']);
@@ -472,8 +582,20 @@ function updateUser($user){
 	return "User " . $username . " updated";
 }
 
+/**
+ * Removes an image.  First deletes the image from sql and then unlinks
+ * the image itself and then the two thumbnails
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $image The image to be deleted
+ * 
+ * @return string Whether it deleted it or not
+ */
+
 function delete($image){
-	$sql = "SELECT type FROM images WHERE id = " . $image;
+	$sql = "SELECT type FROM images WHERE id = " . $image . " LIMIT 1";
 	$result = mysql_query($sql);
 	if(mysql_num_rows($result) == 1){
 		$type = mysql_fetch_assoc($result);
@@ -485,12 +607,24 @@ function delete($image){
 	$sql = "DELETE FROM images WHERE id = " . $image . " LIMIT 1";
 	mysql_query($sql);
 	
-	unlink("img/" . $image . "." . $type['type']);
-	unlink("thumb/" . $image . "." . $type['type']);
-	unlink("normal/" . $image . "." . $type['type']);
+	//use and @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
+	@unlink("img/" . $image . "." . $type['type']);
+	@unlink("thumb/" . $image . "." . $type['type']);
+	@unlink("normal/" . $image . "." . $type['type']);
 	
 	return "Successfully deleted.";
 }
+
+/**
+ * Obscenes images.  Just flips the images obscene number
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $image The image to be changed
+ * 
+ * @return string If it change the image or not.
+ */
 
 function obscene($image){
 	$sql = "SELECT type, obscene FROM images WHERE id = " . $image;
@@ -516,6 +650,22 @@ function obscene($image){
 	
 	return "Updated image";
 }
+
+/**
+ * Rates an image.  Adds the user to a table named rating with
+ * their up or down.
+ * 
+ * @todo Need to come back and escape $image, $user, and $rating.
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $image The image to be changed
+ * @param int $user The user that is doing the rating
+ * @param int $rating The rating, could be -1, 1, -5, or 5
+ * 
+ * @return string Whether rating went swell or not
+ */
 
 function rate($image, $user, $rating){
 	//gets rating if they already rated image
@@ -547,11 +697,23 @@ function rate($image, $user, $rating){
 		//sets the rating to the image
 		$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $image . " LIMIT 1";
 		mysql_query($sql);
+		
+		return "Rated successfully";
 	}
 	else if($numRows > 0){
 		return "You already rated it";
 	}
 }
+
+/**
+ * Adds a caption to a picture
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $id The id of the image to have a caption added
+ * @param string $caption The caption for the image
+ */
 
 function caption($id, $caption){
 	$id = stripslashes($id);
@@ -563,6 +725,17 @@ function caption($id, $caption){
 	$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
 	mysql_query($sql);
 }
+
+/**
+ * Tags an image.  Splits the $tags string by ','s and then secures it
+ * for MySQL insertion.  
+ * 
+ * @since 0.5.0
+ * @package lncln
+ * 
+ * @param int $id The id of the image
+ * @param string $tags A comma seperated string that contains the tags
+ */
 
 function tag($id, $tags){
 	$id = stripslashes($id);

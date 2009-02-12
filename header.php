@@ -1,9 +1,10 @@
 <?
-/*
-/	lncln by Eric Oestrich
-/	Version .5
-/
-*/
+/**
+ * lncln by Eric Oestrich
+ * version 0.6.0
+ * 
+ * @package lncln
+ */
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"

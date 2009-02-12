@@ -1,9 +1,11 @@
 <?
-/*
-/	lncln by Eric Oestrich
-/	Version .5
-/
-*/
+/**
+ * lncln by Eric Oestrich
+ * version 0.6.0
+ * 
+ * @package lncln
+ */
+ 
 
 require_once("config.php");
 require_once("functions.php");
@@ -39,6 +41,7 @@ if(isset($_GET['obscene']) && $isLoggedIn){
 }
 
 if(isset($_GET['rateUp']) && $isLoggedIn){
+	//This should probably be handled by the function itself
 	$rating = 1;
 	if($isAdmin){
 		$rating = 5;
@@ -48,7 +51,8 @@ if(isset($_GET['rateUp']) && $isLoggedIn){
 	exit();
 }
 
-if(isset($_GET['rateDown']) && $isLoggedIn){
+if(isset($_GET['rateDown']) && $isLoggedIn){	
+	//This should probably be handled by the function itself
 	$rating = -1;
 	if($isAdmin){
 		$rating = -5;

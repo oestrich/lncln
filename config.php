@@ -1,9 +1,10 @@
 <?
-/*
-/	lncln by Eric Oestrich
-/	Version .5
-/
-*/
+/**
+ * lncln by Eric Oestrich
+ * version 0.6.0
+ * 
+ * @package lncln
+ */
 
 session_start();
 

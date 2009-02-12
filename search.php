@@ -1,9 +1,10 @@
 <?
-/*
-/	lncln by Eric Oestrich
-/	Version .5
-/
-*/
+/**
+ * lncln by Eric Oestrich
+ * version 0.6.0
+ * 
+ * @package lncln
+ */
 
 require_once("config.php");
 require_once("functions.php");
