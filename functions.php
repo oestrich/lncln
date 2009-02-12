@@ -341,7 +341,6 @@ function prevNext($start, $prev, $next, $numImgs, $type){
         return "<a href='index.php?img=" . $prev . $thumb . "' class='prevNext'>Prev 50</a>
         <a href='index.php?img=" . $next . $thumb . "' class='prevNext'>Next 50</a>";
     }
-	return "";
 }
 
 function loggedIn(){
@@ -374,9 +373,12 @@ function loggedIn(){
 		}
 	}
 	else{
+		/**
+		 * removes any cookies that may have been set.
+		 */
 		if(!isset($_COOKIE['password']) && $_COOKIE['username']){
-			setcookie("username", $username, time() - (60 * 60 * 24));
-			setcookie("password", $password, time() - (60 * 60 * 24));
+			setcookie("username", "", time() - (60 * 60 * 24));
+			setcookie("password", "", time() - (60 * 60 * 24));
 			header("location:index.php");
 		}
 		$isLoggedIn = false;
