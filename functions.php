@@ -136,7 +136,7 @@ function img($start, $queue, $isAdmin, $search = ""){
 	$result = mysql_query($sql);
 	$numRows = @mysql_num_rows($result);
 	
-	for($i = $end; $i < ($end + $numRows); $i++){
+	for($i = 0; $i < $numRows; $i++){
 		$image = mysql_fetch_assoc($result);
 		
 		$sql = "SELECT tag FROM tags WHERE picId = " . $image['id'];
