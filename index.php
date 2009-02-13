@@ -1,7 +1,9 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * index.php
+ * 
+ * @author Eric Oestrich
+ * @version 0.6.0
  * 
  * @package lncln
  */
@@ -12,19 +14,23 @@ require_once("functions.php");
 
 connect();
 
-list($isLoggedIn, $isAdmin, $userID) = loggedIn();
+//list($isLoggedIn, $isAdmin, $userID) = loggedIn();
 
-//Set up some variables
-$curdir = getcwd() . "/img/";
-$curURL = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']) . "img/";
-$images = array();
+
+$lncln = new lncln();
+
+$lncln->loggedIn();
+
+$isLoggedIn = $lncln->isLoggedIn;
+$isAdmin = $lncln->isAdmin;
+$userID = 0; //ratings won't work for a while
 
 if(isset($_GET['thumb'])){
 	$extra = "&thumb=true";
 }
 
-if($_GET['post']){
-	upload($numImgs, $curdir, $curURL);
+if($_GET['post'] == true){
+	$lncln->upload();
 	header("location:index.php");
 	exit();
 }
@@ -83,7 +89,7 @@ if(isset($_GET['refresh']) && $isLoggedIn){
 	
 	if(mysql_num_rows($result) == 1){
 		$row = mysql_fetch_assoc($result);
-		thumbnail($id . "." . $row['type']);
+		$lncln->thumbnail($id . "." . $row['type']);
 	}
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
@@ -101,24 +107,19 @@ if($_GET['tag'] && $isLoggedIn){
 	exit();
 }
 
-
-$lncln = new lncln();
-
 //list($start, $prev, $next, $numImgs) = init();
-$start = $lncln->firstImage;
-$prev = $lncln->aboveFifty;
-$next = $lncln->belowFifty;
-$numImgs = $lncln->highestID;
-
-$lncln->isAdmin = $isAdmin;
+//$start = $lncln->firstImage;
+//$prev = $lncln->aboveFifty;
+//$next = $lncln->belowFifty;
+//$numImgs = $lncln->highestID;
 
 //list($images, $type, $extra) = img($start, false, $isAdmin);
 $lncln->img();
 
-$images = $lncln->images;
-$type = $lncln->type;
-$extra = $lncln->extra;
-
+//almost time to delete these
+//$images = $lncln->images;
+//$type = $lncln->type;
+//$extra = $lncln->extra;
 
 require_once("header.php");
 
@@ -161,14 +162,14 @@ if(isset($obscene)){
 	echo $obscene . "<br />";
 }
 
-echo prevNext($start, $prev, $next, $numImgs, $type);
+echo $lncln->prevNext();
 
 require_once('listImages.php');
 
 ?>
 	<div id='bPrevNext'>
 <?
-echo prevNext($start, $prev, $next, $numImgs, $type);
+echo $lncln->prevNext();
 ?>
 	</div>
 <?

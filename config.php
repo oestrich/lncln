@@ -38,4 +38,12 @@ define("DB_DATABASE", "lncln");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
 
+/**
+ * General Configurations
+ * 
+ * @since 0.6.0
+ */
+ 
+define("CURRENT_IMG_DIRECTORY", getcwd() . "/img/");
+
 ?>

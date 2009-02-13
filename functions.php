@@ -15,7 +15,8 @@
  * @package lncln
  */
 class lncln{
-	private $isAdmin;
+	private $isAdmin = false;
+	private $isLoggedIn = false;
 	
 	private $firstImage; 	//First image on the page (used to be $start)
 	private $aboveFifty; 	//The image 50 images before it (used to be $prev)
@@ -164,12 +165,7 @@ class lncln{
 	 * 
 	 * @since 0.5.0
 	 * @package lncln
-	 * 
-	 * @param int $start The highest numbered image to collect
-	 * @param bool $queue If true, gathering data for the queue
-	 * @param bool $isAdmin If true, user is an admin
-	 * @param string $search The string a user is searching for
-	 * 
+	 *  
 	 * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
 	 */
 	function img(){//$start, $queue, $isAdmin, $search = ""){
@@ -247,8 +243,217 @@ class lncln{
 		}
 	}
 
+	/**
+	 * Creates the Prev Next links on the page
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @return string Contains the links Prev Next
+	 */
+	function prevNext(){//$start, $prev, $next, $numImgs, $type){
+		if ($this->type == 'thumb'){
+			$thumb = "&amp;thumb=true";
+		}else{
+			$thumb = "";
+		}
+		
+		if ($this->firstImage == $this->highestID){
+	        return "<a href='index.php?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	    }elseif($this->belowFifty == 1){
+	        return "<a href='index.php?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>";
+	    }else{
+	        return "<a href='index.php?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>
+	        <a href='index.php?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	    }
+	}
 
+	/**
+	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
+	 * direct input.
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 */
+	function upload(){
+		$_SESSION['uploaded'] = true;
+		$_SESSION['pages'] = 0;
+		
+		for($i = 0; $i < 10; $i++){
+			$sql = "SELECT MAX(postTime) FROM images";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			if(time() >= ($row['MAX(postTime)'] + (60 * 15))){
+				$postTime = time();
+			}
+			else{
+				$postTime = $row['MAX(postTime)'] + (60 * 15);
+			}
+			
+			//if nothing in either style uploads
+			if($_POST['upload' . $i] == "" && $_FILES['upload'.$i]['name'] == ""){
+				$_SESSION['upload'][$i] = 0;
+				continue;
+			}
+			
+			if($_GET['url']){
+				$typeTmp = split("\.", $_POST['upload' . $i]);
+			}
+			else{
+				//splits the upload name to get the file extension
+				$typeTmp = split("\.", $_FILES['upload'.$i]['name']);
+			}
+			
+	        //the file extension
+			$type = $typeTmp[count($typeTmp) - 1];
+			
+			if($_POST['upload' . $i . 'check']){
+				$obscene = 1;
+			}
+			else{
+				$obscene = 0;
+			}
+	        
+			if($_POST['upload' . $i . 'tags'] == ""){
+				$_SESSION['upload'][$i] = 3;
+				continue;
+			}
+			
+			//only these types
+	        if($type == "png" || $type == "jpg" || $type == "gif"){
+				$_SESSION['upload'][$i] = 2;
+				if($_GET['url']){
+					$file = @file_get_contents($_POST['upload' . $i]);
+					if(!$file){
+						$_SESSION['upload'][$i] = 5;
+						continue;
+					}
+				}
+				
+				if (isset($_COOKIE['username'])){
+					$sql = "SELECT numImages, postTime, admin FROM users WHERE name = '" . $_COOKIE['username'] . "'";
+					$result = mysql_query($sql);
+					$row = mysql_fetch_assoc($result);
+					
+					if(date('d', $row['postTime']) != date('d', time()) && !$row['admin']){
+						$sql = "UPDATE users SET postTime = " . time() . ", numImages = 1 WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
+						mysql_query($sql);
+											
+						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$_SESSION['upload'][$i] = 1;
+					}				
+					else if($row['numImages'] >= 20 && date('d', $row['postTime']) == date('d', time()) && !$row['admin']){
+						$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
+						mysql_query($sql);
+						
+						$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+						$_SESSION['upload'][$i] = 2;
+					}
+					else if($row['numImages'] < 20 && !$row['admin']){
+						$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
+						mysql_query($sql);
+						
+						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$_SESSION['upload'][$i] = 1;
+					}
+					else if($row['admin']){
+						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$_SESSION['upload'][$i] = 1;
+					}
+					else{
+						$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+						$_SESSION['upload'][$i] = 2;
+					}
+				}
+				else{
+					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+					$_SESSION['upload'][$i] = 2;
+				}
+				
+				$_SESSION['uploadTime'][$i] = $postTime;
+				
+				mysql_query($sql);
+				
+				$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
+				
+				$_SESSION['image'][$i] = $imgID . '.' . $type;
+				
+				if($_GET['url']){
+					file_put_contents(CURRENT_IMG_DIRECTORY . $imgID . '.' . $type, $file);
+				}
+				else{
+					//moves the files
+					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
+				}
+				
+				thumbnail($imgID . '.' . $type);
+				tag($imgID, $_POST['upload' . $i . 'tags']);
+	        }
+			else{
+				$_SESSION['upload'][$i] == 4;
+			}
+		}
+	}
+	
+	/**
+	 * Checks to see if the user currently has cookies set for them
+	 * to be logged in.  Kicks the user if they are logged in.
+	 * 
+	 * @todo Implement session storing of username.  That way I don't always have to check against cookie
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @return array An array with $isLoggedIn, bool, $isAdmin, bool, and the users ID
+	 */
+	function loggedIn(){		
+		if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
+			$username = stripslashes($_COOKIE['username']);
+			$password = stripslashes($_COOKIE['password']);
+	
+			$username = mysql_real_escape_string($username);
+			$password = mysql_real_escape_string($password);
+	
+			$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+	
+			$result = mysql_query($sql);
+			$numRows = mysql_num_rows($result);
+	
+			if($numRows == 1){
+				$result = mysql_fetch_assoc($result);
+				
+				if($result['admin'] == 1){
+					$this->isAdmin = true;
+				}
+				
+				$this->isLoggedIn = true;
+				$userID = $result['id'];
+			}
+			else{
+				$this->isLoggedIn = false;
+			}
+		}
+		else{
+			/**
+			 * removes any cookies that may have been set.
+			 */
+			if(!isset($_COOKIE['password']) && $_COOKIE['username']){
+				setcookie("username", "", time() - (60 * 60 * 24));
+				setcookie("password", "", time() - (60 * 60 * 24));
+				header("location:index.php");
+			}
+			$this->isLoggedIn = false;
+		}
+		
+		//return array($isLoggedIn, $isAdmin, $userID);
+	}
 }
+
+/**
+ * These are all the old functions.  To be kept until the class based
+ * structure is completed.  They shall then be weeded out.
+ */
 
 
 /**

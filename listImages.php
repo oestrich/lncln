@@ -7,7 +7,7 @@
  */
 
 
-foreach ($images as $image){
+foreach ($lncln->images as $image){
 	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
 		if($image['obscene'] && $image['rating'] <= -10){
 			$link = "javascript:both('" . $image['id'] . "');";
@@ -35,7 +35,7 @@ foreach ($images as $image){
 
 ?>
 
-	<div class="<?echo $type;?>">
+	<div class="<?echo $lncln->type;?>">
 		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating : <?echo $image['rating'];?> Posted : <?echo $date;
 ?>
 
@@ -69,17 +69,17 @@ foreach ($images as $image){
 <?
 	}
 ?>
-			<a name="<?echo $image['id'];?>" href="img/<?echo $image['file'];?>"><img src="<?echo $type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
+			<a name="<?echo $image['id'];?>" href="img/<?echo $image['file'];?>"><img src="<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
 <?	
 
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']){
 		//caption stuff
-		if($isAdmin){
+		if($lncln->isAdmin){
 			$class = "class='captionAdmin'";
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
 		}
-		else if($isLoggedIn){
+		else if($lncln->isLoggedIn){
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
 			$class = "class='caption'";
 		}
@@ -104,9 +104,9 @@ foreach ($images as $image){
 ?>
 			</div>
 <?
-		if(($isLoggedIn && $image['caption'] == "") || $isAdmin){
+		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
 ?>
-			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="index.php?caption=true&amp;img=<?echo $start . $extra;?>#<?echo $image['id'];?>" method="post">
+			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="index.php?caption=true&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>#<?echo $image['id'];?>" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
 				<input type="submit" value="Caption!" />
@@ -134,9 +134,9 @@ foreach ($images as $image){
 				<br />
 			</div>
 <?
-		if($isLoggedIn || $isAdmin){
+		if($lncln->isLoggedIn || $lncln->isAdmin){
 ?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="index.php?tag=true&amp;img=<?echo $start . $extra;?>#<?echo $image['id'];?>" method="post">
+			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="index.php?tag=true&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>#<?echo $image['id'];?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
@@ -155,17 +155,17 @@ foreach ($images as $image){
 ?>
 			<a href="report.php?img=<?echo $image['id'];?>"><img src="images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?
-	if($isLoggedIn){
+	if($lncln->isLoggedIn){
 ?>
-			<a href="index.php?rateUp=<?echo $image['id'];?>&amp;img=<?echo $start . $extra;?>"><img src="images/up.png" alt="Up" title="Up" style='border: none;'/></a>
-			<a href="index.php?rateDown=<?echo $image['id'];?>&amp;img=<?echo $start . $extra;?>"><img src="images/down.png" alt="Down" title="Down" style='border: none;'/></a>
-			<a href="index.php?obscene=<?echo $image['id'];?>&amp;img=<?echo $start . $extra;?>"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-			<a href="index.php?refresh=<?echo $image['id'];?>&amp;img=<?echo $start . $extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+			<a href="index.php?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/up.png" alt="Up" title="Up" style='border: none;'/></a>
+			<a href="index.php?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/down.png" alt="Down" title="Down" style='border: none;'/></a>
+			<a href="index.php?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+			<a href="index.php?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 <?
 	}	
-	if($isAdmin){
+	if($lncln->isAdmin){
 ?>
-			<a href="index.php?delete=<?echo $image['id'];?>&amp;img=<?echo $start . $extra;?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+			<a href="index.php?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?
 	}
 	

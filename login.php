@@ -1,7 +1,9 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * login.php
+ *  
+ * @author Eric Oestrich
+ * @version 0.6.0
  * 
  * @package lncln
  */
@@ -75,7 +77,6 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	</style>
 </head>
 <body onload="document.getElementById('username').focus();">
-	<?echo $sql;?>
 	<h1 id="header">
 		<? echo $config['title'];?>
 	</h1>
