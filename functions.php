@@ -1,10 +1,255 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * functions.php
+ * 
+ * @author Eric Oestrich
+ * @version 0.6.0
  * 
  * @package lncln
  */
+ 
+/**
+ * The main class for lncln.  Shall handle most features.  
+ * 
+ * @since 0.6.0
+ * @package lncln
+ */
+class lncln{
+	private $isAdmin;
+	
+	private $firstImage; 	//First image on the page (used to be $start)
+	private $aboveFifty; 	//The image 50 images before it (used to be $prev)
+	private $belowFifty;	//The image 50 images after it ($used to be $next)
+	private $highestID; 	//The highest ID in the database ($used to be $numImgs)
+	
+	private $search; 		//tag being searched for
+	private $queue = false;	//if you're in the queue
+	
+	private $images; 		//Image data to be outputed in listImages.php
+	private $type;			//Normal or thumb
+	private $extra;			//If $type == "thumb" then it equals "&thumb=true"
+	
+	/**
+	 * Gets the class ready for action!
+	 * 
+	 * @since 0.6.0
+	 * @package lncln
+	 */
+	function __construct(){
+		$result = mysql_query("SELECT MAX(id) FROM images");
+		$result = mysql_fetch_assoc($result);
+		
+		//Should really rename this
+		$this->highestID = $result['MAX(id)'];
+		
+		if(!isset($_GET['img'])){
+			$this->firstImage = $this->highestID;
+		}else{
+			//if it's set, then set it to start
+			$this->firstImage = $_GET['img'];
+			if($this->firstImage == ""){
+				$this->firstImage = $this->highestID;
+			}
+			//incase its to large
+			if($this->firstImage > $this->highestID){
+				$this->firstImage = $this->highestID;
+			}
+		}
+		
+		//Getting the number to start the next page
+		$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 ORDER BY id DESC LIMIT 51";
+		$result = mysql_query($sql);
+		
+		$numRows = mysql_num_rows($result);
+		mysql_data_seek($result, $numRows - 1);
+		$row = mysql_fetch_assoc($result);
+		$this->belowFifty = $row['id'];
+		
+		//getting the prevsion page
+		$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
+		$result = mysql_query($sql);
+		
+		$numRows = mysql_num_rows($result);
+		if($numRows > 0){
+			mysql_data_seek($result, $numRows - 1);
+			$row = mysql_fetch_assoc($result);	
+			$this->aboveFifty = $row['id'];
+		}
+		else{
+			$this->aboveFifty = $this->start;
+		}
+	}
+	
+	/**
+	 * Limits the availability of certain variables
+	 * 
+	 * @since 0.6.0
+	 * @package lncln
+	 * 
+	 * @param mixed $variable The variable to be returned
+	 * 
+	 * @return mixed The variable in question
+	 */
+	function __get($variable){
+		return $this->$variable;
+	}
+	
+	function __set($variable, $value){
+		$this->$variable = $value;
+	}
+	
+	/**
+	 * Creates thumbnails for the site.  Uses ImageMagick.  For gifs
+	 * it has to do a temporary jpeg and then back to gif.
+	 * 
+	 * Should really make it so that if ImageMagick isn't installed
+	 * it doesn't die.
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param string $img String containing the filename of the image
+	 */
+	function thumbnail($img){
+		$size = getimagesize("img/" . $img);
+		
+		$type = split("\.", $img);
+		$type = $type[count($type) - 1];
+		
+		$tHeight = ($size[1] / $size[0]) * 150;
+	
+		if($size[1] > 600 || $size[0] > 600){
+			$norm = "600x" . $size[1];
+		}
+		else{
+			$norm = $size[0] . "x" . $size[1];
+		}
+	
+		if($tHeight > 150){
+			$thumb =  $size[0] . "x150";
+		}else{
+			$thumb = "150x" . $size[1];
+		}
+	
+		if($type == "gif"){
+			$command = "convert -resize '" . $thumb . "' -quality 35 img/" . $img . "[0] thumb/" . $img . ".jpg";
+			exec($command);
+			
+			$command = "convert thumb/" . $img . ".jpg thumb/" . $img;
+		}
+		else{
+			$command = "convert -resize '" . $thumb . "' -quality 35 img/" . $img . " thumb/" . $img;
+		}
+		exec($command);
+		
+		if($type == "gif"){
+			$command = "convert -resize '" . $norm . "' -quality 35 img/" . $img . "[0] normal/" . $img . ".jpg";		
+			exec($command);
+			
+			$command = "convert normal/" . $img . ".jpg normal/" . $img;
+		}
+		else{
+			$command = "convert -resize '" . $norm . "' -quality 35 img/" . $img . " normal/" . $img;
+		}
+		exec($command);
+		
+		if($type == "gif"){
+			unlink("normal/" . $img . ".jpg");
+			unlink("thumb/" . $img . ".jpg");
+		}
+	}
+
+	/**
+	 * Creates the data required for listImages.php
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param int $start The highest numbered image to collect
+	 * @param bool $queue If true, gathering data for the queue
+	 * @param bool $isAdmin If true, user is an admin
+	 * @param string $search The string a user is searching for
+	 * 
+	 * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
+	 */
+	function img(){//$start, $queue, $isAdmin, $search = ""){
+		$this->images = array();
+		
+		if($this->queue){
+			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
+		}
+		else if($this->search != ""){
+			$this->search = stripslashes($this->search);
+			$this->search = mysql_real_escape_string($this->search);
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$result = mysql_query($sql);
+			
+			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND ( ";
+			
+			while($row = mysql_fetch_assoc($result)){
+				$sql .= "id = " . $row['picId'] . " OR ";
+			}
+		
+			$sql = substr_replace($sql ,"",-3);
+			$sql .= ") AND postTime <= " . time() . " ORDER BY id DESC";
+		}
+		else{
+			if($this->isAdmin != true){
+				$time = "AND postTime <= " . time();
+			}
+			else{
+				$time = "";
+			}
+			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND id <= " . $this->firstImage . " " . $time . " ORDER BY `id` DESC LIMIT 50";
+		}
+		
+		$result = mysql_query($sql);
+		$numRows = @mysql_num_rows($result);
+		
+		/* Come back to this
+		if($numRows == 0){
+			
+		}
+		*/
+		
+		for($i = 0; $i < $numRows; $i++){
+			$image = mysql_fetch_assoc($result);
+			
+			$sql = "SELECT tag FROM tags WHERE picId = " . $image['id'];
+			$tags = mysql_query($sql);
+			
+			$imageTags = array();
+			
+			while($tag = mysql_fetch_assoc($tags)){
+				$imageTags[] = $tag['tag'];
+			}
+			
+			$this->images[$i] = array(
+				'id' 		=> $image['id'],
+				'file' 		=> $image['id'] . "." . $image['type'],
+				'type'		=> $image['type'],
+				'obscene' 	=> $image['obscene'],
+				'rating' 	=> $image['rating'],
+				'postTime'	=> $image['postTime'],
+				'caption'	=> $image['caption'],
+				'tags' 		=> $imageTags
+				);
+		}
+		
+		//$sql = " SELECT SUM( upDown ) AS rating FROM rating WHERE picId = " . $
+		
+		$this->type = "normal";
+		$this->extra = "";
+		
+		if($_GET['thumb']){
+			$this->type = "thumb";
+			$this->extra = "&amp;thumb=true";
+		}
+	}
+
+
+}
+
 
 /**
  * Connects to the database
@@ -14,9 +259,11 @@
  * 
  * @param array $config Contains the information needed to connect to the database
  */
-function connect($config){
-	mysql_connect($config['server'], $config['user'], $config['password']);
-	mysql_select_db($config['database']);
+function connect(){
+	if(!@mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD)){
+		die("Error with MySQL: " . mysql_error());
+	}
+	mysql_select_db(DB_DATABASE);
 }
 
 /**
@@ -86,7 +333,6 @@ function init(){
  * 
  * @param string $img String containing the filename of the image
  */
-
 function thumbnail($img){
 	$size = getimagesize("img/" . $img);
 	
@@ -149,7 +395,6 @@ function thumbnail($img){
  * 
  * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
  */
-
 function img($start, $queue, $isAdmin, $search = ""){
 	$images = array();
 	
@@ -219,6 +464,8 @@ function img($start, $queue, $isAdmin, $search = ""){
 }
 
 /**
+ * Uploads the pictures that the user fills in.  Whether it be from a URL or 
+ * direct input.
  * 
  * @since 0.5.0
  * @package lncln
@@ -227,7 +474,6 @@ function img($start, $queue, $isAdmin, $search = ""){
  * @param string $curdir The current directory of the scripts
  * @param string $curURL The current URL of the scripts
  */
-
 function upload($numImgs, $curdir, $curURL){
 	$_SESSION['uploaded'] = true;
 	$_SESSION['pages'] = 0;
@@ -348,6 +594,7 @@ function upload($numImgs, $curdir, $curURL){
 		}
 	}
 }
+
 /*
 function scan($curdir){
 	//the upload directory
@@ -421,7 +668,6 @@ function prevNext($start, $prev, $next, $numImgs, $type){
  * 
  * @return array An array with $isLoggedIn, bool, $isAdmin, bool, and the users ID
  */
-
 function loggedIn(){
 	$isAdmin = false;
 	
@@ -474,7 +720,6 @@ function loggedIn(){
  * 
  * @param int $image The image that is to be removed
  */
-
 function dequeue($images){
 	$numImages = count($images);
 	
@@ -494,7 +739,6 @@ function dequeue($images){
  * 
  * @return string If bad password, or if they were added successfully
  */
-
 function adduser($user){
 	$username = stripslashes($user['username']);
 	$password = stripslashes($user['password']);
@@ -529,7 +773,6 @@ function adduser($user){
  * 
  * @return string Whether it updated or not
  */
-
 function updateUser($user){
 	$username = stripslashes($user['username']);
 	$obscene = stripslashes($user['obscene']);
@@ -593,7 +836,6 @@ function updateUser($user){
  * 
  * @return string Whether it deleted it or not
  */
-
 function delete($image){
 	$sql = "SELECT type FROM images WHERE id = " . $image . " LIMIT 1";
 	$result = mysql_query($sql);
@@ -625,7 +867,6 @@ function delete($image){
  * 
  * @return string If it change the image or not.
  */
-
 function obscene($image){
 	$sql = "SELECT type, obscene FROM images WHERE id = " . $image;
 	
@@ -666,7 +907,6 @@ function obscene($image){
  * 
  * @return string Whether rating went swell or not
  */
-
 function rate($image, $user, $rating){
 	//gets rating if they already rated image
 	$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $user;
@@ -714,7 +954,6 @@ function rate($image, $user, $rating){
  * @param int $id The id of the image to have a caption added
  * @param string $caption The caption for the image
  */
-
 function caption($id, $caption){
 	$id = stripslashes($id);
 	$caption = stripslashes($caption);
@@ -736,7 +975,6 @@ function caption($id, $caption){
  * @param int $id The id of the image
  * @param string $tags A comma seperated string that contains the tags
  */
-
 function tag($id, $tags){
 	$id = stripslashes($id);
 	$id = mysql_real_escape_string($id);

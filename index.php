@@ -10,7 +10,8 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
+connect();
+
 list($isLoggedIn, $isAdmin, $userID) = loggedIn();
 
 //Set up some variables
@@ -100,8 +101,24 @@ if($_GET['tag'] && $isLoggedIn){
 	exit();
 }
 
-list($start, $prev, $next, $numImgs) = init();
-list($images, $type, $extra) = img($start, false, $isAdmin);
+
+$lncln = new lncln();
+
+//list($start, $prev, $next, $numImgs) = init();
+$start = $lncln->firstImage;
+$prev = $lncln->aboveFifty;
+$next = $lncln->belowFifty;
+$numImgs = $lncln->highestID;
+
+$lncln->isAdmin = $isAdmin;
+
+//list($images, $type, $extra) = img($start, false, $isAdmin);
+$lncln->img();
+
+$images = $lncln->images;
+$type = $lncln->type;
+$extra = $lncln->extra;
+
 
 require_once("header.php");
 

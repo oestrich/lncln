@@ -9,11 +9,11 @@
 require_once('config.php');
 require_once('functions.php');
 
-connect($config['mysql']);
+connect();
 
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
-		setcookie("username", $username, time() - 30);
+		setcookie("username", "", time() - 30);
 		header("location:login.php");
 	}
 	
@@ -32,11 +32,12 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	if(isset($_POST['username'])){
 		$password = sha1($password);
 	}
-
-	$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
 	
+	$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
 	$result = mysql_query($sql);
 	$numRows = mysql_num_rows($result);
+	
+	$row = mysql_fetch_assoc($result);
 	
 	if($numRows == 1){
 		$row = mysql_fetch_assoc($result);
@@ -74,6 +75,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	</style>
 </head>
 <body onload="document.getElementById('username').focus();">
+	<?echo $sql;?>
 	<h1 id="header">
 		<? echo $config['title'];?>
 	</h1>
