@@ -13,7 +13,10 @@ header('Content-type: text/xml');
 require_once("../config.php");
 require_once("../functions.php");
 
-connect();
+if(!@mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD)){
+	die("Error with MySQL: " . mysql_error());
+}
+mysql_select_db(DB_DATABASE);
 
 $sql = "SELECT id, caption, postTime, type FROM images WHERE queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
 $result = mysql_query($sql);
