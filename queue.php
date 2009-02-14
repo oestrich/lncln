@@ -16,6 +16,10 @@ connect();
 $lncln = new lncln();
 $lncln->loggedIn();
 //list($isLoggedIn, $isAdmin) = loggedIn();
+//temporary
+$isLoggedIn = $lncln->isLoggedIn;
+$isAdmin = $lncln->isAdmin;
+
 
 if($lncln->isAdmin){
 	$lncln->queue = true;
