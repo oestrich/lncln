@@ -11,7 +11,7 @@
 header('Content-type: text/xml'); 
 
 require_once("../config.php");
-require_once("../functions.php");
+//require_once("../functions.php");
 
 if(!@mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD)){
 	die("Error with MySQL: " . mysql_error());
