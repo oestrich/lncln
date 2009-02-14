@@ -10,11 +10,10 @@ header('Content-type: text/xml');
 
 require_once("../config.php");
 
-$config = $config['mysql'];
+require_once("../config.php");
+require_once("../functions.php");
 
-mysql_connect($config['server'], $config['user'], $config['password']);
-mysql_select_db($config['database']);
-
+connect();
 
 $sql = "SELECT id, caption, postTime, type FROM images WHERE obscene = 0 AND queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
 $result = mysql_query($sql);
