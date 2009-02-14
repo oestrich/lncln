@@ -1,10 +1,17 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * faq.php
+ *  
+ * @author Eric Oestrich
+ * @version 0.6.0
  * 
  * @package lncln
  */
+
+require_once('config.php');
+require_once('functions.php');
+
+connect();
 
 require_once('header.php');
 
