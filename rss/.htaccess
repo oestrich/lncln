@@ -1,1 +1,1 @@
-AddType php-cgi .rss
+AddType php5-cgi .rss
