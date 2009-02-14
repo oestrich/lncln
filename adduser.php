@@ -1,7 +1,9 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * adduser.php
+ * 
+ * @author Eric Oestrich
+ * @version 0.6.0
  * 
  * @package lncln
  */
