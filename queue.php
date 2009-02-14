@@ -11,18 +11,18 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin) = loggedIn();
+connect();
 
-if($isAdmin){
-	$queue = true;
-}
-else{
-	$queue = false;
+$lncln = new lncln();
+$lncln->loggedIn();
+//list($isLoggedIn, $isAdmin) = loggedIn();
+
+if($lncln->isAdmin){
+	$lncln->queue = true;
 }
 
 if(isset($_POST)){
-	dequeue($_POST);
+	$lncln->dequeue($_POST);
 }
 
 if(isset($_GET['delete'])){
@@ -33,9 +33,11 @@ if(isset($_GET['obscene']) && $isLoggedIn){
 	$obscene = obscene($_GET['obscene']);
 }
 
-list($start, $prev, $next, $numImgs) = init();
+//list($start, $prev, $next, $numImgs) = init();
 
-list($images, $type) = img($start, $queue, $isAdmin);
+//list($images, $type) = img($start, $queue, $isAdmin);
+
+$lncln->img();
 
 $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);
@@ -53,7 +55,7 @@ if(isset($obscene)){
 
 echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 
-if($isAdmin){
+if($lncln->isAdmin){
 ?>
 	<script type="text/javascipt">
 		function check(id){
@@ -65,8 +67,8 @@ if($isAdmin){
 	<form enctype="multipart/form-data" action="queue.php" method="post">
 		<div class="queue">
 <?	
-	if(count($images) > 0){
-		foreach ($images as $image){
+	if(count($lncln->images) > 0){
+		foreach ($lncln->images as $image){
 			if($image['obscene'] == 1){
 				$obscene = "obscene";
 			}
@@ -96,9 +98,11 @@ if($isAdmin){
 	</form>
 <?
 	}
-	else{?>
+	else{
+?>
 	<br />Nothing to moderate
-	<?}
+<?
+	}
 }
 else{
 	echo "You're not an admin, please go back to the <a href='index.php'>main page</a>";

@@ -448,6 +448,23 @@ class lncln{
 		
 		//return array($isLoggedIn, $isAdmin, $userID);
 	}
+	
+	/**
+	 * Removes an image from the queue
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param int $image The image that is to be removed
+	 */
+	function dequeue($images){
+		//$numImages = count($images); #Don't think it's needed
+		
+		foreach($images as $image){
+			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
+			mysql_query($sql);
+		}
+	}
 }
 
 /**
