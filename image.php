@@ -44,7 +44,7 @@ if(isset($_GET['img']) || isset($image)){
 	if(mysql_num_rows($result) == 1){
 		$image = mysql_fetch_assoc($result);
 		
-		$images[0] = array(
+		$lncln->images[0] = array(
 			'id' 		=> $image['id'],
 			'file' 		=> $image['id'] . "." . $image['type'],
 			'type'		=> $image['type'],
@@ -55,8 +55,8 @@ if(isset($_GET['img']) || isset($image)){
 			'tags' 		=> $imageTags
 		);
 		
-		$type = 'normal';
-		$start = $image['id'];
+		$lncln->type = 'normal';
+		//$start = $image['id'];
 		
 		require_once('listImages.php');	
 	}
