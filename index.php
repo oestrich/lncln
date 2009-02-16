@@ -47,7 +47,7 @@ if(isset($_GET['obscene']) && $lncln->isLoggedIn){
 	exit();
 }
 
-if(isset($_GET['rateUp']) && $$lncln->isLoggedIn){
+if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
 	//This should probably be handled by the function itself
 	$rating = 1;
 	if($isAdmin){
@@ -58,7 +58,7 @@ if(isset($_GET['rateUp']) && $$lncln->isLoggedIn){
 	exit();
 }
 
-if(isset($_GET['rateDown']) && $$lncln->isLoggedIn){	
+if(isset($_GET['rateDown']) && $lncln->isLoggedIn){	
 	//This should probably be handled by the function itself
 	$rating = -1;
 	if($isAdmin){
