@@ -663,7 +663,8 @@ class lncln{
 		else if(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['upDown']) && $row['upDown'] != $rating){
 				//Perhaps delete the record, instead of just flipping it
-				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->userID . " LIMIT 1";
+				//$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->userID . " LIMIT 1";
+				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this.userID . " LIMIT 1";
 			}
 			else{
 				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->userID . ", " . $rating . ")";
