@@ -29,7 +29,7 @@ class lncln{
 	private $search; 		//tag being searched for
 	private $queue = false;	//if you're in the queue
 	
-	private $images; 		//Image data to be outputed in listImages.php
+	private $images = array(); 		//Image data to be outputed in listImages.php
 	private $type;			//Normal or thumb
 	private $extra;			//If $type == "thumb" then it equals "&thumb=true"
 	
@@ -176,8 +176,6 @@ class lncln{
 	 * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
 	 */
 	function img(){//$start, $queue, $isAdmin, $search = ""){
-		$this->images = array();
-		
 		if($this->queue){
 			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
 		}
