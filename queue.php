@@ -43,11 +43,11 @@ if(isset($_GET['obscene']) && $isLoggedIn){
 
 $lncln->img();
 
+require_once("header.php");
+
 $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);
 $result = mysql_fetch_assoc($result);
-
-require_once("header.php");
 
 if(isset($deletion)){
 	echo $deletion . "<br />";
