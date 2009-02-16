@@ -25,11 +25,11 @@ if(isset($_POST)){
 	$lncln->dequeue($_POST);
 }
 
-if(isset($_GET['delete'])){
+if(isset($_GET['delete']) && $lncln->isAdmin){
 	$deletion = $lncln->delete($_GET['delete']);
 }
 
-if(isset($_GET['obscene']) && $isLoggedIn){
+if(isset($_GET['obscene']) && $lncln->isAdmin){
 	$obscene = $lncln->obscene($_GET['obscene']);
 }
 
