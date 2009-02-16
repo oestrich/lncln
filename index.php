@@ -21,6 +21,7 @@ $lncln = new lncln();
 
 $lncln->loggedIn();
 
+
 $isLoggedIn = $lncln->isLoggedIn;
 $isAdmin = $lncln->isAdmin;
 $userID = $lncln->userID; //ratings won't work for a while
@@ -53,7 +54,7 @@ if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
 	if($isAdmin){
 		$rating = 5;
 	}
-	$lncln->rate($_GET['rateUp'], $userID, $rating);
+	$lncln->rate($_GET['rateUp'], $rating);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
@@ -64,7 +65,7 @@ if(isset($_GET['rateDown']) && $lncln->isLoggedIn){
 	if($isAdmin){
 		$rating = -5;
 	}
-	$lncln->rate($_GET['rateDown'], $userID, $rating);
+	$lncln->rate($_GET['rateDown'], $rating);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
@@ -80,7 +81,7 @@ if($_GET['viewObscene']){
 	exit();
 }
 
-if(isset($_GET['refresh']) && $isLoggedIn){
+if(isset($_GET['refresh']) && $lncln->isLoggedIn){
 	$id = stripslashes($_GET['refresh']);
 	$id = mysql_real_escape_string($id);
 	

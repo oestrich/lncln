@@ -639,15 +639,17 @@ class lncln{
 	 * @since 0.5.0
 	 * @package lncln
 	 * 
+	 * @todo Delete record if they already voted.
+	 * 
 	 * @param int $image The image to be changed
 	 * @param int $user The user that is doing the rating
 	 * @param int $rating The rating, could be -1, 1, -5, or 5
 	 * 
 	 * @return string Whether rating went swell or not
 	 */
-	function rate($image, $user, $rating){
+	function rate($image, $rating){
 		//gets rating if they already rated image
-		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $user;
+		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->user;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
 		
@@ -660,10 +662,11 @@ class lncln{
 		}
 		else if(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['upDown']) && $row['upDown'] != $rating){
-				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $user . " LIMIT 1";
+				//Perhaps delete the record, instead of just flipping it
+				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->user . " LIMIT 1";
 			}
 			else{
-				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $user . ", " . $rating . ")";
+				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->user . ", " . $rating . ")";
 			}
 			mysql_query($sql);
 			
@@ -742,12 +745,6 @@ class lncln{
 }
 
 /**
- * These are all the old functions.  To be kept until the class based
- * structure is completed.  They shall then be weeded out.
- */
-
-
-/**
  * Connects to the database
  * 
  * @since 0.5.0
@@ -761,6 +758,12 @@ function connect(){
 	}
 	mysql_select_db(DB_DATABASE);
 }
+
+
+/**
+ * These are all the old functions.  To be kept until the class based
+ * structure is completed.  They shall then be weeded out.
+ */
 
 /**
  * Sets up the starting values for lncln
