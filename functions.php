@@ -766,10 +766,4 @@ function connect(){
 	}
 	mysql_select_db(DB_DATABASE);
 }
-
-
-/**
- * These are all the old functions.  To be kept until the class based
- * structure is completed.  They shall then be weeded out.
- */
 ?>
