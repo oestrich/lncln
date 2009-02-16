@@ -86,6 +86,10 @@ class lncln{
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
 		
+		if($this->script == "search.php"){
+			$this->script = "index.php";
+		}
+		
 	}
 	
 	/**
