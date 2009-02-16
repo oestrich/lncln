@@ -15,6 +15,7 @@ connect();
 
 $lncln = new lncln();
 $lncln->loggedIn();
+
 //list($isLoggedIn, $isAdmin) = loggedIn();
 //temporary
 $isLoggedIn = $lncln->isLoggedIn;

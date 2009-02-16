@@ -11,15 +11,19 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin) = loggedIn();
+connect();
+
+$lncln = new lncln();
+
+$lncln->loggedIn();
+//list($isLoggedIn, $isAdmin) = loggedIn();
 
 if(isset($_POST['username'])){
-	$added = adduser($_POST);
+	$added = $lncln->adduser($_POST);
 }
 
 require_once("header.php");
-if($isAdmin){
+if($lncln->isAdmin){
 	if(isset($added)){
 		echo $added;
 	}
@@ -38,6 +42,10 @@ if($isAdmin){
 	</form>
 <?
 }
+else{
+	echo "What are you doing here?";
+}
+
 
 require_once("footer.php");
 ?>
