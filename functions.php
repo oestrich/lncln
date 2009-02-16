@@ -649,7 +649,7 @@ class lncln{
 	 */
 	function rate($image, $rating){
 		//gets rating if they already rated image
-		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->user;
+		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->userID;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
 		
@@ -663,10 +663,10 @@ class lncln{
 		else if(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['upDown']) && $row['upDown'] != $rating){
 				//Perhaps delete the record, instead of just flipping it
-				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->user . " LIMIT 1";
+				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->userID . " LIMIT 1";
 			}
 			else{
-				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->user . ", " . $rating . ")";
+				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->userID . ", " . $rating . ")";
 			}
 			mysql_query($sql);
 			
