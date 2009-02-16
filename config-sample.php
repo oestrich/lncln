@@ -3,7 +3,7 @@
  * config.php
  * 
  * @author Eric Oestrich
- * @version 0.6.1
+ * @version 0.6.0
  * 
  * @package lncln
  */
@@ -15,7 +15,7 @@ session_start();
  * @since 0.6.0
  */
 
-define("VERSION", "0.6.1");
+define("VERSION", "0.6.0");
 define("TITLE", "The Arcive");
 
 /**

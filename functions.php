@@ -3,7 +3,7 @@
  * functions.php
  * 
  * @author Eric Oestrich
- * @version 0.6.1
+ * @version 0.6.0
  * 
  * @package lncln
  */
