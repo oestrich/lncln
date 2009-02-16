@@ -19,6 +19,8 @@ class lncln{
 	private $isLoggedIn = false;
 	private $userID = 0;
 	
+	private $script;
+	
 	private $firstImage; 	//First image on the page (used to be $start)
 	private $aboveFifty; 	//The image 50 images before it (used to be $prev)
 	private $belowFifty;	//The image 50 images after it ($used to be $next)
@@ -80,6 +82,10 @@ class lncln{
 		else{
 			$this->aboveFifty = $this->start;
 		}
+		
+		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
+		$this->script = $this->script[count($this->script) - 1];
+		
 	}
 	
 	/**
