@@ -26,16 +26,12 @@ if(isset($_POST)){
 }
 
 if(isset($_GET['delete'])){
-	$deletion = delete($_GET['delete']);
+	$deletion = $lncln->delete($_GET['delete']);
 }
 
 if(isset($_GET['obscene']) && $isLoggedIn){
-	$obscene = obscene($_GET['obscene']);
+	$obscene = $lncln->obscene($_GET['obscene']);
 }
-
-//list($start, $prev, $next, $numImgs) = init();
-
-//list($images, $type) = img($start, $queue, $isAdmin);
 
 $lncln->img();
 
