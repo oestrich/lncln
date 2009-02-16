@@ -17,6 +17,9 @@ $lncln = new lncln();
 
 $lncln->loggedIn();
 //list($isLoggedIn, $isAdmin) = loggedIn();
+$isLoggedIn = $lncln->isLoggedIn;
+$isAdmin = $lncln->isAdmin;
+
 
 if(isset($_POST['username'])){
 	$added = $lncln->adduser($_POST);

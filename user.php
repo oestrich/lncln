@@ -11,11 +11,17 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin) = loggedIn();
+connect();
+
+$lncln = new lncln();
+
+$lncln->loggedIn();
+//list($isLoggedIn, $isAdmin) = loggedIn();
+$isLoggedIn = $lncln->isLoggedIn;
+$isAdmin = $lncln->isAdmin;
 
 if(isset($_POST['username'])){
-	$updated = updateUser($_POST);
+	$updated = $lncln->updateUser($_POST);
 }
 
 require_once("header.php");
@@ -24,7 +30,7 @@ if(isset($updated)){
 	echo $updated;
 }
 
-if($isLoggedIn){
+if($lncln->isLoggedIn){
 	$sql = "SELECT obscene FROM users WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1";
 	$result = mysql_query($sql);
 	
@@ -36,18 +42,18 @@ if($isLoggedIn){
 		$checked = "";
 	}
 ?>
-<form enctype="multipart/form-data" action="user.php" method="post">
-	<div id="user">
-		<input type="hidden" name="username" value="<?echo $_COOKIE['username'];?>" />
-		Only put in your password if you want to change it.<br />
-		Old Password: <input type='password' name='password' /><br />
-		New Password: <input type='password' name='newPassword' /><br />
-		New Password: <input type='password' name='newPasswordConfirm' /><br />
-		<br />
-		View Obscene: <input type='checkbox' name='viewObscene' <?echo $checked;?>/><br />
-		<input type='submit' value="Login" />
-	</div>
-</form>
+	<form enctype="multipart/form-data" action="user.php" method="post">
+		<div id="user">
+			<input type="hidden" name="username" value="<?echo $_COOKIE['username'];?>" />
+			Only put in your password if you want to change it.<br />
+			Old Password: <input type='password' name='password' /><br />
+			New Password: <input type='password' name='newPassword' /><br />
+			New Password: <input type='password' name='newPasswordConfirm' /><br />
+			<br />
+			View Obscene: <input type='checkbox' name='viewObscene' <?echo $checked;?>/><br />
+			<input type='submit' value="Login" />
+		</div>
+	</form>
 
 <?
 }

@@ -499,6 +499,68 @@ class lncln{
 		
 		return "User " . $username . " added";
 	}
+	
+	/**
+	 * Updates a user's information.
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param array $user Contains the user's updated information
+	 * 
+	 * @return string Whether it updated or not
+	 */
+	function updateUser($user){
+		$username = stripslashes($user['username']);
+		$obscene = stripslashes($user['obscene']);
+	
+		$username = mysql_real_escape_string($username);
+		$obscene = mysql_real_escape_string($obscene);
+		
+		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
+			$oldPassword = stripslashes($user['password']);
+			$newPassword = stripslashes($user['newPassword']);
+			$newPasswordConfirm = stripslashes($user['newPasswordConfirm']);
+			
+			$oldPassword = mysql_real_escape_string($oldPassword);
+			$newPassword = mysql_real_escape_string($newPassword);
+			$newPasswordConfirm = mysql_real_escape_string($newPasswordConfirm);
+			
+			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
+			$result = mysql_query($sql);
+			
+			$row = mysql_fetch_assoc($result);
+			
+			$oldPassword = sha1($oldPassword);
+			$newPassword = sha1($newPassword);
+			$newPasswordConfirm = sha1($newPasswordConfirm);
+			
+			if($newPassword != $newPasswordConfirm || $oldPassword != $row['password']){
+				return "Passwords do not match";
+			}
+			
+			$password = "password = '" . $newPassword . "',";
+			
+			setcookie("password", $newPassword, time() + (60 * 60 * 24));
+		}
+		
+		if($_POST['viewObscene']){
+			$obscene = 1;
+		}
+		else{
+			$obscene = 0;
+		}
+		
+		
+		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
+		mysql_query($sql);
+		
+		setcookie("username", $username, time() + (60 * 60 * 24));
+		setcookie('obscene', $obscene, time() + (60 * 60 * 24));
+	
+		
+		return "User " . $username . " updated";
+	}
 }
 
 /**
