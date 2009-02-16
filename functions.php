@@ -21,17 +21,17 @@ class lncln{
 	
 	private $script;
 	
-	private $firstImage; 	//First image on the page (used to be $start)
-	private $aboveFifty; 	//The image 50 images before it (used to be $prev)
-	private $belowFifty;	//The image 50 images after it ($used to be $next)
-	private $highestID; 	//The highest ID in the database ($used to be $numImgs)
+	private $firstImage; 		//First image on the page (used to be $start)
+	private $aboveFifty; 		//The image 50 images before it (used to be $prev)
+	private $belowFifty;		//The image 50 images after it ($used to be $next)
+	private $highestID; 		//The highest ID in the database ($used to be $numImgs)
 	
-	private $search; 		//tag being searched for
-	private $queue = false;	//if you're in the queue
+	private $search; 			//tag being searched for
+	private $queue = false;		//if you're in the queue
 	
-	private $images = array(); 		//Image data to be outputed in listImages.php
-	private $type;			//Normal or thumb
-	private $extra;			//If $type == "thumb" then it equals "&thumb=true"
+	public $images = array(); 	//Image data to be outputed in listImages.php
+	private $type;				//Normal or thumb
+	private $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
 	/**
 	 * Gets the class ready for action!

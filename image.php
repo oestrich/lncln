@@ -56,9 +56,8 @@ if(isset($_GET['img']) || isset($image)){
 		);
 		
 		$lncln->type = 'normal';
-		//$start = $image['id'];
-		
-		require_once('listImages.php');	
+
+		require_once("listImages.php");	
 	}
 }
 else{
