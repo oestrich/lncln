@@ -3,7 +3,7 @@
  * functions.php
  * 
  * @author Eric Oestrich
- * @version 0.6.0
+ * @version 0.6.1
  * 
  * @package lncln
  */
@@ -14,6 +14,7 @@
  * @since 0.6.0
  * @package lncln
  */
+ 
 class lncln{
 	private $isAdmin = false;
 	private $isLoggedIn = false;
@@ -85,7 +86,7 @@ class lncln{
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
-		
+
 		if($this->script == "search.php"){
 			$this->script = "index.php";
 		}

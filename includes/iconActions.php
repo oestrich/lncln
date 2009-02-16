@@ -87,7 +87,7 @@ if($_GET['caption'] && $lncln->isLoggedIn){
 
 if($_GET['tag'] && $lncln->isLoggedIn){
 	$lncln->tag($_POST['id'], $_POST['tags']);
-	header("location:" . $lncln->script . "p?img=" . $_GET['img'] . $extra);
+	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 ?>
