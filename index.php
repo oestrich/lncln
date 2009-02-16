@@ -95,14 +95,14 @@ if(isset($_GET['refresh']) && $isLoggedIn){
 	exit();
 }
 
-if($_GET['caption'] && $isLoggedIn){
-	caption($_POST['id'], $_POST['caption']);
+if($_GET['caption'] && $lncln->isLoggedIn){
+	$lncln->caption($_POST['id'], $_POST['caption']);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
-if($_GET['tag'] && $isLoggedIn){
-	tag($_POST['id'], $_POST['tags']);
+if($_GET['tag'] && $lncln->isLoggedIn){
+	$lncln->tag($_POST['id'], $_POST['tags']);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
