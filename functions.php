@@ -388,8 +388,8 @@ class lncln{
 					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 				}
 				
-				thumbnail($imgID . '.' . $type);
-				tag($imgID, $_POST['upload' . $i . 'tags']);
+				$this->thumbnail($imgID . '.' . $type);
+				$this->tag($imgID, $_POST['upload' . $i . 'tags']);
 	        }
 			else{
 				$_SESSION['upload'][$i] == 4;
