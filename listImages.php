@@ -108,7 +108,7 @@ foreach ($lncln->images as $image){
 <?
 		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
 ?>
-			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?caption=true&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>#<?echo $image['id'];?>" method="post">
+			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?caption=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
 				<input type="submit" value="Caption!" />
@@ -123,7 +123,7 @@ foreach ($lncln->images as $image){
 			$tags = "None.";
 		}
 		
-		if($isLoggedIn){
+		if($lncln->isLoggedIn){
 			$classTag = "class='tag'";
 		}
 		else{
@@ -138,7 +138,7 @@ foreach ($lncln->images as $image){
 <?
 		if($lncln->isLoggedIn || $lncln->isAdmin){
 ?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>#<?echo $image['id'];?>" method="post">
+			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
