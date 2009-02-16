@@ -17,6 +17,7 @@
 class lncln{
 	private $isAdmin = false;
 	private $isLoggedIn = false;
+	private $userID = 0;
 	
 	private $firstImage; 	//First image on the page (used to be $start)
 	private $aboveFifty; 	//The image 50 images before it (used to be $prev)
@@ -428,7 +429,7 @@ class lncln{
 				}
 				
 				$this->isLoggedIn = true;
-				$userID = $result['id'];
+				$this->userID = $result['id'];
 			}
 			else{
 				$this->isLoggedIn = false;
@@ -560,6 +561,126 @@ class lncln{
 	
 		
 		return "User " . $username . " updated";
+	}
+	
+	/**
+	 * Removes an image.  First deletes the image from sql and then unlinks
+	 * the image itself and then the two thumbnails
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param int $image The image to be deleted
+	 * 
+	 * @return string Whether it deleted it or not
+	 */
+	function delete($image){
+		$sql = "SELECT type FROM images WHERE id = " . $image . " LIMIT 1";
+		$result = mysql_query($sql);
+		if(mysql_num_rows($result) == 1){
+			$type = mysql_fetch_assoc($result);
+		}
+		else{
+			return "No such image.";
+		}
+	
+		$sql = "DELETE FROM images WHERE id = " . $image . " LIMIT 1";
+		mysql_query($sql);
+		
+		//use and @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
+		@unlink("img/" . $image . "." . $type['type']);
+		@unlink("thumb/" . $image . "." . $type['type']);
+		@unlink("normal/" . $image . "." . $type['type']);
+		
+		return "Successfully deleted.";
+	}
+	
+	/**
+	 * Obscenes images.  Just flips the images obscene number
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param int $image The image to be changed
+	 * 
+	 * @return string If it change the image or not.
+	 */
+	function obscene($image){
+		$sql = "SELECT type, obscene FROM images WHERE id = " . $image;
+		
+		$result = mysql_query($sql);
+		if(mysql_num_rows($result) == 1){
+			$row = mysql_fetch_assoc($result);
+			switch($row['obscene']){
+				case 0:
+					$num = 1;
+					break;
+				case 1:
+					$num = 0;
+			}
+		}
+		else{
+			return "No such image.";
+		}
+		
+		$sql = "UPDATE images SET obscene = " . $num . " WHERE id = " . $image;
+		
+		mysql_query($sql);
+		
+		return "Updated image";
+	}
+	
+	/**
+	 * Rates an image.  Adds the user to a table named rating with
+	 * their up or down.
+	 * 
+	 * @todo Need to come back and escape $image, $user, and $rating.
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 * 
+	 * @param int $image The image to be changed
+	 * @param int $user The user that is doing the rating
+	 * @param int $rating The rating, could be -1, 1, -5, or 5
+	 * 
+	 * @return string Whether rating went swell or not
+	 */
+	function rate($image, $user, $rating){
+		//gets rating if they already rated image
+		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $user;
+		$result = mysql_query($sql);
+		$numRows = mysql_num_rows($result);
+		
+		if($numRows > 0){
+			$row = mysql_fetch_assoc($result);
+		}
+		
+		if($numRows == 1 && $row['upDown'] == $rating){
+			return "You already rated it";
+		}
+		else if(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
+			if(isset($row['upDown']) && $row['upDown'] != $rating){
+				$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $user . " LIMIT 1";
+			}
+			else{
+				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $user . ", " . $rating . ")";
+			}
+			mysql_query($sql);
+			
+			//gets current rating
+			$sql = "SELECT SUM(upDown) FROM rating WHERE picId = " . $image;
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			//sets the rating to the image
+			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $image . " LIMIT 1";
+			mysql_query($sql);
+			
+			return "Rated successfully";
+		}
+		else if($numRows > 0){
+			return "You already rated it";
+		}
 	}
 }
 

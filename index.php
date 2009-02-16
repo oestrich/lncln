@@ -23,7 +23,7 @@ $lncln->loggedIn();
 
 $isLoggedIn = $lncln->isLoggedIn;
 $isAdmin = $lncln->isAdmin;
-$userID = 0; //ratings won't work for a while
+$userID = $lncln->userID; //ratings won't work for a while
 
 if(isset($_GET['thumb'])){
 	$extra = "&thumb=true";
@@ -35,36 +35,36 @@ if($_GET['post'] == true){
 	exit();
 }
 
-if(isset($_GET['delete']) && $isAdmin){
-	$deletion = delete($_GET['delete']);
+if(isset($_GET['delete']) && $lncln->isAdmin){
+	$deletion = $lncln->delete($_GET['delete']);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
-if(isset($_GET['obscene']) && $isLoggedIn){
-	$obscene = obscene($_GET['obscene']);
+if(isset($_GET['obscene']) && $lncln->isLoggedIn){
+	$obscene = $lncln->obscene($_GET['obscene']);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
-if(isset($_GET['rateUp']) && $isLoggedIn){
+if(isset($_GET['rateUp']) && $$lncln->isLoggedIn){
 	//This should probably be handled by the function itself
 	$rating = 1;
 	if($isAdmin){
 		$rating = 5;
 	}
-	rate($_GET['rateUp'], $userID, $rating);
+	$lncln->rate($_GET['rateUp'], $userID, $rating);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
-if(isset($_GET['rateDown']) && $isLoggedIn){	
+if(isset($_GET['rateDown']) && $$lncln->isLoggedIn){	
 	//This should probably be handled by the function itself
 	$rating = -1;
 	if($isAdmin){
 		$rating = -5;
 	}
-	rate($_GET['rateDown'], $userID, $rating);
+	$lncln->rate($_GET['rateDown'], $userID, $rating);
 	header("location:index.php?img=" . $_GET['img'] . $extra);
 	exit();
 }
