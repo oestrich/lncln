@@ -159,15 +159,15 @@ foreach ($lncln->images as $image){
 <?
 	if($lncln->isLoggedIn){
 ?>
-			<a href="index.php?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/up.png" alt="Up" title="Up" style='border: none;'/></a>
-			<a href="index.php?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/down.png" alt="Down" title="Down" style='border: none;'/></a>
-			<a href="index.php?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-			<a href="index.php?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/up.png" alt="Up" title="Up" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/down.png" alt="Down" title="Down" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 <?
 	}	
 	if($lncln->isAdmin){
 ?>
-			<a href="index.php?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?
 	}
 	
