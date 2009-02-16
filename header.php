@@ -123,9 +123,14 @@ if($lncln->isAdmin){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);
+	
+	if(file_exists("bblincoln-latest.tar.gz")){
 ?>
 	<br />
 	<a href="bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
+<?	
+	}
+?>
 	<br />
 	We have <?echo $result['COUNT(*)'];?> images.
 	<br />
