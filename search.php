@@ -11,15 +11,19 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin, $userID) = loggedIn();
+connect();
+
+$lncln = new lncln();
+$lncln->loggedIn();
+
 
 if(!isset($_POST['search']) || $_POST['search'] == ""){
 	header("location:index.php");
 	exit();
 }
 
-list($images, $type, $extra) = img($start, false, $isAdmin, $_POST['search']);
+$lncln->search = $_POST['search'];
+$lncln->img();
 
 require_once("header.php");
 
@@ -33,7 +37,7 @@ $row = mysql_fetch_assoc($result);
 
 $start = $row['MAX(id)'];
 
-require_once('listImages.php');
+require_once("listImages.php");
 
 require_once("footer.php");
 

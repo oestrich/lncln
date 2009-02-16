@@ -11,10 +11,13 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin) = loggedIn();
+connect();
 
-if($isLoggedIn){
+$lncln = new lncln();
+$lncln->loggedIn();
+
+
+if($lncln->isLoggedIn){
 	$amount = 5;
 }
 else{
@@ -22,6 +25,8 @@ else{
 }
 
 $image = $_GET['img'];
+$image = stripslashes($image);
+$image = mysql_real_escape_string($image);
 
 $sql = "UPDATE images SET report = report + " . $amount . " WHERE id = " . $image . " LIMIT 1";
 mysql_query($sql);

@@ -6,25 +6,16 @@
  * @version 0.6.0
  * 
  * @package lncln
- */
- 
+ */ 
 
 require_once("config.php");
 require_once("functions.php");
 
 connect();
 
-//list($isLoggedIn, $isAdmin, $userID) = loggedIn();
-
-
 $lncln = new lncln();
-
 $lncln->loggedIn();
 
-
-$isLoggedIn = $lncln->isLoggedIn;
-$isAdmin = $lncln->isAdmin;
-$userID = $lncln->userID; //ratings won't work for a while
 
 if(isset($_GET['thumb'])){
 	$extra = "&thumb=true";
@@ -165,7 +156,7 @@ if(isset($obscene)){
 
 echo $lncln->prevNext();
 
-require_once('listImages.php');
+require_once("listImages.php");
 
 ?>
 	<div id='bPrevNext'>

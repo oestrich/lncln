@@ -8,10 +8,13 @@
  * @package lncln
  */
 
-require_once('config.php');
-require_once('functions.php');
+require_once("config.php");
+require_once("functions.php");
 
 connect();
+
+$lncln = new lncln();
+$lncln->loggedIn();
 
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
@@ -60,7 +63,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	<title><?echo $config['title'];?> Login</title>
 	<link type="text/css" rel="stylesheet" href="style.css" />
 <?
-	if($isLoggedIn){
+	if($lncln->isLoggedIn){
 ?>
 	<meta http-equiv="refresh" content="2;url=index.php">
 <?
@@ -78,7 +81,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 </head>
 <body onload="document.getElementById('username').focus();">
 	<h1 id="header">
-		<? echo $config['title'];?>
+		<? echo TITLE?>
 	</h1>
 	<?
 	if(!$numRows && !$_COOKIE['username']){?>

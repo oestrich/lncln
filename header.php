@@ -83,7 +83,7 @@
 	<a href='index.php'>Newest</a>
 	<a href='index.php?thumb=true'>Thumbnail view</a>
 <?
-if($isLoggedIn){
+if($lncln->isLoggedIn){
 ?>
 	<a href='logout.php'>Log out <?echo $_COOKIE['username'];?></a>
 	<a href='user.php'>Change Settings</a>
@@ -96,7 +96,7 @@ else{
 <?
 }
 
-if($isAdmin){
+if($lncln->isAdmin){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);

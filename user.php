@@ -14,11 +14,7 @@ require_once("functions.php");
 connect();
 
 $lncln = new lncln();
-
 $lncln->loggedIn();
-//list($isLoggedIn, $isAdmin) = loggedIn();
-$isLoggedIn = $lncln->isLoggedIn;
-$isAdmin = $lncln->isAdmin;
 
 if(isset($_POST['username'])){
 	$updated = $lncln->updateUser($_POST);

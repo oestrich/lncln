@@ -8,12 +8,16 @@
  * @package lncln
  */
 
-require_once('config.php');
-require_once('functions.php');
+require_once("config.php");
+require_once("functions.php");
 
 connect();
 
-require_once('header.php');
+$lncln = new lncln();
+$lncln->loggedIn();
+
+
+require_once("header.php");
 
 ?>
 	<p>
@@ -35,6 +39,6 @@ require_once('header.php');
 	</p>
 <?
 
-require_once('footer.php');
+require_once("footer.php");
 
 ?>

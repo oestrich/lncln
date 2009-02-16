@@ -11,9 +11,11 @@
 require_once("config.php");
 require_once("functions.php");
 
-connect($config['mysql']);
-list($isLoggedIn, $isAdmin, $userID) = loggedIn();
-$curURL = str_replace("image.php", "", $_SERVER['SCRIPT_NAME']) . "img/";
+connect();
+
+$lncln = new lncln();
+$lncln->loggedIn();
+
 
 if(isset($_GET['obscene']) && $isLoggedIn){
 	$obscene = obscene($_GET['obscene']);
