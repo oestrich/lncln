@@ -677,6 +677,9 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 			
 			//sets the rating to the image
+			if($row['SUM(upDown)'] == null){
+				$row['SUM(upDown)'] = 0;
+			}
 			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $image . " LIMIT 1";
 			mysql_query($sql);
 			
