@@ -124,7 +124,7 @@ class lncln{
 	 * @param string $img String containing the filename of the image
 	 */
 	function thumbnail($img){
-		$size = getimagesize("img/" . $img);
+		$size = getimagesize(CURRENT_IMG_DIRECTORY . $img);
 		
 		$type = split("\.", $img);
 		$type = $type[count($type) - 1];
@@ -145,24 +145,24 @@ class lncln{
 		}
 	
 		if($type == "gif"){
-			$command = "convert -resize '" . $thumb . "' -quality 35 img/" . $img . "[0] thumb/" . $img . ".jpg";
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "/images/full/" . $img . "[0] " . ABSPATH . "/images/thumb/" . $img . ".jpg";
 			exec($command);
 			
-			$command = "convert thumb/" . $img . ".jpg thumb/" . $img;
+			$command = "convert " . ABSPATH . "/images/thumb/" . $img . ".jpg " . ABSPATH . "/images/thumb/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $thumb . "' -quality 35 img/" . $img . " thumb/" . $img;
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "/images/full/" . $img . " " . ABSPATH . "/images/thumb/" . $img;
 		}
 		exec($command);
 		
 		if($type == "gif"){
-			$command = "convert -resize '" . $norm . "' -quality 35 img/" . $img . "[0] normal/" . $img . ".jpg";		
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "/images/full/" . $img . "[0] " . ABSPATH . "/images/index/" . $img . ".jpg";		
 			exec($command);
 			
-			$command = "convert normal/" . $img . ".jpg normal/" . $img;
+			$command = "convert " . ABSPATH . "/images/index/" . $img . ".jpg " . ABSPATH . "/images/index/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $norm . "' -quality 35 img/" . $img . " normal/" . $img;
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "/images/full/" . $img . " " . ABSPATH . "/images/index/" . $img;
 		}
 		exec($command);
 		
