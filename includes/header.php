@@ -81,7 +81,15 @@
 
 <div id="navBar">
 	<a href='<?echo URL;?>index.php'>Newest</a>
-	<a href='<?echo URL;?>index.php?thumb=true'>Thumbnail view</a>
+<?
+	if($_GET['thumb']){
+		$thumb = "";
+	}
+	else{
+		$thumb = "&amp;thumb=true";
+	}
+?>
+	<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (ON/OFF)</a>
 <?
 if($lncln->isLoggedIn){
 ?>
