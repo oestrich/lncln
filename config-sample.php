@@ -35,7 +35,12 @@ define("DB_PASSWORD", "");
  */
  
 define("ABSPATH", dirname(__FILE__) . "/");
- 
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
+
+$script = split("/", $_SERVER['SCRIPT_NAME']);
+$script = $script[count($script) - 1];
+$URL = str_replace($script, "", $_SERVER['SCRIPT_URL']);
+define("URL", $URL);
+
 
 ?>

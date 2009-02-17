@@ -9,7 +9,7 @@
  */ 
 
 require_once("config.php");
-require_once("includes/functions.php");
+require_once(ABSPATH . "includes/functions.php");
 
 connect();
 
@@ -20,7 +20,7 @@ require_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
-require_once("includes/header.php");
+require_once(ABSPATH . "includes/header.php");
 
 if($_SESSION['uploaded']){
 	for($i = 0; $i < 10; $i++){
@@ -63,7 +63,7 @@ if(isset($obscene)){
 
 echo $lncln->prevNext();
 
-require_once("includes/listImages.php");
+require_once(ABSPATH . "includes/listImages.php");
 
 ?>
 	<div id='bPrevNext'>
