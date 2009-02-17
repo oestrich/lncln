@@ -1,7 +1,9 @@
 <?
 /**
- * lncln by Eric Oestrich
- * version 0.6.0
+ * logout.php
+ * 
+ * @author Eric Oestrich
+ * @version 0.6.0 $Id$
  * 
  * @package lncln
  */

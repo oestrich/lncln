@@ -3,9 +3,7 @@
  * index.php
  * 
  * @author Eric Oestrich
- * @version 0.6.0
- * 
- * @version $Id$
+ * @version 0.6.0 $Id$
  * 
  * @package lncln
  */ 
