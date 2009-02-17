@@ -36,6 +36,6 @@ define("DB_PASSWORD", "");
  
 define("ABSPATH", dirname(__FILE__));
  
-define("CURRENT_IMG_DIRECTORY", ABSPATH . "/img/");
+define("CURRENT_IMG_DIRECTORY", ABSPATH . "/images/full/");
 
 ?>
