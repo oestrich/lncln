@@ -35,7 +35,7 @@ if(isset($_GET['obscene']) && $lncln->isAdmin){
 
 $lncln->img();
 
-require_once("header.php");
+require_once("../header.php");
 
 $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);
@@ -104,5 +104,5 @@ else{
 	echo "You're not an admin, please go back to the <a href='index.php'>main page</a>";
 }
 
-require_once("footer.php");
+require_once("../footer.php");
 ?>
