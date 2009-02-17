@@ -145,30 +145,30 @@ class lncln{
 		}
 	
 		if($type == "gif"){
-			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "/images/full/" . $img . "[0] " . ABSPATH . "/images/thumb/" . $img . ".jpg";
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "images/full/" . $img . "[0] " . ABSPATH . "images/thumb/" . $img . ".jpg";
 			exec($command);
 			
-			$command = "convert " . ABSPATH . "/images/thumb/" . $img . ".jpg " . ABSPATH . "/images/thumb/" . $img;
+			$command = "convert " . ABSPATH . "images/thumb/" . $img . ".jpg " . ABSPATH . "images/thumb/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "/images/full/" . $img . " " . ABSPATH . "/images/thumb/" . $img;
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "images/full/" . $img . " " . ABSPATH . "images/thumb/" . $img;
 		}
 		exec($command);
 		
 		if($type == "gif"){
-			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "/images/full/" . $img . "[0] " . ABSPATH . "/images/index/" . $img . ".jpg";		
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "images/full/" . $img . "[0] " . ABSPATH . "images/index/" . $img . ".jpg";		
 			exec($command);
 			
-			$command = "convert " . ABSPATH . "/images/index/" . $img . ".jpg " . ABSPATH . "/images/index/" . $img;
+			$command = "convert " . ABSPATH . "images/index/" . $img . ".jpg " . ABSPATH . "images/index/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "/images/full/" . $img . " " . ABSPATH . "/images/index/" . $img;
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "images/full/" . $img . " " . ABSPATH . "images/index/" . $img;
 		}
 		exec($command);
 		
 		if($type == "gif"){
-			unlink(ABSPATH . "/images/index/" . $img . ".jpg");
-			unlink(ABSPATH . "/images/thumb/" . $img . ".jpg");
+			unlink(ABSPATH . "images/index/" . $img . ".jpg");
+			unlink(ABSPATH . "images/thumb/" . $img . ".jpg");
 		}
 	}
 

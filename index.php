@@ -16,7 +16,7 @@ connect();
 $lncln = new lncln();
 $lncln->loggedIn();
 
-require_once("includes/iconActions.php");
+require_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
