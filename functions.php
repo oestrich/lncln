@@ -244,7 +244,7 @@ class lncln{
 		
 		//$sql = " SELECT SUM( upDown ) AS rating FROM rating WHERE picId = " . $
 		
-		$this->type = "normal";
+		$this->type = "index";
 		$this->extra = "";
 		
 		if($_GET['thumb']){
