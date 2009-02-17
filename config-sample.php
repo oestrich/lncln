@@ -34,6 +34,8 @@ define("DB_PASSWORD", "");
  * @since 0.6.0
  */
  
-define("CURRENT_IMG_DIRECTORY", getcwd() . "/img/");
+define("ABSPATH", dirname(__FILE__));
+ 
+define("CURRENT_IMG_DIRECTORY", ABSPATH . "/img/");
 
 ?>

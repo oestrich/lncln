@@ -167,8 +167,8 @@ class lncln{
 		exec($command);
 		
 		if($type == "gif"){
-			unlink("normal/" . $img . ".jpg");
-			unlink("thumb/" . $img . ".jpg");
+			unlink(ABSPATH . "/images/index/" . $img . ".jpg");
+			unlink(ABSPATH . "/images/thumb/" . $img . ".jpg");
 		}
 	}
 
