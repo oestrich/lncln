@@ -102,8 +102,8 @@ if($lncln->isAdmin){
 	$result = mysql_fetch_assoc($result);
 
 ?>
-	<a href='queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
-	<a href='adduser.php'>Add a user</a>
+	<a href='admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+	<a href='admin/adduser.php'>Add a user</a>
 <?
 }
 ?>
