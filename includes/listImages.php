@@ -38,7 +38,7 @@ foreach ($lncln->images as $image){
 ?>
 
 	<div class="<?echo $lncln->type;?>">
-		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating : <?echo $image['rating'];?> Posted : <?echo $date;
+		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating: <?echo $image['rating'];?> Posted: <?echo $date;
 ?>
 
 		<div class="imageLink" >
