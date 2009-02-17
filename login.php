@@ -61,7 +61,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title><?echo $config['title'];?> Login</title>
-	<link type="text/css" rel="stylesheet" href="style.css" />
+	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/style.css" />
 <?
 	if($lncln->isLoggedIn){
 ?>

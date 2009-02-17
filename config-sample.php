@@ -40,11 +40,11 @@ define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 $script = split("/", $_SERVER['SCRIPT_NAME']);
 $script = $script[count($script) - 1];
 $URL = str_replace($script, "", $_SERVER['SCRIPT_URL']);
-if(!strstr($URL, "admin")){
-	define("URL", $URL);
+if(strstr($URL, "admin")){
+	define("URL", str_replace("admin/", "", $URL));
 }
 else{
-	define("URL", str_replace("admin/", "", $URL));
+	define("URL", $URL);
 }
 
 ?>
