@@ -25,7 +25,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<a href="<?echo URL;?>index.php" id="abeLink"><img src="<?echo URL;?>theme/images/abe.png" alt="Abe"/></a>
+			<a href="<?echo URL;?>index.php" id="abeLink" border="0"><img src="<?echo URL;?>theme/images/abe.png" alt="Abe"/></a>
 			<div id="navBar">
 				<a href='<?echo URL;?>index.php'>Newest</a>
 <?
