@@ -1,6 +1,13 @@
 body{
-	background-color: black;
+	background-color: #111111;
 	color: white;
+	width: 814px;
+	position: relative;
+	top: -10px;
+	left: 50%;
+	margin-left: -407px;
+	border-style: solid;
+	border-color: black gray gray;
 }
 
 a{
