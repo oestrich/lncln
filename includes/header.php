@@ -84,12 +84,14 @@
 <?
 	if($_GET['thumb']){
 		$thumb = "";
+		$onOff = "Off";
 	}
 	else{
 		$thumb = "&amp;thumb=true";
+		$onOff = "On";
 	}
 ?>
-	<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (ON/OFF)</a>
+	<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
 <?
 if($lncln->isLoggedIn){
 ?>
