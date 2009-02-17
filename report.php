@@ -2,7 +2,7 @@
 /**
  * report.php
  * 
- * @author Eric Oestrich
+ * @copyright (C) 2009 Eric Oestrich
  * @version 0.6.0 $Id$
  * 
  * @package lncln

@@ -1,3 +1,12 @@
+/**
+ * javascript.js
+ * 
+ * @copyright (C) 2009 Eric Oestrich
+ * @version 0.6.0 $Id$
+ * 
+ * @package lncln
+ */
+
 function toggleDiv(type){
 	if(document.getElementById('form').style.display == 'none'){
 		document.getElementById('form').style.display = 'block';

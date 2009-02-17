@@ -2,8 +2,8 @@
 /**
  * adduser.php
  * 
- * @author Eric Oestrich
- * @version 0.6.0
+ * @copyright (C) 2009 Eric Oestrich
+ * @version 0.6.0 $Id$
  * 
  * @package lncln
  */
