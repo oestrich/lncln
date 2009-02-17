@@ -7,6 +7,16 @@ a{
 	color: #22FF00;
 }
 
+#header{
+	padding-top: 10px;
+}
+
+#container{
+	background-color: black;
+	padding-left: 50px;
+	padding-bottom: 20px;
+}
+
 #form{
 	position: absolute;
 	left: 10px;
