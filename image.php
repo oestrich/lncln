@@ -9,7 +9,7 @@
  */
 
 require_once("includes/config.php");
-require_once("functions.php");
+require_once("includes/functions.php");
 
 connect();
 
@@ -18,7 +18,7 @@ $lncln->loggedIn();
 
 require_once("includes/iconActions.php");
 
-require_once("header.php");
+require_once("includes/header.php");
 
 if(isset($_GET['img']) || isset($image)){
 	if(isset($_GET['img'])){
@@ -57,7 +57,7 @@ if(isset($_GET['img']) || isset($image)){
 		
 		$lncln->type = 'normal';
 
-		require_once("listImages.php");	
+		require_once("includes/listImages.php");	
 	}
 }
 else{
@@ -65,5 +65,5 @@ else{
 	No such image.
 <?
 }
-require_once("footer.php");
+require_once("includes/footer.php");
 ?>

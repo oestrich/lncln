@@ -43,10 +43,10 @@ if(mysql_affected_rows() == 1){
 	}
 }
 
-require_once("header.php");
+require_once("includes/header.php");
 ?>
 	<br />
 	The image <?echo $image;?> has been reported.  Thank you.
 <?
-require_once("footer.php");
+require_once("includes/footer.php");
 ?>

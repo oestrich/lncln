@@ -9,7 +9,7 @@
  */
  
 require_once("includes/config.php");
-require_once("functions.php");
+require_once("includes/functions.php");
 
 connect();
 
@@ -20,7 +20,7 @@ if(isset($_POST['username'])){
 	$updated = $lncln->updateUser($_POST);
 }
 
-require_once("header.php");
+require_once("includes/header.php");
 
 if(isset($updated)){
 	echo $updated;
@@ -53,5 +53,5 @@ if($lncln->isLoggedIn){
 
 <?
 }
-require_once("footer.php");
+require_once("includes/footer.php");
 ?>

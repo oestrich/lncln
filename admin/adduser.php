@@ -21,7 +21,7 @@ if(isset($_POST['username'])){
 	$added = $lncln->adduser($_POST);
 }
 
-require_once("../header.php");
+require_once("../includes/header.php");
 if($lncln->isAdmin){
 	if(isset($added)){
 		echo $added;
@@ -46,5 +46,5 @@ else{
 }
 
 
-require_once("../footer.php");
+require_once("../includes/footer.php");
 ?>

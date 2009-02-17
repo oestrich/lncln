@@ -9,7 +9,7 @@
  */
 
 require_once("includes/config.php");
-require_once("functions.php");
+require_once("includes/functions.php");
 
 connect();
 
@@ -17,7 +17,7 @@ $lncln = new lncln();
 $lncln->loggedIn();
 
 
-require_once("header.php");
+require_once("includes/header.php");
 
 ?>
 	<p>
@@ -39,6 +39,6 @@ require_once("header.php");
 	</p>
 <?
 
-require_once("footer.php");
+require_once("includes/footer.php");
 
 ?>

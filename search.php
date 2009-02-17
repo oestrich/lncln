@@ -9,7 +9,7 @@
  */
 
 require_once("includes/config.php");
-require_once("functions.php");
+require_once("includes/functions.php");
 
 connect();
 
@@ -25,7 +25,7 @@ if(!isset($_POST['search']) || $_POST['search'] == ""){
 $lncln->search = $_POST['search'];
 $lncln->img();
 
-require_once("header.php");
+require_once("includes/header.php");
 
 ?>
 	You searched for: <?echo $_POST['search'];?> <br />
@@ -37,8 +37,8 @@ $row = mysql_fetch_assoc($result);
 
 $start = $row['MAX(id)'];
 
-require_once("listImages.php");
+require_once("includes/listImages.php");
 
-require_once("footer.php");
+require_once("includes/footer.php");
 
 ?>
