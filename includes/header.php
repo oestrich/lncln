@@ -80,18 +80,18 @@
 </form>
 
 <div id="navBar">
-	<a href='index.php'>Newest</a>
-	<a href='index.php?thumb=true'>Thumbnail view</a>
+	<a href='<?echo URL;?>index.php'>Newest</a>
+	<a href='<?echo URL;?>index.php?thumb=true'>Thumbnail view</a>
 <?
 if($lncln->isLoggedIn){
 ?>
-	<a href='logout.php'>Log out <?echo $_COOKIE['username'];?></a>
-	<a href='user.php'>Change Settings</a>
+	<a href='<?echo URL;?>logout.php'>Log out <?echo $_COOKIE['username'];?></a>
+	<a href='<?echo URL;?>user.php'>Change Settings</a>
 <?
 }
 else{
 ?>
-	<a href='login.php'>Log in</a>
+	<a href='<?echo URL;?>login.php'>Log in</a>
 	All images will be directed to the queue.
 <?
 }
@@ -102,13 +102,13 @@ if($lncln->isAdmin){
 	$result = mysql_fetch_assoc($result);
 
 ?>
-	<a href='admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
-	<a href='admin/adduser.php'>Add a user</a>
+	<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+	<a href='<?echo URL;?>admin/adduser.php'>Add a user</a>
 <?
 }
 ?>
 	<br />
-	<a href='index.php?viewObscene=true'>View Obscene</a>
+	<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene</a>
 <?
 	if($_COOKIE['obscene']){
 ?>
@@ -127,14 +127,14 @@ if($lncln->isAdmin){
 	if(file_exists("bblincoln-latest.tar.gz")){
 ?>
 	<br />
-	<a href="bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
+	<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
 <?	
 	}
 ?>
 	<br />
 	We have <?echo $result['COUNT(*)'];?> images.
 	<br />
-	<form id='search' enctype="multipart/form-data" action="search.php" method="post">
+	<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="post">
 		<div>
 			Tag search:
 			<input type='text' name='search' />
