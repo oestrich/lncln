@@ -63,7 +63,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	<title><?echo $config['title'];?> Login</title>
 	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/style.css" />
 <?
-	if($lncln->isLoggedIn){
+	if($isLoggedIn){
 ?>
 	<meta http-equiv="refresh" content="2;url=index.php">
 <?
