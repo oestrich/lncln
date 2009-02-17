@@ -14,6 +14,10 @@ a{
 	color: #22FF00;
 }
 
+a#abeLink{
+	text-decoration: none;
+}
+
 #header{
 	padding-top: 10px;
 }
