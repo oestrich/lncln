@@ -155,19 +155,19 @@ foreach ($lncln->images as $image){
 <?
 }
 ?>
-			<a href="report.php?img=<?echo $image['id'];?>"><img src="images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
+			<a href="report.php?img=<?echo $image['id'];?>"><img src="theme/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?
 	if($lncln->isLoggedIn){
 ?>
-			<a href="<?echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/up.png" alt="Up" title="Up" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/down.png" alt="Down" title="Down" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="theme/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 <?
 	}	
 	if($lncln->isAdmin){
 ?>
-			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?
 	}
 	
