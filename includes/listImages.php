@@ -71,7 +71,7 @@ foreach ($lncln->images as $image){
 <?
 	}
 ?>
-			<a name="<?echo $image['id'];?>" href="images/full/<?echo $image['file'];?>" rel="_blank"><img src="images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
+			<a name="<?echo $image['id'];?>" href="images/full/<?echo $image['file'];?>" rel="external"><img src="images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
 <?	
 
 	//don't show caption if in thumbnails
