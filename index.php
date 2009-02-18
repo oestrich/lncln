@@ -3,7 +3,7 @@
  * index.php
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.6.0 $Id$
+ * @version 0.6.1 $Id$
  * 
  * @package lncln
  */ 

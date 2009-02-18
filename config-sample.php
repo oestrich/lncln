@@ -3,7 +3,7 @@
  * config.php
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.6.0 $Id$
+ * @version 0.6.1 $Id$
  * 
  * @package lncln
  */
@@ -15,7 +15,7 @@ session_start();
  * @since 0.6.0
  */
 
-define("VERSION", "0.6.0");
+define("VERSION", "0.6.1");
 define("TITLE", "The Arcive");
 
 /**
