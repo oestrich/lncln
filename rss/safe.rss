@@ -38,7 +38,7 @@ while($row = mysql_fetch_assoc($result)){
 		<link><?echo $server;?>image.php?img=<?echo $row['id'];?></link>
 		<guid><?echo $server;?>image.php?img=<?echo $row['id'];?></guid>
 		<pubDate><?echo date('r', $row['postTime']);?></pubDate>
-		<description><![CDATA[ <img src="<?echo $server;?>normal/<?echo $row['id'] . "." . $row['type']?>" alt="<?echo $row['id'];?>"/> <br />
+		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $row['id'] . "." . $row['type']?>" alt="<?echo $row['id'];?>"/> <br />
 		<?echo $row['caption'];?>
 		]]></description>
 	</item>
