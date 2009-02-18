@@ -74,8 +74,12 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 			margin: auto;
 			margin-top: 50px;
 		}
-		#mainBody{
+		#title{
 			text-align: center;
+			font-size: 40px;
+			font-weight: bold;
+			position: relative;
+			left: -40px;
 		}
 	</style>
 </head>
@@ -83,25 +87,30 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
-			<h1 style="text-align: center;"><? echo TITLE?></h1>
+			<div id="title"><?echo TITLE;?></div>
 		</div>
 		<div id="mainBody">
-			<?
-			if(!$numRows && !$_COOKIE['username']){?>
+<?
+			if(!$numRows && !$_COOKIE['username']){
+?>
 			<form enctype="multipart/form-data" action="login.php" method="post">
 				<div>
 					Username: <input type='text' name='username' id='username'/><br />
-					Password: <input type='password' name='password' /><br />
+					Password: <input type='password' name='password' />
 					<input type='submit' value="Login" />
 				</div>
 			</form>
-			<?}
-			else{?>
+<?
+			}
+			else{
+?>
 			<div id='loggedIn'>
 				Welcome <?if(isset($_COOKIE['username'])){echo $_COOKIE['username'];}else{echo $_POST['username'];}?>!<br />
 				Go back to the <a href="index.php">main page</a>
 			</div>
-			<?}?>
+<?
+			}
+?>
 		</div>
 	</div>
 </body>
