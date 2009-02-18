@@ -167,7 +167,7 @@ foreach ($lncln->images as $image){
 	}	
 	if($lncln->isAdmin){
 ?>
-			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?
 	}
 	
