@@ -18,7 +18,7 @@
 
 	<link rel="alternate" type="application/rss+xml" title="All Images" href="rss/all.rss" />
 	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="rss/safe.rss" />
-	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/style.css" />
+	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
 	<script type="text/javascript" src="<?echo URL;?>includes/javascript.js" >
 	</script>
 </head>
