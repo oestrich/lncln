@@ -155,14 +155,14 @@ foreach ($lncln->images as $image){
 <?
 }
 ?>
-			<a href="report.php?img=<?echo $image['id'];?>"><img src="theme/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
+			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?
 	if($lncln->isLoggedIn){
 ?>
-			<a href="<?echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="theme/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-			<a href="<?echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="theme/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+			<a href="<?echo URL; echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
+			<a href="<?echo URL; echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
+			<a href="<?echo URL; echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+			<a href="<?echo URL; echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 <?
 	}	
 	if($lncln->isAdmin){

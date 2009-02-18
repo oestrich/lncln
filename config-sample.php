@@ -47,4 +47,11 @@ else{
 	define("URL", $URL);
 }
 
+/**
+ * Theme configurations
+ * 
+ * @since 0.6.1
+ */
+ 
+define("THEME", "bbl");
 ?>
