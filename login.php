@@ -61,7 +61,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title><?echo $config['title'];?> Login</title>
-	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/style.css" />
+	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
 <?
 	if($isLoggedIn){
 ?>
@@ -70,9 +70,6 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	}
 ?>
 	<style type='text/css'>
-		body{
-			text-align: center;
-		}
 		form{
 			margin: auto;
 			margin-top: 50px;
@@ -80,24 +77,26 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	</style>
 </head>
 <body onload="document.getElementById('username').focus();">
-	<h1 id="header">
-		<? echo TITLE?>
-	</h1>
-	<?
-	if(!$numRows && !$_COOKIE['username']){?>
-	<form enctype="multipart/form-data" action="login.php" method="post">
-		<div>
-			Username: <input type='text' name='username' id='username'/><br />
-			Password: <input type='password' name='password' /><br />
-			<input type='submit' value="Login" />
+	<div id="container">
+		<h1 id="header">
+			<? echo TITLE?>
+		</h1>
+		<?
+		if(!$numRows && !$_COOKIE['username']){?>
+		<form enctype="multipart/form-data" action="login.php" method="post">
+			<div>
+				Username: <input type='text' name='username' id='username'/><br />
+				Password: <input type='password' name='password' /><br />
+				<input type='submit' value="Login" />
+			</div>
+		</form>
+		<?}
+		else{?>
+		<div id='loggedIn'>
+			Welcome <?if(isset($_COOKIE['username'])){echo $_COOKIE['username'];}else{echo $_POST['username'];}?>!<br />
+			Go back to the <a href="index.php">main page</a>
 		</div>
-	</form>
-	<?}
-	else{?>
-	<div id='loggedIn'>
-		Welcome <?if(isset($_COOKIE['username'])){echo $_COOKIE['username'];}else{echo $_POST['username'];}?>!<br />
-		Go back to the <a href="index.php">main page</a>
+		<?}?>
 	</div>
-	<?}?>
 </body>
 </html>
