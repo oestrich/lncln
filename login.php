@@ -74,10 +74,14 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 			margin: auto;
 			margin-top: 50px;
 		}
+		#container{
+			text-align: center;
+		}
 	</style>
 </head>
 <body onload="document.getElementById('username').focus();">
 	<div id="container">
+		<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 		<h1 id="header">
 			<? echo TITLE?>
 		</h1>
