@@ -597,9 +597,9 @@ class lncln{
 		mysql_query($sql);
 		
 		//use and @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
-		@unlink("img/" . $image . "." . $type['type']);
-		@unlink("thumb/" . $image . "." . $type['type']);
-		@unlink("normal/" . $image . "." . $type['type']);
+		@unlink(ABSPATH . "images/full/" . $image . "." . $type['type']);
+		@unlink(ABSPATH . "images/thumb/" . $image . "." . $type['type']);
+		@unlink(ABSPATH . "images/index/" . $image . "." . $type['type']);
 		
 		return "Successfully deleted.";
 	}

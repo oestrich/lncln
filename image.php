@@ -55,7 +55,7 @@ if(isset($_GET['img']) || isset($image)){
 			'tags' 		=> $imageTags
 		);
 		
-		$lncln->type = 'normal';
+		$lncln->type = 'index';
 
 		require_once("includes/listImages.php");	
 	}
