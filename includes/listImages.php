@@ -184,6 +184,7 @@ foreach ($lncln->images as $image){
 ?>
 		</div>
 	</div>
+	<br />
 	
 <?
 }

@@ -16,7 +16,7 @@ session_start();
  */
 
 define("VERSION", "0.6.1");
-define("TITLE", "The Arcive");
+define("TITLE", "The Archive");
 
 /**
  * Database Configuration
