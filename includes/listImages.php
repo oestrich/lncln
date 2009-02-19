@@ -38,44 +38,33 @@ foreach ($lncln->images as $image){
 ?>
 
 	<div class="<?echo $lncln->type;?>">
-		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating: <?echo $image['rating'];?> Posted: <?echo $date;
-?>
+		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating: <?echo $image['rating'];?> Posted: <?=$date;?> 
 
 		<div class="imageLink" >
-<?
-	if($image['obscene'] == 1){
-?>
+		
+	<?if($image['obscene'] == 1):?>
 			This has been voted obscene.<br />
-<?
-	}
-	if(!$_GET['thumb'] && $image['type'] == 'gif'){
-?>
+	<?endif;?>
+	
+	<?if(!$_GET['thumb'] && $image['type'] == 'gif'):?>
 			This is a gif.<br />
-<?
-	}
-	
-	if($image['postTime'] > time()){
-?>
+	<?endif;?>
+		
+	<?if($image['postTime'] > time()):?> 
 			This is not on the homepage yet.<br />
-<?
-	}
+	<?endif;?>
 	
-	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
-?>
+	<?if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))):?>
 			<div class="obscene" id="i<?echo $image['id'];?>">
-<?
-	}
-	if($image['rating'] <= -10){
-?>
+	<?endif;?>
+
+	<?if($image['rating'] <= -10):?>
 			<div class="badImage" id="b<?echo $image['id'];?>">
-<?
-	}
-?>
+	<?endif;?>
 			<a name="<?echo $image['id'];?>" href="images/full/<?echo $image['file'];?>" target="_blank"><img src="images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
 <?	
-
 	//don't show caption if in thumbnails
-	if(!$_GET['thumb']){
+	if(!$_GET['thumb']):
 		//caption stuff
 		if($lncln->isAdmin){
 			$class = "class='captionAdmin'";
@@ -92,30 +81,24 @@ foreach ($lncln->images as $image){
 		
 ?>
 			<div id="caption<?echo $image['id'];?>" <?echo $onClick; echo $class;?>>
-<?
-		if($image['caption'] == ""){
-?>
+			
+		<?if($image['caption'] == ""):?>
 				No Caption.
-<?
-		}
-		else{
-?>
-				<?echo $image['caption'];?> 
-<?
-		}
-?>
+		<?else:?>
+				<?=$image['caption'];?> 
+		<?endif;?>
+			
 			</div>
-<?
-		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
-?>
+			
+		<?if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin):?>
 			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?caption=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
 				<input type="submit" value="Caption!" />
 			</form>
+		<?endif;?>
+	
 <?
-		}
-
 		//tags
 		$tags = join(', ', $image['tags']);
 		$tagsForm = $tags;
@@ -129,15 +112,13 @@ foreach ($lncln->images as $image){
 		else{
 			$classTag = "";
 		}
-		
-	?>
+?>
 			<div id='tag<?echo $image['id'];?>' <?echo $classTag;?> onclick="tag('<?echo $image['id'];?>');">
 				Tags: <?echo $tags;?> 
 				<br />
 			</div>
-<?
-		if($lncln->isLoggedIn || $lncln->isAdmin){
-?>
+
+		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
@@ -146,42 +127,35 @@ foreach ($lncln->images as $image){
 					<input type="submit" value="Tag it!" />
 				</div>
 			</form>
-<?		}
-	}	
-	//links!
-	if($_GET['thumb']){
-?>
+		<?endif;?>
+		
+	<?endif;?>
+	
+	<?if($_GET['thumb']):?>
 			<br />
-<?
-}
-?>
+	<?endif;?>
+	
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
-<?
-	if($lncln->isLoggedIn){
-?>
+
+	<?if($lncln->isLoggedIn):?>
 			<a href="<?echo URL; echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
-<?
-	}	
-	if($lncln->isAdmin){
-?>
+	<?endif;?>
+		
+	<?if($lncln->isAdmin):?>
 			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
-<?
-	}
+	<?endif;?>
 	
-	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
-?>
+	<?if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))):?>
 			</div>
-<?
-	}
-	if($image['rating'] <= -10){
-?>
+	<?endif;?>
+	
+	<?if($image['rating'] <= -10):?>
 			</div>
-<?
-	}
-?>
+	<?endif;?>
+
 		</div>
 	</div>
 	<br />
