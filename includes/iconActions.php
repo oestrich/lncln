@@ -15,19 +15,19 @@ if(isset($_GET['thumb'])){
 
 if($_GET['post'] == true){
 	$lncln->upload();
-	header("location:index.php");
+	header("location:". URL . "index.php");
 	exit();
 }
 
 if(isset($_GET['delete']) && $lncln->isAdmin){
 	$deletion = $lncln->delete($_GET['delete']);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
 if(isset($_GET['obscene']) && $lncln->isLoggedIn){
 	$obscene = $lncln->obscene($_GET['obscene']);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
@@ -38,7 +38,7 @@ if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
 		$rating = 5;
 	}
 	$lncln->rate($_GET['rateUp'], $rating);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
@@ -49,7 +49,7 @@ if(isset($_GET['rateDown']) && $lncln->isLoggedIn){
 		$rating = -5;
 	}
 	$lncln->rate($_GET['rateDown'], $rating);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
@@ -60,7 +60,7 @@ if($_GET['viewObscene']){
 	else{
 		setcookie('obscene', true, time() - (60 * 60 * 24));
 	}
-	header("location:index.php");	
+	header("location:". URL . "index.php");	
 	exit();
 }
 
@@ -75,19 +75,19 @@ if(isset($_GET['refresh']) && $lncln->isLoggedIn){
 		$row = mysql_fetch_assoc($result);
 		$lncln->thumbnail($id . "." . $row['type']);
 	}
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
 if($_GET['caption'] && $lncln->isLoggedIn){
 	$lncln->caption($_POST['id'], $_POST['caption']);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 
 if($_GET['tag'] && $lncln->isLoggedIn){
 	$lncln->tag($_POST['id'], $_POST['tags']);
-	header("location:" . $lncln->script . "?img=" . $_GET['img'] . $extra);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
 ?>

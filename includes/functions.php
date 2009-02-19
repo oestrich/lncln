@@ -262,11 +262,7 @@ class lncln{
 	 * @return string Contains the links Prev Next
 	 */
 	function prevNext(){//$start, $prev, $next, $numImgs, $type){
-		if ($this->type == 'thumb'){
-			$thumb = "&amp;thumb=true";
-		}else{
-			$thumb = "";
-		}
+		$thumb = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
 		if ($this->firstImage == $this->highestID){
 	        return "<a href='index.php?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
@@ -445,18 +441,14 @@ class lncln{
 			}
 		}
 		else{
-			/**
-			 * removes any cookies that may have been set.
-			 */
+			//removes any cookies that may have been set.
 			if(!isset($_COOKIE['password']) && $_COOKIE['username']){
 				setcookie("username", "", time() - (60 * 60 * 24));
 				setcookie("password", "", time() - (60 * 60 * 24));
-				header("location:index.php");
+				header("location:". URL . "index.php");
 			}
 			$this->isLoggedIn = false;
 		}
-		
-		//return array($isLoggedIn, $isAdmin, $userID);
 	}
 	
 	/**
@@ -468,8 +460,6 @@ class lncln{
 	 * @param int $image The image that is to be removed
 	 */
 	function dequeue($images){
-		//$numImages = count($images); #Don't think it's needed
-		
 		foreach($images as $image){
 			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
 			mysql_query($sql);
@@ -554,13 +544,7 @@ class lncln{
 			setcookie("password", $newPassword, time() + (60 * 60 * 24));
 		}
 		
-		if($_POST['viewObscene']){
-			$obscene = 1;
-		}
-		else{
-			$obscene = 0;
-		}
-		
+		$obscene = $_POST['viewObscene'] ? 1 : 0;
 		
 		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
 		mysql_query($sql);
@@ -620,13 +604,7 @@ class lncln{
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) == 1){
 			$row = mysql_fetch_assoc($result);
-			switch($row['obscene']){
-				case 0:
-					$num = 1;
-					break;
-				case 1:
-					$num = 0;
-			}
+			$num = $row['obscene'] == 0 ? 1 : 0;
 		}
 		else{
 			return "No such image.";
@@ -657,7 +635,6 @@ class lncln{
 	 * @return string Whether rating went swell or not
 	 */
 	function rate($image, $rating){
-		//gets rating if they already rated image
 		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->userID;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
@@ -669,32 +646,30 @@ class lncln{
 		if($numRows == 1 && $row['upDown'] == $rating){
 			return "You already rated it";
 		}
-		else if(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
+		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['upDown']) && $row['upDown'] != $rating){
-				//Perhaps delete the record, instead of just flipping it
-				//$sql = "UPDATE rating SET upDown = " . $rating . " WHERE picId = " . $image . " AND userID = " . $this->userID . " LIMIT 1";
-				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this->userID . " LIMIT 1";
+				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this->userID;
 			}
 			else{
 				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->userID . ", " . $rating . ")";
 			}
+			
 			mysql_query($sql);
 			
-			//gets current rating
 			$sql = "SELECT SUM(upDown) FROM rating WHERE picId = " . $image;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
-			//sets the rating to the image
 			if($row['SUM(upDown)'] == null){
 				$row['SUM(upDown)'] = 0;
 			}
+			
 			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $image . " LIMIT 1";
 			mysql_query($sql);
 			
 			return "Rated successfully";
 		}
-		else if($numRows > 0){
+		elseif($numRows > 0){
 			return "You already rated it";
 		}
 	}
@@ -753,7 +728,6 @@ class lncln{
 		$sql = substr_replace($sql ,"",-2);
 		
 		mysql_query($sql);
-		
 	}
 }
 
