@@ -69,7 +69,7 @@ if($lncln->isAdmin){
 				
 				
 				<!-- upload form -->
-				<form enctype="multipart/form-data" action="index.php?post=true" method="post"  id="form" style="display: none;">
+				<form enctype="multipart/form-data" action="<?=URL;?>index.php?post=true" method="post"  id="form" style="display: none;">
 					<div>
 						<input type="hidden" name="type" id="formType" value="regular" />
 						Uploaded files will be moderated. Tags are mandatory.<br />

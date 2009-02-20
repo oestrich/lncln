@@ -81,8 +81,8 @@ if($lncln->isAdmin){
 			<input type='checkbox' name='<?echo $image['id'];?>' value='<?echo $image['id'];?>' style="float: left;" />
 			<div class="imageLink">
 				<a name="<?echo $image['id'];?>" href="img/<?echo $image['file'];?>"><img src="<?=URL;?>images/thumb/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a><br />
-				<a href="queue.php?obscene=<? echo $image['id'];?>" class="delete"><img src="images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-				<a href="queue.php?delete=<? echo $image['id'];?>"><img src="images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a><br />
+				<a href="queue.php?obscene=<? echo $image['id'];?>" class="delete"><img src="<?=URL;?>theme/<?=THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+				<a href="queue.php?delete=<? echo $image['id'];?>"><img src="<?=URL;?>theme/<?=THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a><br />
 				<div class='delete'>Tags: <?echo $tags;?></div>
 				<div class='delete'>This image is <?echo $obscene;?>.</div>
 			</div>
