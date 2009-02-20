@@ -3,7 +3,7 @@
  * footer.php
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.6.1 $Id$
+ * @version 0.7.0 $Id$
  * 
  * @package lncln
  */

@@ -3,7 +3,7 @@
  * config.php
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.6.1 $Id$
+ * @version 0.7.0 $Id$
  * 
  * @package lncln
  */
@@ -15,7 +15,7 @@ session_start();
  * @since 0.6.0
  */
 
-define("VERSION", "0.6.1");
+define("VERSION", "0.7.0");
 define("TITLE", "The Archive");
 
 /**
