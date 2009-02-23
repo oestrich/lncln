@@ -26,7 +26,7 @@ $sql = "SELECT * FROM `news` ORDER BY id DESC LIMIT 1";
 $result = mysql_query($sql);
 $row = mysql_fetch_assoc($result);
 
-echo $row['news'] + "<br /><br />";
+echo $row['news'] . "<br /><br />";
 
 if($_SESSION['uploaded']){
 	for($i = 0; $i < 10; $i++){
