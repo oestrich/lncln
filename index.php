@@ -22,6 +22,12 @@ $lncln->img();
 
 require_once(ABSPATH . "includes/header.php");
 
+$sql = "SELECT * FROM `news` ORDER BY id DESC LIMIT 1";
+$result = mysql_query($sql);
+$row = mysql_fetch_assoc($result);
+
+echo $row['news'];
+
 if($_SESSION['uploaded']){
 	for($i = 0; $i < 10; $i++){
 		$a = $i + 1;

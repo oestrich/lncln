@@ -79,3 +79,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `password`, `admin`, `obscene`, `numImages`, `postTime`) VALUES
 (1, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0);
+
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(8) NOT NULL auto_increment,
+  `postTime` int(32) NOT NULL,
+  `news` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
