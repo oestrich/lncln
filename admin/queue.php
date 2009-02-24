@@ -8,7 +8,7 @@
  * @package lncln
  */
 
-require_once("load.php");
+require_once("../load.php");
 
 $lncln = new lncln();
 $lncln->loggedIn();
