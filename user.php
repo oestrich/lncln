@@ -7,11 +7,8 @@
  * 
  * @package lncln
  */
- 
-require_once("config.php");
-require_once("includes/functions.php");
 
-connect();
+require_once("load.php");
 
 $lncln = new lncln();
 $lncln->loggedIn();

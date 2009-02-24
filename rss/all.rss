@@ -10,10 +10,7 @@
 
 header('Content-type: text/xml'); 
 
-require_once("../config.php");
-require_once("../includes/functions.php");
-
-connect();
+require_once("load.php");
 
 $sql = "SELECT id, caption, postTime, type FROM images WHERE queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
 $result = mysql_query($sql);
