@@ -41,7 +41,7 @@ class lncln{
 	 * @package lncln
 	 */
 	function __construct(){	
-		$sql = "SELECT COUNT(*) FROM images";
+		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
