@@ -8,9 +8,10 @@
  * @package lncln
  */ 
 
+define("ABSPATH", dirname(__FILE__) . "/");
 
-if(file_exists("config.php")){
-	require_once("config.php");	
+if(file_exists(ABSPATH . "config.php")){
+	require_once(ABSPATH . "config.php");	
 }
 else{
 	echo "Please configure your config.php file.  You can use config-sample.php as a base.";

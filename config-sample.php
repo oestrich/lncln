@@ -34,7 +34,8 @@ define("DB_PASSWORD", "");
  * @since 0.6.0
  */
  
-define("ABSPATH", dirname(__FILE__) . "/");
+//Now in load.php
+//define("ABSPATH", dirname(__FILE__) . "/");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 
 $script = split("/", $_SERVER['SCRIPT_NAME']);
