@@ -8,6 +8,10 @@
  * @package lncln
  */
 
+if($lncln->belowFifty == 0 && $lncln->aboveFifty == 0 && $lncln->highestID == 0 && $lncln->start == 0){
+	echo "No images.";
+}
+
 
 foreach ($lncln->images as $image){
 	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
