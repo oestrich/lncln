@@ -20,4 +20,12 @@ else{
 require_once(ABSPATH . "includes/functions.php");
 
 connect();
+
+$sql = "SHOW TABLES LIKE \"images\"";
+$result = mysql_query($sql);
+if(!mysql_num_rows($result) > 1){
+	echo "Please install the database.  It's located in mysql.sql";
+	die();
+}
+
 ?>
