@@ -40,48 +40,60 @@ class lncln{
 	 * @since 0.6.0
 	 * @package lncln
 	 */
-	function __construct(){
-		$result = mysql_query("SELECT MAX(id) FROM images");
-		$result = mysql_fetch_assoc($result);
-		
-		//Should really rename this
-		$this->highestID = $result['MAX(id)'];
-		
-		if(!isset($_GET['img'])){
-			$this->firstImage = $this->highestID;
-		}else{
-			//if it's set, then set it to start
-			$this->firstImage = $_GET['img'];
-			if($this->firstImage == ""){
-				$this->firstImage = $this->highestID;
-			}
-			//incase its to large
-			if($this->firstImage > $this->highestID){
-				$this->firstImage = $this->highestID;
-			}
-		}
-		
-		//Getting the number to start the next page
-		$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 ORDER BY id DESC LIMIT 51";
+	function __construct(){	
+		$sql = "SELECT COUNT(*) FROM images";
 		$result = mysql_query($sql);
-		
-		$numRows = mysql_num_rows($result);
-		mysql_data_seek($result, $numRows - 1);
 		$row = mysql_fetch_assoc($result);
-		$this->belowFifty = $row['id'];
 		
-		//getting the prevsion page
-		$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
-		$result = mysql_query($sql);
-		
-		$numRows = mysql_num_rows($result);
-		if($numRows > 0){
-			mysql_data_seek($result, $numRows - 1);
-			$row = mysql_fetch_assoc($result);	
-			$this->aboveFifty = $row['id'];
+		if($row['COUNT(*)'] == 0){
+			$this->aboveFifty = 0;
+			$this->belowFifty = 0;
+			$this->start = 0;
+			$this->highestID = 0;
 		}
 		else{
-			$this->aboveFifty = $this->start;
+			$result = mysql_query("SELECT MAX(id) FROM images");
+			$result = mysql_fetch_assoc($result);
+			
+			//Should really rename this
+			$this->highestID = $result['MAX(id)'];
+			
+			if(!isset($_GET['img'])){
+				$this->firstImage = $this->highestID;
+			}else{
+				//if it's set, then set it to start
+				$this->firstImage = $_GET['img'];
+				if($this->firstImage == ""){
+					$this->firstImage = $this->highestID;
+				}
+				//incase its to large
+				if($this->firstImage > $this->highestID){
+					$this->firstImage = $this->highestID;
+				}
+			}
+		
+			//Getting the number to start the next page
+			$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 ORDER BY id DESC LIMIT 51";
+			$result = mysql_query($sql);
+			
+			$numRows = mysql_num_rows($result);
+			mysql_data_seek($result, $numRows - 1);
+			$row = mysql_fetch_assoc($result);
+			$this->belowFifty = $row['id'];
+			
+			//getting the prevsion page
+			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
+			$result = mysql_query($sql);
+			
+			$numRows = mysql_num_rows($result);
+			if($numRows > 0){
+				mysql_data_seek($result, $numRows - 1);
+				$row = mysql_fetch_assoc($result);	
+				$this->aboveFifty = $row['id'];
+			}
+			else{
+				$this->aboveFifty = $this->start;
+			}
 		}
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
