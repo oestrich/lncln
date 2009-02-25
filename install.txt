@@ -1,0 +1,16 @@
+/* $Id$ */
+
+REQUIREMENTS
+------------
+
+lncln needs PHP and MySQL.  So far only PHP5 and MySQL 5 have been tested.
+
+
+INSTALLATION
+------------
+
+Upload all contents to your webserver.
+Rename config-sample.php to config.php and edit accordingly. Only the database settings should need editing.
+Query the database with the contents of mysql.sql
+
+Go ahead and login!  Your default user is 'admin' with a password of 'password' (no quotes).

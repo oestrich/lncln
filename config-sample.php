@@ -3,7 +3,8 @@
  * config.php
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.7.0 $Id$
+ * @version 0.8.0 $Id$
+ * @license license.txt GNU General Public License
  * 
  * @package lncln
  */
@@ -15,7 +16,7 @@ session_start();
  * @since 0.6.0
  */
 
-define("VERSION", "0.7.0");
+define("VERSION", "0.8.0");
 define("TITLE", "The Archive");
 
 /**
