@@ -19,11 +19,24 @@ require_once("../includes/header.php");
 $sql = "SELECT id, name FROM albums WHERE 1";
 $result = mysql_query($sql);
 
+?>
+	Albums: <br />
+<?
 if($lncln->isAdmin){
 	while($row = mysql_fetch_assoc($result)){
-		echo $row['name'];
+		echo $row['name'] . "<br />";
 	}
 }
+
+?>
+	<form>
+		<div>
+			Add new album:<br />
+			<input type="text" name="name" />
+			<input type="submit" />
+		</div>
+	</form>
+<?
 
 require_once("../includes/footer.php");
 ?>
