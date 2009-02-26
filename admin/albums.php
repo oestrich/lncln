@@ -14,29 +14,42 @@ require_once("../load.php");
 $lncln = new lncln();
 $lncln->loggedIn();
 
-require_once("../includes/header.php");
-
-$sql = "SELECT id, name FROM albums WHERE 1";
-$result = mysql_query($sql);
-
-?>
-	Albums: <br />
-<?
-if($lncln->isAdmin){
-	while($row = mysql_fetch_assoc($result)){
-		echo $row['name'] . "<br />";
-	}
+if(isset($_GET['name'])){
+	$album = $lncln->addalbum($_GET['name']);
 }
 
+require_once("../includes/header.php");
+
+if($lncln->isAdmin){
+		
+	if(isset($album)){
+		echo $album;
+	}
+	
+	$sql = "SELECT id, name FROM albums WHERE 1";
+	$result = mysql_query($sql);
+	
+	?>
+		Albums: <br />
+	<?
+	while($row = mysql_fetch_assoc($result)){
+		echo "\t\t" . $row['name'] . "<br />";
+	}
+	
+	
 ?>
-	<form>
+	<form action="album.php" method="POST">
 		<div>
 			Add new album:<br />
 			<input type="text" name="name" />
-			<input type="submit" />
+			<input type="submit" value="Add album"/>
 		</div>
 	</form>
 <?
+}
+else{
+	header("location:". URL . "index.php");
+}
 
 require_once("../includes/footer.php");
 ?>

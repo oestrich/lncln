@@ -753,6 +753,21 @@ class lncln{
 		
 		mysql_query($sql);
 	}
+	
+	function addalbum($name){
+		$name = stripslashes($name);
+		$name = mysql_real_escape_string($name);
+		
+		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
+		mysql_query($sql);
+		
+		if(mysql_affected_rows() > 0){
+			return "Add album " . $name . " successfully.";
+		}
+		else{
+			return "Album not added";
+		}
+	}
 }
 
 /**
