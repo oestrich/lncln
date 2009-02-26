@@ -195,7 +195,7 @@ class lncln{
 	 */
 	function img(){//$start, $queue, $isAdmin, $search = ""){
 		if($this->queue){
-			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
+			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
 		}
 		else if($this->search != ""){
 			$this->search = stripslashes($this->search);
@@ -203,7 +203,7 @@ class lncln{
 			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 			$result = mysql_query($sql);
 			
-			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND ( ";
+			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ( ";
 			
 			while($row = mysql_fetch_assoc($result)){
 				$sql .= "id = " . $row['picId'] . " OR ";
@@ -219,7 +219,7 @@ class lncln{
 			else{
 				$time = "";
 			}
-			$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE queue = 0 AND id <= " . $this->firstImage . " " . $time . " ORDER BY `id` DESC LIMIT 50";
+			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND id <= " . $this->firstImage . " " . $time . " ORDER BY `id` DESC LIMIT 50";
 		}
 		
 		$result = mysql_query($sql);
@@ -243,10 +243,20 @@ class lncln{
 				$imageTags[] = $tag['tag'];
 			}
 			
+			if($image['album'] != 0){
+				$sql = "SELECT name FROM albums WHERE id = " . $image['album'];
+				$result = mysql_query($sql);
+				$album = mysql_fetch_assoc($result);
+			}
+			else{
+				$album['album'] = "No Album";
+			}
+			
 			$this->images[$i] = array(
 				'id' 		=> $image['id'],
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
+				'album'		=> $album['name'],
 				'obscene' 	=> $image['obscene'],
 				'rating' 	=> $image['rating'],
 				'postTime'	=> $image['postTime'],

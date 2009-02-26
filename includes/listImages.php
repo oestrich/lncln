@@ -131,6 +131,10 @@ foreach ($lncln->images as $image){
 				</div>
 			</form>
 		<?endif;?>
+		
+			<div>
+				Album: <?echo $image['album'];?>
+			</div>
 	<?endif;?>
 
 	<?if($_GET['thumb']):?>
