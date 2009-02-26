@@ -133,7 +133,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 		
 			<div>
-				Album: <?echo $image['album'];?>
+				Album: <?=$image['album'];?>
 			</div>
 	<?endif;?>
 
