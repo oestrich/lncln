@@ -17,10 +17,12 @@ $lncln->loggedIn();
 $sql = "SELECT id, name FROM albums WHERE 1";
 $result = mysql_query($sql);
 
+require_once("../includes/header.php");
 if($lncln->isAdmin){
 	while($row = mysql_fetch_assoc($result)){
 		echo $row['name'];
 	}
 }
 
+require_once("../includes/footer.php");
 ?>
