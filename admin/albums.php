@@ -38,7 +38,7 @@ if($lncln->isAdmin){
 	
 	
 ?>
-	<form action="album.php" method="POST">
+	<form action="albums.php" method="POST">
 		<div>
 			Add new album:<br />
 			<input type="text" name="name" />
