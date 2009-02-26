@@ -32,20 +32,20 @@ if($lncln->isAdmin){
 	?>
 		Albums: <br />
 		<ul>
-	<?
+<?
 	while($row = mysql_fetch_assoc($result)){
-		echo "\t\t\t<li>" . $row['name'] . "</li>";
+		echo "\t\t\t<li>" . $row['name'] . "</li>\n";
 	}	
 ?>
-	</ul>
-	<br />
-	<form action="albums.php" method="post">
-		<div>
-			Add new album:<br />
-			<input type="text" name="name" />
-			<input type="submit" value="Add album"/>
-		</div>
-	</form>
+		</ul>
+		<br />
+		<form action="albums.php" method="post">
+			<div>
+				Add new album:<br />
+				<input type="text" name="name" />
+				<input type="submit" value="Add album"/>
+			</div>
+		</form>
 <?
 }
 else{
