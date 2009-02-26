@@ -14,8 +14,8 @@ require_once("../load.php");
 $lncln = new lncln();
 $lncln->loggedIn();
 
-if(isset($_GET['name'])){
-	$album = $lncln->addalbum($_GET['name']);
+if(isset($_POST['name'])){
+	$album = $lncln->addalbum($_POST['name']);
 }
 
 require_once("../includes/header.php");
@@ -38,7 +38,7 @@ if($lncln->isAdmin){
 	
 	
 ?>
-	<form action="albums.php" method="POST">
+	<form action="albums.php" method="post">
 		<div>
 			Add new album:<br />
 			<input type="text" name="name" />
