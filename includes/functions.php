@@ -242,7 +242,7 @@ class lncln{
 			while($tag = mysql_fetch_assoc($tags)){
 				$imageTags[] = $tag['tag'];
 			}
-			
+			/*
 			if($image['album'] != 0){
 				$sql = "SELECT name FROM albums WHERE id = " . $image['album'];
 				$result = mysql_query($sql);
@@ -251,12 +251,13 @@ class lncln{
 			else{
 				$album['name'] = "No Album";
 			}
+			*/
 			
 			$this->images[$i] = array(
 				'id' 		=> $image['id'],
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
-				'album'		=> $album['name'],
+				//'album'		=> $album['name'],
 				'obscene' 	=> $image['obscene'],
 				'rating' 	=> $image['rating'],
 				'postTime'	=> $image['postTime'],
