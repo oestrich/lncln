@@ -249,7 +249,7 @@ class lncln{
 				$album = mysql_fetch_assoc($result);
 			}
 			else{
-				$album['album'] = "No Album";
+				$album['name'] = "No Album";
 			}
 			
 			$this->images[$i] = array(
