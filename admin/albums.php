@@ -23,7 +23,7 @@ require_once("../includes/header.php");
 if($lncln->isAdmin){
 		
 	if(isset($album)){
-		echo $album;
+		echo $album . "<br />";
 	}
 	
 	$sql = "SELECT id, name FROM albums WHERE 1";
