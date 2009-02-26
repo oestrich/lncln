@@ -31,13 +31,14 @@ if($lncln->isAdmin){
 	
 	?>
 		Albums: <br />
+		<ul>
 	<?
 	while($row = mysql_fetch_assoc($result)){
-		echo "\t\t" . $row['name'] . "<br />";
-	}
-	
-	
+		echo "\t\t\t<li>" . $row['name'] . "</li>";
+	}	
 ?>
+	</ul>
+	<br />
 	<form action="albums.php" method="post">
 		<div>
 			Add new album:<br />
