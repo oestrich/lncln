@@ -73,8 +73,8 @@ foreach ($lncln->images as $image){
 	if(!$_GET['thumb']):
 		//caption stuff
 		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
-			$class = "class='caption'";
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
+			$class = "class='caption'";
 		}
 		else{
 			$onClick = "";
@@ -108,12 +108,14 @@ foreach ($lncln->images as $image){
 		
 		if($lncln->isLoggedIn){
 			$classTag = "class='tag'";
+			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
 		else{
 			$classTag = "";
+			$onClick = "";
 		}
 ?>
-			<div id='tag<?echo $image['id'];?>' <?echo $classTag;?> onclick="tag('<?echo $image['id'];?>');">
+			<div id='tag<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?>>
 				Tags: <?echo $tags;?> 
 				<br />
 			</div>
