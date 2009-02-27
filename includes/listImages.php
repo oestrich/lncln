@@ -122,7 +122,7 @@ foreach ($lncln->images as $image){
 				<br />
 			</div>
 		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
+			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
@@ -131,10 +131,33 @@ foreach ($lncln->images as $image){
 				</div>
 			</form>
 		<?endif;?>
-		
-			<div>
+
+<?
+		if($lncln->isLoggedIn){
+			$class = "class='album'";
+			$onClick = "onclick=\"album('". $image['id'] . "');\"";
+		}
+		else{
+			$class = "";
+			$onClick = "";
+		}
+
+?>
+			<div id='album<?echo $image['id'];?>' <?=$class;?> <?=$onClick;?>>
 				Album: <?=$image['album'];?>
 			</div>
+		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
+			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?action=album&amp;img=<?echo $lncln->firstImage;?>" method="post">
+				<div>
+					<select name="album">
+			<?foreach($lncln->getAlbums() as $album):?>
+						<option name="<?=$album;?>"><?=$album;?></option>
+			<?endforeach;?>
+					</select>
+					<input type="submit" value="Change album" />
+				</div>
+			</form>
+		<?endif;?>
 	<?endif;?>
 
 	<?if($_GET['thumb']):?>

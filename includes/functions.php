@@ -768,6 +768,17 @@ class lncln{
 			return "Album not added";
 		}
 	}
+	
+	function getAlbums(){
+		$sql = "SELECT name FROM albums WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$albums[] = $row['name'];	
+		}
+		
+		return $albums;
+	}
 }
 
 /**

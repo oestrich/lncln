@@ -73,3 +73,8 @@ function tag(divid){
 	document.getElementById('formTag' + divid).focus();
 	document.getElementById('tag' + divid).style.display = 'none';
 }
+
+function album(divid){
+	document.getElementById('a' + divid).style.display = 'block';
+	document.getElementById('album' + divid).style.display = 'none';
+}
