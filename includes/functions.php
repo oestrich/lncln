@@ -43,7 +43,7 @@ class lncln{
 	 */
 	function __construct($action = "none"){	
 		if($action != "none"){
-			if(function_exists($this->$action)){
+			if(method_exists($this, $action)){
 				$this->$action();
 			}
 		}
