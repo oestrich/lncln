@@ -133,7 +133,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 
 <?
-		if($lncln->isLoggedIn){
+		if(($lncln->isLoggedIn && $image['album'] == "No Album") || $lncln->isAdmin){
 			$class = "class='album'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";
 		}
