@@ -11,7 +11,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
+$lncln = new lncln("index");
 $lncln->loggedIn();
 
 require_once(ABSPATH . "includes/iconActions.php");

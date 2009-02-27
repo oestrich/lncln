@@ -41,7 +41,21 @@ class lncln{
 	 * @since 0.6.0
 	 * @package lncln
 	 */
-	function __construct(){	
+	function __construct($action = "none"){	
+		if($action != "none"){
+			$this->$action();
+		}
+		
+		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
+		$this->script = $this->script[count($this->script) - 1];
+
+		if($this->script == "search.php"){
+			$this->script = "index.php";
+		}
+		
+	}
+	
+	private function index(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
@@ -96,14 +110,6 @@ class lncln{
 				$this->aboveFifty = $this->start;
 			}
 		}
-		
-		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
-		$this->script = $this->script[count($this->script) - 1];
-
-		if($this->script == "search.php"){
-			$this->script = "index.php";
-		}
-		
 	}
 	
 	/**
