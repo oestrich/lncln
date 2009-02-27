@@ -72,13 +72,9 @@ foreach ($lncln->images as $image){
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']):
 		//caption stuff
-		if($lncln->isAdmin){
-			$class = "class='captionAdmin'";
-			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
-		}
-		else if($lncln->isLoggedIn){
-			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
+		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
 			$class = "class='caption'";
+			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
 		}
 		else{
 			$onClick = "";
