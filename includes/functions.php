@@ -112,12 +112,7 @@ class lncln{
 		}
 	}
 	
-	private function image(){
-		$this->aboveFifty = 0;
-		$this->belowFifty = 0;
-		$this->start = 0;
-		$this->highestID = 0;
-		
+	private function image(){		
 		if(isset($_GET['img']) && is_numeric($_GET['img'])){
 			$image = prepareSQL($_GET['img']);
 		}
@@ -153,6 +148,11 @@ class lncln{
 			
 			$this->type = 'index';
 		}	
+		
+		$this->aboveFifty = 0;
+		$this->belowFifty = 0;
+		$this->start = $image;
+		$this->highestID = $image;
 	}
 	
 	/**
