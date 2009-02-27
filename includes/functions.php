@@ -774,10 +774,18 @@ class lncln{
 		$result = mysql_query($sql);
 		
 		while($row = mysql_fetch_assoc($result)){
-			$albums[] = $row['name'];	
+			$albums[] = array($row['name'], $row['name']);	
 		}
 		
 		return $albums;
+	}
+	
+	function changeAlbum($img, $album){
+		$img = prepareSQL($img);
+		$album = prepareSQL($album);
+		
+		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $img;
+		mysql_query($sql);
 	}
 }
 
@@ -794,5 +802,22 @@ function connect(){
 		die("Error with MySQL: " . mysql_error());
 	}
 	mysql_select_db(DB_DATABASE);
+}
+
+/**
+ * Prepares a variable for SQL
+ * 
+ * @since 0.9.0
+ * @package lncln
+ * 
+ * @param string $var the variable that is being prepared
+ * 
+ * @return string Variable that's ready for SQL
+ */
+function prepareSQL($var){
+	$var = stripslashes($var);
+	$var = mysql_real_escape_string($var);
+	
+	return $var;
 }
 ?>

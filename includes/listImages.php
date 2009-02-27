@@ -149,9 +149,10 @@ foreach ($lncln->images as $image){
 		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?action=album&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
+					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					<select name="album">
 			<?foreach($lncln->getAlbums() as $album):?>
-						<option name="<?=$album;?>"><?=$album;?></option>
+						<option name="<?=$album['id'];?>"><?=$album['name'];?></option>
 			<?endforeach;?>
 					</select>
 					<input type="submit" value="Change album" />

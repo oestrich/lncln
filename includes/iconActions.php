@@ -90,4 +90,8 @@ if($_GET['tag'] && $lncln->isLoggedIn){
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra);
 	exit();
 }
+
+if($_GET['action'] == "album" && $lncln->isLoggedIn){
+	$lncln->changeAlbum($_POST['id'], $_POST['album']);
+}
 ?>
