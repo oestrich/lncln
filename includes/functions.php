@@ -754,9 +754,18 @@ class lncln{
 		mysql_query($sql);
 	}
 	
+	/**
+	 * Adds an album to the database
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param string $name The name of the album
+	 * 
+	 * @return string If it passed or not
+	 */
 	function addalbum($name){
-		$name = stripslashes($name);
-		$name = mysql_real_escape_string($name);
+		$name = prepareSQL($name);
 		
 		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
 		mysql_query($sql);
@@ -769,6 +778,14 @@ class lncln{
 		}
 	}
 	
+	/**
+	 * Returns all of the albums currently in the database
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @return array All of the albums in their own arrays, with 'id' and 'name'
+	 */
 	function getAlbums(){
 		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
@@ -782,6 +799,15 @@ class lncln{
 		return $albums;
 	}
 	
+	/**
+	 * Changes an image's album
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param int $img The image to be changed
+	 * @param int $album The album id 
+	 */
 	function changeAlbum($img, $album){
 		$img = prepareSQL($img);
 		$album = prepareSQL($album);
