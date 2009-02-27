@@ -63,7 +63,7 @@ class lncln{
 		if($row['COUNT(*)'] == 0){
 			$this->aboveFifty = 0;
 			$this->belowFifty = 0;
-			$this->start = 0;
+			$this->firstImage = 0;
 			$this->highestID = 0;
 		}
 		else{
@@ -161,7 +161,7 @@ class lncln{
 		
 		$this->aboveFifty = 0;
 		$this->belowFifty = 0;
-		$this->start = $image;
+		$this->firstImage = $image;
 		$this->highestID = $image;
 	}
 	
