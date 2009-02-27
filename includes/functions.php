@@ -112,6 +112,49 @@ class lncln{
 		}
 	}
 	
+	private function image(){
+		$this->aboveFifty = 0;
+		$this->belowFifty = 0;
+		$this->start = 0;
+		$this->highestID = 0;
+		
+		if(isset($_GET['img']) && is_numeric($_GET['img'])){
+			$image = prepareSQL($_GET['img']);
+		}
+		else{
+			return;
+		}
+		
+		$sql = "SELECT tag FROM tags WHERE picId = " . $image;
+		$tags = mysql_query($sql);
+		
+		$imageTags = array();
+		
+		while($tag = mysql_fetch_assoc($tags)){
+			$imageTags[] = $tag['tag'];
+		}	
+		
+		$sql = "SELECT * FROM images WHERE id = " . $image . " LIMIT 1";
+		$result = mysql_query($sql);
+	
+		if(mysql_num_rows($result) == 1){
+			$image = mysql_fetch_assoc($result);
+			
+			$this->images[0] = array(
+				'id' 		=> $image['id'],
+				'file' 		=> $image['id'] . "." . $image['type'],
+				'type'		=> $image['type'],
+				'obscene' 	=> $image['obscene'],
+				'rating' 	=> $image['rating'],
+				'postTime'	=> $image['postTime'],
+				'caption'	=> $image['caption'],
+				'tags' 		=> $imageTags
+			);
+			
+			$this->type = 'index';
+		}	
+	}
+	
 	/**
 	 * Limits the availability of certain variables
 	 * 
