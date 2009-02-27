@@ -146,7 +146,7 @@ foreach ($lncln->images as $image){
 			<div id='album<?echo $image['id'];?>' <?=$class;?> <?=$onClick;?>>
 				Album: <?=$image['album'];?>
 			</div>
-		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
+		<?if(($lncln->isLoggedIn && $image['album'] == "No Album") || $lncln->isAdmin):?>
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?action=album&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
