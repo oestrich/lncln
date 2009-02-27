@@ -95,32 +95,18 @@ a{
 .caption{
 	width: 600px;
 }
-.captionAdmin{
-	width: 600px;
-}
 .caption:hover{
 	background-color: white;
 	color: black;
-}	
-.captionAdmin:hover{
-	background-color: white;
-	color: black;
-}	
+}
 
 .tag{
-	width: 600px;
-}
-.tagAdmin{
 	width: 600px;
 }
 .tag:hover{
 	background-color: white;
 	color: black;
-}	
-.tagAdmin:hover{
-	background-color: white;
-	color: black;
-}	
+}
 
 .album{
 	width: 600px;
