@@ -43,7 +43,9 @@ class lncln{
 	 */
 	function __construct($action = "none"){	
 		if($action != "none"){
-			$this->$action();
+			if(function_exists($this->$action)){
+				$this->$action();
+			}
 		}
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
