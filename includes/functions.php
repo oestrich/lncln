@@ -770,7 +770,7 @@ class lncln{
 	}
 	
 	function getAlbums(){
-		$sql = "SELECT name FROM albums WHERE 1";
+		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
 		
 		while($row = mysql_fetch_assoc($result)){
@@ -786,7 +786,7 @@ class lncln{
 		$img = prepareSQL($img);
 		$album = prepareSQL($album);
 		
-		$sql = "UPDATE images SET album = '" . $album . "' WHERE id = " . $img;
+		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $img;
 		mysql_query($sql);
 	}
 }
