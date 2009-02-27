@@ -117,7 +117,7 @@ if($lncln->isAdmin){
 						<br />
 						<input type="submit" value="Upload File" />
 						<br />
-						Please view all images before uploading.
+						Max total upload size: <?=ini_get("upload_max_filesize");?>
 					</div>
 				</form>
 	
