@@ -152,7 +152,7 @@ foreach ($lncln->images as $image){
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					<select name="album">
 			<?foreach($lncln->getAlbums() as $album):?>
-						<option name="<?=$album['id'];?>"><?=$album['name'];?></option>
+						<option value="<?=$album['id'];?>"><?=$album['name'];?></option>
 			<?endforeach;?>
 					</select>
 					<input type="submit" value="Change album" />
