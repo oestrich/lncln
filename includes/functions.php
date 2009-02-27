@@ -774,7 +774,7 @@ class lncln{
 		$result = mysql_query($sql);
 		
 		while($row = mysql_fetch_assoc($result)){
-			$albums[] = array($row['name'], $row['name']);	
+			$albums[] = array($row['id'], $row['name']);	
 		}
 		
 		return $albums;
