@@ -18,6 +18,8 @@ require_once("includes/iconActions.php");
 
 require_once("includes/header.php");
 
+$lncln->img();
+
 if(isset($_GET['img']) && is_numeric($_GET['img'])){
 	require_once("includes/listImages.php");	
 }
