@@ -11,7 +11,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln("album", array($_GET['album']));
+$lncln = new lncln("album", array($_GET['album'], $_GET['img']));
 $lncln->loggedIn();
 
 
@@ -25,7 +25,7 @@ if(!isset($_GET['album']) || $_GET['album'] == ""){
 	}
 }
 else{
-	echo $_GET['album'];
+	require_once("includes/listImages.php");
 }
 
 

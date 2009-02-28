@@ -30,6 +30,7 @@ class lncln{
 	private $lowestID;
 	
 	private $search; 			//tag being searched for
+	private $album;				//album being viewed
 	private $queue = false;		//if you're in the queue
 	
 	private $imagesToGet = array();		//The images that data will be pulled for
@@ -216,6 +217,62 @@ class lncln{
 		}
 		
 		$this->extra .= "&amp;search=" . $this->search;
+	}
+	
+	/**
+	 * 
+	 */
+	private function album($album){		
+		$this->album = prepareSQL($album[0]);
+		
+		$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$this->highestID = $row['MAX(id)'];
+		
+		$sql = "SELECT MIN(id) FROM images WHERE album = " . $this->album;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$this->lowestID = $row['MIN(id)'];
+		
+		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
+			$id = " AND id <= " . prepareSQL($search[1]);
+		}
+		else{
+			$id = "";
+		}
+		
+		$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " ORDER BY id DESC LIMIT 3";
+		$result = mysql_query($sql);
+
+		while($row = mysql_fetch_assoc($result)){
+			$this->imagesToGet[] = $row['id'];
+		}
+				
+		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
+		
+		if(count($this->imagesToGet) > 2){
+			array_pop($this->imagesToGet);
+		}
+		
+		$this->firstImage = $this->imagesToGet[0];
+		
+		$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " ORDER BY picId ASC LIMIT 2";
+		$result = mysql_query($sql);
+		
+		$numRows = mysql_num_rows($result);
+		if($numRows > 0){
+			mysql_data_seek($result, $numRows - 1);
+			$row = mysql_fetch_assoc($result);	
+			$this->aboveFifty = $row['id'];
+		}
+		else{
+			$this->aboveFifty = $this->firstImage;
+		}
+		
+		$this->extra .= "&amp;album=" . $this->album;
 	}
 	
 	/**
