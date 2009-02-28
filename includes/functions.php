@@ -467,6 +467,7 @@ class lncln{
 	function prevNext(){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
+		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
 		if ($this->firstImage == $this->highestID){
 	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
