@@ -30,7 +30,7 @@ else{
 	$result = mysql_query($sql);
 	$row = mysql_fetch_assoc($result);
 	
-	echo $row['name'] . ": \n <br />";
+	echo "You're viewing " . $row['name'] . "\n <br />";
 	
 	echo $lncln->prevNext();
 	
