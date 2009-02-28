@@ -224,56 +224,68 @@ class lncln{
 	 */
 	private function album($album){	
 		if($album[0] != 0){
-			$this->album = prepareSQL($album[0]);
-			
-			$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album;
+			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
-			$this->highestID = $row['MAX(id)'];
-			
-			$sql = "SELECT MIN(id) FROM images WHERE album = " . $this->album;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			$this->lowestID = $row['MIN(id)'];
-			
-			if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
-				$id = " AND id <= " . prepareSQL($album[1]);
+			if($row['COUNT(*)'] == 0){
+				$this->aboveFifty = 0;
+				$this->belowFifty = 0;
+				$this->firstImage = 0;
+				$this->highestID = 0;
 			}
 			else{
-				$id = "";
+				$this->album = prepareSQL($album[0]);
+				
+				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album;
+				$result = mysql_query($sql);
+				$row = mysql_fetch_assoc($result);
+				
+				$this->highestID = $row['MAX(id)'];
+				
+				$sql = "SELECT MIN(id) FROM images WHERE album = " . $this->album;
+				$result = mysql_query($sql);
+				$row = mysql_fetch_assoc($result);
+				
+				$this->lowestID = $row['MIN(id)'];
+				
+				if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
+					$id = " AND id <= " . prepareSQL($album[1]);
+				}
+				else{
+					$id = "";
+				}
+				
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 ORDER BY id DESC LIMIT 51";
+				$result = mysql_query($sql);
+		
+				while($row = mysql_fetch_assoc($result)){
+					$this->imagesToGet[] = $row['id'];
+				}
+						
+				$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
+				
+				if(count($this->imagesToGet) > 50){
+					array_pop($this->imagesToGet);
+				}
+				
+				$this->firstImage = $this->imagesToGet[0];
+				
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
+				$result = mysql_query($sql);
+				
+				$numRows = mysql_num_rows($result);
+				if($numRows > 0){
+					mysql_data_seek($result, $numRows - 1);
+					$row = mysql_fetch_assoc($result);	
+					$this->aboveFifty = $row['id'];
+				}
+				else{
+					$this->aboveFifty = $this->firstImage;
+				}
+				
+				$this->extra .= "&amp;album=" . $this->album;
 			}
-			
-			$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " ORDER BY id DESC LIMIT 3";
-			$result = mysql_query($sql);
-	
-			while($row = mysql_fetch_assoc($result)){
-				$this->imagesToGet[] = $row['id'];
-			}
-					
-			$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
-			
-			if(count($this->imagesToGet) > 2){
-				array_pop($this->imagesToGet);
-			}
-			
-			$this->firstImage = $this->imagesToGet[0];
-			
-			$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " ORDER BY id ASC LIMIT 2";
-			$result = mysql_query($sql);
-			
-			$numRows = mysql_num_rows($result);
-			if($numRows > 0){
-				mysql_data_seek($result, $numRows - 1);
-				$row = mysql_fetch_assoc($result);	
-				$this->aboveFifty = $row['id'];
-			}
-			else{
-				$this->aboveFifty = $this->firstImage;
-			}
-			
-			$this->extra .= "&amp;album=" . $this->album;
 		}
 	}
 	
