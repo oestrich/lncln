@@ -14,8 +14,12 @@ require_once("load.php");
 $lncln = new lncln("album");
 $lncln->loggedIn();
 
-foreach($lncln->getAlbums() as $album):?>
-	<a href="<?=$lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a>
-<?endforeach;
+require_once("includes/header.php");
 
+foreach($lncln->getAlbums() as $album):?>
+	<a href="<?=$lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
+<?
+endforeach;
+
+require_once("includes/footer.php");
 ?>
