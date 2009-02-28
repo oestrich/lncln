@@ -122,7 +122,7 @@ class lncln{
 				$this->aboveFifty = $row['id'];
 			}
 			else{
-				$this->aboveFifty = $this->start;
+				$this->aboveFifty = $this->firstImage;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ class lncln{
 			$id = "";
 		}
 		
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " LIMIT 3";
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 3";
 		$result = mysql_query($sql);
 
 		while($row = mysql_fetch_assoc($result)){
@@ -180,8 +180,19 @@ class lncln{
 		if(count($this->imagesToGet) > 2){
 			array_pop($this->imagesToGet);
 		}
-			
-		$this->aboveFifty = 0;
+		
+		$sql = "SELECT picId FROM tags WHERE id > " . $this->firstImage . " ORDER BY id ASC LIMIT 2";
+		$result = mysql_query($sql);
+		
+		$numRows = mysql_num_rows($result);
+		if($numRows > 0){
+			mysql_data_seek($result, $numRows - 1);
+			$row = mysql_fetch_assoc($result);	
+			$this->aboveFifty = $row['id'];
+		}
+		else{
+			$this->aboveFifty = $this->firstImage;
+		}
 		$this->firstImage = $this->imagesToGet[0];
 		$this->highestID = $this->imagesToGet[0];
 	}
