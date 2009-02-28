@@ -370,15 +370,16 @@ class lncln{
 	 * @return string Contains the links Prev Next
 	 */
 	function prevNext(){
-		$thumb = $this->type == "thumb" ? "&amp;thumb=true" : "";
+		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
+		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
 		
 		if ($this->firstImage == $this->highestID){
-	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
 	    }elseif($this->belowFifty == 1){
-	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>";
 	    }else{
-	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>
-	        <a href='" . $this->script . "?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>
+	        <a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
 	    }
 	}
 

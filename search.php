@@ -11,7 +11,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln("search", array($_GET['search']));
+$lncln = new lncln("search", array($_GET['search'], $_GET['img']));
 $lncln->loggedIn();
 
 
