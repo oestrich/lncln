@@ -159,10 +159,16 @@ class lncln{
 	 * @param array $search The first term of the array is the search term
 	 */
 	private function search($search){
-		$this->search = $search[0];
+		$this->search = prepareSQL($search[0]);
 		
-		$this->search = prepareSQL($this->search);
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' LIMIT 3";
+		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
+			$id = " AND id <= " . prepareSQL($search[1]);
+		}
+		else{
+			$id = "";
+		}
+		
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " LIMIT 3";
 		$result = mysql_query($sql);
 
 		while($row = mysql_fetch_assoc($result)){
