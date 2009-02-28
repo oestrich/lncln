@@ -31,7 +31,8 @@ class lncln{
 	private $search; 			//tag being searched for
 	private $queue = false;		//if you're in the queue
 	
-	public $images = array(); 	//Image data to be outputed in listImages.php
+	private $imagesToGet;		//The images that data will be pulled for
+	private $images = array(); 	//Image data to be outputed in listImages.php
 	private $type;				//Normal or thumb
 	private $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
@@ -41,10 +42,10 @@ class lncln{
 	 * @since 0.6.0
 	 * @package lncln
 	 */
-	function __construct($action = "none"){	
+	function __construct($action = "none", $params = array()){	
 		if($action != "none"){
 			if(method_exists($this, $action)){
-				$this->$action();
+				$this->$action($params);
 			}
 		}
 		
@@ -54,9 +55,14 @@ class lncln{
 		if($this->script == "search.php"){
 			$this->script = "index.php";
 		}
-		
 	}
 	
+	/**
+	 * The function that makes the index go round
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 */
 	private function index(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0";
 		$result = mysql_query($sql);
@@ -71,13 +77,13 @@ class lncln{
 		else{
 			$result = mysql_query("SELECT MAX(id) FROM images");
 			$result = mysql_fetch_assoc($result);
-			
-			//Should really rename this
+
 			$this->highestID = $result['MAX(id)'];
 			
 			if(!isset($_GET['img'])){
 				$this->firstImage = $this->highestID;
-			}else{
+			}
+			else{
 				//if it's set, then set it to start
 				$this->firstImage = $_GET['img'];
 				if($this->firstImage == ""){
@@ -89,14 +95,22 @@ class lncln{
 				}
 			}
 		
-			//Getting the number to start the next page
+			//Getting the number to start the next page && the ids that the page needs to load.
 			$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 ORDER BY id DESC LIMIT 51";
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
-			mysql_data_seek($result, $numRows - 1);
-			$row = mysql_fetch_assoc($result);
-			$this->belowFifty = $row['id'];
+			
+			for($i = 0; $i < $numRows; $i++){
+				$row = mysql_fetch_assoc($result);
+				
+				if ($i = $numRows - 1){
+					$this->belowFifty = $row['id'];
+					continue;
+				}
+				
+				$this->imagesToGet[] = $row['id'];
+			}
 			
 			//getting the prevsion page
 			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
@@ -114,7 +128,13 @@ class lncln{
 		}
 	}
 	
-	private function image(){		
+	/**
+	 * Function that makes image.php go round
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 */
+	private function image(){
 		if(isset($_GET['img']) && is_numeric($_GET['img'])){
 			$image = prepareSQL($_GET['img']);
 		}
@@ -165,6 +185,26 @@ class lncln{
 		$this->belowFifty = 0;
 		$this->firstImage = $image['id'];
 		$this->highestID = $image['id'];
+	}
+	
+	/**
+	 * Makes searching happen
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param array $search The first term of the array is the search term
+	 */
+	private function search($search){
+		$this->search = $search[0];
+		
+		$this->search = prepareSQL($this->search);
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$result = mysql_query($sql);
+
+		while($row = mysql_fetch_assoc($result)){
+			$this->imagesToGet[] = $row['picId'];
+		}
 	}
 	
 	/**
@@ -249,12 +289,13 @@ class lncln{
 	/**
 	 * Creates the data required for listImages.php
 	 * 
+	 * @todo possibly rename to getData()
+	 * 
 	 * @since 0.5.0
-	 * @package lncln
-	 *  
-	 * @return array Returns $img which contains all of the image data, $type - thumbnails/normal, $extra - make sure links contain &thumb=true
+	 * @package lncln 
 	 */
-	function img(){//$start, $queue, $isAdmin, $search = ""){
+	function img(){
+		/*
 		if($this->queue){
 			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
 		}
@@ -282,15 +323,19 @@ class lncln{
 			}
 			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND id <= " . $this->firstImage . " " . $time . " ORDER BY `id` DESC LIMIT 50";
 		}
+		*/
+		
+		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ";
+		
+		foreach($this->imagesToGet as $image){
+			$sql .= " id = " . $image . " AND ";
+		}
+		$sql = substr_replace($sql, "", -5);
+		
+		$sql .= " ORDER BY `id` DESC";
 		
 		$result = mysql_query($sql);
 		$numRows = @mysql_num_rows($result);
-		
-		/* Come back to this
-		if($numRows == 0){
-			
-		}
-		*/
 		
 		for($i = 0; $i < $numRows; $i++){
 			$image = mysql_fetch_assoc($result);
@@ -326,8 +371,6 @@ class lncln{
 				'tags' 		=> $imageTags
 				);
 		}
-		
-		//$sql = " SELECT SUM( upDown ) AS rating FROM rating WHERE picId = " . $
 		
 		$this->type = "index";
 		$this->extra = "";

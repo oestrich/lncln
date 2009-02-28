@@ -11,7 +11,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
+$lncln = new lncln("search", array($_POST['search']));
 $lncln->loggedIn();
 
 
@@ -20,7 +20,6 @@ if(!isset($_POST['search']) || $_POST['search'] == ""){
 	exit();
 }
 
-$lncln->search = $_POST['search'];
 $lncln->img();
 
 require_once("includes/header.php");
