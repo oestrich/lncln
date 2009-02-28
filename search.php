@@ -15,7 +15,7 @@ $lncln = new lncln("search", array($_GET['search']));
 $lncln->loggedIn();
 
 
-if(!isset($_POST['search']) || $_POST['search'] == ""){
+if(!isset($_GET['search']) || $_GET['search'] == ""){
 	header("location:index.php");
 	exit();
 }
