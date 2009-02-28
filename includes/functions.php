@@ -181,6 +181,9 @@ class lncln{
 			array_pop($this->imagesToGet);
 		}
 		
+		$this->firstImage = $this->imagesToGet[0];
+		$this->highestID = $this->imagesToGet[0];
+		
 		$sql = "SELECT picId FROM tags WHERE id > " . $this->firstImage . " ORDER BY id ASC LIMIT 2";
 		$result = mysql_query($sql);
 		
@@ -193,8 +196,6 @@ class lncln{
 		else{
 			$this->aboveFifty = $this->firstImage;
 		}
-		$this->firstImage = $this->imagesToGet[0];
-		$this->highestID = $this->imagesToGet[0];
 	}
 	
 	/**
