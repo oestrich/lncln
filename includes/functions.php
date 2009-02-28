@@ -211,8 +211,8 @@ class lncln{
 		
 		$this->aboveFifty = 0;
 		$this->belowFifty = 0;
-		$this->firstImage = $this->imagesToGet[1];
-		$this->highestID = $this->imagesToGet[1];
+		$this->firstImage = $this->imagesToGet[0];
+		$this->highestID = $this->imagesToGet[0];
 	}
 	
 	/**
