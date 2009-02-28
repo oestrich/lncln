@@ -32,6 +32,14 @@ echo $lncln->prevNext();
 
 require_once("includes/listImages.php");
 
+?>
+	<div id='bPrevNext'>
+<?
+echo $lncln->prevNext();
+?>
+	</div>
+<?
+
 require_once("includes/footer.php");
 
 ?>
