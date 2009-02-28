@@ -166,15 +166,21 @@ class lncln{
 		$this->search = $search[0];
 		
 		$this->search = prepareSQL($this->search);
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' LIMIT 2";
 		$result = mysql_query($sql);
 
 		while($row = mysql_fetch_assoc($result)){
 			$this->imagesToGet[] = $row['picId'];
 		}
 		
+		
+		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet - 1)];
+		
+		if(count($this->imagesToGet) > 2){
+			$this->imagesToGet.pop();
+		}
+			
 		$this->aboveFifty = 0;
-		$this->belowFifty = 0;
 		$this->firstImage = $this->imagesToGet[0];
 		$this->highestID = $this->imagesToGet[0];
 	}
