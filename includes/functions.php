@@ -224,6 +224,8 @@ class lncln{
 	 */
 	private function album($album){	
 		if($album[0] != 0){
+			$this->album = prepareSQL($album[0]);
+			
 			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
@@ -234,9 +236,7 @@ class lncln{
 				$this->firstImage = 0;
 				$this->highestID = 0;
 			}
-			else{
-				$this->album = prepareSQL($album[0]);
-				
+			else{				
 				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album;
 				$result = mysql_query($sql);
 				$row = mysql_fetch_assoc($result);
