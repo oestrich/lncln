@@ -148,7 +148,7 @@ if($lncln->isAdmin){
 				<br />
 				We have <?echo $result['COUNT(*)'];?> images.
 				<br />
-				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="post">
+				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="get">
 					<div>
 						Tag search:
 						<input type='text' name='search' />

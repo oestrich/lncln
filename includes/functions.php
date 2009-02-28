@@ -51,10 +51,6 @@ class lncln{
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
-
-		if($this->script == "search.php"){
-			$this->script = "index.php";
-		}
 	}
 	
 	/**
@@ -377,12 +373,12 @@ class lncln{
 		$thumb = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
 		if ($this->firstImage == $this->highestID){
-	        return "<a href='index.php?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
 	    }elseif($this->belowFifty == 1){
-	        return "<a href='index.php?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>";
 	    }else{
-	        return "<a href='index.php?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>
-	        <a href='index.php?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $thumb . "' class='prevNext'>Prev 50</a>
+	        <a href='" . $this->script . "?img=" . $this->belowFifty . $thumb . "' class='prevNext'>Next 50</a>";
 	    }
 	}
 
