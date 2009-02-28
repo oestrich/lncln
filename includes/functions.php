@@ -374,7 +374,7 @@ class lncln{
 	 * 
 	 * @return string Contains the links Prev Next
 	 */
-	function prevNext(){//$start, $prev, $next, $numImgs, $type){
+	function prevNext(){
 		$thumb = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
 		if ($this->firstImage == $this->highestID){

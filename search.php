@@ -28,7 +28,7 @@ require_once("includes/header.php");
 	You searched for: <?echo $_POST['search'];?> <br />
 <?
 
-$lncln->prevNext();
+echo $lncln->prevNext();
 
 require_once("includes/listImages.php");
 
