@@ -187,7 +187,7 @@ class lncln{
 			$id = "";
 		}
 		
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 5";
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 51";
 		$result = mysql_query($sql);
 
 		while($row = mysql_fetch_assoc($result)){
@@ -196,13 +196,13 @@ class lncln{
 				
 		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
 		
-		if(count($this->imagesToGet) > 4){
+		if(count($this->imagesToGet) > 50){
 			array_pop($this->imagesToGet);
 		}
 		
 		$this->firstImage = $this->imagesToGet[0];
 		
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 4";
+		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 50";
 		$result = mysql_query($sql);
 		
 		$numRows = mysql_num_rows($result);
