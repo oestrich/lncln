@@ -26,6 +26,12 @@ if(!isset($_GET['album']) || $_GET['album'] == ""){
 	}
 }
 else{
+	$sql = "SELECT name FROM albums WHERE id = " . $lncln->album;
+	$result = mysql_query($sql);
+	$row = mysql_fetch_assoc($result);
+	
+	echo $row['name'] . ": \n <br />";
+	
 	echo $lncln->prevNext();
 	
 	require_once("includes/listImages.php");
