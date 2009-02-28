@@ -161,6 +161,12 @@ class lncln{
 	private function search($search){
 		$this->search = prepareSQL($search[0]);
 		
+		$sql = "SELECT MAX('picId') FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$this->highestID = $row['MAX(id)'];
+		
 		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
 			$id = " AND picId <= " . prepareSQL($search[1]);
 		}
@@ -182,7 +188,6 @@ class lncln{
 		}
 		
 		$this->firstImage = $this->imagesToGet[0];
-		$this->highestID = $this->imagesToGet[0];
 		
 		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 2";
 		$result = mysql_query($sql);
@@ -191,7 +196,7 @@ class lncln{
 		if($numRows > 0){
 			mysql_data_seek($result, $numRows - 1);
 			$row = mysql_fetch_assoc($result);	
-			$this->aboveFifty = $row['id'];
+			$this->aboveFifty = $row['picId'];
 		}
 		else{
 			$this->aboveFifty = $this->firstImage;

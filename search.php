@@ -25,7 +25,7 @@ $lncln->img();
 require_once("includes/header.php");
 
 ?>
-	You searched for: <?echo $_POST['search'];?> <br />
+	You searched for: <?echo $_GET['search'];?> <br />
 <?
 
 echo $lncln->prevNext();
