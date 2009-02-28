@@ -340,10 +340,8 @@ class lncln{
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
 		}
-		$sql = substr_replace($sql, "", -5);
-		
+		$sql = substr_replace($sql, "", -4);
 		$sql .= $time;
-		
 		$sql .= " ORDER BY `id` DESC";
 		
 		$result = mysql_query($sql);
