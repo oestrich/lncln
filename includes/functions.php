@@ -161,11 +161,11 @@ class lncln{
 	private function search($search){
 		$this->search = prepareSQL($search[0]);
 		
-		$sql = "SELECT MAX('picId') FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
-		$this->highestID = $row['MAX(id)'];
+		$this->highestID = $row['MAX(picId)'];
 		
 		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
 			$id = " AND picId <= " . prepareSQL($search[1]);
