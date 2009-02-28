@@ -298,19 +298,19 @@ class lncln{
 		*/
 		
 		if($this->isAdmin != true){
-			$time = "AND postTime <= " . time();
+			$time = " AND postTime <= " . time();
 		}
 		else{
 			$time = "";
 		}
 		
-		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ";
+		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND (";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
 		}
 		$sql = substr_replace($sql, "", -4);
-		$sql .= $time;
+		$sql .= ")" . $time;
 		$sql .= " ORDER BY `id` DESC";
 		
 		$result = mysql_query($sql);
