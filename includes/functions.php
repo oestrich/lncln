@@ -150,8 +150,8 @@ class lncln{
 		$this->type = 'index';
 		$this->aboveFifty = 0;
 		$this->belowFifty = 0;
-		$this->firstImage = $image['id'];
-		$this->highestID = $image['id'];
+		$this->firstImage = $image;
+		$this->highestID = $image;
 	}
 	
 	/**
