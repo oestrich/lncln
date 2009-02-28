@@ -151,7 +151,6 @@ class lncln{
 
 		$this->imagesToGet[] = $image;
 		
-		$this->type = 'index';
 		$this->aboveFifty = 0;
 		$this->belowFifty = 0;
 		$this->firstImage = $image;
