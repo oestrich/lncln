@@ -259,7 +259,7 @@ class lncln{
 		
 		$this->firstImage = $this->imagesToGet[0];
 		
-		$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " ORDER BY picId ASC LIMIT 2";
+		$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " ORDER BY id ASC LIMIT 2";
 		$result = mysql_query($sql);
 		
 		$numRows = mysql_num_rows($result);
