@@ -31,7 +31,7 @@ class lncln{
 	private $search; 			//tag being searched for
 	private $queue = false;		//if you're in the queue
 	
-	private $imagesToGet;		//The images that data will be pulled for
+	private $imagesToGet = array();		//The images that data will be pulled for
 	private $images = array(); 	//Image data to be outputed in listImages.php
 	private $type;				//Normal or thumb
 	private $extra;				//If $type == "thumb" then it equals "&thumb=true"
@@ -325,12 +325,21 @@ class lncln{
 		}
 		*/
 		
+		if($this->isAdmin != true){
+			$time = "AND postTime <= " . time();
+		}
+		else{
+			$time = "";
+		}
+		
 		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " AND ";
 		}
 		$sql = substr_replace($sql, "", -5);
+		
+		$sql .= $time;
 		
 		$sql .= " ORDER BY `id` DESC";
 		
