@@ -208,6 +208,11 @@ class lncln{
 		while($row = mysql_fetch_assoc($result)){
 			$this->imagesToGet[] = $row['picId'];
 		}
+		
+		$this->aboveFifty = 0;
+		$this->belowFifty = 0;
+		$this->firstImage = $this->imagesToGet[1];
+		$this->highestID = $this->imagesToGet[1];
 	}
 	
 	/**
