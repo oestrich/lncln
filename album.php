@@ -25,6 +25,7 @@ if(!isset($_GET['album']) || $_GET['album'] == ""){
 	}
 }
 else{
+	$lncln->img();
 	require_once("includes/listImages.php");
 }
 
