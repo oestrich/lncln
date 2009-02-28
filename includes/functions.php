@@ -214,6 +214,8 @@ class lncln{
 		else{
 			$this->aboveFifty = $this->firstImage;
 		}
+		
+		$this->extra .= "&amp;search=" . $this->search;
 	}
 	
 	/**
@@ -388,12 +390,12 @@ class lncln{
 				);
 		}
 		
-		$this->type = "index";
-		$this->extra = "";
+		$this->type .= "index";
+		$this->extra .= "";
 		
 		if($_GET['thumb']){
-			$this->type = "thumb";
-			$this->extra = "&amp;thumb=true";
+			$this->type .= "thumb";
+			$this->extra .= "&amp;thumb=true";
 		}
 	}
 
