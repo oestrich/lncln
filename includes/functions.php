@@ -27,6 +27,7 @@ class lncln{
 	private $aboveFifty; 		//The image 50 images before it (used to be $prev)
 	private $belowFifty;		//The image 50 images after it ($used to be $next)
 	private $highestID; 		//The highest ID in the database ($used to be $numImgs)
+	private $lowestID;
 	
 	private $search; 			//tag being searched for
 	private $queue = false;		//if you're in the queue
@@ -75,6 +76,12 @@ class lncln{
 			$result = mysql_fetch_assoc($result);
 
 			$this->highestID = $result['MAX(id)'];
+			
+			$sql = "SELECT MIN(id) FROM tags";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			$this->lowestID = $row['MIN(id)'];
 			
 			if(!isset($_GET['img'])){
 				$this->firstImage = $this->highestID;
@@ -166,6 +173,12 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		$this->highestID = $row['MAX(picId)'];
+		
+		$sql = "SELECT MIN(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$this->lowestID = $row['MIN(picId)'];
 		
 		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
 			$id = " AND picId <= " . prepareSQL($search[1]);
@@ -398,7 +411,7 @@ class lncln{
 		
 		if ($this->firstImage == $this->highestID){
 	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
-	    }elseif($this->belowFifty == 1){
+	    }elseif($this->belowFifty == $this->lowestID){
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>";
 	    }else{
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>
