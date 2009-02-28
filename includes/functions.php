@@ -338,7 +338,7 @@ class lncln{
 		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ";
 		
 		foreach($this->imagesToGet as $image){
-			$sql .= " id = " . $image . " AND ";
+			$sql .= " id = " . $image . " OR ";
 		}
 		$sql = substr_replace($sql, "", -5);
 		
