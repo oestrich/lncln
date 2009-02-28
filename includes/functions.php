@@ -112,7 +112,7 @@ class lncln{
 			}
 
 			if(count($this->imagesToGet) > 50){
-				$this->imagesToGet.pop();
+				array_pop($this->imagesToGet);
 			}
 			
 			//getting the prevsion page
@@ -176,7 +176,7 @@ class lncln{
 		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
 		
 		if(count($this->imagesToGet) > 2){
-			$this->imagesToGet.pop();
+			array_pop($this->imagesToGet);
 		}
 			
 		$this->aboveFifty = 0;
