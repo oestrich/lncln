@@ -162,7 +162,7 @@ class lncln{
 		$this->search = prepareSQL($search[0]);
 		
 		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
-			$id = " AND id <= " . prepareSQL($search[1]);
+			$id = " AND picId <= " . prepareSQL($search[1]);
 		}
 		else{
 			$id = "";
