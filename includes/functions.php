@@ -237,8 +237,8 @@ class lncln{
 		
 		$this->lowestID = $row['MIN(id)'];
 		
-		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
-			$id = " AND id <= " . prepareSQL($search[1]);
+		if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
+			$id = " AND id <= " . prepareSQL($album[1]);
 		}
 		else{
 			$id = "";
