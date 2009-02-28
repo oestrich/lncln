@@ -14,6 +14,7 @@ require_once("load.php");
 $lncln = new lncln("album", array($_GET['album'], $_GET['img']));
 $lncln->loggedIn();
 
+$lncln->img();
 
 require_once("includes/header.php");
 
@@ -25,8 +26,17 @@ if(!isset($_GET['album']) || $_GET['album'] == ""){
 	}
 }
 else{
-	$lncln->img();
+	echo $lncln->prevNext();
+	
 	require_once("includes/listImages.php");
+	
+?>
+		<div id='bPrevNext'>
+<?
+	echo $lncln->prevNext();
+?>
+		</div>
+<?
 }
 
 
