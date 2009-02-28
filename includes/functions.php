@@ -104,7 +104,7 @@ class lncln{
 			for($i = 0; $i < $numRows; $i++){
 				$row = mysql_fetch_assoc($result);
 				
-				if ($i = $numRows - 1){
+				if ($i == $numRows - 1){
 					$this->belowFifty = $row['id'];
 				}
 				
