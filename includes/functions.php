@@ -174,7 +174,7 @@ class lncln{
 		}
 		
 		
-		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet - 1)];
+		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
 		
 		if(count($this->imagesToGet) > 2){
 			$this->imagesToGet.pop();
