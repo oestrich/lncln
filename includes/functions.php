@@ -106,10 +106,13 @@ class lncln{
 				
 				if ($i = $numRows - 1){
 					$this->belowFifty = $row['id'];
-					continue;
 				}
 				
 				$this->imagesToGet[] = $row['id'];
+			}
+
+			if(count($this->imagesToGet) > 50){
+				$this->imagesToGet.pop();
 			}
 			
 			//getting the prevsion page
