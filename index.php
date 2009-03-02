@@ -34,7 +34,7 @@ if($_SESSION['uploaded']){
 				break;
 			case 1:
 				$date = date('h:i:s A - m/d/Y', $_SESSION['uploadTime'][$i] + (3 * 60 * 60));
-				echo "Uploaded #$a correctly. It will appear at $date. To see it now <a href='img/" . $_SESSION['image'][$i] . "'>click here</a>.<br />";
+				echo "Uploaded #$a correctly. It will appear at $date. To see it now <a href='images/full/" . $_SESSION['image'][$i] . "'>click here</a>.<br />";
 				break;
 			case 2:
 				echo "Uploaded #$a to the queue. <br />";
