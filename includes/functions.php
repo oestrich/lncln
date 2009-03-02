@@ -171,7 +171,7 @@ class lncln{
 	 * @param array $search The first term of the array is the search term
 	 */
 	private function search($search){
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album;
+		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
