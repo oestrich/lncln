@@ -441,7 +441,7 @@ class lncln{
 			$time = "";
 		}
 		
-		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND (";
+		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE AND (";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
