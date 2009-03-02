@@ -171,57 +171,69 @@ class lncln{
 	 * @param array $search The first term of the array is the search term
 	 */
 	private function search($search){
-		$this->search = prepareSQL($search[0]);
-		
-		$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album;
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
-		$this->highestID = $row['MAX(picId)'];
-		
-		$sql = "SELECT MIN(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		
-		$this->lowestID = $row['MIN(picId)'];
-		
-		if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
-			$id = " AND picId <= " . prepareSQL($search[1]);
+		if($row['COUNT(*)'] == 0){
+			$this->aboveFifty = 0;
+			$this->belowFifty = 0;
+			$this->firstImage = 0;
+			$this->highestID = 0;
 		}
-		else{
-			$id = "";
+		else{		
+			$this->search = prepareSQL($search[0]);
+			
+			$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			$this->highestID = $row['MAX(picId)'];
+			
+			$sql = "SELECT MIN(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			$this->lowestID = $row['MIN(picId)'];
+			
+			if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
+				$id = " AND picId <= " . prepareSQL($search[1]);
+			}
+			else{
+				$id = "";
+			}
+			
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 51";
+			$result = mysql_query($sql);
+	
+			while($row = mysql_fetch_assoc($result)){
+				$this->imagesToGet[] = $row['picId'];
+			}
+					
+			$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
+			
+			if(count($this->imagesToGet) > 50){
+				array_pop($this->imagesToGet);
+			}
+			
+			$this->firstImage = $this->imagesToGet[0];
+			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
+			
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 50";
+			$result = mysql_query($sql);
+			
+			$numRows = mysql_num_rows($result);
+			if($numRows > 0){
+				mysql_data_seek($result, $numRows - 1);
+				$row = mysql_fetch_assoc($result);	
+				$this->aboveFifty = $row['picId'];
+			}
+			else{
+				$this->aboveFifty = $this->firstImage;
+			}
+			
+			$this->extra .= "&amp;search=" . $this->search;
 		}
-		
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 51";
-		$result = mysql_query($sql);
-
-		while($row = mysql_fetch_assoc($result)){
-			$this->imagesToGet[] = $row['picId'];
-		}
-				
-		$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
-		
-		if(count($this->imagesToGet) > 50){
-			array_pop($this->imagesToGet);
-		}
-		
-		$this->firstImage = $this->imagesToGet[0];
-		$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
-		
-		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 50";
-		$result = mysql_query($sql);
-		
-		$numRows = mysql_num_rows($result);
-		if($numRows > 0){
-			mysql_data_seek($result, $numRows - 1);
-			$row = mysql_fetch_assoc($result);	
-			$this->aboveFifty = $row['picId'];
-		}
-		else{
-			$this->aboveFifty = $this->firstImage;
-		}
-		
-		$this->extra .= "&amp;search=" . $this->search;
 	}
 	
 	/**
