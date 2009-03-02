@@ -20,6 +20,8 @@ if(!isset($_GET['search']) || $_GET['search'] == ""){
 	exit();
 }
 
+require_once(ABSPATH . "includes/iconActions.php");
+
 $lncln->img();
 
 require_once("includes/header.php");

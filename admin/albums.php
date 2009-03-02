@@ -15,7 +15,11 @@ $lncln = new lncln();
 $lncln->loggedIn();
 
 if(isset($_POST['name'])){
-	$album = $lncln->addalbum($_POST['name']);
+	$album = $lncln->addAlbum($_POST['name']);
+}
+
+if($_GET['action'] == "delete"){
+	$lncln->deleteAlbum($_GET['album']);
 }
 
 require_once("../includes/header.php");

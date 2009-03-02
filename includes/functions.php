@@ -970,7 +970,7 @@ class lncln{
 	 * 
 	 * @return string If it passed or not
 	 */
-	function addalbum($name){
+	function addAlbum($name){
 		$name = prepareSQL($name);
 		
 		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
@@ -982,6 +982,21 @@ class lncln{
 		else{
 			return "Album not added";
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	function deleteAlbum($album){
+		$album = prepareSQL($album);
+		
+		if(is_numeric($album)){
+			$sql = "UPDATE images SET album = 0 WHERE album = " . $album;
+			mysql_query($sql);
+			
+			$sql = "DELETE FROM albums WHERE id = " . $album;
+			mysql_query($sql);
+		}		
 	}
 	
 	/**
