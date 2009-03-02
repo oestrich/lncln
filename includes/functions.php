@@ -296,6 +296,27 @@ class lncln{
 	}
 	
 	/**
+	 * 
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 */
+	function queue(){
+		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['COUNT(*)'] > 0){
+			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
+			$result = mysql_query($sql);
+	
+			while($row = mysql_fetch_assoc($result)){
+				$this->imagesToGet[] = $row['id'];
+			}
+		}
+	}
+	
+	/**
 	 * Limits the availability of certain variables
 	 * 
 	 * @since 0.6.0
