@@ -38,7 +38,7 @@ if($lncln->isAdmin){
 		<ul>
 <?
 	while($row = mysql_fetch_assoc($result)){
-		echo "\t\t\t<li>" . $row['name'] . " <a href='album.php?action=delete&amp;album=" . $row['id'] . "'>Delete</a></li>\n";
+		echo "\t\t\t<li>" . $row['name'] . " <a href='albums.php?action=delete&amp;album=" . $row['id'] . "'>Delete</a></li>\n";
 	}	
 ?>
 		</ul>
