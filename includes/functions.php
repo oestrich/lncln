@@ -1016,6 +1016,38 @@ class lncln{
 		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $img;
 		mysql_query($sql);
 	}
+	
+	/**
+	 * Debug function to print out the private variables;
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 */
+	function debug(){
+		echo $this->isAdmin . "\n";
+		echo $this->isLoggedIn . "\n";
+		echo $this->userID . "\n";
+		
+		echo $this->script . "\n";
+		
+		echo $this->firstImage . "\n";
+		echo $this->lastImage . "\n";
+		
+		echo $this->aboveFifty . "\n";
+		echo $this->belowFifty . "\n";
+		
+		echo $this->highestID . "\n";
+		echo $this->lowestID . "\n";
+		
+		echo $this->search . "\n";
+		echo $this->album . "\n";
+		echo $this->queue . "\n";
+		
+		print_r($this->imagesToGet);
+		print_r($this->images);
+		echo $this->type . "\n";
+		echo $this->extra . "\n";
+	}
 }
 
 /**
