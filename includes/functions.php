@@ -24,8 +24,11 @@ class lncln{
 	private $script;
 	
 	private $firstImage; 		//First image on the page (used to be $start)
+	private $lastImage;			//Last image on the page 
+	
 	private $aboveFifty; 		//The image 50 images before it (used to be $prev)
 	private $belowFifty;		//The image 50 images after it ($used to be $next)
+	
 	private $highestID; 		//The highest ID in the database ($used to be $numImgs)
 	private $lowestID;
 	
@@ -119,6 +122,8 @@ class lncln{
 				array_pop($this->imagesToGet);
 			}
 			
+			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
+			
 			//getting the prevsion page
 			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
 			$result = mysql_query($sql);
@@ -150,7 +155,7 @@ class lncln{
 		}
 
 		$this->imagesToGet[] = $image;
-		
+				
 		$this->aboveFifty = 0;
 		$this->belowFifty = 0;
 		$this->firstImage = $image;
@@ -201,6 +206,7 @@ class lncln{
 		}
 		
 		$this->firstImage = $this->imagesToGet[0];
+		$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 		
 		$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 50";
 		$result = mysql_query($sql);
@@ -269,6 +275,7 @@ class lncln{
 				}
 				
 				$this->firstImage = $this->imagesToGet[0];
+				$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 				
 				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " AND queue = 0 ORDER BY id ASC LIMIT 50";
 				$result = mysql_query($sql);
@@ -484,7 +491,7 @@ class lncln{
 		
 		if ($this->firstImage == $this->highestID){
 	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
-	    }elseif($this->belowFifty == $this->lowestID){
+	    }elseif($this->lastImage == $this->lowestID){
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>";
 	    }else{
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>
