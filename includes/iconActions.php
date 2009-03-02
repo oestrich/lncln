@@ -11,6 +11,7 @@
 
 if(isset($_GET['thumb'])){
 	$extra = "&thumb=true";
+	$extra .= str_replace("&amp;", "&", $lncln->extra);
 }
 
 if($_GET['post'] == true){
