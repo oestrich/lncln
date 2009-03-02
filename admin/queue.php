@@ -19,8 +19,10 @@ if($lncln->isAdmin){
 	$lncln->queue = true;
 }
 
-if(isset($_POST)){
+if($_GET['action'] == "update"){
 	$lncln->dequeue($_POST);
+	header("location:" . URL . $lncln->script);
+	exit();
 }
 
 if(isset($_GET['delete']) && $lncln->isAdmin){
@@ -58,7 +60,7 @@ if($lncln->isAdmin){
 	</script>
 	<br />
 	This page will show the first 50 items in the queue<br />
-	<form enctype="multipart/form-data" action="queue.php" method="post">
+	<form enctype="multipart/form-data" action="queue.php?action=update" method="post">
 		<div class="queue">
 <?	
 	if(count($lncln->images) > 0){
