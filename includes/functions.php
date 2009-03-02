@@ -314,6 +314,9 @@ class lncln{
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
+		else{
+			$this->imagesToGet[] = 0;
+		}
 	}
 	
 	/**
