@@ -492,7 +492,7 @@ class lncln{
 		if ($this->firstImage == $this->highestID && $this->lastImage != $this->lowestID){
 	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
 	    }
-	    elseif($this->firstImages == $this->highestId && $this->lastImages == $this->lowestID){
+	    elseif($this->firstImage == $this->highestId && $this->lastImage == $this->lowestID){
 	    	return "";
 	    }
 	    elseif($this->lastImage == $this->lowestID){
