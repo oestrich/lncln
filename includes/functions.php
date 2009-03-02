@@ -314,9 +314,6 @@ class lncln{
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
-		else{
-			$this->imagesToGet[] = 0;
-		}
 	}
 	
 	/**
@@ -449,7 +446,9 @@ class lncln{
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
 		}
-		$sql = substr_replace($sql, "", -4);
+		
+		if(count($this->imagesToGet) > 0)
+			$sql = substr_replace($sql, "", -4);
 		$sql .= $time;
 		$sql .= " ORDER BY `id` DESC";
 		
