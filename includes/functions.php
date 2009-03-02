@@ -46,6 +46,9 @@ class lncln{
 	 * 
 	 * @since 0.6.0
 	 * @package lncln
+	 * 
+	 * @param string $action Which type of page is being loaded
+	 * @param array $params any extra parameters that will be passed onto the action
 	 */
 	function __construct($action = "none", $params = array()){	
 		if($action != "none"){
@@ -237,7 +240,12 @@ class lncln{
 	}
 	
 	/**
+	 * Function for loading albums
 	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param array $album First term is which album to load
 	 */
 	private function album($album){	
 		if($album[0] != 0){
@@ -308,7 +316,7 @@ class lncln{
 	}
 	
 	/**
-	 * 
+	 * Function for loading the queue
 	 * 
 	 * @since 0.9.0
 	 * @package lncln
@@ -416,36 +424,6 @@ class lncln{
 	 * @package lncln 
 	 */
 	function img(){
-		/*
-		if($this->queue){
-			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
-		}
-		else if($this->search != ""){
-			$this->search = stripslashes($this->search);
-			$this->search = mysql_real_escape_string($this->search);
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%'";
-			$result = mysql_query($sql);
-			
-			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND ( ";
-			
-			while($row = mysql_fetch_assoc($result)){
-				$sql .= "id = " . $row['picId'] . " OR ";
-			}
-		
-			$sql = substr_replace($sql ,"",-3);
-			$sql .= ") AND postTime <= " . time() . " ORDER BY id DESC";
-		}
-		else{
-			if($this->isAdmin != true){
-				$time = "AND postTime <= " . time();
-			}
-			else{
-				$time = "";
-			}
-			$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE queue = 0 AND id <= " . $this->firstImage . " " . $time . " ORDER BY `id` DESC LIMIT 50";
-		}
-		*/
-		
 		if($this->isAdmin != true){
 			$time = " AND postTime <= " . time();
 		}
@@ -1020,7 +998,12 @@ class lncln{
 	}
 	
 	/**
+	 * Deletes an album
 	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param int $album The album id to be deleted
 	 */
 	function deleteAlbum($album){
 		$album = prepareSQL($album);

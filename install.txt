@@ -3,7 +3,7 @@
 REQUIREMENTS
 ------------
 
-lncln needs PHP and MySQL.  So far only PHP5 and MySQL 5 have been tested.
+lncln needs PHP, MySQL, and ImageMagick.  So far only PHP5 and MySQL 5 have been tested.
 
 
 INSTALLATION
