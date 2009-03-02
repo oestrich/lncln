@@ -81,7 +81,7 @@ class lncln{
 
 			$this->highestID = $result['MAX(id)'];
 			
-			$sql = "SELECT MIN(id) FROM tags";
+			$sql = "SELECT MIN(id) FROM images";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
