@@ -489,11 +489,16 @@ class lncln{
 		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
 		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
-		if ($this->firstImage == $this->highestID){
+		if ($this->firstImage == $this->highestID && $this->lastImage != $this->lowestID){
 	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
-	    }elseif($this->lastImage == $this->lowestID){
+	    }
+	    elseif($this->firstImages == $this->highestId && $this->lastImages == $this->lowestID){
+	    	return "";
+	    }
+	    elseif($this->lastImage == $this->lowestID){
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>";
-	    }else{
+	    }
+	    else{
 	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>
 	        <a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
 	    }
