@@ -21,7 +21,7 @@ if($lncln->isAdmin){
 
 if($_GET['action'] == "update"){
 	$lncln->dequeue($_POST);
-	header("location:" . URL . $lncln->script);
+	header("location:" . URL . "admin/" . $lncln->script);
 	exit();
 }
 
