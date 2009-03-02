@@ -1024,29 +1024,32 @@ class lncln{
 	 * @package lncln
 	 */
 	function debug(){
-		echo $this->isAdmin . "\n";
-		echo $this->isLoggedIn . "\n";
-		echo $this->userID . "\n";
+		echo "isAdmin: " . $this->isAdmin . "\n";
+		echo "isLoggedIn: " . $this->isLoggedIn . "\n";
+		echo "userID: " . $this->userID . "\n";
 		
-		echo $this->script . "\n";
+		echo "script: " . $this->script . "\n";
 		
-		echo $this->firstImage . "\n";
-		echo $this->lastImage . "\n";
+		echo "firstImage: " . $this->firstImage . "\n";
+		echo "lastImage: " . $this->lastImage . "\n";
 		
-		echo $this->aboveFifty . "\n";
-		echo $this->belowFifty . "\n";
+		echo "aboveFifty: " . $this->aboveFifty . "\n";
+		echo "belowFifty: " . $this->belowFifty . "\n";
 		
-		echo $this->highestID . "\n";
-		echo $this->lowestID . "\n";
+		echo "highestID: " . $this->highestID . "\n";
+		echo "lowestID: " . $this->lowestID . "\n";
 		
-		echo $this->search . "\n";
-		echo $this->album . "\n";
-		echo $this->queue . "\n";
+		echo "search: " . $this->search . "\n";
+		echo "album: " . $this->album . "\n";
+		echo "queue: " . $this->queue . "\n";
 		
+		echo "imagesToGet: ";
 		print_r($this->imagesToGet);
+		
+		echo "images: ";
 		print_r($this->images);
-		echo $this->type . "\n";
-		echo $this->extra . "\n";
+		echo "type: " . $this->type . "\n";
+		echo "extra: " . $this->extra . "\n";
 	}
 }
 
