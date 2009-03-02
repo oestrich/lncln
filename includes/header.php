@@ -40,6 +40,7 @@
 	}
 ?>
 				<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
+				<a href='<?echo URL;?>album.php'>Albums</a>
 <?
 if($lncln->isLoggedIn){
 ?>
