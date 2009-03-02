@@ -63,6 +63,7 @@ if($lncln->isAdmin){
 ?>
 				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
 				<a href='<?echo URL;?>admin/adduser.php'>Add a user</a>
+				<a href='<?echo URL;?>admin/albums.php'>Edit Albums</a>
 <?
 }
 ?>
