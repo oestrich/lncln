@@ -171,6 +171,8 @@ class lncln{
 	 * @param array $search The first term of the array is the search term
 	 */
 	private function search($search){
+		$this->search = prepareSQL($search[0]);
+		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
@@ -182,8 +184,6 @@ class lncln{
 			$this->highestID = 0;
 		}
 		else{		
-			$this->search = prepareSQL($search[0]);
-			
 			$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
