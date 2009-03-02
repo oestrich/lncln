@@ -14,6 +14,8 @@ require_once("load.php");
 $lncln = new lncln("album", array($_GET['album'], $_GET['img']));
 $lncln->loggedIn();
 
+require_once(ABSPATH . "includes/iconActions.php");
+
 $lncln->img();
 
 require_once("includes/header.php");

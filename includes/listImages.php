@@ -120,7 +120,7 @@ foreach ($lncln->images as $image){
 				<br />
 			</div>
 		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
+			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?><?=$lncln->extra;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
