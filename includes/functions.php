@@ -337,7 +337,7 @@ class lncln{
 	}
 	
 	function rss($rss){
-		$safe = $rss[0] == "safe" ? "obscene = 0 AND " : "";
+		$safe = $rss[0] == "safe" ? " AND obscene = 0" : "";
 		
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
 		$result = mysql_query($sql);

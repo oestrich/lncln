@@ -42,7 +42,7 @@ foreach($lncln->images as $image){
 		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
 		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
 		<?echo $image['caption'];?>
-		<?echo $tags;?>
+		Tags: <?echo $tags;?>
 		]]></description>
 	</item>
 <?
