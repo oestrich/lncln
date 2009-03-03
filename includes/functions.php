@@ -83,7 +83,7 @@ class lncln{
 			$this->highestID = 0;
 		}
 		else{
-			$result = mysql_query("SELECT MAX(id) FROM images " . $time);
+			$result = mysql_query("SELECT MAX(id) FROM images WHERE " . str_replace(" AND ", "", $time));
 			$result = mysql_fetch_assoc($result);
 
 			$this->highestID = $result['MAX(id)'];
