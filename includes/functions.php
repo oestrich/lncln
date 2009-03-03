@@ -344,7 +344,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE " . $safe . " queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
+			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT 50";
 			$result = mysql_query($sql);
 			
 			while($row = mysql_fetch_assoc($result)){
