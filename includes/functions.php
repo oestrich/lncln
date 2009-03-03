@@ -179,8 +179,9 @@ class lncln{
 	 */
 	private function search($search){
 		$this->search = prepareSQL($search[0]);
+		$time = !$this->isAdmin ? " AND postTime <= " . time() . " " : "";
 		
-		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'" . $time;
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
@@ -191,13 +192,13 @@ class lncln{
 			$this->highestID = 0;
 		}
 		else{		
-			$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$sql = "SELECT MAX(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'" . $time;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
 			$this->highestID = $row['MAX(picId)'];
 			
-			$sql = "SELECT MIN(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$sql = "SELECT MIN(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'" . $time;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
@@ -210,7 +211,7 @@ class lncln{
 				$id = "";
 			}
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT 51";
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " " . $time. " ORDER BY picId DESC LIMIT 51";
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
@@ -226,7 +227,7 @@ class lncln{
 			$this->firstImage = $this->imagesToGet[0];
 			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " ORDER BY picId ASC LIMIT 50";
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' AND picId > " . $this->firstImage . " " . $time. " ORDER BY picId ASC LIMIT 50";
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
