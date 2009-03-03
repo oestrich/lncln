@@ -11,7 +11,7 @@
  
 header('Content-type: text/xml'); 
 
-require_once("load.php");
+require_once("../load.php");
 
 $lncln = new lncln("rss", array("safe"));
 $lncln->img();
