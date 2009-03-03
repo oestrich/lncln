@@ -4,7 +4,7 @@
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id: adduser.php 187 2009-02-25 01:28:19Z eric $
- * @license license.txt GNU General Public License
+ * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
  */
