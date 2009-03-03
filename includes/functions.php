@@ -514,7 +514,7 @@ class lncln{
 		$this->extra .= "";
 		
 		if($_GET['thumb']){
-			$this->type .= "thumb";
+			$this->type = "thumb";
 			$this->extra .= "&amp;thumb=true";
 		}
 	}
