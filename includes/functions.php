@@ -336,6 +336,23 @@ class lncln{
 		}
 	}
 	
+	function rss($rss){
+		$safe = $rss[0] == "safe" ? "obscene = 0 AND " : "";
+		
+		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['COUNT(*)'] > 0){
+			$sql = "SELECT id FROM images WHERE " . $safe . " queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
+			$result = mysql_query($sql);
+			
+			while($row = mysql_fetch_assoc($result)){
+				$this->imagesToGet[] = $row['id'];
+			}
+		}
+	}
+	
 	/**
 	 * Limits the availability of certain variables
 	 * 

@@ -13,8 +13,8 @@ header('Content-type: text/xml');
 
 require_once("load.php");
 
-$sql = "SELECT id, caption, postTime, type FROM images WHERE obscene = 0 AND queue = 0 AND postTime <= " . time() . " ORDER BY `id` DESC LIMIT 50";
-$result = mysql_query($sql);
+$lncln = new lncln("rss", array("safe"));
+$lncln->img();
 
 $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/safe.rss", "", $_SERVER['SCRIPT_NAME']);
 
@@ -29,15 +29,20 @@ $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/safe.rss", "", 
 <language>en-us</language>
 
 <?
-while($row = mysql_fetch_assoc($result)){
+foreach($lncln->images as $image){
+	$tags = join(', ', $image['tags']);
+	if($tags == ""){
+		$tags = "None.";
+	}
 ?>
 	<item>
-		<title><?echo $row['id'];?></title>
-		<link><?echo $server;?>image.php?img=<?echo $row['id'];?></link>
-		<guid><?echo $server;?>image.php?img=<?echo $row['id'];?></guid>
-		<pubDate><?echo date('r', $row['postTime']);?></pubDate>
-		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $row['id'] . "." . $row['type']?>" alt="<?echo $row['id'];?>"/> <br />
-		<?echo $row['caption'];?>
+		<title><?echo $image['id'];?></title>
+		<link><?echo $server;?>image.php?img=<?echo $image['id'];?></link>
+		<guid><?echo $server;?>image.php?img=<?echo $image['id'];?></guid>
+		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
+		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
+		<?echo $image['caption'];?>
+		<?echo $tags;?>
 		]]></description>
 	</item>
 <?
