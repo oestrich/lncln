@@ -37,8 +37,8 @@ foreach($lncln->images as $image){
 ?>
 	<item>
 		<title><?echo $image['id'];?></title>
-		<link><?echo $server;?>image.php?img=<?echo $row['id'];?></link>
-		<guid><?echo $server;?>image.php?img=<?echo $row['id'];?></guid>
+		<link><?echo $server;?>image.php?img=<?echo $image['id'];?></link>
+		<guid><?echo $server;?>image.php?img=<?echo $image['id'];?></guid>
 		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
 		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
 		<?echo $image['caption'];?><br />
