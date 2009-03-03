@@ -341,6 +341,14 @@ class lncln{
 		}
 	}
 	
+	/**
+	 * Gets data ready for the rss feed
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @param array $rss First term is the type of rss feed (all/safe)
+	 */
 	function rss($rss){
 		$safe = $rss[0] == "safe" ? " AND obscene = 0" : "";
 		
