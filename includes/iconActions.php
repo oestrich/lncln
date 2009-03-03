@@ -23,13 +23,13 @@ if($_GET['post'] == true){
 
 if(isset($_GET['delete']) && $lncln->isAdmin){
 	$deletion = $lncln->delete($_GET['delete']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['delete']);
 	exit();
 }
 
 if(isset($_GET['obscene']) && $lncln->isLoggedIn){
 	$obscene = $lncln->obscene($_GET['obscene']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['obscene']);
 	exit();
 }
 
@@ -40,7 +40,7 @@ if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
 		$rating = 5;
 	}
 	$lncln->rate($_GET['rateUp'], $rating);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['rateUp']);
 	exit();
 }
 
@@ -51,7 +51,7 @@ if(isset($_GET['rateDown']) && $lncln->isLoggedIn){
 		$rating = -5;
 	}
 	$lncln->rate($_GET['rateDown'], $rating);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['rateDown']);
 	exit();
 }
 
@@ -77,7 +77,7 @@ if(isset($_GET['refresh']) && $lncln->isLoggedIn){
 		$row = mysql_fetch_assoc($result);
 		$lncln->thumbnail($id . "." . $row['type']);
 	}
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['refresh']);
 	exit();
 }
 
