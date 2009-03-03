@@ -151,7 +151,7 @@ foreach ($lncln->images as $image){
 					<select name="album">
 						<option value="0">No album</option>
 			<?foreach($lncln->getAlbums() as $album):?>
-				<?$selected = $album['id'] == $image['id'] ? "selected" : "";?>
+				<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
 						<option value="<?=$album['id'];?>" <?=$selected;?>><?=$album['name'];?></option>
 			<?endforeach;?>
 					</select>
