@@ -36,17 +36,19 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 		$password = sha1($password);
 	}
 	
-	$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+	$sql = "SELECT obscene FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
 	$result = mysql_query($sql);
 	$numRows = mysql_num_rows($result);
 	
 	$row = mysql_fetch_assoc($result);
 	
 	if($numRows == 1){
+		$obscene = $row['obscene'] == 1 ? true : false;
+		
 		$row = mysql_fetch_assoc($result);
 		setcookie("username", $username, time() + (60 * 60 * 24));
 		setcookie("password", $password, time() + (60 * 60 * 24));
-		setcookie('obscene', $row['obscene'], time() + (60 * 60 * 24));
+		setcookie("obscene", $obscene, time() + (60 * 60 * 24));
 		$isLoggedIn = true;
 	}
 }
