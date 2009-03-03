@@ -25,13 +25,14 @@ CREATE TABLE IF NOT EXISTS `images` (
   `caption` text NOT NULL,
   `postTime` int(12) NOT NULL default '0',
   `type` enum('jpg','png','gif') NOT NULL,
+  `album` int(8) NOT NULL default '0',
   `queue` tinyint(1) NOT NULL default '1',
   `rating` int(4) NOT NULL default '0',
   `numComments` int(4) NOT NULL default '0',
   `obscene` tinyint(1) NOT NULL default '0',
   `report` int(2) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -103,8 +104,3 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-ALTER TABLE `images` ADD `album` INT( 8 ) NOT NULL DEFAULT '0' AFTER `type`  
-
