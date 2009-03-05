@@ -17,6 +17,7 @@ require_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
+require_once(ABSPATH . "includes/header.php");
 
 if($lncln->isAdmin):
 	foreach($lncln->images as $image):	
@@ -27,4 +28,8 @@ if($lncln->isAdmin):
 	<?
 	endforeach;
 endif;
+
+
+require_once(ABSPATH . "includes/footer.php");
+
 ?>
