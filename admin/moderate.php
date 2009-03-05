@@ -20,8 +20,11 @@ $lncln->img();
 require_once(ABSPATH . "includes/header.php");
 
 if($lncln->isAdmin):
+?>
+	<form action="moderate.php?action=update" method="post">
+<?
 	foreach($lncln->images as $image):	
-		$tags = join(',', $image['tags']);
+		$tags = join(', ', $image['tags']);
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
@@ -40,6 +43,10 @@ if($lncln->isAdmin):
 		</div>
 	<?
 	endforeach;
+?>
+		<input type="submit" value="Submit" />
+	</form>
+<?
 endif;
 
 
