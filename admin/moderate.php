@@ -24,6 +24,18 @@ if($lncln->isAdmin):
 	?>
 		<div id="<?=$image['id'];?>">
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
+			<div class="modForms">
+				<input type="hidden" name="id" value="<?=$image['id'];?>" />
+				<input type="text" name='tags' value="<?=$image['tags'];?>" />
+				<textarea name="caption" rows="10" cols="50" wrap="off"><?=$image['caption'];?></textarea>
+				<select name="album">
+					<option value="0">No album</option>
+		<?foreach($lncln->getAlbums() as $album):?>
+			<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
+					<option value="<?=$album['id'];?>" <?=$selected;?>><?=$album['name'];?></option>
+		<?endforeach;?>
+				</select>
+			</div>
 		</div>
 	<?
 	endforeach;
