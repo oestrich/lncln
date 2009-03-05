@@ -30,4 +30,18 @@ if(mysql_num_rows($result) < 1){
 	die();
 }
 
+if(substr(sprintf('%o', fileperms('images/full')), -4) != "0777"){
+        echo "Change your permissions images/full!";
+	exit();
+}
+if(substr(sprintf('%o', fileperms('images/index')), -4) != "0777"){
+        echo "Change your permissions images/index!";
+	exit();
+}
+if(substr(sprintf('%o', fileperms('images/thumb')), -4) != "0777"){
+        echo "Change your permissions on images/thumb!";
+	exit();
+}
+
+
 ?>
