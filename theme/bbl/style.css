@@ -119,11 +119,13 @@ a{
 
 .modForms{
 	position: relative;
-	left: 200px;
-	top: -150px;
+	left: 180px;
+	top: -200px;
 }
 
 .modImage{
 	display: block;
 	height: 150px;
+	position: relative;
+	top: -40px;
 }
