@@ -20,6 +20,8 @@ $lncln->img();
 require_once(ABSPATH . "includes/header.php");
 
 if($lncln->isAdmin):
+	echo $lncln->prevNext();
+
 ?>
 	<form action="moderate.php?action=update" method="post">
 <?
@@ -46,6 +48,12 @@ if($lncln->isAdmin):
 ?>
 		<input type="submit" value="Submit" />
 	</form>
+	<div id='bPrevNext'>
+<?
+	echo $lncln->prevNext();
+?>
+	</div>
+	
 <?
 endif;
 
