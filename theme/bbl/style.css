@@ -118,6 +118,12 @@ a{
 }
 
 .modForms{
-	float: right;
-	clear: both;
+	position: relative;
+	left: 200px;
+	top: -150px;
+}
+
+.modImage{
+	display: block;
+	height: 150px;
 }

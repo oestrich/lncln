@@ -24,7 +24,7 @@ if($lncln->isAdmin):
 		$tags = join(',', $image['tags']);
 	?>
 		<div id="<?=$image['id'];?>">
-			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
+			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
 				<input type="hidden" name="id" value="<?=$image['id'];?>" /><br />
 				<input type="text" name='tags' value="<?=$tags;?>" /><br />
