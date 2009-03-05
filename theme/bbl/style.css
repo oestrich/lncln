@@ -116,3 +116,7 @@ a{
 	background-color: white;
 	color: black;
 }
+
+.modForm{
+	float: right;
+}

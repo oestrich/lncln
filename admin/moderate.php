@@ -21,13 +21,14 @@ require_once(ABSPATH . "includes/header.php");
 
 if($lncln->isAdmin):
 	foreach($lncln->images as $image):	
+		$tags = join(',', $image['tags']);
 	?>
 		<div id="<?=$image['id'];?>">
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
-				<input type="hidden" name="id" value="<?=$image['id'];?>" />
-				<input type="text" name='tags' value="<?=$image['tags'];?>" />
-				<textarea name="caption" rows="10" cols="50" wrap="off"><?=$image['caption'];?></textarea>
+				<input type="hidden" name="id" value="<?=$image['id'];?>" /><br />
+				<input type="text" name='tags' value="<?=$tags;?>" /><br />
+				<textarea name="caption" rows="10" cols="50" wrap="off"><?=$image['caption'];?></textarea><br />
 				<select name="album">
 					<option value="0">No album</option>
 		<?foreach($lncln->getAlbums() as $album):?>
