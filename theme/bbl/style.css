@@ -119,4 +119,5 @@ a{
 
 .modForms{
 	float: right;
+	clear: both;
 }
