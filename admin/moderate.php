@@ -22,7 +22,7 @@ if($lncln->isAdmin):
 	foreach($lncln->images as $image):	
 	?>
 		<div id="<?=$image['id'];?>">
-			<a href="<?=URL;?>images/full/<?$image['file'];?>" target="_blank"><img src="<?URL;?>images/thumb/<?=$image['file'];?>" /></a>
+			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 		</div>
 	<?
 	endforeach;
