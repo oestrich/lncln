@@ -120,12 +120,10 @@ a{
 .modForms{
 	position: relative;
 	left: 180px;
-	top: -200px;
+	top: -160px;
 }
 
 .modImage{
 	display: block;
 	height: 150px;
-	position: relative;
-	top: -40px;
 }
