@@ -117,10 +117,15 @@ a{
 	color: black;
 }
 
+.modDiv{
+	display: block;
+	height: 200px;
+}
+
 .modForms{
 	position: relative;
 	left: 180px;
-	top: -160px;
+	top: -170px;
 }
 
 .modImage{

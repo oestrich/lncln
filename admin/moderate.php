@@ -23,7 +23,7 @@ if($lncln->isAdmin):
 	foreach($lncln->images as $image):	
 		$tags = join(',', $image['tags']);
 	?>
-		<div id="<?=$image['id'];?>">
+		<div id="<?=$image['id'];?>" class="modDiv">
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
 				<input type="hidden" name="id" value="<?=$image['id'];?>" /><br />
