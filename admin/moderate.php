@@ -33,10 +33,10 @@ if($lncln->isAdmin):
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
 				<input type="hidden" name="id" value="<?=$image['id'];?>" /><br />
-				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='tags' value="<?=$tags;?>" onchame="modCheck(<?=$image['id'];?>)"/><br />
-				Caption:&nbsp;<textarea name="caption" rows="10" cols="50" wrap="off" onchame="modCheck(<?=$image['id'];?>)"><?=$image['caption'];?></textarea><br />
+				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='tags' value="<?=$tags;?>" onchame="modCheck(''<?=$image['id'];?>'')"/><br />
+				Caption:&nbsp;<textarea name="caption" rows="10" cols="50" wrap="off" onchame="modCheck(''<?=$image['id'];?>'')"><?=$image['caption'];?></textarea><br />
 				Album:&nbsp;&nbsp;&nbsp;
-				<select name="album" onchame="modCheck(<?=$image['id'];?>)">
+				<select name="album" onchame="modCheck(''<?=$image['id'];?>'')">
 					<option value="0">No album</option>
 		<?foreach($lncln->getAlbums() as $album):?>
 			<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
