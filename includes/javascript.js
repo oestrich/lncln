@@ -79,3 +79,8 @@ function album(divid){
 	document.getElementById('a' + divid).style.display = 'block';
 	document.getElementById('album' + divid).style.display = 'none';
 }
+
+function modCheck(divid){
+	document.getElementById('check' + divid).checked = true;
+}
+}
