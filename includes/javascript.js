@@ -83,4 +83,3 @@ function album(divid){
 function modCheck(divid){
 	document.getElementById('check' + divid).checked = true;
 }
-}
