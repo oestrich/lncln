@@ -27,9 +27,11 @@ require_once(ABSPATH . "includes/header.php");
 	
 if($lncln->isAdmin):
 	echo $lncln->prevNext();
-
+	
+	$img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
+ 
 ?>
-	<form action="moderate.php?action=update" method="post">
+	<form action="moderate.php?action=update<?=$img;?>" method="post">
 <?
 	foreach($lncln->images as $image):	
 		$tags = join(', ', $image['tags']);
