@@ -162,5 +162,5 @@ if($lncln->isAdmin){
 		<div id="mainBody">
 			<br />
 			<?if($lncln->isAdmin):?>
-				<span style="text-align: center;"><a href="admin/moderate.php">Moderate Images</a></span>
+				<div style="text-align: center;"><a href="admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>	
