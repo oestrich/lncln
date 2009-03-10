@@ -13,8 +13,6 @@ require_once("../load.php");
 
 $lncln = new lncln("index");
 
-require_once(ABSPATH . "includes/iconActions.php");
-
 if($_GET['action'] == "update"){
 	foreach($_POST['check'] as $key => $value){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
