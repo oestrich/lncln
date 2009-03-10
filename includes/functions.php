@@ -132,12 +132,15 @@ class lncln{
 			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 			
 			//getting the prevsion page
-			$sql = "SELECT MAX(id) FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 " . $time;
+			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
-			if($row['MAX(id)'] != null){	
-				$this->aboveFifty = $row['MAX(id)'];
+			$numRows = mysql_num_rows($result);
+            if($numRows > 0){	
+				mysql_data_seek($result, $numRows - 1);
+                $row = mysql_fetch_assoc($result);    
+                $this->aboveFifty = $row['id'];
 			}
 			else{
 				$this->aboveFifty = $this->firstImage;
