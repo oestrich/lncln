@@ -88,7 +88,7 @@ class lncln{
 
 			$this->highestID = $result['MAX(id)'];
 			
-			$sql = "SELECT MIN(id) FROM images " . str_replace(" AND ", "WHERE ", $time);
+			$sql = "SELECT MIN(id) FROM images WHERE queue = 0 " . $time;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
