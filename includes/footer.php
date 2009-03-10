@@ -13,7 +13,7 @@
 		</div>
 		<div id="footer">
 			<?if($lncln->isAdmin):?>
-				<div style="text-align: center;"><a href="admin/moderate.php">Moderate Images</a></div>
+				<div style="text-align: center; left: -50px; position: relative;"><a href="admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>		
 			Any image upload by an anonymous user is put into a moderation queue.  Moderation is done by the discretion of the admins.<br />
 			If you find something that belongs to you, and would like it taken down, please contact <a href="mailto:mazra[at]boomboxlincoln[dot]org">mazra</a><br />
