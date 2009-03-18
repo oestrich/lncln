@@ -26,7 +26,7 @@ connect();
 $sql = "SHOW TABLES LIKE \"images\"";
 $result = mysql_query($sql);
 if(mysql_num_rows($result) < 1){
-	echo "Please install the database.  It's located in mysql.sql";
+	echo "Please install the database.  It's located in <a href=\"mysql.sql\">mysql.sql</a>";
 	die();
 }
 ?>
