@@ -47,6 +47,7 @@ a{
 	width: 487px;
 	padding: 18px;
 	border: 2px solid black;
+	z-index: 2;
 }
 
 .obCheck{
