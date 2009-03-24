@@ -33,7 +33,7 @@ function toggleDiv(type){
 			upload.size = "20";
 		}
 		document.getElementById('formType').value = "regular";
-		document.getElementById('form').action = "upload.php;
+		document.getElementById('form').action = "upload.php";
 	}
 }
 
