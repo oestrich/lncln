@@ -46,6 +46,7 @@ $lncln = new lncln("upload");
 require_once(ABSPATH . "includes/header.php");
 
 ?>
+	Tags are manditory.
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
 foreach($lncln->images as $image):
