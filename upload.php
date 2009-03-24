@@ -12,7 +12,7 @@
 require_once("load.php");
 
 //Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
-if(!isset($_POST)){
+if(!isset($_POST['formType'])){
 	require_once("includes/header.php");
 	echo "Please don't come to this page on your own.";
 	require_once("includes/footer.php");

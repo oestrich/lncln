@@ -75,7 +75,7 @@ if($lncln->isAdmin){
 				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
 					<div>
 						<input type="hidden" name="type" id="formType" value="regular" />
-						Uploaded files will be moderated. Tags are mandatory.<br />
+						Uploaded files will be moderated<br />
 						<input name="upload0" id="upload0" type="file" onchange="TestFileType(this.form.upload0.value, ['', 'gif', 'jpg', 'png']);"/>
 						<br />
 						<input name="upload1" id="upload1" type="file" onchange="TestFileType(this.form.upload1.value, ['', 'gif', 'jpg', 'png']);"/>
