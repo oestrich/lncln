@@ -19,6 +19,16 @@ if(!isset($_POST['type'])){
 	exit();
 }
 
+if($_GET['action'] == "finishUpload"){
+	foreach($_POST['check'] as $key => $value){
+		$lncln->tag($key, $_POST['images'][$key]['tags']);
+		$lncln->caption($key, $_POST['images'][$key]['caption']);
+		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
+	}
+	header("location:" . URL . "index.php");
+	exit();
+}
+
 $lncln = new lncln("upload");
 
 require_once(ABSPATH . "includes/header.php");
