@@ -22,6 +22,10 @@ if($_GET['action'] == "finishUpload"){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
+		
+		if($_POST['obscene'][$key]){
+			$lncln->obscene($key);
+		}
 	}
 	header("location:" . URL . "index.php");
 	exit();
@@ -47,7 +51,8 @@ require_once(ABSPATH . "includes/header.php");
 foreach($lncln->images as $image):
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
-			Obscene: <input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
+			<input type="hidden" name='check[<?=$image['id'];?>]' value="<?=$image['id'];?>" />
+			Obscene: <input type="checkbox" name="obscene[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
