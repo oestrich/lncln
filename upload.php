@@ -11,14 +11,6 @@
  
 require_once("load.php");
 
-//Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
-if(!isset($_POST['type'])){
-	require_once("includes/header.php");
-	echo "Please don't come to this page on your own.";
-	require_once("includes/footer.php");
-	exit();
-}
-
 if($_GET['action'] == "finishUpload"){
 	foreach($_POST['check'] as $key => $value){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
@@ -28,6 +20,16 @@ if($_GET['action'] == "finishUpload"){
 	header("location:" . URL . "index.php");
 	exit();
 }
+
+//Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
+if(!isset($_POST['type'])){
+	require_once("includes/header.php");
+	echo "Please don't come to this page on your own.";
+	require_once("includes/footer.php");
+	exit();
+}
+
+
 
 $lncln = new lncln("upload");
 
