@@ -23,7 +23,9 @@ $lncln = new lncln("upload");
 
 require_once(ABSPATH . "includes/header.php");
 
-
+?>
+	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
+<?
 foreach($lncln->images as $image):
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
@@ -45,6 +47,10 @@ foreach($lncln->images as $image):
 
 <?
 endforeach;
+?>
+		<input type="submit" value="Submit" />
+	</form>
+<?
 
 require_once(ABSPATH . "includes/footer.php");
 
