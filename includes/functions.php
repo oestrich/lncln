@@ -111,7 +111,7 @@ class lncln{
 			}
 		
 			//Getting the number to start the next page && the ids that the page needs to load.
-			$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
+			$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND uploaded = 1 AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
@@ -133,7 +133,7 @@ class lncln{
 			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 			
 			//getting the prevsion page
-			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
+			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND uploaded = 1 AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
@@ -258,7 +258,7 @@ class lncln{
 			$this->album = prepareSQL($album[0]);
 			$time = !$this->isAdmin ? " AND postTime <= " . time() . " " : "";
 			
-			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album . $time;
+			$sql = "SELECT COUNT(*) FROM images WHERE uploaded = 1 AND queue = 0 AND album = " . $this->album . $time;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
@@ -269,13 +269,13 @@ class lncln{
 				$this->highestID = 0;
 			}
 			else{				
-				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album . $time;
+				$sql = "SELECT MAX(id) FROM images WHERE uploaded = 1 AND album = " . $this->album . $time;
 				$result = mysql_query($sql);
 				$row = mysql_fetch_assoc($result);
 				
 				$this->highestID = $row['MAX(id)'];
 				
-				$sql = "SELECT MIN(id) FROM images WHERE album = " . $this->album . $time;
+				$sql = "SELECT MIN(id) FROM images WHERE uploaded = 1 AND album = " . $this->album . $time;
 				$result = mysql_query($sql);
 				$row = mysql_fetch_assoc($result);
 				
@@ -288,7 +288,7 @@ class lncln{
 					$id = "";
 				}
 				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND uploaded = 1 AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
 				$result = mysql_query($sql);
 		
 				while($row = mysql_fetch_assoc($result)){
@@ -304,7 +304,7 @@ class lncln{
 				$this->firstImage = $this->imagesToGet[0];
 				$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
 				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " AND uploaded = 1 AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
 				$result = mysql_query($sql);
 				
 				$numRows = mysql_num_rows($result);
@@ -359,7 +359,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT 50";
+			$sql = "SELECT id FROM images WHERE uploaded = 1 AND queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT 50";
 			$result = mysql_query($sql);
 			
 			while($row = mysql_fetch_assoc($result)){
