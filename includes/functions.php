@@ -648,6 +648,8 @@ class lncln{
 				
 				$this->imagesToGet[] = $imgID;
 				
+				$_SESSION['uploadKey'][$imgID] = $i;
+				
 				$_SESSION['image'][$i] = $imgID . '.' . $type;
 				
 				if($_GET['url']){

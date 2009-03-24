@@ -15,7 +15,7 @@ if($_GET['action'] == "finishUpload"){
 	$lncln = new lncln();
 	foreach($_POST['check'] as $key => $value){
 	    if($_POST['images'][$key]['tags'] == ""){
-            $_SESSION['upload'][1] = 3;
+            $_SESSION['upload'][$_SESSION['uploadKey'][$key]] = 3;
             $lncln->delete($key);
             continue;
         }		
