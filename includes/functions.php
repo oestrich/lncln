@@ -35,6 +35,7 @@ class lncln{
 	private $search; 			//tag being searched for
 	private $album;				//album being viewed
 	private $queue = false;		//if you're in the queue
+	private $uploaded = array();
 	
 	private $imagesToGet = array();		//The images that data will be pulled for
 	private $images = array(); 	//Image data to be outputed in listImages.php
@@ -588,18 +589,6 @@ class lncln{
 	        //the file extension
 			$type = $typeTmp[count($typeTmp) - 1];
 			
-			if($_POST['upload' . $i . 'check']){
-				$obscene = 1;
-			}
-			else{
-				$obscene = 0;
-			}
-	        
-			if($_POST['upload' . $i . 'tags'] == ""){
-				$_SESSION['upload'][$i] = 3;
-				continue;
-			}
-			
 			//only these types
 	        if($type == "png" || $type == "jpg" || $type == "gif"){
 				$_SESSION['upload'][$i] = 2;
@@ -620,34 +609,34 @@ class lncln{
 						$sql = "UPDATE users SET postTime = " . time() . ", numImages = 1 WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 						mysql_query($sql);
 											
-						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
 						$_SESSION['upload'][$i] = 1;
 					}				
 					else if($row['numImages'] >= 20 && date('d', $row['postTime']) == date('d', time()) && !$row['admin']){
 						$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 						mysql_query($sql);
 						
-						$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+						$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 						$_SESSION['upload'][$i] = 2;
 					}
 					else if($row['numImages'] < 20 && !$row['admin']){
 						$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . ($row['numImages'] + 1) . " WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1"; 
 						mysql_query($sql);
 						
-						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
 						$_SESSION['upload'][$i] = 1;
 					}
 					else if($row['admin']){
-						$sql = "INSERT INTO images (postTime, type, queue, obscene) VALUES (" . $postTime . ", '" . $type . "', 0, " . $obscene . ")";
+						$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
 						$_SESSION['upload'][$i] = 1;
 					}
 					else{
-						$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+						$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 						$_SESSION['upload'][$i] = 2;
 					}
 				}
 				else{
-					$sql = "INSERT INTO images (postTime, type, obscene) VALUES (" . $postTime . ", '" . $type . "', " . $obscene . ")";
+					$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 					$_SESSION['upload'][$i] = 2;
 				}
 				
@@ -656,6 +645,8 @@ class lncln{
 				mysql_query($sql);
 				
 				$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
+				
+				$this->uploaded[] = $imgID;
 				
 				$_SESSION['image'][$i] = $imgID . '.' . $type;
 				
@@ -668,7 +659,7 @@ class lncln{
 				}
 				
 				$this->thumbnail($imgID . '.' . $type);
-				$this->tag($imgID, $_POST['upload' . $i . 'tags']);
+				//$this->tag($imgID, $_POST['upload' . $i . 'tags']);
 	        }
 			else{
 				$_SESSION['upload'][$i] == 4;

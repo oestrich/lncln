@@ -72,50 +72,29 @@ if($lncln->isAdmin){
 				
 				
 				<!-- upload form -->
-				<form enctype="multipart/form-data" action="<?=URL;?>index.php?post=true" method="post"  id="form" style="display: none;">
+				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
 					<div>
 						<input type="hidden" name="type" id="formType" value="regular" />
 						Uploaded files will be moderated. Tags are mandatory.<br />
-						Obscene<br />
-						<input name="upload0check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload0" id="upload0" type="file" onchange="TestFileType(this.form.upload0.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload0tags" type="text" />
 						<br />
-						<input name="upload1check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload1" id="upload1" type="file" onchange="TestFileType(this.form.upload1.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload1tags" type="text" />
 						<br />
-						<input name="upload2check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload2" id="upload2" type="file" onchange="TestFileType(this.form.upload2.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload2tags" type="text" />
 						<br />
-						<input name="upload3check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload3" id="upload3" type="file" onchange="TestFileType(this.form.upload3.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload3tags" type="text" />
 						<br />
-						<input name="upload4check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload4" id="upload4" type="file" onchange="TestFileType(this.form.upload4.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload4tags" type="text" />
 						<br />
-						<input name="upload5check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload5" id="upload5" type="file" onchange="TestFileType(this.form.upload5.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload5tags" type="text" />
 						<br />
-						<input name="upload6check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload6" id="upload6" type="file" onchange="TestFileType(this.form.upload6.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload6tags" type="text" />
 						<br />
-						<input name="upload7check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload7" id="upload7" type="file" onchange="TestFileType(this.form.upload7.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload7tags" type="text" />
 						<br />
-						<input name="upload8check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload8" id="upload8" type="file" onchange="TestFileType(this.form.upload8.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload8tags" type="text" />
 						<br />
-						<input name="upload9check" type="checkbox" value='true' class="obCheck"/>
 						<input name="upload9" id="upload9" type="file" onchange="TestFileType(this.form.upload9.value, ['', 'gif', 'jpg', 'png']);"/>
-						Tags: <input name="upload9tags" type="text" />
 						<br />
 						<input type="submit" value="Upload File" />
 						<br />
@@ -162,5 +141,5 @@ if($lncln->isAdmin){
 		<div id="mainBody">
 			<br />
 			<?if($lncln->isAdmin):?>
-				<div style="text-align: center; left: -50px; position: relative;"><a href="admin/moderate.php">Moderate Images</a></div>
+				<div style="text-align: center; left: -50px; position: relative; z-index: 1;"><a href="admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>	
