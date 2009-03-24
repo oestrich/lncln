@@ -24,7 +24,7 @@ function toggleDiv(type){
 			upload.size = "30";
 		}
 		document.getElementById('formType').value = "url";
-		document.getElementById('form').action = "index.php?post=true&url=true";
+		document.getElementById('form').action = "upload.php?url=true";
 	}
 	else{
 		for(var a = 0; a < 10; a++){
@@ -33,7 +33,7 @@ function toggleDiv(type){
 			upload.size = "20";
 		}
 		document.getElementById('formType').value = "regular";
-		document.getElementById('form').action = "index.php?post=true";
+		document.getElementById('form').action = "upload.php;
 	}
 }
 
