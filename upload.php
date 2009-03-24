@@ -24,7 +24,7 @@ $lncln = new lncln("upload");
 require_once(ABSPATH . "includes/header.php");
 
 
-foreach($lncln->uploaded as $image):
+foreach($lncln->images as $image):
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 

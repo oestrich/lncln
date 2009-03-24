@@ -646,7 +646,7 @@ class lncln{
 				
 				$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
 				
-				$this->uploaded[] = $imgID;
+				$this->imagesToGet[] = $imgID;
 				
 				$_SESSION['image'][$i] = $imgID . '.' . $type;
 				
@@ -665,6 +665,8 @@ class lncln{
 				$_SESSION['upload'][$i] == 4;
 			}
 		}
+		
+		$this->img();
 	}
 	
 	/**
