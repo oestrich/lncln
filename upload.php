@@ -14,6 +14,11 @@ require_once("load.php");
 if($_GET['action'] == "finishUpload"){
 	$lncln = new lncln();
 	foreach($_POST['check'] as $key => $value){
+	    if($_POST['images'][$key]['tags'] == ""){
+            $_SESSION['upload'][$i] = 3;
+            $lncln->delete($key);
+            continue;
+        }		
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
