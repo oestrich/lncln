@@ -9,10 +9,8 @@
  * @package lncln
  */
 
-require_once("config.php");
-require_once("includes/functions.php");
+require_once("load.php");
 
-connect();
 
 if(isset($_COOKIE['username'])){
 	setcookie("username", "", time() - (60 * 60 * 24));
