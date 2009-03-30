@@ -1151,4 +1151,30 @@ function prepareSQL($var){
 	
 	return $var;
 }
+
+/**
+ * Creates a temporary name for uploads, returns a string
+ * that is 25 random characters, a-zA-Z0-9
+ * 
+ * @since 0.10.0
+ * @package lncln
+ * 
+ * @return string 25 characters to use as a name for storing the temporary image
+ */
+function tempName(){
+	$array = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+				   'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+				   'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7',
+				   '8', '9', '0', 'A', 'B', 'c', 'D', 'E', 'F', 'G', 'H',
+				   'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+				   'T', 'U', 'V', 'w', 'X', 'Y', 'Z'
+				  );
+	$string = "";
+	
+	for($i = 0; $i < 25; $i++){
+	        $string .= $array[rand(0, 62)];
+	}
+	
+	return $string;
+}
 ?>
