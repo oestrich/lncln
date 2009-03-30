@@ -2,6 +2,8 @@
 /**
  * image.php
  * 
+ * Page to display only one image, the image id in $_GET['img']
+ * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id$
  * @license license.txt GNU General Public License version 3

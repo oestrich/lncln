@@ -1,6 +1,8 @@
 <?
 /**
  * login.php
+ * 
+ * Does exactly what it seems like it should
  *  
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id$

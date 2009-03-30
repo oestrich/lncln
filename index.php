@@ -2,6 +2,8 @@
 /**
  * index.php
  * 
+ * Main page, does the "index" action
+ * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id$
  * @license license.txt GNU General Public License version 3
@@ -19,12 +21,19 @@ $lncln->img();
 
 require_once(ABSPATH . "includes/header.php");
 
+
+//News
 $sql = "SELECT * FROM `news` ORDER BY id DESC LIMIT 1";
 $result = mysql_query($sql);
 $row = mysql_fetch_assoc($result);
 
 echo $row['news'] . "<br /><br />";
 
+/**
+ * Upload block that lets the user know how the upload went
+ * Should probably eventually stick this into a function,
+ * if only to clean up code
+ */
 if($_SESSION['uploaded']){
 	for($i = 0; $i < 10; $i++){
 		$a = $i + 1;
@@ -51,6 +60,7 @@ if($_SESSION['uploaded']){
 	}
 	$_SESSION['pages'] += 1;
 	
+	//So it only shows up once
 	if($_SESSION['pages'] >= 1){
 		unset($_SESSION['uploaded']);
 		unset($_SESSION['upload']);

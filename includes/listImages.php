@@ -2,6 +2,10 @@
 /**
  * listImages.php
  * 
+ * The page that actually displays the images.  This includes the icons.
+ * Runs through $lncln-images for all image data and prints it
+ * Another very important page.
+ * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id$
  * @license license.txt GNU General Public License version 3

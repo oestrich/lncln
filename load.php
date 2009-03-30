@@ -2,6 +2,9 @@
 /**
  * load.php
  * 
+ * One of the most important files, gets the entire software going
+ * Every page should include this
+ * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.9.0 $Id$
  * @license license.txt GNU General Public License version 3
