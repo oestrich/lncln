@@ -562,13 +562,8 @@ class lncln{
 			$sql = "SELECT MAX(postTime) FROM images";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
-			
-			if(time() >= ($row['MAX(postTime)'] + (60 * 15))){
-				$postTime = time();
-			}
-			else{
-				$postTime = $row['MAX(postTime)'] + (60 * 15);
-			}
+						
+			$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
 			
 			//if nothing in either style uploads
 			if($_POST['upload' . $i] == "" && $_FILES['upload'.$i]['name'] == ""){
