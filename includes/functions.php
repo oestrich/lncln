@@ -581,13 +581,8 @@ class lncln{
 				continue;
 			}
 			
-			if($_GET['url']){
-				$typeTmp = split("\.", $_POST['upload' . $i]);
-			}
-			else{
-				//splits the upload name to get the file extension
-				$typeTmp = split("\.", $_FILES['upload'.$i]['name']);
-			}
+			//Splitting the entire name, so it can pull the extension next
+			$typeTmp = $_GET['URL'] ? split("\.", $_POST['upload' . $i]) : split("\.", $_FILES['upload'.$i]['name']);
 			
 	        //the file extension
 			$type = $typeTmp[count($typeTmp) - 1];
@@ -1180,6 +1175,6 @@ function tempName($name){
 	        $string .= $array[rand(0, count($array))];
 	}
 	
-	return $string;
+	return $string . '.' . $type;
 }
 ?>
