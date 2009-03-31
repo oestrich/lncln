@@ -1159,9 +1159,14 @@ function prepareSQL($var){
  * @since 0.10.0
  * @package lncln
  * 
+ * @param string $name The name of the file that was uploaded, so it can pull the type
+ * 
  * @return string 25 characters to use as a name for storing the temporary image
  */
-function tempName(){
+function tempName($name){
+	$typeTmp = split("\.", $name);
+	$type = $typeTmp[count($typeTmp) - 1];
+	
 	$array = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
 				   'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
 				   'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7',
@@ -1172,7 +1177,7 @@ function tempName(){
 	$string = "";
 	
 	for($i = 0; $i < 25; $i++){
-	        $string .= $array[rand(0, 62)];
+	        $string .= $array[rand(0, count($array))];
 	}
 	
 	return $string;
