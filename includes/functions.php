@@ -17,6 +17,9 @@
  * 
  * @since 0.6.0
  * @package lncln
+ * 
+ * @param string $action The action you wish to perform
+ * @param array $params The parameters to be sent to the action
  */
  
 class lncln{
@@ -347,6 +350,12 @@ class lncln{
 	}
 	
 	/**
+	 * First person to send an email to codecomments@lncln.com gets the
+	 * chance to maybe win $1 million.  Ok, that's a lie.  But I will post you
+	 * on the homepage.
+	 */
+	
+	/**
 	 * Gets data ready for the rss feed
 	 * 
 	 * @since 0.9.0
@@ -644,12 +653,10 @@ class lncln{
 					file_put_contents(CURRENT_IMG_DIRECTORY . $imgID . '.' . $type, $file);
 				}
 				else{
-					//moves the files
 					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 				}
 				
 				$this->thumbnail($imgID . '.' . $type);
-				//$this->tag($imgID, $_POST['upload' . $i . 'tags']);
 	        }
 			else{
 				$_SESSION['upload'][$i] == 4;
@@ -1102,6 +1109,80 @@ class lncln{
 		print_r($this->images);
 		echo "type: " . $this->type . "\n";
 		echo "extra: " . $this->extra . "\n";
+	}
+}
+
+/**
+ * User class
+ * Contains all the information regarding a user
+ * 
+ * @since 0.10.0
+ * @package lncln
+ */
+class User{
+	private $username;
+	private $userID;
+	private $permissions = array();
+	
+	/**
+	 * Sets up the permissions array, checks if user is logged in, etc
+	 * 
+	 * @since 0.10.0
+	 * @package lncln
+	 */
+	function __construct(){
+		$permissions = array(
+				"isAdmin" => 0,
+				"toQueue" => 1
+				);
+		
+	}
+	
+	/**
+	 * Checks to see if a user is logged in
+	 * Moved from lncln as of 0.10.0
+	 * 
+	 * @since 0.10.0
+	 * @package lncln
+	 * 
+	 * @todo Move to a session based system as well, not just relying on cookies
+	 */
+	function loggedIn(){
+		if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
+			$username = stripslashes($_COOKIE['username']);
+			$password = stripslashes($_COOKIE['password']);
+	
+			$username = mysql_real_escape_string($username);
+			$password = mysql_real_escape_string($password);
+	
+			$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+	
+			$result = mysql_query($sql);
+			$numRows = mysql_num_rows($result);
+	
+			if($numRows == 1){
+				$result = mysql_fetch_assoc($result);
+				
+				if($result['admin'] == 1){
+					$this->isAdmin = true;
+				}
+				
+				$this->isLoggedIn = true;
+				$this->userID = $result['id'];
+			}
+			else{
+				$this->isLoggedIn = false;
+			}
+		}
+		else{
+			//removes any cookies that may have been set.
+			if(!isset($_COOKIE['password']) && $_COOKIE['username']){
+				setcookie("username", "", time() - (60 * 60 * 24));
+				setcookie("password", "", time() - (60 * 60 * 24));
+				header("location:". URL . "index.php");
+			}
+			$this->isLoggedIn = false;
+		}
 	}
 }
 
