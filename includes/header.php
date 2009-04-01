@@ -44,9 +44,9 @@
 				<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
 				<a href='<?echo URL;?>album.php'>Albums</a>
 <?
-if($lncln->isLoggedIn){
+if($lncln->user->isUser){
 ?>
-				<a href='<?echo URL;?>logout.php'>Log out <?echo $_COOKIE['username'];?></a>
+				<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
 				<a href='<?echo URL;?>user.php'>Change Settings</a>
 <?
 }

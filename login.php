@@ -46,8 +46,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	
 	if($numRows == 1){
 		$obscene = $row['obscene'] == 1 ? true : false;
-		
-		$row = mysql_fetch_assoc($result);
+
 		setcookie("username", $username, time() + (60 * 60 * 24));
 		setcookie("password", $password, time() + (60 * 60 * 24));
 		setcookie("obscene", $obscene, time() + (60 * 60 * 24));

@@ -1121,6 +1121,8 @@ class User{
 	public $username;  //String, username
 	public $userID;  //Int, the user's id
 	
+	public $isUser = false; //registered user or just anonymous
+	
 	public $permissions = array(); //Array(bool), contains user permissions
 	
 	/**
@@ -1164,10 +1166,14 @@ class User{
 	
 			$username = mysql_real_escape_string($username);
 			$password = mysql_real_escape_string($password);
+			
+			$this->isUser = true;
 		}
 		else{
 			$username = "Anonymous";
 			$password = "";
+			
+			$this->isUser = false;
 		}
 	
 		$sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
