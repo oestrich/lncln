@@ -56,7 +56,7 @@ class lncln{
 	 * @param array $params any extra parameters that will be passed onto the action
 	 */
 	function __construct($action = "none", $params = array()){	
-		$user = new User();
+		$this->user = new User();
 		
 		if($action != "none"){
 			if(method_exists($this, $action)){
