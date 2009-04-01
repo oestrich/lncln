@@ -1138,7 +1138,7 @@ class User{
 				"toQueue" => 1
 				);
 		
-		$sql = "SELECT * FROM users WHERE id = " . $this->userID . "LIMIT 1";
+		$sql = "SELECT * FROM users WHERE id = " . $this->userID . " LIMIT 1";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
