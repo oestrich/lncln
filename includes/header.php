@@ -57,7 +57,7 @@ else{
 <?
 }
 
-if($lncln->isAdmin){
+if($lncln->user->permissions['isAdmin'] == 1){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);

@@ -14,7 +14,6 @@
 require_once("load.php");
 
 $lncln = new lncln();
-$lncln->loggedIn();
 
 if(isset($_POST['username'])){
 	$updated = $lncln->updateUser($_POST);
