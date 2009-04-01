@@ -23,9 +23,7 @@
  */
  
 class lncln{
-	private $isAdmin = false;
-	private $isLoggedIn = false;
-	private $userID = 0;
+	private $user;
 	
 	private $script;
 	
@@ -58,7 +56,7 @@ class lncln{
 	 * @param array $params any extra parameters that will be passed onto the action
 	 */
 	function __construct($action = "none", $params = array()){	
-		$this->loggedIn();
+		$user = new User();
 		
 		if($action != "none"){
 			if(method_exists($this, $action)){
