@@ -665,55 +665,6 @@ class lncln{
 	}
 	
 	/**
-	 * Checks to see if the user currently has cookies set for them
-	 * to be logged in.  Kicks the user if they are logged in.
-	 * 
-	 * @todo Implement session storing of username.  That way I don't always have to check against cookie
-	 * 
-	 * @since 0.5.0
-	 * @package lncln
-	 * 
-	 * @return array An array with $isLoggedIn, bool, $isAdmin, bool, and the users ID
-	 */
-	function loggedIn(){		
-		if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
-			$username = stripslashes($_COOKIE['username']);
-			$password = stripslashes($_COOKIE['password']);
-	
-			$username = mysql_real_escape_string($username);
-			$password = mysql_real_escape_string($password);
-	
-			$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
-	
-			$result = mysql_query($sql);
-			$numRows = mysql_num_rows($result);
-	
-			if($numRows == 1){
-				$result = mysql_fetch_assoc($result);
-				
-				if($result['admin'] == 1){
-					$this->isAdmin = true;
-				}
-				
-				$this->isLoggedIn = true;
-				$this->userID = $result['id'];
-			}
-			else{
-				$this->isLoggedIn = false;
-			}
-		}
-		else{
-			//removes any cookies that may have been set.
-			if(!isset($_COOKIE['password']) && $_COOKIE['username']){
-				setcookie("username", "", time() - (60 * 60 * 24));
-				setcookie("password", "", time() - (60 * 60 * 24));
-				header("location:". URL . "index.php");
-			}
-			$this->isLoggedIn = false;
-		}
-	}
-	
-	/**
 	 * Removes an image from the queue
 	 * 
 	 * @since 0.5.0
