@@ -1120,23 +1120,51 @@ class lncln{
  * @package lncln
  */
 class User{
-	private $username;
-	private $userID;
-	private $permissions = array();
+	public $username;  //String, username
+	public $userID;  //Int, the user's id
+	public $permissions = array(); //Array(bool), contains user permissions
+	public $postings = array();  //Array(mixed), contains posting data
+	public $loggedIn; //bool, 1 - logged in
 	
 	/**
 	 * Sets up the permissions array, checks if user is logged in, etc
+	 * Starts with default values, and then fills in where appropriate
 	 * 
 	 * @since 0.10.0
 	 * @package lncln
 	 */
 	function __construct(){
-		$permissions = array(
+		$this->permissions = array(
 				"isAdmin" => 0,
 				"toQueue" => 1
 				);
 		
+		$this->postings = array(
+				"postedToday" => 0,
+				"lastPosted" => 0
+				);
+		
+		$sql = "SELECT * FROM users WHERE id = " . $this->userID;
+		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) == 1){
+			$row = mysql_fetch_assoc($result);
+			
+			$this->permissions['isAdmin'] = $row['admin'];
+		}
 	}
+	
+	/**
+	 * Checks if a user can upload straight to the homepage
+	 * 
+	 * @since 0.10.0
+	 * @package lncln
+	 * 
+	 */
+	 
+	 function checkUploadLimit(){
+	 	
+	 }
 	
 	/**
 	 * Checks to see if a user is logged in
@@ -1155,7 +1183,7 @@ class User{
 			$username = mysql_real_escape_string($username);
 			$password = mysql_real_escape_string($password);
 	
-			$sql = "SELECT * FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+			$sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
 	
 			$result = mysql_query($sql);
 			$numRows = mysql_num_rows($result);
@@ -1163,12 +1191,9 @@ class User{
 			if($numRows == 1){
 				$result = mysql_fetch_assoc($result);
 				
-				if($result['admin'] == 1){
-					$this->isAdmin = true;
-				}
-				
 				$this->isLoggedIn = true;
 				$this->userID = $result['id'];
+				$this->username = $username;
 			}
 			else{
 				$this->isLoggedIn = false;
