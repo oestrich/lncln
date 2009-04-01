@@ -1122,9 +1122,8 @@ class lncln{
 class User{
 	public $username;  //String, username
 	public $userID;  //Int, the user's id
+	
 	public $permissions = array(); //Array(bool), contains user permissions
-	public $postings = array();  //Array(mixed), contains posting data
-	public $loggedIn; //bool, 1 - logged in
 	
 	/**
 	 * Sets up the permissions array, checks if user is logged in, etc
@@ -1134,37 +1133,22 @@ class User{
 	 * @package lncln
 	 */
 	function __construct(){
+		$this->loggedIn();
+		
 		$this->permissions = array(
 				"isAdmin" => 0,
 				"toQueue" => 1
 				);
 		
-		$this->postings = array(
-				"postedToday" => 0,
-				"lastPosted" => 0
-				);
-		
-		$sql = "SELECT * FROM users WHERE id = " . $this->userID;
+		$sql = "SELECT * FROM users WHERE id = " . $this->userID . "LIMIT 1";
 		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
 		
-		if(mysql_num_rows($result) == 1){
-			$row = mysql_fetch_assoc($result);
-			
-			$this->permissions['isAdmin'] = $row['admin'];
-		}
+		$this->permissions['isAdmin'] = $row['admin'];
+		$this->permissions['toHome'] = $row['toHome'];
+		
+		$this->checkUploadLimit();
 	}
-	
-	/**
-	 * Checks if a user can upload straight to the homepage
-	 * 
-	 * @since 0.10.0
-	 * @package lncln
-	 * 
-	 */
-	 
-	 function checkUploadLimit(){
-	 	
-	 }
 	
 	/**
 	 * Checks to see if a user is logged in
@@ -1182,33 +1166,63 @@ class User{
 	
 			$username = mysql_real_escape_string($username);
 			$password = mysql_real_escape_string($password);
-	
-			$sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
-	
-			$result = mysql_query($sql);
-			$numRows = mysql_num_rows($result);
-	
-			if($numRows == 1){
-				$result = mysql_fetch_assoc($result);
-				
-				$this->isLoggedIn = true;
-				$this->userID = $result['id'];
-				$this->username = $username;
-			}
-			else{
-				$this->isLoggedIn = false;
-			}
 		}
 		else{
-			//removes any cookies that may have been set.
-			if(!isset($_COOKIE['password']) && $_COOKIE['username']){
-				setcookie("username", "", time() - (60 * 60 * 24));
-				setcookie("password", "", time() - (60 * 60 * 24));
-				header("location:". URL . "index.php");
-			}
-			$this->isLoggedIn = false;
+			$username = "Anonymous";
+			$password = "";
+		}
+	
+		$sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+		$result = mysql_query($sql);
+
+		$row = mysql_fetch_assoc($result);
+		
+		$this->userID = $row['id'];
+		$this->username = $row['name'];
+
+		//removes any cookies that may have been set.
+		if(!isset($_COOKIE['password']) && $_COOKIE['username']){
+			setcookie("username", "", time() - (60 * 60 * 24));
+			setcookie("password", "", time() - (60 * 60 * 24));
+			header("location:". URL . "index.php");
 		}
 	}
+	
+	/**
+	 * Checks if a user can upload straight to the homepage
+	 * 
+	 * @since 0.10.0
+	 * @package lncln
+	 * 
+	 * @param bool $new If a user uploaded a new image, defaults to 0
+	 */
+	 function checkUploadLimit($new = 0){
+	 	if($new == 1){
+			$sql = "UPDATE users SET postTime = " . time() . ", numImages = numImages + 1 WHERE id = '" . $this->userID . "' LIMIT 1"; 
+			mysql_query($sql);
+	 	}
+	 	
+	 	$sql = "SELECT postTime, numImages FROM users WHERE id = " . $this->userID;
+	 	$result = mysql_fetch_assoc($sql);
+	 	$row = mysql_fetch_assoc($result);
+	 	
+	 	//Number images <= 20 goto homepage
+	 	if($row['numImages'] <= 20){
+	 		$this->permissions['toQueue'] = 0;
+	 	}
+	 	
+	 	//If over 24 hrs later, reset number images
+	 	if(date('d', $row['postTime']) != date('d', time())){
+	 		$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . $new . " WHERE id = '" . $this->userID . "' LIMIT 1"; 
+			mysql_query($sql);
+			
+			$this->permissions['toQueue'] = 0;
+	 	}
+	 	
+	 	if($this->permissions['toHome'] == 0){
+	 		$this->permissions['toQueue'] = 1;
+	 	}
+	 }
 }
 
 /**
