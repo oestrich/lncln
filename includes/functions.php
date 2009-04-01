@@ -1201,7 +1201,7 @@ class User{
 	 	}
 	 	
 	 	$sql = "SELECT postTime, numImages FROM users WHERE id = " . $this->userID;
-	 	$result = mysql_fetch_assoc($sql);
+	 	$result = mysql_query($sql);
 	 	$row = mysql_fetch_assoc($result);
 	 	
 	 	//Number images <= 20 goto homepage
