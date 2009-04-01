@@ -23,7 +23,7 @@
  */
  
 class lncln{
-	private $user;
+	public $user;
 	
 	private $script;
 	
