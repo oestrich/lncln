@@ -14,8 +14,6 @@
 require_once("load.php");
 
 $lncln = new lncln();
-$lncln->loggedIn();
-
 
 if($lncln->isLoggedIn){
 	$amount = 5;

@@ -14,7 +14,6 @@
 require_once("load.php");
 
 $lncln = new lncln("image");
-$lncln->loggedIn();
 
 require_once("includes/iconActions.php");
 

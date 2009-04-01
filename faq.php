@@ -12,8 +12,6 @@
 require_once("load.php");
 
 $lncln = new lncln();
-$lncln->loggedIn();
-
 
 require_once("includes/header.php");
 
