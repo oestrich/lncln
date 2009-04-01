@@ -14,10 +14,8 @@
 require_once("../load.php");
 
 $lncln = new lncln("queue");
-$lncln->loggedIn();
 
-
-if($lncln->isAdmin){
+if($lncln->user->permissions['isAdmin'] == 1){
 	$lncln->queue = true;
 }
 
@@ -53,7 +51,7 @@ if(isset($obscene)){
 
 echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 
-if($lncln->isAdmin){
+if($lncln->user->permissions['isAdmin'] == 1){
 ?>
 	<script type="text/javascipt">
 		function check(id){
