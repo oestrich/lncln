@@ -614,42 +614,38 @@ class lncln{
 	 * @since 0.5.0
 	 * @package lncln
 	 */
-	function upload($name, $data){		
-		for($i = 0; $i < 10; $i++){
-			$sql = "SELECT MAX(postTime) FROM images";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-						
-			$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
+	function upload($name, $data){
+		$sql = "SELECT MAX(postTime) FROM images";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+					
+		$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
 
-			$this->user->checkUploadLimit(true);
+		$this->user->checkUploadLimit(true);
 
-			$typeTmp = split("\.", $name); 
-			$type = $typeTmp[count($typeTmp) - 1];
+		$typeTmp = split("\.", $name); 
+		$type = $typeTmp[count($typeTmp) - 1];
 
-			if($this->user->permissions['toQueue'] == 0){
-				$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
-			}
-			else{
-				$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
-			}
-			
-			$_SESSION['uploadTime'][$i] = $postTime;
-			
-			mysql_query($sql);
-			
-			$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
-			
-			$_SESSION['uploadKey'][$imgID] = $i;
-			
-			$_SESSION['image'][$i] = $imgID . '.' . $type;
-			
-			rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
-			
-			$this->thumbnail($imgID . '.' . $type);
+		if($this->user->permissions['toQueue'] == 0){
+			$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
+		}
+		else{
+			$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 		}
 		
-		$this->img();
+		$_SESSION['uploadTime'][$i] = $postTime;
+		
+		mysql_query($sql);
+		
+		$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
+		
+		$_SESSION['uploadKey'][$imgID] = $i;
+		
+		$_SESSION['image'][$i] = $imgID . '.' . $type;
+		
+		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
+		
+		$this->thumbnail($imgID . '.' . $type);
 	}
 	
 	/**
@@ -663,11 +659,11 @@ class lncln{
 	function dequeue($images){
 		foreach($images as $image){
 			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
-			//This is line #666, watch out
 			mysql_query($sql);
 		}
 	}
 
+	//This is line #666, watch out
 	/**
 	 * Adds a user to the site.
 	 * 

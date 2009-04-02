@@ -20,7 +20,7 @@ if($_GET['action'] == "finishUpload"){
 		
 		print_r($_POST['images'][$key]);
 		
-		//$lncln->upload($key, $_POST['images'][$key]);
+		$lncln->upload($key, $_POST['images'][$key]);
 		
 		/*
 	    if($_POST['images'][$key]['tags'] == ""){
