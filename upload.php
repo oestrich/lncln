@@ -16,26 +16,7 @@ require_once("load.php");
 if($_GET['action'] == "finishUpload"){
 	$lncln = new lncln();
 	foreach($_POST['check'] as $key => $value){
-		echo $key;
-		
-		print_r($_POST['images'][$key]);
-		
 		$lncln->upload($key, $_POST['images'][$key]);
-		
-		/*
-	    if($_POST['images'][$key]['tags'] == ""){
-            $_SESSION['upload'][$_SESSION['uploadKey'][$key]] = 3;
-            $lncln->delete($key);
-            continue;
-        }		
-		$lncln->tag($key, $_POST['images'][$key]['tags']);
-		$lncln->caption($key, $_POST['images'][$key]['caption']);
-		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
-		
-		if($_POST['obscene'][$key]){
-			$lncln->obscene($key);
-		}
-		*/
 	}
 	header("location:" . URL . "index.php");
 	exit();
@@ -70,7 +51,7 @@ foreach($lncln->uploaded as $image):
 				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image;?>][tags]' /><br />
 				Caption:&nbsp;<textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea><br />
 				Album:&nbsp;&nbsp;&nbsp;
-				<select name="images[<?=$image;?>][album]" onfocus="modCheck('<?=$image;?>')">
+				<select name="images[<?=$image;?>][album]">
 					<option value="0">No album</option>
 		<?foreach($lncln->getAlbums() as $album):?>
 					<option value="<?=$album['id'];?>" ><?=$album['name'];?></option>
