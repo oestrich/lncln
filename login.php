@@ -14,7 +14,6 @@
 require_once("load.php");
 
 $lncln = new lncln();
-$lncln->loggedIn();
 
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
