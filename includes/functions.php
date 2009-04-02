@@ -597,6 +597,8 @@ class lncln{
 				else{
 					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_TEMP_DIRECTORY . $name);
 				}
+				
+				$this->uploaded[] = $name;
 			}
 			else{
 				$_SESSION['upload'][$i] == 4;

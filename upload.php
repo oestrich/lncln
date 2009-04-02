@@ -54,18 +54,18 @@ require_once(ABSPATH . "includes/header.php");
 	Tags are manditory.
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
-foreach($lncln->images as $image):
+foreach($lncln->uploaded as $image):
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
-			<input type="hidden" name='check[<?=$image['id'];?>]' value="<?=$image['id'];?>" />
+			<input type="hidden" name='check[<?=$image;?>]' value="<?=$image;?>" />
 			Obscene: <input type="checkbox" name="obscene[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
-			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
+			<a href="<?=URL;?>images/full/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image;?>" /></a>
 			<div class="modForms">
-				<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
-				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image['id'];?>][tags]' /><br />
-				Caption:&nbsp;<textarea name="images[<?=$image['id'];?>][caption]" rows="10" cols="50" wrap="off"></textarea><br />
+				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
+				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image;?>][tags]' /><br />
+				Caption:&nbsp;<textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea><br />
 				Album:&nbsp;&nbsp;&nbsp;
-				<select name="images[<?=$image['id'];?>][album]" onfocus="modCheck('<?=$image['id'];?>')">
+				<select name="images[<?=$image;?>][album]" onfocus="modCheck('<?=$image;?>')">
 					<option value="0">No album</option>
 		<?foreach($lncln->getAlbums() as $album):?>
 					<option value="<?=$album['id'];?>" ><?=$album['name'];?></option>
