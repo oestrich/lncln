@@ -580,7 +580,6 @@ class lncln{
 			
 			//only these types
 			if($type == "png" || $type == "jpg" || $type == "gif"){
-				$_SESSION['upload'][$i] = 2;
 				if($_GET['url']){
 					$file = @file_get_contents($_POST['upload' . $i]);
 					if(!$file){
@@ -599,6 +598,8 @@ class lncln{
 				}
 				
 				$this->uploaded[] = $name;
+				
+				$_SESSION['uploadKey'][$name] = $i;
 			}
 			else{
 				$_SESSION['upload'][$i] == 4;
@@ -628,20 +629,20 @@ class lncln{
 
 		if($this->user->permissions['toQueue'] == 0){
 			$sql = "INSERT INTO images (postTime, type, queue) VALUES (" . $postTime . ", '" . $type . "', 0)";
+			$_SESSION['upload'][$_SESSION['uploadKey'][$name]] = 1;
 		}
 		else{
 			$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
+			$_SESSION['upload'][$_SESSION['uploadKey'][$name]] = 2;
 		}
 		
-		//$_SESSION['uploadTime'][$i] = $postTime;
+		$_SESSION['uploadTime'][$_SESSION['uploadKey'][$name]] = $postTime;
 		
 		mysql_query($sql);
 		
 		$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
-		
-		//$_SESSION['uploadKey'][$imgID] = $i;
-		
-		//$_SESSION['image'][$i] = $imgID . '.' . $type;
+				
+		$_SESSION['image'][$_SESSION['uploadKey'][$name]] = $imgID . '.' . $type;
 		
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
