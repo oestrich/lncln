@@ -39,7 +39,7 @@ if(isset($_GET['obscene']) && $lncln->user->isUser){
 if(isset($_GET['rateUp']) && $lncln->user->isUser){
 	//This should probably be handled by the function itself
 	$rating = 1;
-	if($lncln->isAdmin){
+	if($lncln->user->permissions['isAdmin'] == 1){
 		$rating = 5;
 	}
 	$lncln->rate($_GET['rateUp'], $rating);
@@ -50,7 +50,7 @@ if(isset($_GET['rateUp']) && $lncln->user->isUser){
 if(isset($_GET['rateDown']) && $lncln->user->isUser){	
 	//This should probably be handled by the function itself
 	$rating = -1;
-	if($lncln->isAdmin){
+	if($lncln->user->permissions['isAdmin'] == 1){
 		$rating = -5;
 	}
 	$lncln->rate($_GET['rateDown'], $rating);
