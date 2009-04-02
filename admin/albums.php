@@ -15,11 +15,11 @@ require_once("../load.php");
 
 $lncln = new lncln();
 
-if(isset($_POST['name'])){
+if(isset($_POST['name']) && $lncln->user->permissions['isAdmin'] == 1){
 	$album = $lncln->addAlbum($_POST['name']);
 }
 
-if($_GET['action'] == "delete"){
+if($_GET['action'] == "delete" && $lncln->user->permissions['isAdmin'] == 1){
 	$lncln->deleteAlbum($_GET['album']);
 }
 

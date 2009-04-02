@@ -15,7 +15,7 @@ require_once("../load.php");
 
 $lncln = new lncln();
 
-if(isset($_POST['username'])){
+if(isset($_POST['username']) && $lncln->user->permissions['isAdmin'] == 1){
 	$added = $lncln->adduser($_POST);
 }
 
