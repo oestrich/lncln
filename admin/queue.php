@@ -19,17 +19,17 @@ if($lncln->user->permissions['isAdmin'] == 1){
 	$lncln->queue = true;
 }
 
-if($_GET['action'] == "update"){
+if($_GET['action'] == "update" && $lncln->user->permissions['isAdmin'] == 1){
 	$lncln->dequeue($_POST);
 	header("location:" . URL . "admin/" . $lncln->script);
 	exit();
 }
 
-if(isset($_GET['delete']) && $lncln->isAdmin){
+if(isset($_GET['delete']) && $lncln->user->permissions['isAdmin'] == 1){
 	$deletion = $lncln->delete($_GET['delete']);
 }
 
-if(isset($_GET['obscene']) && $lncln->isAdmin){
+if(isset($_GET['obscene']) && $lncln->user->permissions['isAdmin'] == 1){
 	$obscene = $lncln->obscene($_GET['obscene']);
 }
 
@@ -49,15 +49,9 @@ if(isset($obscene)){
 }
 
 
-echo "There are " . $result['COUNT(*)'] . " items in the queue.";
-
 if($lncln->user->permissions['isAdmin'] == 1){
+	echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 ?>
-	<script type="text/javascipt">
-		function check(id){
-			
-		}
-	</script>
 	<br />
 	This page will show the first 50 items in the queue<br />
 	<form enctype="multipart/form-data" action="queue.php?action=update" method="post">

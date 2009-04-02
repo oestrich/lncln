@@ -466,7 +466,7 @@ class lncln{
 	 * @package lncln 
 	 */
 	function img(){		
-		$time = $this->isAdmin != true ? " AND postTime <= " . time() : "";
+		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
 		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE ";
 		
