@@ -24,19 +24,19 @@ if($_GET['post'] == true){
 	exit();
 }
 
-if(isset($_GET['delete']) && $lncln->isAdmin){
+if(isset($_GET['delete']) && $lncln->user->permissions['isAdmin'] == 1){
 	$deletion = $lncln->delete($_GET['delete']);
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['delete']);
 	exit();
 }
 
-if(isset($_GET['obscene']) && $lncln->isLoggedIn){
+if(isset($_GET['obscene']) && $lncln->user->isUser){
 	$obscene = $lncln->obscene($_GET['obscene']);
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['obscene']);
 	exit();
 }
 
-if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
+if(isset($_GET['rateUp']) && $lncln->user->isUser){
 	//This should probably be handled by the function itself
 	$rating = 1;
 	if($lncln->isAdmin){
@@ -47,7 +47,7 @@ if(isset($_GET['rateUp']) && $lncln->isLoggedIn){
 	exit();
 }
 
-if(isset($_GET['rateDown']) && $lncln->isLoggedIn){	
+if(isset($_GET['rateDown']) && $lncln->user->isUser){	
 	//This should probably be handled by the function itself
 	$rating = -1;
 	if($lncln->isAdmin){
@@ -69,7 +69,7 @@ if($_GET['viewObscene']){
 	exit();
 }
 
-if(isset($_GET['refresh']) && $lncln->isLoggedIn){
+if(isset($_GET['refresh']) && $lncln->user->isUser){
 	$id = stripslashes($_GET['refresh']);
 	$id = mysql_real_escape_string($id);
 	
@@ -84,19 +84,19 @@ if(isset($_GET['refresh']) && $lncln->isLoggedIn){
 	exit();
 }
 
-if($_GET['caption'] && $lncln->isLoggedIn){
+if($_GET['caption'] && $lncln->user->isUser){
 	$lncln->caption($_POST['id'], $_POST['caption']);
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
 	exit();
 }
 
-if($_GET['tag'] && $lncln->isLoggedIn){
+if($_GET['tag'] && $lncln->user->isUser){
 	$lncln->tag($_POST['id'], $_POST['tags']);
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
 	exit();
 }
 
-if($_GET['action'] == "album" && $lncln->isLoggedIn){
+if($_GET['action'] == "album" && $lncln->user->isUser){
 	$lncln->changeAlbum($_POST['id'], $_POST['album']);
 	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
 	exit();
