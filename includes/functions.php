@@ -75,7 +75,7 @@ class lncln{
 	 * @package lncln
 	 */
 	private function index(){
-		$time = !$this->isAdmin ? " AND postTime <= " . time() . " " : "";
+		$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 		
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $time;
 		$result = mysql_query($sql);
@@ -260,7 +260,7 @@ class lncln{
 	private function album($album){	
 		if($album[0] != 0){
 			$this->album = prepareSQL($album[0]);
-			$time = !$this->isAdmin ? " AND postTime <= " . time() . " " : "";
+			$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 			
 			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album . $time;
 			$result = mysql_query($sql);
