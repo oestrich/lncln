@@ -633,15 +633,15 @@ class lncln{
 			$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 		}
 		
-		$_SESSION['uploadTime'][$i] = $postTime;
+		//$_SESSION['uploadTime'][$i] = $postTime;
 		
 		mysql_query($sql);
 		
 		$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
 		
-		$_SESSION['uploadKey'][$imgID] = $i;
+		//$_SESSION['uploadKey'][$imgID] = $i;
 		
-		$_SESSION['image'][$i] = $imgID . '.' . $type;
+		//$_SESSION['image'][$i] = $imgID . '.' . $type;
 		
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
