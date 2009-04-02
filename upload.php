@@ -59,7 +59,7 @@ foreach($lncln->uploaded as $image):
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<input type="hidden" name='check[<?=$image;?>]' value="<?=$image;?>" />
 			Obscene: <input type="checkbox" name="obscene[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
-			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" height="150"/></a>
+			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" height="150" width="150"/></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
 				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image;?>][tags]' /><br />
