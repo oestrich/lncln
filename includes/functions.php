@@ -646,6 +646,12 @@ class lncln{
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
 		$this->thumbnail($imgID . '.' . $type);
+		$this->tag($imgID, $data['tags']);
+		$this->caption($imgID, $data['caption']);
+		$this->album($imgID, $data['album']);
+		if($data['obscene']){
+			$this->obscene($imgID);
+		}
 	}
 	
 	/**
@@ -657,13 +663,13 @@ class lncln{
 	 * @param int $image The image that is to be removed
 	 */
 	function dequeue($images){
+		//This is line #666, watch out
 		foreach($images as $image){
 			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
 			mysql_query($sql);
 		}
 	}
 
-	//This is line #666, watch out
 	/**
 	 * Adds a user to the site.
 	 * 
