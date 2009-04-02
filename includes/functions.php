@@ -614,7 +614,7 @@ class lncln{
 	 * @since 0.5.0
 	 * @package lncln
 	 */
-	function upload(){		
+	function upload($data){		
 		for($i = 0; $i < 10; $i++){
 			$sql = "SELECT MAX(postTime) FROM images";
 			$result = mysql_query($sql);
