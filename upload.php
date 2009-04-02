@@ -41,11 +41,19 @@ require_once(ABSPATH . "includes/header.php");
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
 foreach($lncln->uploaded as $image):
+		$size = getimagesize(CURRENT_IMG_TEMP_DIRECTORY . $image);
+		$tHeight = ($size[1] / $size[0]) * 150;
+		if($tHeight > 150){
+			$thumb =  " height='". $size[0]. "' width='150' ";
+		}else{
+			$thumb = " height='150' width='" . $size[1] . "' ";
+		}
+
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<input type="hidden" name='check[<?=$image;?>]' value="<?=$image;?>" />
 			Obscene: <input type="checkbox" name="images[<?=$image;?>][obscene]" id="check<?=$image;?>" /> 
-			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" height="150" width="150"/></a>
+			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" <?=$thumb;?>/></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
 				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image;?>][tags]' /><br />
