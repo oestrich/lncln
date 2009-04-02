@@ -27,7 +27,7 @@ $lncln->img();
 
 require_once(ABSPATH . "includes/header.php");
 	
-if($lncln->isAdmin):
+if($lncln->user->permissions['isAdmin'] == 1):
 	echo $lncln->prevNext();
 	
 	$img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
