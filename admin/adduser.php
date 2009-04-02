@@ -20,7 +20,7 @@ if(isset($_POST['username'])){
 }
 
 require_once("../includes/header.php");
-if($lncln->user->permissions['isAdmin']){
+if($lncln->user->permissions['isAdmin'] == 1){
 	if(isset($added)){
 		echo $added;
 	}

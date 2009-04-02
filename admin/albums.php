@@ -25,7 +25,7 @@ if($_GET['action'] == "delete"){
 
 require_once("../includes/header.php");
 
-if($lncln->isAdmin){
+if($lncln->user->permissions['isAdmin'] == 1){
 		
 	if(isset($album)){
 		echo $album . "<br />";

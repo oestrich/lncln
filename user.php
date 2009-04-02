@@ -16,7 +16,7 @@ require_once("load.php");
 $lncln = new lncln();
 
 if(isset($_POST['username'])){
-	$updated = $lncln->updateUser($_POST);
+	$updated = $lncln->user->updateUser($_POST);
 }
 
 require_once("includes/header.php");
@@ -25,7 +25,7 @@ if(isset($updated)){
 	echo $updated;
 }
 
-if($lncln->isLoggedIn){
+if($lncln->user->isUser){
 	$sql = "SELECT obscene FROM users WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1";
 	$result = mysql_query($sql);
 	
