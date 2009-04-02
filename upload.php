@@ -44,9 +44,9 @@ foreach($lncln->uploaded as $image):
 		$size = getimagesize(CURRENT_IMG_TEMP_DIRECTORY . $image);
 		$tHeight = ($size[1] / $size[0]) * 150;
 		if($tHeight > 150){
-			$thumb =  " height='". $size[0]. "' width='150' ";
+			$thumb =  " height='150' ";
 		}else{
-			$thumb = " height='150' width='" . $size[1] . "' ";
+			$thumb = " width='150' ";
 		}
 
 	?>
