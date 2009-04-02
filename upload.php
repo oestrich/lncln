@@ -46,7 +46,7 @@ if(!isset($_POST['type'])){
 
 
 
-$lncln = new lncln("upload");
+$lncln = new lncln("tempUpload");
 
 require_once(ABSPATH . "includes/header.php");
 
