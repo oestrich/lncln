@@ -37,7 +37,7 @@ if($_GET['action'] == "finishUpload"){
 		}
 		*/
 	}
-	//header("location:" . URL . "index.php");
+	header("location:" . URL . "index.php");
 	exit();
 }
 
