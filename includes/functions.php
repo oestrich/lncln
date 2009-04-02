@@ -25,26 +25,26 @@
 class lncln{
 	public $user;
 	
-	private $script;
+	public $script;
 	
-	private $firstImage; 		//First image on the page (used to be $start)
-	private $lastImage;			//Last image on the page 
+	public $firstImage; 		//First image on the page (used to be $start)
+	public $lastImage;			//Last image on the page 
 	
-	private $aboveFifty; 		//The image 50 images before it (used to be $prev)
-	private $belowFifty;		//The image 50 images after it ($used to be $next)
+	public $aboveFifty; 		//The image 50 images before it (used to be $prev)
+	public $belowFifty;		//The image 50 images after it ($used to be $next)
 	
-	private $highestID; 		//The highest ID in the database ($used to be $numImgs)
-	private $lowestID;
+	public $highestID; 		//The highest ID in the database ($used to be $numImgs)
+	public $lowestID;
 	
-	private $search; 			//tag being searched for
-	private $album;				//album being viewed
-	private $queue = false;		//if you're in the queue
-	private $uploaded = array();
+	public $search; 			//tag being searched for
+	public $album;				//album being viewed
+	public $queue = false;		//if you're in the queue
+	public $uploaded = array();
 	
-	private $imagesToGet = array();		//The images that data will be pulled for
-	private $images = array(); 	//Image data to be outputed in listImages.php
-	private $type;				//Normal or thumb
-	private $extra;				//If $type == "thumb" then it equals "&thumb=true"
+	public $imagesToGet = array();		//The images that data will be pulled for
+	public $images = array(); 	//Image data to be outputed in listImages.php
+	public $type;				//Normal or thumb
+	public $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
 	/**
 	 * Gets the class ready for action!
@@ -663,8 +663,8 @@ class lncln{
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
+	//This is line #666, watch out
 	function dequeue($images){
-		//This is line #666, watch out
 		foreach($images as $image){
 			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
 			mysql_query($sql);
@@ -704,63 +704,7 @@ class lncln{
 		
 		return "User " . $username . " added";
 	}
-	
-	/**
-	 * Updates a user's information.
-	 * 
-	 * @since 0.5.0
-	 * @package lncln
-	 * 
-	 * @param array $user Contains the user's updated information
-	 * 
-	 * @return string Whether it updated or not
-	 */
-	function updateUser($user){
-		$username = stripslashes($user['username']);
-		$obscene = stripslashes($user['obscene']);
-	
-		$username = mysql_real_escape_string($username);
-		$obscene = mysql_real_escape_string($obscene);
 		
-		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
-			$oldPassword = stripslashes($user['password']);
-			$newPassword = stripslashes($user['newPassword']);
-			$newPasswordConfirm = stripslashes($user['newPasswordConfirm']);
-			
-			$oldPassword = mysql_real_escape_string($oldPassword);
-			$newPassword = mysql_real_escape_string($newPassword);
-			$newPasswordConfirm = mysql_real_escape_string($newPasswordConfirm);
-			
-			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
-			$result = mysql_query($sql);
-			
-			$row = mysql_fetch_assoc($result);
-			
-			$oldPassword = sha1($oldPassword);
-			$newPassword = sha1($newPassword);
-			$newPasswordConfirm = sha1($newPasswordConfirm);
-			
-			if($newPassword != $newPasswordConfirm || $oldPassword != $row['password']){
-				return "Passwords do not match";
-			}
-			
-			$password = "password = '" . $newPassword . "',";
-			
-			setcookie("password", $newPassword, time() + (60 * 60 * 24));
-		}
-		
-		$obscene = $_POST['viewObscene'] ? 1 : 0;
-		
-		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
-		mysql_query($sql);
-		
-		setcookie("username", $username, time() + (60 * 60 * 24));
-		setcookie('obscene', $obscene, time() + (60 * 60 * 24));
-	
-		
-		return "User " . $username . " updated";
-	}
-	
 	/**
 	 * Removes an image.  First deletes the image from sql and then unlinks
 	 * the image itself and then the two thumbnails
@@ -1023,11 +967,7 @@ class lncln{
 	 * @since 0.9.0
 	 * @package lncln
 	 */
-	function debug(){
-		echo "isAdmin: " . $this->isAdmin . "\n";
-		echo "isLoggedIn: " . $this->isLoggedIn . "\n";
-		echo "userID: " . $this->userID . "\n";
-		
+	function debug(){		
 		echo "script: " . $this->script . "\n";
 		
 		echo "firstImage: " . $this->firstImage . "\n";
