@@ -76,7 +76,7 @@ foreach ($lncln->images as $image){
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']):
 		//caption stuff
-		if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin){
+		if(($lncln->user->isUser && $image['caption'] == "") || $lncln->user->permissions['isAdmin']){
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
 			$class = "class='caption'";
 		}
@@ -95,7 +95,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 
 			</div>
-		<?if(($lncln->isLoggedIn && $image['caption'] == "") || $lncln->isAdmin):?>
+		<?if(($lncln->user->isUser && $image['caption'] == "") || $lncln->user->permissions['isAdmin']):?>
 			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?caption=true&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
@@ -110,7 +110,7 @@ foreach ($lncln->images as $image){
 			$tags = "None.";
 		}
 		
-		if($lncln->isLoggedIn){
+		if($lncln->user->isUser){
 			$classTag = "class='tag'";
 			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
@@ -123,7 +123,7 @@ foreach ($lncln->images as $image){
 				Tags: <?echo $tags;?> 
 				<br />
 			</div>
-		<?if($lncln->isLoggedIn || $lncln->isAdmin):?>
+		<?if($lncln->user->isUser):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?tag=true&amp;img=<?echo $lncln->firstImage;?><?=$lncln->extra;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
@@ -135,7 +135,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 
 <?
-		if(($lncln->isLoggedIn && $image['album'] == "No Album") || $lncln->isAdmin){
+		if(($lncln->user->isUser && $image['album'] == "No Album") || $lncln->user->permissions['isAdmin']){
 			$class = "class='album'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";
 		}
@@ -148,7 +148,7 @@ foreach ($lncln->images as $image){
 			<div id='album<?echo $image['id'];?>' <?=$class;?> <?=$onClick;?>>
 				Album: <?=$image['album'];?>
 			</div>
-		<?if(($lncln->isLoggedIn && $image['album'] == "No Album") || $lncln->isAdmin):?>
+		<?if(($lncln->user->isUser && $image['album'] == "No Album") || $lncln->user->permissions['isAdmin'] == 1):?>
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?action=album&amp;img=<?echo $lncln->firstImage;?>" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
@@ -171,14 +171,14 @@ foreach ($lncln->images as $image){
 
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 
-	<?if($lncln->isLoggedIn):?>
+	<?if($lncln->user->isUser):?>
 			<a href="<?echo URL; echo $lncln->script;?>?rateUp=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?rateDown=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?obscene=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
 			<a href="<?echo URL; echo $lncln->script;?>?refresh=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 	<?endif;?>
 
-	<?if($lncln->isAdmin):?>
+	<?if($lncln->user->permissions['isAdmin']):?>
 			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 	<?endif;?>
 

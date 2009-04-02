@@ -594,8 +594,9 @@ class lncln{
 						continue;
 					}
 				}
-				
+				/*
 				if (isset($_COOKIE['username'])){
+					
 					$sql = "SELECT numImages, postTime, admin FROM users WHERE name = '" . $_COOKIE['username'] . "'";
 					$result = mysql_query($sql);
 					$row = mysql_fetch_assoc($result);
@@ -633,6 +634,13 @@ class lncln{
 				else{
 					$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 					$_SESSION['upload'][$i] = 2;
+				}*/
+				
+				if($this->user->permissions['toQueue'] == 1){
+					$sql = "";
+				}
+				else{
+					$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 				}
 				
 				$_SESSION['uploadTime'][$i] = $postTime;
@@ -641,18 +649,20 @@ class lncln{
 				
 				$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
 				
-				$this->imagesToGet[] = $imgID;
+				//$this->imagesToGet[] = $imgID;
 				
 				$_SESSION['uploadKey'][$imgID] = $i;
 				
 				$_SESSION['image'][$i] = $imgID . '.' . $type;
 				
-				if($_GET['url']){
+				/*if($_GET['url']){
 					file_put_contents(CURRENT_IMG_DIRECTORY . $imgID . '.' . $type, $file);
 				}
 				else{
 					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
-				}
+				}*/
+				
+				rename("oldfile", CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 				
 				$this->thumbnail($imgID . '.' . $type);
 	        }
