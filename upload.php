@@ -17,6 +17,11 @@ if($_GET['action'] == "finishUpload"){
 	$lncln = new lncln();
 	foreach($_POST['check'] as $key => $value){
 		echo $key;
+		
+		print_r($_POST['images'][$key]);
+		
+		//$lncln->upload($key, $_POST['images'][$key]);
+		
 		/*
 	    if($_POST['images'][$key]['tags'] == ""){
             $_SESSION['upload'][$_SESSION['uploadKey'][$key]] = 3;
@@ -61,7 +66,7 @@ foreach($lncln->uploaded as $image):
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<input type="hidden" name='check[<?=$image;?>]' value="<?=$image;?>" />
-			Obscene: <input type="checkbox" name="obscene[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
+			Obscene: <input type="checkbox" name="image[<?=$image['id'];?>][obscene]" id="check<?=$image['id'];?>" /> 
 			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" height="150" width="150"/></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
