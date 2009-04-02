@@ -41,6 +41,7 @@ define("DB_PASSWORD", "");
 //Now in load.php
 //define("ABSPATH", dirname(__FILE__) . "/");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
+define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
 $script = split("/", $_SERVER['SCRIPT_NAME']);
 $script = $script[count($script) - 1];

@@ -555,24 +555,18 @@ class lncln{
 	}
 
 	/**
-	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
-	 * direct input.
+	 * The first part of uploading, moves the image to a temporary spot
+	 * This allows for taging, captions, etc
 	 * 
-	 * @since 0.5.0
+	 * @since 0.10.0
 	 * @package lncln
 	 */
-	function upload(){
-		$_SESSION['uploaded'] = true;
+	 function tempUpload(){
+	 	$_SESSION['uploaded'] = true;
 		$_SESSION['pages'] = 0;
-		
-		for($i = 0; $i < 10; $i++){
-			$sql = "SELECT MAX(postTime) FROM images";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-						
-			$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
-			
-			//if nothing in either style uploads
+	 	
+	 	for($i = 0; $i < 10; $i++){
+	 		//if nothing in either style uploads
 			if($_POST['upload' . $i] == "" && $_FILES['upload'.$i]['name'] == ""){
 				$_SESSION['upload'][$i] = 0;
 				continue;
@@ -584,6 +578,46 @@ class lncln{
 	        //the file extension
 			$type = $typeTmp[count($typeTmp) - 1];
 			
+			//only these types
+			if($type == "png" || $type == "jpg" || $type == "gif"){
+				$_SESSION['upload'][$i] = 2;
+				if($_GET['url']){
+					$file = @file_get_contents($_POST['upload' . $i]);
+					if(!$file){
+						$_SESSION['upload'][$i] = 5;
+						continue;
+					}
+				}
+				
+				$name = tempName($_FILES['upload' . $i]['name']);
+				
+				if($_GET['url']){
+					file_put_contents(CURRENT_IMG_TEMP_DIRECTORY . $name, $file);
+				}
+				else{
+					move_uploaded_file($_FILES['upload'.$i]['tmp_name'], CURRENT_IMG_TEMP_DIRECTORY . $name);
+				}
+			}
+	 	}
+	 }
+
+
+	/**
+	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
+	 * direct input.
+	 * 
+	 * @since 0.5.0
+	 * @package lncln
+	 */
+	function upload(){		
+		for($i = 0; $i < 10; $i++){
+			$sql = "SELECT MAX(postTime) FROM images";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+						
+			$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
+			
+
 			//only these types
 	        if($type == "png" || $type == "jpg" || $type == "gif"){
 				$_SESSION['upload'][$i] = 2;
@@ -635,13 +669,13 @@ class lncln{
 					$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
 					$_SESSION['upload'][$i] = 2;
 				}*/
-				
+				/*
 				if($this->user->permissions['toQueue'] == 1){
 					$sql = "";
 				}
 				else{
 					$sql = "INSERT INTO images (postTime, type) VALUES (" . $postTime . ", '" . $type . "')";
-				}
+				}*/
 				
 				$_SESSION['uploadTime'][$i] = $postTime;
 				
