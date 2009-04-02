@@ -35,9 +35,6 @@ if($_GET['action'] == "finishUpload"){
 		if($_POST['obscene'][$key]){
 			$lncln->obscene($key);
 		}
-		
-		$sql = "UPDATE images SET uploaded = 1 WHERE id = " . $key;
-		mysql_query($sql);
 		*/
 	}
 	//header("location:" . URL . "index.php");
