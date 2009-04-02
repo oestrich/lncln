@@ -648,7 +648,7 @@ class lncln{
 		$this->thumbnail($imgID . '.' . $type);
 		$this->tag($imgID, $data['tags']);
 		$this->caption($imgID, $data['caption']);
-		$this->album($imgID, $data['album']);
+		$this->changeAlbum($imgID, $data['album']);
 		if($data['obscene']){
 			$this->obscene($imgID);
 		}
