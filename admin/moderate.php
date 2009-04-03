@@ -15,7 +15,7 @@ require_once("../load.php");
 
 $lncln = new lncln("index");
 
-if($_GET['action'] == "update"){
+if($_GET['action'] == "update" && $lncln->user->permissions['isAdmin'] == 1){
 	foreach($_POST['check'] as $key => $value){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
