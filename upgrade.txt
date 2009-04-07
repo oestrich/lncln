@@ -1,0 +1,9 @@
+/* $Id */
+
+Upgrading from 0.10.0
+---------------------
+
+Replace:
+ includes/header.php
+ includes/functions.php
+ 
