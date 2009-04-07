@@ -34,8 +34,9 @@ a{
 
 #container{
 	background-color: black;
-	padding-left: 50px;
 	padding-bottom: 20px;
+	left: -50px; 
+	position: relative;
 }
 
 #form{
