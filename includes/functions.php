@@ -575,7 +575,7 @@ class lncln{
 			}
 			
 			//Splitting the entire name, so it can pull the extension next
-			$typeTmp = $_GET['URL'] ? split("\.", $_POST['upload' . $i]) : split("\.", $_FILES['upload'.$i]['name']);
+			$typeTmp = $_GET['url'] ? split("\.", $_POST['upload' . $i]) : split("\.", $_FILES['upload'.$i]['name']);
 			
 	        //the file extension
 			$type = $typeTmp[count($typeTmp) - 1];
