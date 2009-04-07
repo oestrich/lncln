@@ -588,9 +588,15 @@ class lncln{
 						$_SESSION['upload'][$i] = 5;
 						continue;
 					}
+					$tempName = split("\/", $_POST['upload' . $i]);
+
+					$tempName = $tempName[count($tempName) - 1];
+					
+					$name = tempName($tempName);
 				}
-				
-				$name = tempName($_FILES['upload' . $i]['name']);
+				else{
+					$name = tempName($_FILES['upload' . $i]['name']);
+				}
 				
 				if($_GET['url']){
 					file_put_contents(CURRENT_IMG_TEMP_DIRECTORY . $name, $file);
@@ -619,6 +625,7 @@ class lncln{
 	function upload($name, $data){
 		if($data['tags'] == ""){
 			$_SESSION['upload'][$_SESSION['uploadKey'][$name]] = 3;
+			unlink(CURRENT_IMG_TEMP_DIRECTORY . $name);
 			return "";
 		}
 		
