@@ -24,6 +24,7 @@
  
 class lncln{
 	public $user;
+	public $moderationOn = false;
 	
 	public $script;
 	
@@ -75,6 +76,7 @@ class lncln{
 	 * @package lncln
 	 */
 	private function index(){
+		$this->moderationOn = true;
 		$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 		
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $time;
