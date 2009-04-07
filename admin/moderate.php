@@ -41,7 +41,7 @@ if($lncln->user->permissions['isAdmin'] == 1):
 		<div id="<?=$image['id'];?>" class="modDiv">
 			<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />
 			Obscene: <select name="images[<?=$image['id'];?>][obscene]" onfocus="modCheck('<?=$image['id'];?>')">
-					<?if($image['obscene'] = 1):?>
+					<?if($image['obscene'] == 1):?>
 						<option value="yes" selected>Yes</option><option value="no">No</option>
 					<?else:?>
 						<option value="yes">Yes</option><option value="no" selected>No</option>
