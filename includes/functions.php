@@ -607,7 +607,6 @@ class lncln{
 	 	}
 	 }
 
-
 	/**
 	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
 	 * direct input.
@@ -663,6 +662,7 @@ class lncln{
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
+	
 	//This is line #666, watch out
 	function dequeue($images){
 		foreach($images as $image){
@@ -787,7 +787,7 @@ class lncln{
 	 * @return string Whether rating went swell or not
 	 */
 	function rate($image, $rating){
-		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->userID;
+		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->user->userID;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
 		
@@ -800,10 +800,10 @@ class lncln{
 		}
 		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['upDown']) && $row['upDown'] != $rating){
-				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this->userID;
+				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this->user->userID;
 			}
 			else{
-				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->userID . ", " . $rating . ")";
+				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->user->userID . ", " . $rating . ")";
 			}
 			
 			mysql_query($sql);
