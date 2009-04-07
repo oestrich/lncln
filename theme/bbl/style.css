@@ -34,6 +34,7 @@ a{
 
 #container{
 	background-color: black;
+	padding-left: 50px;
 	padding-bottom: 20px;
 }
 
@@ -50,7 +51,6 @@ a{
 }
 
 #news{
-	left: -50px;
 	position: relative;
 }
 
