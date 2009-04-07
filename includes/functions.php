@@ -617,6 +617,11 @@ class lncln{
 	 * @package lncln
 	 */
 	function upload($name, $data){
+		if($data['tags'] == ""){
+			$_SESSION['upload'][$_SESSION['uploadKey'][$name]] = 3;
+			return "";
+		}
+		
 		$sql = "SELECT MAX(postTime) FROM images";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
