@@ -747,13 +747,16 @@ class lncln{
 	 * 
 	 * @return string If it change the image or not.
 	 */
-	function obscene($image){
+	function obscene($image, $flip = -1){
 		$sql = "SELECT type, obscene FROM images WHERE id = " . $image;
 		
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) == 1){
 			$row = mysql_fetch_assoc($result);
-			$num = $row['obscene'] == 0 ? 1 : 0;
+			if($flip == -1)
+				$num = $row['obscene'] == 0 ? 1 : 0;
+			else
+				$num = $flip;
 		}
 		else{
 			return "No such image.";

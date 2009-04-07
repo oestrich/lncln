@@ -20,6 +20,7 @@ if($_GET['action'] == "update" && $lncln->user->permissions['isAdmin'] == 1){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
+		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
 	}
 }
 
@@ -42,9 +43,9 @@ if($lncln->user->permissions['isAdmin'] == 1):
 			<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />
 			Obscene: <select name="images[<?=$image['id'];?>][obscene]" onfocus="modCheck('<?=$image['id'];?>')">
 					<?if($image['obscene'] == 1):?>
-						<option value="yes" selected>Yes</option><option value="no">No</option>
+						<option value="1" selected>Yes</option><option value="0">No</option>
 					<?else:?>
-						<option value="yes">Yes</option><option value="no" selected>No</option>
+						<option value="1">Yes</option><option value="0" selected>No</option>
 					<?endif;?>
 					 </select> 
 			<!--<input type="checkbox" name="images[<?=$image['id'];?>][obscene]" />-->
