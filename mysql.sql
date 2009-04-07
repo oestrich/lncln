@@ -72,14 +72,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` char(32) NOT NULL,
   `password` char(40) NOT NULL,
   `admin` tinyint(1) NOT NULL default '0',
+  `toHome` int(1) NOT NULL default '1',
   `obscene` tinyint(1) NOT NULL default '1',
   `numImages` int(2) NOT NULL,
   `postTime` int(32) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 INSERT INTO `users` (`id`, `name`, `password`, `admin`, `obscene`, `numImages`, `postTime`) VALUES
-(1, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0);
+(1, 'Anonymous', '', 0, 0, 0, 1, 1239058806),
+(2, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0, 0);
 
 
 --
