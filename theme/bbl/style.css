@@ -35,8 +35,6 @@ a{
 #container{
 	background-color: black;
 	padding-bottom: 20px;
-	left: -50px; 
-	position: relative;
 }
 
 #form{
@@ -49,6 +47,11 @@ a{
 	padding: 18px;
 	border: 2px solid black;
 	z-index: 2;
+}
+
+#news{
+	left: -50px;
+	position: relative;
 }
 
 .obCheck{
