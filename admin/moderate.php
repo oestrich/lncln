@@ -39,7 +39,8 @@ if($lncln->user->permissions['isAdmin'] == 1):
 		$tags = join(', ', $image['tags']);
 	?>
 		<div id="<?=$image['id'];?>" class="modDiv">
-			<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /> 
+			<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />
+			Obscene: <input type="checkbox" name="images[<?=$image['id'];?>][obscene]" />
 			<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
