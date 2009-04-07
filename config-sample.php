@@ -6,7 +6,7 @@
  * Edit to suit your needs
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.9.0 $Id$
+ * @version 0.10.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -19,7 +19,7 @@ session_start();
  * @since 0.6.0
  */
 
-define("VERSION", "0.9.0");
+define("VERSION", "0.10.0");
 define("TITLE", "The Archive");
 
 /**
