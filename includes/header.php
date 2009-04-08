@@ -116,7 +116,6 @@ if($lncln->user->permissions['isAdmin'] == 1){
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);
 ?>
-				<br />
 				We have <?echo $result['COUNT(*)'];?> images.
 				<br />
 				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="get">
