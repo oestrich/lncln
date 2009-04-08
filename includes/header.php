@@ -111,6 +111,13 @@ if($lncln->user->permissions['isAdmin'] == 1){
 <?	
 	}
 ?>
+<?
+	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
+	$result = mysql_query($sql);
+	$result = mysql_fetch_assoc($result);
+?>
+				<br />
+				We have <?echo $result['COUNT(*)'];?> images.
 				<br />
 				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="get">
 					<div>
