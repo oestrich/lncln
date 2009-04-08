@@ -17,7 +17,12 @@
 			<?if($lncln->isAdmin):?>
 				<div style="text-align: center; left: -50px; position: relative;"><a href="admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>		
-			Any image upload by an anonymous user is put into a moderation queue.  Moderation is done by the discretion of the admins.<br />
+<?
+$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
+$result = mysql_query($sql);
+$result = mysql_fetch_assoc($result);
+?>
+			We have <?echo $result['COUNT(*)'];?> images.<br />
 			If you find something that belongs to you, and would like it taken down, please contact <a href="mailto:mazra[at]boomboxlincoln[dot]org">mazra</a><br />
 			Designed for Firefox - Powered by <a href="http://lncln.com">lncln <?echo VERSION;?></a>
 		</div>
