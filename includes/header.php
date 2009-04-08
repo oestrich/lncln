@@ -107,16 +107,9 @@ if($lncln->user->permissions['isAdmin'] == 1){
 	
 				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene</a>
 <?
-	if($_COOKIE['obscene']){
-?>
-	You are viewing obscene content.
-<?
-	}
-	else{	
-?>
-	You are not viewing obscene content.
-<?
-}
+	
+	echo $_COOKE['obscene'] ? "You are viewing obscene content." : "You are not viewing obscene content.";
+		
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);
