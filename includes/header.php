@@ -63,10 +63,9 @@ if($lncln->user->permissions['isAdmin'] == 1){
 	$result = mysql_fetch_assoc($result);
 
 ?>
-				<br />
+				<br />Admin: 
 				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
-				<a href='<?echo URL;?>admin/adduser.php'>Add a user</a>
-				<a href='<?echo URL;?>admin/albums.php'>Edit Albums</a>
+				<a href="<?=URL;?>admin/">Admin Panel</a>
 <?
 }
 ?>

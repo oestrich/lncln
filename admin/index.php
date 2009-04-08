@@ -11,4 +11,11 @@
  * @package lncln
  */
 
+/*Links that will be needed for here later.
+		<a href='<?echo URL;?>admin/adduser.php'>Add a user</a>
+		<a href='<?echo URL;?>admin/albums.php'>Edit Albums</a>
+ */
+
 ?>
+
+
