@@ -15,33 +15,30 @@ require_once("../load.php");
 
 $lncln = new lncln();
 
+include("admin.php");
+
 if(isset($_POST['username']) && $lncln->user->permissions['isAdmin'] == 1){
 	$added = $lncln->adduser($_POST);
 }
 
 require_once("../includes/header.php");
-if($lncln->user->permissions['isAdmin'] == 1){
 	if(isset($added)){
 		echo $added;
 	}
 ?>
-	<form enctype="multipart/form-data" action="adduser.php" method="post">
-			<div id="adduser">
-			Username: <input type="text" name="username" /><br />
-			Password: <input type='password' name='password' /><br />
-			Password: <input type='password' name='passwordconfirm' /><br />
-			Admin: <select name="admin">
-						<option value="0">No</option>
-						<option value="1">Yes</option>
-					</select>
-			<input type="submit" value="Add user" />
-		</div>
-	</form>
+<form enctype="multipart/form-data" action="adduser.php" method="post">
+		<div id="adduser">
+		Username: <input type="text" name="username" /><br />
+		Password: <input type='password' name='password' /><br />
+		Password: <input type='password' name='passwordconfirm' /><br />
+		Admin: <select name="admin">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>
+		<input type="submit" value="Add user" />
+	</div>
+</form>
 <?
-}
-else{
-	echo "What are you doing here?";
-}
 
 
 require_once("../includes/footer.php");
