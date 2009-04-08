@@ -103,12 +103,7 @@ if($lncln->user->permissions['isAdmin'] == 1){
 						Max total upload size: <?=ini_get("upload_max_filesize");?>
 					</div>
 				</form>
-	
-				<br />
-				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene</a>
 <?
-				echo $_COOKIE['obscene'] == 1 ? "You are viewing obscene content." : "You are not viewing obscene content.";
-	
 	if(file_exists("bblincoln-latest.tar.gz")){
 ?>
 				<br />
