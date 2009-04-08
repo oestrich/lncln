@@ -70,7 +70,7 @@ if($lncln->user->permissions['isAdmin'] == 1){
 }
 ?>
 				<br />
-				<a href="javascript:;" onmousedown="toggleDiv('regular')">Upload</a> <a href="javascript:;" onmousedown="toggleDiv('url')">Upload from URL</a>
+				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
 				
 				
 				<!-- upload form -->
