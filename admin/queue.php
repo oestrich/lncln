@@ -15,6 +15,8 @@ require_once("../load.php");
 
 $lncln = new lncln("queue");
 
+include("admin.php");
+
 if($lncln->user->permissions['isAdmin'] == 1){
 	$lncln->queue = true;
 }
@@ -48,55 +50,49 @@ if(isset($obscene)){
 	echo $obscene . "<br />";
 }
 
-
-if($lncln->user->permissions['isAdmin'] == 1){
-	echo "There are " . $result['COUNT(*)'] . " items in the queue.";
+echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 ?>
-	<br />
-	This page will show the first 50 items in the queue<br />
-	<form enctype="multipart/form-data" action="queue.php?action=update" method="post">
-		<div class="queue">
+<br />
+This page will show the first 50 items in the queue<br />
+<form enctype="multipart/form-data" action="queue.php?action=update" method="post">
+	<div class="queue">
 <?	
 	if(count($lncln->images) > 0){
 		foreach ($lncln->images as $image){
 			if($image['obscene'] == 1){
-				$obscene = "obscene";
-			}
-			else{
-				$obscene = "not obscene";
-			}
-			
-			$tags = join(', ', $image['tags']);
-			if($tags == ""){
-				$tags = "None.";
+			$obscene = "obscene";
+		}
+		else{
+			$obscene = "not obscene";
+		}
+		
+		$tags = join(', ', $image['tags']);
+		if($tags == ""){
+			$tags = "None.";
 			}
 ?>
-		
-			<input type='checkbox' name='<?echo $image['id'];?>' value='<?echo $image['id'];?>' style="float: left;" />
-			<div class="imageLink">
-				<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a><br />
-				<a href="queue.php?obscene=<? echo $image['id'];?>" class="delete"><img src="<?=URL;?>theme/<?=THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-				<a href="queue.php?delete=<? echo $image['id'];?>"><img src="<?=URL;?>theme/<?=THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a><br />
-				<div class='delete'>Tags: <?echo $tags;?></div>
-				<div class='delete'>This image is <?echo $obscene;?>.</div>
-			</div>
+	
+		<input type='checkbox' name='<?echo $image['id'];?>' value='<?echo $image['id'];?>' style="float: left;" />
+		<div class="imageLink">
+			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/thumb/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a><br />
+			<a href="queue.php?obscene=<? echo $image['id'];?>" class="delete"><img src="<?=URL;?>theme/<?=THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+			<a href="queue.php?delete=<? echo $image['id'];?>"><img src="<?=URL;?>theme/<?=THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a><br />
+			<div class='delete'>Tags: <?echo $tags;?></div>
+			<div class='delete'>This image is <?echo $obscene;?>.</div>
+		</div>
 
 <?		}
 ?>
-			<input type='submit' value='Submit' />
-		</div>
-	</form>
+		<input type='submit' value='Submit' />
+	</div>
+</form>
 <?
 	}
 	else{
 ?>
-	<br />Nothing to moderate
+<br />Nothing to moderate
 <?
 	}
-}
-else{
-	echo "You're not an admin, please go back to the <a href='index.php'>main page</a>";
-}
 
 require_once("../includes/footer.php");
 ?>
