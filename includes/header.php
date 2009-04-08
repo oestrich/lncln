@@ -64,8 +64,8 @@ if($lncln->user->permissions['isAdmin'] == 1){
 
 ?>
 				<br />Admin: 
-				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
 				<a href="<?=URL;?>admin/">Admin Panel</a>
+				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
 <?
 }
 ?>
