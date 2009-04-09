@@ -26,6 +26,7 @@ include(ABSPATH . "includes/header.php");
 
 echo "Welcome to the admin panel";
 
+
 include(ABSPATH . "includes/footer.php");
 ?>
 
