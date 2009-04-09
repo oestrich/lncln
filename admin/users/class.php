@@ -1,6 +1,6 @@
 <?
 /**
- * index.php
+ * class.php
  * 
  * Main class for the user admin module
  * 
@@ -44,7 +44,7 @@ class Users extends lncln{
 		$sql = "SELECT id, name FROM users WHERE name = '" . $username . "'";
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) > 0){
-			return "User with same name exists";
+			return "User already exists";
 		}
 		
 		
