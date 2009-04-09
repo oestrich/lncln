@@ -563,7 +563,7 @@ class lncln{
 	 * @since 0.10.0
 	 * @package lncln
 	 */
-	 function tempUpload(){
+	function tempUpload(){
 	 	$_SESSION['uploaded'] = true;
 		$_SESSION['pages'] = 0;
 	 	
@@ -662,7 +662,8 @@ class lncln{
 		$this->thumbnail($imgID . '.' . $type);
 		$this->tag($imgID, $data['tags']);
 		$this->caption($imgID, $data['caption']);
-		$this->changeAlbum($imgID, $data['album']);
+		$this->changeAlbum($imgID, $data['album']);	
+		//This is line #666, watch out
 		if($data['obscene']){
 			$this->obscene($imgID);
 		}
@@ -676,8 +677,6 @@ class lncln{
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
-	
-	//This is line #666, watch out
 	function dequeue($images){
 		foreach($images as $image){
 			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
