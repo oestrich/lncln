@@ -30,6 +30,6 @@ if($lncln->user->permissions['isAdmin'] == 0){
  * @since 0.11.0
  * @package lncln
  */
-$modules = array("users");
+$modules = array("users", "albums");
  
 ?>
