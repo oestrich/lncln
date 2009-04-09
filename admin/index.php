@@ -34,7 +34,7 @@ echo "Welcome to the admin panel";
 include($enabledModules[0] . "/info.php");
 
 foreach($links as $key => $module){
-	echo "<span style='font-weight: bold; text-decoration:underline; font-size:large'>" . $key . "</span>";
+	echo "<br /><br /><span style='font-weight: bold; text-decoration:underline; font-size:large'>" . $key . "</span><br />";
 	foreach($module  as $link){
 		echo "<a href='" . $enabledModules[0] . "/index.php?action=" . $link['url'] . "'>" . $link['name'] . "</a><br />";
 	}
