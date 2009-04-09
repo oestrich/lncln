@@ -35,7 +35,7 @@ include($enabledModules[0] . "/info.php");
 
 foreach($links as $module){
 	foreach($module  as $link){
-		echo "<a href='" . $link['url'] . "'> " . $link['name'] . "</a>";
+		echo "<a href='" . $link['url'] . "'> " . $link['name'] . "</a><br />";
 	}
 }
 
