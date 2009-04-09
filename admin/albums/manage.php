@@ -11,12 +11,16 @@
  * @package lncln
  */
  
+if($_GET['subAction'] == "delete"){
+	$lncln->deleteAlbum($_GET['album']);
+}
+
 ?>
 	Albums: <br />
 	<ul>
 <?
 	foreach($lncln->getAlbums() as $album){
-		echo "\t\t\t<li>" . $album['name'] . " <a href='albums.php?action=delete&amp;album=" . $album['id'] . "'>Delete</a></li>\n";
+		echo "\t\t\t<li>" . $album['name'] . " <a href='index.php?action=manage&amp;subAction=delete&amp;album=" . $album['id'] . "'>Delete</a></li>\n";
 	}	
 ?>
 	</ul>
