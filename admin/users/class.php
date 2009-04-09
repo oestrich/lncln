@@ -41,7 +41,7 @@ class Users extends lncln{
 			return "Passwords do not match";
 		}
 		
-		$sql = "SELECT name FROM users WHERE name = " . $username;
+		$sql = "SELECT id, name FROM users WHERE name = '" . $username . "'";
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) > 0){
 			return "User with same name exists";
