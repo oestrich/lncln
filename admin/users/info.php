@@ -11,6 +11,8 @@
  * @package lncln
  */ 
  
+$name['users'] = "Users";
+ 
 $links['users'][0]['name'] = "Add users";
 $links['users'][0]['url'] = "add";
 
