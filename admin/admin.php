@@ -18,5 +18,18 @@ if($lncln->user->permissions['isAdmin'] == 0){
 	require_once(ABSPATH . "includes/footer.php");
 	exit();
 }
+
+ 
+/*
+ * This part will be removed once I get it configurable in the database
+ * It will say which modules are enabled 
+ */
+/**
+ * The enabled modules
+ * 
+ * @since 0.11.0
+ * @package lncln
+ */
+$modules = array("users");
  
 ?>

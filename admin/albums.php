@@ -17,11 +17,11 @@ $lncln = new lncln();
 
 include("admin.php");
 
-if(isset($_POST['name']) && $lncln->user->permissions['isAdmin'] == 1){
+if(isset($_POST['name'])){
 	$album = $lncln->addAlbum($_POST['name']);
 }
 
-if($_GET['action'] == "delete" && $lncln->user->permissions['isAdmin'] == 1){
+if($_GET['action'] == "delete"){
 	$lncln->deleteAlbum($_GET['album']);
 }
 
