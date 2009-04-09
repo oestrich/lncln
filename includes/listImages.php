@@ -179,7 +179,7 @@ foreach ($lncln->images as $image){
 	<?endif;?>
 
 	<?if($lncln->user->permissions['isAdmin']):?>
-			<a href="<?echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+			<a href="<?echo URL; echo $lncln->script;?>?delete=<?echo $image['id'];?>&amp;img=<?echo $lncln->firstImage . $lncln->extra;?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 	<?endif;?>
 
 	<?if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))):?>

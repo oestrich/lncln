@@ -75,7 +75,7 @@ class lncln{
 	 * @since 0.9.0
 	 * @package lncln
 	 */
-	private function index(){
+	function index(){
 		$this->moderationOn = true;
 		$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 		
@@ -161,7 +161,7 @@ class lncln{
 	 * @since 0.9.0
 	 * @package lncln
 	 */
-	private function image(){
+	function image(){
 		if(isset($_GET['img']) && is_numeric($_GET['img'])){
 			$image = prepareSQL($_GET['img']);
 		}
@@ -185,7 +185,7 @@ class lncln{
 	 * 
 	 * @param array $search The first term of the array is the search term
 	 */
-	private function search($search){
+	function search($search){
 		$this->search = prepareSQL($search[0]);
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
@@ -259,7 +259,7 @@ class lncln{
 	 * 
 	 * @param array $album First term is which album to load
 	 */
-	private function album($album){	
+	function album($album){	
 		if($album[0] != 0){
 			$this->album = prepareSQL($album[0]);
 			$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
