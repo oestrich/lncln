@@ -17,14 +17,15 @@ $lncln = new lncln();
 
 include("admin.php");
 
-if(isset($_POST['username']) && $lncln->user->permissions['isAdmin'] == 1){
+if(isset($_POST['username'])){
 	$added = $lncln->adduser($_POST);
 }
 
 require_once("../includes/header.php");
-	if(isset($added)){
-		echo $added;
-	}
+
+if(isset($added)){
+	echo $added;
+}
 ?>
 <form enctype="multipart/form-data" action="adduser.php" method="post">
 		<div id="adduser">

@@ -12,5 +12,8 @@
  */ 
  
 $links['users'][0]['name'] = "Add users";
-$links['users'][0]['url'] = "adduser.php";
+$links['users'][0]['url'] = "add";
+
+$links['users'][1]['name'] = "Manage Users";
+$links['users'][1]['url'] = "manage";
 ?>
