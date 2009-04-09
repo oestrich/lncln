@@ -21,7 +21,7 @@ if(isset($album)){
 ?>
 
 
-<form action="albums.php" method="post">
+<form action="index.php?action=add" method="post">
 	<div>
 		Add new album:<br />
 		<input type="text" name="name" />
