@@ -31,7 +31,7 @@ $enabledModules = array("users");
 include(ABSPATH . "includes/header.php");
 
 echo "Welcome to the admin panel";
-include($enabledModules['users'] . "/info.php");
+include($enabledModules[0] . "/info.php");
 
 foreach($links as $module){
 	foreach($module  as $link){
