@@ -20,7 +20,10 @@ include("admin.php");
 include(ABSPATH . "includes/header.php");
 
 echo "Welcome to the admin panel";
-include($modules[0] . "/info.php");
+
+foreach($modules as $module){
+	include($module . "/info.php");
+}
 
 foreach($links as $key => $module){
 	echo "<br /><br /><span style='font-weight: bold; text-decoration:underline; font-size:large'>" . $name[$key] . "</span><br />";
