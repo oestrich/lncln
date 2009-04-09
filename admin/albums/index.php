@@ -13,7 +13,9 @@
 
 require_once("../../load.php");
 
-$lncln = new lncln();
+include("class.php");
+
+$lncln = new Albums();
 
 include("../admin.php");
 
