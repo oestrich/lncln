@@ -11,11 +11,11 @@
  * @package lncln
  */ 
  
-$name['users'] = "Albums";
+$name['albums'] = "Albums";
  
-$links['users'][0]['name'] = "Add an album";
-$links['users'][0]['url'] = "add";
+$links['albums'][0]['name'] = "Add an album";
+$links['albums'][0]['url'] = "add";
 
-$links['users'][1]['name'] = "Manage albums";
-$links['users'][1]['url'] = "manage";
+$links['albums'][1]['name'] = "Manage albums";
+$links['albums'][1]['url'] = "manage";
 ?>
