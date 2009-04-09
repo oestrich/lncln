@@ -43,15 +43,7 @@ define("DB_PASSWORD", "");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
-$script = split("/", $_SERVER['SCRIPT_NAME']);
-$script = $script[count($script) - 1];
-$URL = str_replace($script, "", $_SERVER['SCRIPT_URL']);
-if(strstr($URL, "admin")){
-	define("URL", str_replace("admin/", "", $URL));
-}
-else{
-	define("URL", $URL);
-}
+define("URL", "/");
 
 /**
  * Theme configurations
