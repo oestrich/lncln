@@ -11,4 +11,6 @@
  * @package lncln
  */ 
  
+$links['users']['name'][] = "Add users";
+$links['users']['url'][] = "adduser.php";
 ?>

@@ -22,10 +22,22 @@ include("admin.php");
 		<a href='<?echo URL;?>admin/albums.php'>Edit Albums</a>
  */
  
+/*
+ * This part will be removed once I get it configurable in the database
+ * It will say which modules are enabled 
+ */
+$enabledModules = array("users");
+
 include(ABSPATH . "includes/header.php");
 
 echo "Welcome to the admin panel";
+include($enabledModules['users'] . "/info.php");
 
+foreach($links as $module){
+	foreach($module  as $link){
+		echo "<a href='" . $link['url'] . "'> " . $link['name'] . "</a>";
+	}
+}
 
 include(ABSPATH . "includes/footer.php");
 ?>
