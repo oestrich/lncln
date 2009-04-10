@@ -24,7 +24,7 @@ $user = $lncln->getUser($_GET['user']);
 	<div>
 		Edit album:<br />
 		<input type="hidden" name="id" value="<?=$user['id'];?>" />
-		Name: <input type="text" name="name" value="<?=$user['name'];?>"/><br />
+		Name: <?=$user['name'];?><br />
 		Password: <input type="password" name="password" /><br />
 		Password: <input type="password" name="confirm" /><br />
 		Admin:  <select name="admin">
