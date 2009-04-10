@@ -18,6 +18,9 @@
 	<ul>
 <?
 	foreach($lncln->getUsers() as $user){
+		if($user['name'] == "Anonymous")
+			continue;
+		
 		echo "\t\t\t<li>" . $user['name'] . " <a href='" . createLink("edit", array("user" => $user['id'])) . "'>Edit</a> " .
 				"<a href='" . createLink("manage", array("subAction" => "delete", "user" => $user['id'])) . "'>Delete</a></li>\n";
 	}	
