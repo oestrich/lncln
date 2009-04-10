@@ -32,4 +32,26 @@ if($lncln->user->permissions['isAdmin'] == 0){
  */
 $modules = array("users" => "users", "albums" => "albums");
  
+
+/**
+ * Creates URLs that are ready to be used in links.
+ * 
+ * @since 0.11.0
+ * @package lncln
+ * 
+ * @param $action string The action to be used
+ * @param $params array Key and value will become "&key=value" in link
+ * 
+ * @return string The link that was created
+ */
+function createLink($action, $params = array()){
+	$link = "index.php?action=" . $action;
+	
+	foreach($params as $key => $value){
+		$link .= "&amp;" . $key . "=" . $value;
+	}
+	
+	return $link;
+}
+
 ?>
