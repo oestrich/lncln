@@ -57,7 +57,7 @@ class Users extends lncln{
 	 * @param $info array Contains the users information
 	 */
 	function changeUser($info){
-		if(is_numeric($info['admin']) && is_numeric($info['obscene']) && is_numeric($info['id'])){
+		if(is_numeric($info['admin']) && is_numeric($info['viewObscene']) && is_numeric($info['id'])){
 			$admin = $info['admin'];
 			$obscene = $info['viewObscene'] ? 1 : 0;
 			$id = $info['id'];
