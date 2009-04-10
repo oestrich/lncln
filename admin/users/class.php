@@ -53,4 +53,17 @@ class Users extends lncln{
 		
 		return "User " . $username . " added";
 	}
+	
+	function getUsers(){
+		$sql = "SELECT id, name FROM users WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$users[] = array("id"	 => $row['id'],
+							  "name" => $row['name']
+							  );	
+		}
+		
+		return $users;
+	}
 }
