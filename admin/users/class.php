@@ -10,7 +10,6 @@
  * 
  * @package lncln
  */ 
-
  
 class Users extends lncln{
 	/**
@@ -54,6 +53,14 @@ class Users extends lncln{
 		return "User " . $username . " added";
 	}
 	
+	/**
+	 * Return all users currently in the system
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @return array Contains all users. Keys: id, name
+	 */
 	function getUsers(){
 		$sql = "SELECT id, name FROM users WHERE 1";
 		$result = mysql_query($sql);
@@ -65,5 +72,23 @@ class Users extends lncln{
 		}
 		
 		return $users;
+	}
+	
+	/**
+	 * Returns all information regarding on user
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @return array Information on user. Keys: id, name
+	 */
+	function getUser($id){
+		$id = prepareSQL($id);
+		
+		$sql = "SELECT * FROM users WHERE id = " . $id;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);	
+		
+		return $row;
 	}
 }
