@@ -70,7 +70,7 @@ class Albums extends lncln{
 	function getAlbum($album){
 		$album = prepareSQL($album);
 		
-		$sql = "SELECT id, name FROM albums WHERE album = " . $album;
+		$sql = "SELECT id, name FROM albums WHERE id = " . $album;
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($sql);
 		
