@@ -30,6 +30,7 @@ $album = $lncln->getAlbum($_GET['album']);
 <form action="<?=createLink("edit", array("album" => $album['id']));?>" method="post">
 	<div>
 		Edit album:<br />
+		<input type="hidden" name="id" value="<?=$album['id'];?>" />
 		<input type="text" name="name" value="<?=$album['name'];?>"/>
 		<input type="submit" value="Edit album"/>
 	</div>
