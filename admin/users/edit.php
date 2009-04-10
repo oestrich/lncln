@@ -37,7 +37,10 @@ $user = $lncln->getUser($_GET['user']);
 					<option value="0" <?if($user['admin'] == 0) echo "selected";?>>No</option>
 					<option value="1" <?if($user['admin'] == 1) echo "selected";?>>Yes</option>
 				</select><br />
-		View Obscene: <input type='checkbox' name='viewObscene' <?if($user['obscene'] == 1) echo "checked";?> /><br />
+		View Obscene: <select name="viewObscene">
+							<option value="0" <?if($user['obscene'] == 0) echo "selected";?>>No</option>
+							<option value="1" <?if($user['obscene'] == 1) echo "selected";?>>Yes</option>
+						</select><br />
 		<input type="submit" value="Edit user"/>
 	</div>
 </form>
