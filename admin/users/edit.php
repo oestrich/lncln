@@ -24,7 +24,14 @@ $user = $lncln->getUser($_GET['user']);
 	<div>
 		Edit album:<br />
 		<input type="hidden" name="id" value="<?=$user['id'];?>" />
-		<input type="text" name="name" value="<?=$user['name'];?>"/>
-		<input type="submit" value="Edit album"/>
+		Name: <input type="text" name="name" value="<?=$user['name'];?>"/><br />
+		Password: <input type="password" name="password" /><br />
+		Password: <input type="password" name="confirm" /><br />
+		Admin:  <select name="admin">
+					<option value="0" <?if($user['admin'] == 0) echo "selected";?>>No</option>
+					<option value="1" <?if($user['admin'] == 1) echo "selected";?>>Yes</option>
+				</select><br />
+		View Obscene: <input type='checkbox' name='viewObscene' <?if($user['obscene'] == 1) echo "checked";?> /><br />
+		<input type="submit" value="Edit user"/>
 	</div>
 </form>
