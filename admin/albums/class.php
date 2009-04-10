@@ -55,6 +55,28 @@ class Albums extends lncln{
 			mysql_query($sql);
 		}		
 	}
+	
+	/**
+	 * Gets information about the album,
+	 * name and id
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $album int Album id
+	 * 
+	 * @return array
+	 */
+	function getAlbum($album){
+		$album = prepareSQL($album);
+		
+		$sql = "SELECT id, name FROM albums WHERE album = " . $album;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($sql);
+		
+		return $row;
+		
+	}
 }
  
 ?> 
