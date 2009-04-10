@@ -29,17 +29,17 @@ $user = $lncln->getUser($_GET['user']);
 <form action="<?=createLink("edit", array("user" => $user['id']));?>" method="post">
 	<div>
 		Edit User: <?=$user['name'];?><br />
-		<input type="hidden" name="id" value="<?=$user['id'];?>" />
+		<input type="hidden" name="id" value=<?=$user['id'];?> />
 		Password: <input type="password" name="password" /><br />
 		Password: <input type="password" name="confirm" /><br />
 		Leave password blank to keep the same.<br />
 		Admin:  <select name="admin">
-					<option value="0" <?if($user['admin'] == 0) echo "selected";?>>No</option>
-					<option value="1" <?if($user['admin'] == 1) echo "selected";?>>Yes</option>
+					<option value=0 <?if($user['admin'] == 0) echo "selected";?>>No</option>
+					<option value=1 <?if($user['admin'] == 1) echo "selected";?>>Yes</option>
 				</select><br />
 		View Obscene: <select name="viewObscene">
-							<option value="0" <?if($user['obscene'] == 0) echo "selected";?>>No</option>
-							<option value="1" <?if($user['obscene'] == 1) echo "selected";?>>Yes</option>
+							<option value=0 <?if($user['obscene'] == 0) echo "selected";?>>No</option>
+							<option value=1 <?if($user['obscene'] == 1) echo "selected";?>>Yes</option>
 						</select><br />
 		<input type="submit" value="Edit user"/>
 	</div>
