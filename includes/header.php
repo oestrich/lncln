@@ -67,8 +67,7 @@ else{
 	$result = mysql_fetch_assoc($result);
 ?>
 				We have <?echo $result['COUNT(*)'];?> images.
-				<br />
-				
+								
 				<!-- upload form -->
 				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
 					<div>
