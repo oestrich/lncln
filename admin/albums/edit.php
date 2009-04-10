@@ -17,6 +17,12 @@ if(!isset($_GET['album'])){
 	exit();
 }
 
+if(isset($_POST['name'])){
+	$lncln->changeAlbumName($_POST['id'], $_POST['name']);
+	header("location:" . createLink("manage"));
+	exit();
+}
+
 $album = $lncln->getAlbum($_GET['album']);
 
 ?>

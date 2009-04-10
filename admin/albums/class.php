@@ -77,6 +77,23 @@ class Albums extends lncln{
 		return $row;
 		
 	}
+	
+	/**
+	 * Changes the album's name
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $id int Album id
+	 * @param $name string New name
+	 */
+	function changeAlbumName($id, $name){
+		$id = prepareSQL($id);
+		$name = prepareSQL($name);
+		
+		$sql = "UPDATE albums SET name = '" . $name ."' WHERE id = " . $id;
+		mysql_query($sql);
+	}
 }
  
 ?> 
