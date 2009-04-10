@@ -92,6 +92,9 @@ class Users extends lncln{
 	 * @param $id int User id to be deleted
 	 */
 	function deleteUser($id){
+		if($id = $this-user->userID)
+			return "";
+			
 		if(is_numeric($id)){
 			$sql = "DELETE FROM users WHERE id = " . $id;
 			mysql_query($sql);
