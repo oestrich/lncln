@@ -57,17 +57,6 @@ else{
 <?
 }
 
-if($lncln->user->permissions['isAdmin'] == 1){
-	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-	$result = mysql_query($sql);
-	$result = mysql_fetch_assoc($result);
-
-?>
-				<br />Admin: 
-				<a href="<?=URL;?>admin/">Admin Panel</a>
-				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
-<?
-}
 ?>
 				<br />
 				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
@@ -103,7 +92,20 @@ if($lncln->user->permissions['isAdmin'] == 1){
 						Max total upload size: <?=ini_get("upload_max_filesize");?>
 					</div>
 				</form>
+
 <?
+if($lncln->user->permissions['isAdmin'] == 1){
+	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
+	$result = mysql_query($sql);
+	$result = mysql_fetch_assoc($result);
+
+?>
+				<br />Admin: 
+				<a href="<?=URL;?>admin/">Admin Panel</a>
+				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+<?
+}
+
 	if(file_exists("bblincoln-latest.tar.gz")){
 ?>
 				<br />
