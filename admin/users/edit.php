@@ -22,9 +22,8 @@ $user = $lncln->getUser($_GET['user']);
 
 <form action="<?=createLink("edit", array("user" => $user['id']));?>" method="post">
 	<div>
-		Edit album:<br />
+		Edit User: <?=$user['name'];?><br />
 		<input type="hidden" name="id" value="<?=$user['id'];?>" />
-		Name: <?=$user['name'];?><br />
 		Password: <input type="password" name="password" /><br />
 		Password: <input type="password" name="confirm" /><br />
 		Admin:  <select name="admin">
