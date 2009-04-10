@@ -83,6 +83,25 @@ class Users extends lncln{
 	}
 	
 	/**
+	 * Deletes the user associated to the id
+	 * No going back after you call this
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $id int User id to be deleted
+	 */
+	function deleteUser($id){
+		if(is_numeric($id)){
+			$sql = "DELETE FROM users WHERE id = " . $id;
+			mysql_query($sql);
+			
+			$sql = "DELETE FROM rating WHERE userID = " . $id;
+			mysql_query($sql);
+		}
+	}
+		
+	/**
 	 * Return all users currently in the system
 	 * 
 	 * @since 0.11.0

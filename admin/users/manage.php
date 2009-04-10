@@ -11,6 +11,9 @@
  * @package lncln
  */
 
+if($_GET['subAction'] == "delete"){
+	$lncln->deleteUser($_GET['user']);
+}
 
 ?>
 
