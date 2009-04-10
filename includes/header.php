@@ -60,7 +60,14 @@ else{
 ?>
 				<br />
 				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
-				
+
+<?
+	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
+	$result = mysql_query($sql);
+	$result = mysql_fetch_assoc($result);
+?>
+				We have <?echo $result['COUNT(*)'];?> images.
+				<br />
 				
 				<!-- upload form -->
 				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
@@ -113,13 +120,6 @@ if($lncln->user->permissions['isAdmin'] == 1){
 <?	
 	}
 ?>
-<?
-	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
-	$result = mysql_query($sql);
-	$result = mysql_fetch_assoc($result);
-?>
-				We have <?echo $result['COUNT(*)'];?> images.
-				<br />
 				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="get">
 					<div>
 						Tag search:
