@@ -815,11 +815,8 @@ class lncln{
 	 * @param string $caption The caption for the image
 	 */
 	function caption($id, $caption){
-		$id = stripslashes($id);
-		$caption = stripslashes($caption);
-	
-		$id = mysql_real_escape_string($id);
-		$caption = mysql_real_escape_string($caption);
+		$id = prepareSQL($id);
+		$caption = prepareSQL($caption);
 		
 		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
 		mysql_query($sql);
@@ -982,11 +979,8 @@ class User{
 	 */
 	function loggedIn(){
 		if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
-			$username = stripslashes($_COOKIE['username']);
-			$password = stripslashes($_COOKIE['password']);
-	
-			$username = mysql_real_escape_string($username);
-			$password = mysql_real_escape_string($password);
+			$username = prepareSQL($_COOKIE['username']);
+			$password = prepareSQL($_COOKIE['password']);
 			
 			$this->isUser = true;
 		}
@@ -1061,20 +1055,13 @@ class User{
 	 * @return string Whether it updated or not
 	 */
 	function updateUser($user){
-		$username = stripslashes($user['username']);
-		$obscene = stripslashes($user['obscene']);
-	
-		$username = mysql_real_escape_string($username);
-		$obscene = mysql_real_escape_string($obscene);
+		$username = prepareSQL($user['obscene']);
+		$obscene = prepareSQL($user['username']);
 		
 		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
-			$oldPassword = stripslashes($user['password']);
-			$newPassword = stripslashes($user['newPassword']);
-			$newPasswordConfirm = stripslashes($user['newPasswordConfirm']);
-			
-			$oldPassword = mysql_real_escape_string($oldPassword);
-			$newPassword = mysql_real_escape_string($newPassword);
-			$newPasswordConfirm = mysql_real_escape_string($newPasswordConfirm);
+			$oldPassword = prepareSQL($user['password']);
+			$newPassword = prepareSQL($user['newPassword']);
+			$newPasswordConfirm = prepareSQL($user['newPasswordConfirm']);
 			
 			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
 			$result = mysql_query($sql);
@@ -1132,7 +1119,6 @@ function connect(){
  * @return string Variable that's ready for SQL
  */
 function prepareSQL($var){
-	$var = stripslashes($var);
 	$var = mysql_real_escape_string($var);
 	
 	return $var;

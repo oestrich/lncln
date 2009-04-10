@@ -17,6 +17,12 @@ if(!isset($_GET['user'])){
 	exit();
 }
 
+if(isset($_POST['id'])){
+	$lncln->changeUser($_POST);
+	header("location:" . createLink("manage"));
+	exit();
+}
+
 $user = $lncln->getUser($_GET['user']);
 ?>
 
@@ -26,6 +32,7 @@ $user = $lncln->getUser($_GET['user']);
 		<input type="hidden" name="id" value="<?=$user['id'];?>" />
 		Password: <input type="password" name="password" /><br />
 		Password: <input type="password" name="confirm" /><br />
+		Leave password blank to keep the same.<br />
 		Admin:  <select name="admin">
 					<option value="0" <?if($user['admin'] == 0) echo "selected";?>>No</option>
 					<option value="1" <?if($user['admin'] == 1) echo "selected";?>>Yes</option>

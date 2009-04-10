@@ -23,15 +23,10 @@ class Users extends lncln{
 	 * @return string If bad password, or if they were added successfully
 	 */
 	function adduser($user){
-		$username = stripslashes($user['username']);
-		$password = stripslashes($user['password']);
-		$passwordConfirm = stripslashes($user['passwordconfirm']);
-		$admin = stripslashes($user['admin']);
-	
-		$username = mysql_real_escape_string($username);
-		$password = mysql_real_escape_string($password);
-		$passwordConfirm = mysql_real_escape_string($passwordConfirm);
-		$admin = mysql_real_escape_string($admin);
+		$username = prepareSQL($user['username']);
+		$password = prepareSQL($user['password']);
+		$passwordConfirm = prepareSQL($user['passwordconfirm']);
+		$admin = prepareSQL($user['admin']);
 		
 		$password = sha1($password);
 		$passwordConfirm = sha1($passwordConfirm);
@@ -51,6 +46,40 @@ class Users extends lncln{
 		mysql_query($sql);
 		
 		return "User " . $username . " added";
+	}
+	
+	/**
+	 * Changes the user's information and permissions
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $info array Contains the users information
+	 */
+	function changeUser($info){
+		if(is_numeric($info['admin']) && is_numeric($info['obscene']) && is_numeric($info['id'])){
+			$admin = $info['admin'];
+			$obscene = $info['viewObscene'] ? 1 : 0;
+			$id = $info['id'];
+		}
+		else{
+			return "";
+		}
+		
+		if($info['password'] != "" && $info['confirm'] != ""){
+			$password = prepareSQL($info['password']);
+			$confirm = prepareSQL($info['confirm']);
+			
+			$password = sha1($password);
+			$confirm = sha1($confirm);
+			
+			if($password == $confirm){
+				$passwordSQL = " password = '" . $password . "' ";
+			}
+		}
+		
+		$sql = "UPDATE users SET admin = " . $admin . " obscene = " . $obscene . " " . $passwordSQL . " WHERE id = " . $id;
+		mysql_query($sql);
 	}
 	
 	/**
