@@ -15,7 +15,7 @@ require_once("../../load.php");
 
 include("class.php");
 
-$lncln = new Skeleton();
+$lncln = new Settings();
 
 include("../admin.php");
 
