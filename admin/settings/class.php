@@ -2,7 +2,7 @@
 /**
  * class.php
  * 
- * Main class for the Skeleton module
+ * Main class for the settings admin module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.10.0 $Id$
@@ -11,6 +11,6 @@
  * @package lncln
  */ 
  
-class Skeleton extends lncln{
+class Settings extends lncln{
 
 }
