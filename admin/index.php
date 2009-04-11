@@ -19,14 +19,14 @@ include("admin.php");
 
 include(ABSPATH . "includes/header.php");
 
-echo "Welcome to the admin panel";
+echo "Welcome to the admin panel<br />";
 
 foreach($modules as $module){
 	include($module . "/info.php");
 }
 
 foreach($links as $key => $module){
-	echo "<br /><br /><span style='font-weight: bold; text-decoration:underline; font-size:large'>" . $name[$key] . "</span>";
+	echo "<br /><span style='font-weight: bold; text-decoration:underline; font-size:large'>" . $name[$key] . "</span><br />";
 	foreach($module  as $link){
 		echo "<a href='" . $modules[$key] . "/index.php?action=" . $link['url'] . "'>" . $link['name'] . "</a><br />";
 	}
