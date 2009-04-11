@@ -13,6 +13,6 @@
  
 $name['skeleton'] = "Skeleton";
  
-$links['skeleton'][0]['name'] = "Link One";
-$links['skeleton'][0]['url'] = "link";
+$links['skeleton'][0]['name'] = "Change Settings";
+$links['skeleton'][0]['url'] = "manage";
 ?>
