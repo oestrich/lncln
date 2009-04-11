@@ -12,6 +12,8 @@
  */ 
 ?>
 
+Change the board settings: <br />
+
 <form action="<?=createLink("manage", array("subAction" => "edit"));?>" method="post" />
 	<div>
 		Board Name: <input type="text" name="name" /><br />
