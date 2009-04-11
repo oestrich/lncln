@@ -11,8 +11,8 @@
  * @package lncln
  */ 
  
-$name['skeleton'] = "Skeleton";
+$name['settings'] = "Settings";
  
-$links['skeleton'][0]['name'] = "Change Settings";
-$links['skeleton'][0]['url'] = "manage";
+$links['settings'][0]['name'] = "Change Settings";
+$links['settings'][0]['url'] = "manage";
 ?>
