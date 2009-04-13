@@ -22,6 +22,10 @@ if($_GET['action'] == "finishUpload"){
 	exit();
 }
 
+if($_GET['action'] == "cancel"){
+	print_r($_POST['images']);
+}
+
 //Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
 if(!isset($_POST['type'])){
 	require_once("includes/header.php");
@@ -73,7 +77,7 @@ endforeach;
 ?>
 		<input type="submit" value="Submit" />
 	</form>
-	<form action="upload.php?action=cancel" method="get" />
+	<form action="upload.php?action=cancel" method="post" />
 		<div>
 			<?foreach($lncln->uploaded as $image){
 				echo "<input type='hidden' name='image[]' value='" . $image . "' />";
