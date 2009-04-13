@@ -73,8 +73,11 @@ endforeach;
 ?>
 		<input type="submit" value="Submit" />
 	</form>
-	<form action="index.php" method="get" />
+	<form action="upload.php?action=cancel" method="get" />
 		<div>
+			<?foreach($lncln->uploaded as $image){
+				echo "<input type='hidden' name='image[]' value='" . $image . "'";
+			}?>
 			<input type="submit" value="Cancel" />
 		</div>
 	</form>
