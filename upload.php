@@ -73,6 +73,11 @@ endforeach;
 ?>
 		<input type="submit" value="Submit" />
 	</form>
+	<form action="index.php" method="get" />
+		<div>
+			<input type="submit" value="Cancel" />
+		</div>
+	</form>
 <?
 
 require_once(ABSPATH . "includes/footer.php");
