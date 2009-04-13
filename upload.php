@@ -24,6 +24,8 @@ if($_GET['action'] == "finishUpload"){
 
 if($_GET['action'] == "cancel"){
 	print_r($_POST['images']);
+	echo "canceled";
+	exit();
 }
 
 //Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
