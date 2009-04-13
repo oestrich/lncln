@@ -23,8 +23,12 @@ if($_GET['action'] == "finishUpload"){
 }
 
 if($_GET['action'] == "cancel"){
+	$lncln = new lncln();
+	
 	print_r($_POST['images']);
-	echo "canceled";
+	foreach($_POST['images'] as $image){
+		@unlink(CURRENT_IMG_TEMP_DIRECTORY . $image);
+	}
 	exit();
 }
 
