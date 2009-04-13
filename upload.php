@@ -25,10 +25,11 @@ if($_GET['action'] == "finishUpload"){
 if($_GET['action'] == "cancel"){
 	$lncln = new lncln();
 	
-	print_r($_POST['images']);
 	foreach($_POST['images'] as $image){
 		@unlink(CURRENT_IMG_TEMP_DIRECTORY . $image);
 	}
+	
+	header("location:" . URL . "index.php");
 	exit();
 }
 
