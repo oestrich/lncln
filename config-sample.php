@@ -20,7 +20,6 @@ session_start();
  */
 
 define("VERSION", "0.10.0");
-define("TITLE", "The Archive");
 
 /**
  * Database Configuration
