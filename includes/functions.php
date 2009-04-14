@@ -1094,6 +1094,25 @@ class User{
 }
 
 /**
+ * Display class.  Manages board settings
+ * 
+ * @since 0.11.0
+ * @package lncln
+ */
+class Display{
+	public $settings;
+	
+	function __construct(){
+		$sql = "SELECT * FROM settings";
+		$result = mysql_query($sql);
+				
+		while($row = mysql_fetch_assoc($result)){
+			$this->settings[] = array($row['name'] => $row['value']);
+		}
+	}
+}
+
+/**
  * Connects to the database
  * 
  * @since 0.5.0
