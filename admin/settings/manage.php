@@ -22,16 +22,11 @@ if($_GET['subAction'] == "edit"){
 } 
 
 $themes = "<select name='theme'>";
-$tempThemes = scandir(ABSPATH . "theme/");
 
-for($i = 2; $i <= (count($tempThemes) - 1); $i++){
-	if($tempThemes[$i] == "index.html" || $tempThemes[$i] == ".svn"){
-		continue;
-	}
+foreach($lncln->listThemes() as $theme){
+	$selected = $theme == $display->settings['theme'] ? " selected " : "";
 	
-	$selected = $tempThemes[$i] == $display->settings['theme'] ? " selected " : "";
-	
-	$themes .= "<option value='" . $tempThemes[$i] . "' " . $selected . ">" . $tempThemes[$i] . "</option>"; 
+	$themes .= "<option value='" . $theme . "' " . $selected . ">" . $theme . "</option>"; 
 }
 $themes .= "</select>";
 ?>

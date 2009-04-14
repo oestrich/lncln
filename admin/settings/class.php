@@ -30,4 +30,18 @@ class Settings extends lncln{
 			mysql_query($sql);
 		}
 	}
+	
+	function listThemes(){
+		$tempThemes = scandir(ABSPATH . "theme/");
+		$themes = array();
+		
+		for($i = 2; $i <= (count($tempThemes) - 1); $i++){
+			if($tempThemes[$i] == "index.html" || $tempThemes[$i] == ".svn"){
+				continue;
+			}
+			$themes[] = $tempThemes[$i];
+		}
+		
+		return $themes;
+	}
 }
