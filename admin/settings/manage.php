@@ -20,6 +20,14 @@ if($_GET['subAction'] == "edit"){
 	include(ABSPATH . "includes/footer.php");
 	exit();
 } 
+
+$themes = "<select name='theme'>";
+$tempThemes = scandir(ABSPATH . "theme/");
+
+for($i = 2; $i < (count($tempThemes) - 2); $i++){
+	$themes .= "<option value='" . $tempThemes[i] . "'>" . $tempThemes[i] . "</option>"; 
+}
+$themes .= "</select>";
 ?>
 
 Change the board settings: <br />
@@ -27,6 +35,7 @@ Change the board settings: <br />
 <form action="<?=createLink("manage", array("subAction" => "edit"));?>" method="post" />
 	<div>
 		Title: <input type="text" name="title" /><br />
+		Theme: <?=$themes;?><br />
 		<input type="submit" value="Submit" />
 	</div>
 </form>
