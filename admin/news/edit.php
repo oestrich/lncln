@@ -27,7 +27,7 @@ $news = $lncln->getNewsOne($_GET['news']);
 				<td>Title:</td>
 				<td><input type="text" name="title" size="53" value="<?=$news['title'];?>"/></td>
 			</tr>
-			<tr>
+			<tr style="vertical-align: top;">
 				<td>Body:</td>
 				<td><textarea name="body" cols="40" rows="10"><?=$news['news'];?></textarea></td>
 			</tr>
