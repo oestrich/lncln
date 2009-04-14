@@ -25,7 +25,7 @@ $themes = "<select name='theme'>";
 $tempThemes = scandir(ABSPATH . "theme/");
 
 for($i = 2; $i <= (count($tempThemes) - 1); $i++){
-	if($tempThemes[$i] == "index.html"){
+	if($tempThemes[$i] == "index.html" || $tempThemes[$i] == ".svn"){
 		continue;
 	}
 	$themes .= "<option value='" . $tempThemes[$i] . "'>" . $tempThemes[$i] . "</option>"; 
