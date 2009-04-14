@@ -23,8 +23,9 @@ class News extends lncln{
 	 */
 	function addNews($news){
 		$body = prepareSQL($news['body']);
+		$title = prepareSQL($news['title']);
 		
-		$sql = "INSERT INTO news (postTime, news) VALUES (" . time() . ", '" . $body . "')";
+		$sql = "INSERT INTO news (postTime, title, news) VALUES (" . time() . ", '" . $title . "', '" . $body . "')";
 		mysql_query($sql);
 		
 		return "News added.";
@@ -63,6 +64,26 @@ class News extends lncln{
 		if(is_numeric($id)){
 			$sql = "DELETE FROM news WHERE id = " . $id;
 			mysql_query($sql);
+		}
+	}
+	
+	/**
+	 * Fetch one news story
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $id int Item to be found
+	 * 
+	 * @return array Keys- id, postTime, title, news
+	 */
+	function getNewsOne($id){
+		if(is_numeric($id)){
+			$sql = "SELECT id, postTime, title, news FROM news WHERE id = " . $id;
+			$result = mysql_query($sql);
+			
+			if(mysql_num_rows($result) == 1)
+				return mysql_fetch_assoc($result);
 		}
 	}
 }

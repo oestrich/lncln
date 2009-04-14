@@ -20,6 +20,10 @@ if(isset($_POST['body'])){
 	<div>
 		<table>
 			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title" size="53" /></td>
+			</tr>
+			<tr>
 				<td>Body:</td>
 				<td><textarea name="body" cols="40" rows="10"></textarea></td>
 			</tr>

@@ -10,4 +10,32 @@
  * 
  * @package lncln
  */
+if(!isset($_GET['news'])){
+	echo "Please don't come here on your own.";
+	include(ABSPATH . "includes/footer.php");
+	exit();
+}
+
+$news = $lncln->getNewsOne($_GET['news']);
 ?>
+
+<form action="<?=createLink("add", array());?>" method="post" />
+	<div>
+		<input type="hidden" name="id" value="<?=$news['id'];?>" />
+		<table>
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title" size="53" value="<?=$news['title'];?>"/></td>
+			</tr>
+			<tr>
+				<td>Body:</td>
+				<td><textarea name="body" cols="40" rows="10"><?=$news['body'];?></textarea></td>
+			</tr>
+			<tr>
+				<td>Post Time:</td>
+				<td><input type="text" name="postTime" size="53" value="<?=$news['postTime'];?>" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit" />
+	</div>
+</form>
