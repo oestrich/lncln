@@ -11,15 +11,14 @@
  * @package lncln
  */
  
+if(isset($_POST['title'])){
+	echo $lncln->newNews($_POST);
+}
 ?>
 
 <form action="<?=createLink("add", array());?>" method="post" />
 	<div>
 		<table>
-			<tr>
-				<td>Title:</td>
-				<td><input type="text" name="title" size="53"/></td>
-			</tr>
 			<tr>
 				<td>Body:</td>
 				<td><textarea name="body" cols="40" rows="10"></textarea></td>
