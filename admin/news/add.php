@@ -18,7 +18,7 @@
 		<table>
 			<tr>
 				<td>Title:</td>
-				<td><input type="text" name="title" cols="40"/></td>
+				<td><input type="text" name="title" size="40"/></td>
 			</tr>
 			<tr>
 				<td>Body:</td>
