@@ -15,13 +15,6 @@
 session_start();
 
 /**
- * Config as of
- * @since 0.6.0
- */
-
-define("VERSION", "0.10.0");
-
-/**
  * Database Configuration
  * 
  * @since 0.6.0
