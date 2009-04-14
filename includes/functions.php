@@ -1107,7 +1107,7 @@ class Display{
 		$result = mysql_query($sql);
 				
 		while($row = mysql_fetch_assoc($result)){
-			$this->settings[] = array($row['name'] => $row['value']);
+			$this->settings[$row['name']] = $row['value'];
 		}
 	}
 }
