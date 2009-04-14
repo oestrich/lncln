@@ -22,7 +22,7 @@
 			</tr>
 			<tr>
 				<td>Body:</td>
-				<td><textarea name="body"></textarea></td>
+				<td><textarea name="body" cols="50" rows="15"></textarea></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
