@@ -13,7 +13,7 @@
  
 if($_GET['subAction'] == "edit"){
 	foreach($_POST as $name => $value){
-		$lncln->changeValue($name, $value);
+		$lncln->changeSetting($name, $value);
 	}
 } 
 ?>
