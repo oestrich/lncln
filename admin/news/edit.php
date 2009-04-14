@@ -26,7 +26,7 @@ if(isset($_POST['id'])){
 $news = $lncln->getNewsOne($_GET['news']);
 ?>
 
-<form action="<?=createLink("edit", array());?>" method="post" />
+<form action="<?=createLink("edit", array("news" => $news['id']));?>" method="post" />
 	<div>
 		<input type="hidden" name="id" value="<?=$news['id'];?>" />
 		<table>
