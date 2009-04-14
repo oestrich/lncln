@@ -36,7 +36,7 @@ $news = $lncln->getNewsOne($_GET['news']);
 			</tr>
 			<tr style="vertical-align: top;">
 				<td>Body:</td>
-				<td><textarea name="body" cols="40" rows="10"><?=$news['news'];?></textarea></td>
+				<td><textarea name="news" cols="40" rows="10"><?=$news['news'];?></textarea></td>
 			</tr>
 			<tr>
 				<td>Post Time*:</td>
