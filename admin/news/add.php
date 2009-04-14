@@ -11,7 +11,7 @@
  * @package lncln
  */
  
-if(isset($_POST['title'])){
+if(isset($_POST['body'])){
 	echo $lncln->newNews($_POST);
 }
 ?>
