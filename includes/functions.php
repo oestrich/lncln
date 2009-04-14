@@ -1100,7 +1100,7 @@ class User{
  * @package lncln
  */
 class Display{
-	public $settings;
+	public $settings = array();
 	
 	function __construct(){
 		$sql = "SELECT * FROM settings";
