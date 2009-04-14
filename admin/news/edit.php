@@ -32,8 +32,11 @@ $news = $lncln->getNewsOne($_GET['news']);
 				<td><textarea name="body" cols="40" rows="10"><?=$news['news'];?></textarea></td>
 			</tr>
 			<tr>
-				<td>Post Time:</td>
+				<td>Post Time*:</td>
 				<td><input type="text" name="postTime" size="53" value="<?=$news['postTime'];?>" /></td>
+			</tr>
+			<tr colspan="2">
+				<td>*Post time is in Unix time.</td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
