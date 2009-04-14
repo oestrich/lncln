@@ -16,8 +16,8 @@
 	<ul>
 <?
 	foreach($lncln->getNews() as $news){
-		echo "\t\t\t<li>" . $news['title'] . " <a href='" . createLink("edit", array("user" => $news['id'])) . "'>Edit</a> " .
-				"<a href='" . createLink("manage", array("subAction" => "delete", "user" => $news['id'])) . "'>Delete</a></li>\n";
+		echo "\t\t\t<li>" . $news['title'] . " <a href='" . createLink("edit", array("news" => $news['id'])) . "'>Edit</a> " .
+				"<a href='" . createLink("manage", array("subAction" => "delete", "news" => $news['id'])) . "'>Delete</a></li>\n";
 	}	
 ?>
 	</ul>
