@@ -50,4 +50,19 @@ class News extends lncln{
 		
 		return $news;
 	}
+	
+	/**
+	 * Delete a news item
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @param $id int Item to be deleted
+	 */
+	function deleteNews($id){
+		if(is_numeric($id)){
+			$sql = "DELETE FROM news WHERE id = " . $id;
+			mysql_query($sql);
+		}
+	}
 }

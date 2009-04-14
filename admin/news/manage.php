@@ -10,6 +10,11 @@
  * 
  * @package lncln
  */
+
+if($_GET['subAction'] == "delete"){
+	$lncln->deleteNews($_GET['news']);
+}
+
 ?>
 
 	News:<br />
