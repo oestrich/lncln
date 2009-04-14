@@ -37,11 +37,4 @@ define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
 define("URL", "/");
 
-/**
- * Theme configurations
- * 
- * @since 0.6.1
- */
- 
-define("THEME", "bbl");
 ?>

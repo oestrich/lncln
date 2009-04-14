@@ -1109,6 +1109,8 @@ class Display{
 		while($row = mysql_fetch_assoc($result)){
 			$this->settings[$row['name']] = $row['value'];
 		}
+		
+		define("THEME", $this->settings['theme']);
 	}
 }
 
