@@ -19,7 +19,7 @@ if(isset($added)){
 	echo $added;
 }
 ?>
-<form enctype="multipart/form-data" action="index.php?action=add" method="post">
+<form enctype="multipart/form-data" action="<?=createLink("add");?>" method="post">
 		<div id="adduser">
 		Username: <input type="text" name="username" /><br />
 		Password: <input type='password' name='password' /><br />
