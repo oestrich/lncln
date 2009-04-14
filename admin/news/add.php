@@ -12,7 +12,7 @@
  */
  
 if(isset($_POST['body'])){
-	echo $lncln->newNews($_POST);
+	echo $lncln->addNews($_POST);
 }
 ?>
 
