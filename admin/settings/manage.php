@@ -28,7 +28,10 @@ for($i = 2; $i <= (count($tempThemes) - 1); $i++){
 	if($tempThemes[$i] == "index.html" || $tempThemes[$i] == ".svn"){
 		continue;
 	}
-	$themes .= "<option value='" . $tempThemes[$i] . "'>" . $tempThemes[$i] . "</option>"; 
+	
+	$selected = $tempThemes[$i] == $display->settings['theme'] ? " selected " : "";
+	
+	$themes .= "<option value='" . $tempThemes[$i] . "' " . $selected . ">" . $tempThemes[$i] . "</option>"; 
 }
 $themes .= "</select>";
 ?>
@@ -37,7 +40,7 @@ Change the board settings: <br />
 
 <form action="<?=createLink("manage", array("subAction" => "edit"));?>" method="post" />
 	<div>
-		Title: <input type="text" name="title" /><br />
+		Title: <input type="text" name="title" value="<?=$display->settings['title'];?>"/><br />
 		Theme: <?=$themes;?><br />
 		<input type="submit" value="Submit" />
 	</div>
