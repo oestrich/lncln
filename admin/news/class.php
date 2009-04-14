@@ -86,4 +86,20 @@ class News extends lncln{
 				return mysql_fetch_assoc($result);
 		}
 	}
+	
+	function changeNews($data){
+		$title = prepareSQL($data['title']);
+		$news = prepareSQL($data['news']);
+		
+		if(is_numeric($data['postTime']) && is_numeric($data['id'])){
+			$postTime = $data['postTime'];
+			$id = $data['id'];
+		}
+		else{
+			return "";
+		}
+		
+		$sql = "UPDATE news SET title = '" . $title . "', news = '" . $news ."', postTime = " . $postTime . " WHERE id = " . $id;
+		mysql_query($sql);
+	}
 }

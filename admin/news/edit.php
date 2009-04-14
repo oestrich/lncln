@@ -10,9 +10,16 @@
  * 
  * @package lncln
  */
+
 if(!isset($_GET['news'])){
 	echo "Please don't come here on your own.";
 	include(ABSPATH . "includes/footer.php");
+	exit();
+}
+
+if(isset($_POST['id'])){
+	$lncln->changeNews($_POST);
+	header("location:" . createLink("manage"));
 	exit();
 }
 
