@@ -29,4 +29,25 @@ class News extends lncln{
 		
 		return "News added.";
 	}
+	
+	/**
+	 * Returns all news
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @return array Keys- id, postTime, title, news
+	 */
+	function getNews(){
+		$news = array();
+		
+		$sql = "SELECT id, postTime, title, news FROM news WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$news[] = $row;
+		}
+		
+		return $news;
+	}
 }

@@ -106,3 +106,5 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ;
