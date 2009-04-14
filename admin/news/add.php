@@ -15,8 +15,16 @@
 
 <form action="<?=createLink("add", array());?>" method="post" />
 	<div>
-		Title: <input type="text" name="title" /><br />
-		Body: <textarea name="body"></textarea><br />
+		<table>
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title" /></td>
+			</tr>
+			<tr>
+				<td>Body:</td>
+				<td><textarea name="body"></textarea></td>
+			</tr>
+		</table>
 		<input type="submit" value="Submit" />
 	</div>
 </form>
