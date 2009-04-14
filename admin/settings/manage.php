@@ -15,6 +15,10 @@ if($_GET['subAction'] == "edit"){
 	foreach($_POST as $name => $value){
 		$lncln->changeSetting($name, $value);
 	}
+	
+	echo "Settings have been saved.  Click <a href='" . URL . "admin/'>here</a> to continue";
+	include(ABSPATH . "includes/footer.php");
+	exit();
 } 
 ?>
 
