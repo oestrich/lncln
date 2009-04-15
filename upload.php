@@ -52,6 +52,11 @@ require_once(ABSPATH . "includes/header.php");
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
 foreach($lncln->uploaded as $image):
+		if($image == "404"){
+			echo "Image is 404\n<br />";
+			continue;
+		}
+
 		$size = getimagesize(CURRENT_IMG_TEMP_DIRECTORY . $image);
 		$tHeight = ($size[1] / $size[0]) * 150;
 		if($tHeight > 150){

@@ -512,6 +512,7 @@ class lncln{
 					$file = @file_get_contents($_POST['upload' . $i]);
 					if(!$file){
 						$_SESSION['upload'][$i] = 5;
+						$this->uploaded[] = "404";
 						continue;
 					}
 					$tempName = split("\/", $_POST['upload' . $i]);
