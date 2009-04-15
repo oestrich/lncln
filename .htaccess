@@ -1,7 +1,4 @@
 #$Id$
-
-Options +FollowSymLinks 
+ 
 RewriteEngine On 
-RewriteCond %{REQUEST_FILENAME} !-f 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule /page/([0-9]+) index.php?page=$1
+RewriteRule ^/page/([0-9]+) index.php?page=$1
