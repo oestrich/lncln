@@ -1,4 +1,4 @@
 #$Id$
  
 RewriteEngine On 
-RewriteRule ^/page/([0-9]+) index.php?page=$1
+RewriteRule ^/page/([0-9]+)$ /index.php?page=$1
