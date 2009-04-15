@@ -79,8 +79,8 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] == 0){
-			$this->page = 0;
-			$this->maxPage = 0;
+			$this->page = 1;
+			$this->maxPage = 1;
 		}
 		else{
 			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
@@ -152,8 +152,8 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] == 0){
-			$this->page = 0;
-			$this->maxPage = 0;
+			$this->page = 1;
+			$this->maxPage = 1;
 		}
 		else{		
 			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
@@ -213,8 +213,8 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 			
 			if($row['COUNT(*)'] == 0){
-				$this->page = 0;
-				$this->maxPage = 0;
+				$this->page = 1;
+				$this->maxPage = 1;
 			}
 			else{				
 				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album . $time;
@@ -489,7 +489,7 @@ class lncln{
 	    elseif($this->page == 1 && $this->page == $this->maxPage){
 	    	return "";
 	    }
-	    elseif($this->page == $this->maxPage && $this->page != 0){
+	    elseif($this->page == $this->maxPage){
 	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
