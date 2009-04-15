@@ -96,9 +96,9 @@ class lncln{
 		}
 		else{
 			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
-			$result = mysql_fetch_assoc($result);
+			$row = mysql_fetch_assoc($result);
 
-			$this->maxPage = $result['COUNT(id)'];
+			$this->maxPage = $row['COUNT(id)'];
 			$this->maxPage = ceil($this->maxPage / $rowsPerPage);
 			
 			if(!isset($_GET['page'])){
@@ -174,7 +174,7 @@ class lncln{
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
-			$this->maxPage = $result['COUNT(picId)'];
+			$this->maxPage = $row['COUNT(picId)'];
 			$this->maxPage = ceil($this->maxPage / $rowsPerPage);
 			
 			if(!isset($_GET['page'])){
