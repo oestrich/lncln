@@ -28,6 +28,7 @@ class lncln{
 	
 	public $script;
 	
+	/*
 	public $firstImage; 		//First image on the page (used to be $start)
 	public $lastImage;			//Last image on the page 
 	
@@ -36,6 +37,10 @@ class lncln{
 	
 	public $highestID; 		//The highest ID in the database ($used to be $numImgs)
 	public $lowestID;
+	*/
+	
+	public $page;
+	public $maxPage;
 	
 	public $search; 			//tag being searched for
 	public $album;				//album being viewed
@@ -84,73 +89,37 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] == 0){
-			$this->aboveFifty = 0;
-			$this->belowFifty = 0;
-			$this->firstImage = 0;
-			$this->highestID = 0;
+			$this->page = 1;
+			$this->maxPage = 1;
 		}
 		else{
-			$result = mysql_query("SELECT MAX(id) FROM images WHERE queue = 0 " . $time);
+			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
 			$result = mysql_fetch_assoc($result);
 
-			$this->highestID = $result['MAX(id)'];
+			$this->maxPage = $result['COUNT(id)'];
+			$this->maxPage = ceil($this->maxPage / 50);
 			
-			$sql = "SELECT MIN(id) FROM images WHERE queue = 0 " . $time;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			$this->lowestID = $row['MIN(id)'];
-			
-			if(!isset($_GET['img'])){
-				$this->firstImage = $this->highestID;
+			if(!isset($_GET['page'])){
+				$this->page = 1;
 			}
 			else{
-				//if it's set, then set it to start
-				$this->firstImage = $_GET['img'];
-				if($this->firstImage == ""){
-					$this->firstImage = $this->highestID;
+				if(is_numeric($_GET['page'])){
+					$this->page = $_GET['page'];	
 				}
-				//incase its to large
-				if($this->firstImage > $this->highestID){
-					$this->firstImage = $this->highestID;
+				else{
+					$this->page = 1;
 				}
 			}
-		
-			//Getting the number to start the next page && the ids that the page needs to load.
-			$sql = "SELECT id FROM `images` WHERE id <= " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
+			
+			$offset = ($this->page - 1) * 50;
+			
+			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", 50";
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
 			
 			for($i = 0; $i < $numRows; $i++){
-				$row = mysql_fetch_assoc($result);
-				
-				if ($i == $numRows - 1){
-					$this->belowFifty = $row['id'];
-				}
-				
 				$this->imagesToGet[] = $row['id'];
-			}
-
-			if(count($this->imagesToGet) > 50){
-				array_pop($this->imagesToGet);
-			}
-			
-			$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
-			
-			//getting the prevsion page
-			$sql = "SELECT id FROM `images` WHERE id > " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			$numRows = mysql_num_rows($result);
-            if($numRows > 0){	
-				mysql_data_seek($result, $numRows - 1);
-                $row = mysql_fetch_assoc($result);    
-                $this->aboveFifty = $row['id'];
-			}
-			else{
-				$this->aboveFifty = $this->firstImage;
 			}
 		}
 	}
