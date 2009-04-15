@@ -13,7 +13,7 @@
  * @package lncln
  */
 
-if($lncln->belowFifty == 0 && $lncln->aboveFifty == 0 && $lncln->highestID == 0 && $lncln->firstImage == 0){
+if($lncln->page == 0 && $lncln->maxPage == 0){
 	echo "<br /><br />No images.<br />";
 }
 

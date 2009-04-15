@@ -89,8 +89,8 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] == 0){
-			$this->page = 1;
-			$this->maxPage = 1;
+			$this->page = 0;
+			$this->maxPage = 0;
 		}
 		else{
 			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
