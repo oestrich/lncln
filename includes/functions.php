@@ -27,20 +27,10 @@ class lncln{
 	public $moderationOn = false;
 	
 	public $script;
-	
-	/*
-	public $firstImage; 		//First image on the page (used to be $start)
-	public $lastImage;			//Last image on the page 
-	
-	public $aboveFifty; 		//The image 50 images before it (used to be $prev)
-	public $belowFifty;		//The image 50 images after it ($used to be $next)
-	
-	public $highestID; 		//The highest ID in the database ($used to be $numImgs)
-	public $lowestID;
-	*/
-	
+
 	public $page;
 	public $maxPage;
+	public $rowsPerPage = 25;
 	
 	public $search; 			//tag being searched for
 	public $album;				//album being viewed
@@ -88,8 +78,6 @@ class lncln{
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
-		$rowsPerPage = 50;		
-		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 			$this->maxPage = 0;
@@ -99,7 +87,7 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 
 			$this->maxPage = $row['COUNT(id)'];
-			$this->maxPage = ceil($this->maxPage / $rowsPerPage);
+			$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
 			
 			if(!isset($_GET['page'])){
 				$this->page = 1;
@@ -113,9 +101,9 @@ class lncln{
 				}
 			}
 			
-			$offset = ($this->page - 1) * $rowsPerPage;
+			$offset = ($this->page - 1) * $this->rowsPerPage;
 			
-			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $rowsPerPage;
+			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
@@ -163,8 +151,6 @@ class lncln{
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
-		$rowsPerPage = 10;
-		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 			$this->maxPage = 0;
@@ -175,7 +161,7 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 			
 			$this->maxPage = $row['COUNT(picId)'];
-			$this->maxPage = ceil($this->maxPage / $rowsPerPage);
+			$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
 			
 			if(!isset($_GET['page'])){
 				$this->page = 1;
@@ -196,9 +182,9 @@ class lncln{
 				$id = "";
 			}
 			
-			$offset = ($this->page - 1) * $rowsPerPage;
+			$offset = ($this->page - 1) * $this->rowsPerPage;
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT " . $offset . ", " . $rowsPerPage;
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
@@ -227,10 +213,8 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 			
 			if($row['COUNT(*)'] == 0){
-				$this->aboveFifty = 0;
-				$this->belowFifty = 0;
-				$this->firstImage = 0;
-				$this->highestID = 0;
+				$this->page = 0;
+				$this->maxPage = 0;
 			}
 			else{				
 				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album . $time;
@@ -298,7 +282,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT 50";
+			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT " . $this->rowsPerPage;
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
@@ -329,7 +313,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT 50";
+			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT " . $this->rowsPerPage;
 			$result = mysql_query($sql);
 			
 			while($row = mysql_fetch_assoc($result)){
@@ -505,7 +489,7 @@ class lncln{
 	    elseif($this->page == 1 && $this->page == $this->maxPage){
 	    	return "";
 	    }
-	    elseif($this->page == $this->maxPage){
+	    elseif($this->page == $this->maxPage && $this->page != 0){
 	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
