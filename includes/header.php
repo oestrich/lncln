@@ -69,7 +69,7 @@ else{
 				We have <?echo $result['COUNT(*)'];?> images.
 								
 				<!-- upload form -->
-				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
+				<form enctype="multipart/form-data" action="http://<?= SERVER . URL;?>upload.php" method="post"  id="form" style="display: none;">
 					<div>
 						<input type="hidden" name="type" id="formType" value="regular" />
 						Uploaded files will be moderated<br />
