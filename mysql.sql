@@ -83,6 +83,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `admin`, `obscene`, `numImages`, 
 (1, 'Anonymous', '', 0, 0, 0, 1, 1239058806),
 (2, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0, 0);
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `news`
@@ -106,5 +107,21 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(8) NOT NULL auto_increment,
+  `postTime` int(32) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `news` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
 
 ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ;

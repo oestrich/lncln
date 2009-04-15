@@ -589,7 +589,6 @@ class lncln{
 		$this->tag($imgID, $data['tags']);
 		$this->caption($imgID, $data['caption']);
 		$this->changeAlbum($imgID, $data['album']);	
-		//This is line #666, watch out
 		if($data['obscene']){
 			$this->obscene($imgID);
 		}
@@ -664,6 +663,7 @@ class lncln{
 				$num = $flip;
 		}
 		else{
+			//This is line #666, watch out
 			return "No such image.";
 		}
 		
