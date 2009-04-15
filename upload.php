@@ -52,13 +52,13 @@ require_once(ABSPATH . "includes/header.php");
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
 foreach($lncln->uploaded as $image):
-/*
-		if(isset($image['error'])){
+
+		if(is_array($image)){
 			if($image['error'] == "404")
 				echo "<br />Image located at " . $image['image'] . " is 404\n<br /><br />";
 			continue;
 		}
-*/
+
 		$size = getimagesize(CURRENT_IMG_TEMP_DIRECTORY . $image);
 		$tHeight = ($size[1] / $size[0]) * 150;
 		if($tHeight > 150){
