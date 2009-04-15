@@ -119,6 +119,8 @@ class lncln{
 			$numRows = mysql_num_rows($result);
 			
 			for($i = 0; $i < $numRows; $i++){
+				$row = mysql_fetch_assoc($result);
+				
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
