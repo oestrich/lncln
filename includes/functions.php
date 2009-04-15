@@ -521,11 +521,11 @@ class lncln{
 	    	return "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        return "<a href='" . $this->script . "?img=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
+	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        return "<a href='" . $this->script . "?img=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev 50</a>
-	        <a href='" . $this->script . "?img=" . ($this->page + 1) . $extra . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
+	        <a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	}
 
