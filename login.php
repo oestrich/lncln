@@ -61,7 +61,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title><?echo $config['title'];?> Login</title>
-	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo $display->settings['title'];?>/style.css" />
+	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
 <?
 	if($isLoggedIn){
 ?>
@@ -87,7 +87,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
-			<div id="title"><?echo TITLE;?></div>
+			<div id="title"><?echo $display->settings['title'];?></div>
 		</div>
 		<div id="mainBody">
 <?
