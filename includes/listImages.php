@@ -71,7 +71,7 @@ foreach ($lncln->images as $image){
 			<div class="badImage" id="b<?echo $image['id'];?>">
 	<?endif;?>
 
-			<a name="<?echo $image['id'];?>" href="images/full/<?echo $image['file'];?>" target="_blank"><img src="images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
+			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
 <?	
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']):
