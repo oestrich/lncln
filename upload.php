@@ -29,6 +29,10 @@ if($_GET['action'] == "cancel"){
 		@unlink(CURRENT_IMG_TEMP_DIRECTORY . $image);
 	}
 	
+	unset($_SESSION['uploaded']);
+	unset($_SESSION['upload']);
+	unset($_SESSION['uploadTime']);
+	
 	header("location:" . URL . "index.php");
 	exit();
 }
