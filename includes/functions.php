@@ -468,17 +468,17 @@ class lncln{
 		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        return "<a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        return "<a href='" . URL . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	return "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
+	        return "<a href='" . URL . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
-	        <a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        return "<a href='" . URL . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
+	        <a href='" . URL . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	}
 
