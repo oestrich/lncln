@@ -25,7 +25,7 @@
 	<script type="text/javascript" src="<?echo URL;?>includes/javascript.js" >
 	</script>
 </head>
-<body>
+<body onload="init()">
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>

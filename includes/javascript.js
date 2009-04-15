@@ -10,7 +10,11 @@
  * @package lncln
  */
 
-var formAction = document.getElementById('form').action;
+var formAction
+
+function init(){
+	formAction = document.getElementById('form').action;
+}
 
 function toggleDiv(type){
 	if(document.getElementById('form').style.display == 'none'){
