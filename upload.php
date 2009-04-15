@@ -54,7 +54,7 @@ require_once(ABSPATH . "includes/header.php");
 foreach($lncln->uploaded as $image):
 		if(isset($image['error'])){
 			if($image['error'] == "404")
-				echo "<br /><br />Image located at " . $image['image'] . " is 404\n<br />";
+				echo "<br />Image located at " . $image['image'] . " is 404\n<br /><br />";
 			continue;
 		}
 
