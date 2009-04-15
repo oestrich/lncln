@@ -67,6 +67,7 @@ if($_SESSION['uploaded']){
 		unset($_SESSION['uploaded']);
 		unset($_SESSION['upload']);
 		unset($_SESSION['uploadTime']);
+		unset($_SESSION['uploadKey']);
 	}
 }
 if(isset($deletion)){

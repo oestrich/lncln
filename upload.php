@@ -32,6 +32,7 @@ if($_GET['action'] == "cancel"){
 	unset($_SESSION['uploaded']);
 	unset($_SESSION['upload']);
 	unset($_SESSION['uploadTime']);
+	unset($_SESSION['uploadKey']);
 	
 	header("location:" . URL . "index.php");
 	exit();
