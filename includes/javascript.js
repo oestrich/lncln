@@ -10,6 +10,8 @@
  * @package lncln
  */
 
+var formAction = document.getElementById('form').action;
+
 function toggleDiv(type){
 	if(document.getElementById('form').style.display == 'none'){
 		document.getElementById('form').style.display = 'block';
@@ -26,7 +28,7 @@ function toggleDiv(type){
 			upload.size = "30";
 		}
 		document.getElementById('formType').value = "url";
-		document.getElementById('form').action = "upload.php?url=true";
+		document.getElementById('form').action = formAction + "?url=true";
 	}
 	else{
 		for(var a = 0; a < 10; a++){
@@ -35,7 +37,7 @@ function toggleDiv(type){
 			upload.size = "20";
 		}
 		document.getElementById('formType').value = "regular";
-		document.getElementById('form').action = "upload.php";
+		document.getElementById('form').action = formAction;
 	}
 }
 
