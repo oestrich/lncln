@@ -214,18 +214,13 @@ class lncln{
 				$this->page = 0;
 			}
 			else{				
-				$sql = "SELECT MAX(id) FROM images WHERE album = " . $this->album . $time;
+				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $this->album . $time;
 				$result = mysql_query($sql);
 				$row = mysql_fetch_assoc($result);
 				
-				$this->highestID = $row['MAX(id)'];
-				
-				$sql = "SELECT MIN(id) FROM images WHERE album = " . $this->album . $time;
-				$result = mysql_query($sql);
-				$row = mysql_fetch_assoc($result);
-				
-				$this->lowestID = $row['MIN(id)'];
-				
+				$this->maxPage = $row['COUNT(id)'];
+				$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
+
 				if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
 					$id = " AND id <= " . prepareSQL($album[1]);
 				}
@@ -233,33 +228,13 @@ class lncln{
 					$id = "";
 				}
 				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT 51";
+				$offset = ($this->page - 1) * $this->rowsPerPage;
+				
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
 				$result = mysql_query($sql);
 		
 				while($row = mysql_fetch_assoc($result)){
 					$this->imagesToGet[] = $row['id'];
-				}
-						
-				$this->belowFifty = $this->imagesToGet[count($this->imagesToGet) - 1];
-				
-				if(count($this->imagesToGet) > 50){
-					array_pop($this->imagesToGet);
-				}
-				
-				$this->firstImage = $this->imagesToGet[0];
-				$this->lastImage = $this->imagesToGet[count($this->imagesToGet) - 1];
-				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND id > " . $this->firstImage . " AND queue = 0 " . $time. " ORDER BY id ASC LIMIT 50";
-				$result = mysql_query($sql);
-				
-				$numRows = mysql_num_rows($result);
-				if($numRows > 0){
-					mysql_data_seek($result, $numRows - 1);
-					$row = mysql_fetch_assoc($result);	
-					$this->aboveFifty = $row['id'];
-				}
-				else{
-					$this->aboveFifty = $this->firstImage;
 				}
 				
 				$this->extra .= "&amp;album=" . $this->album;
