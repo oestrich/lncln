@@ -221,6 +221,18 @@ class lncln{
 				$this->maxPage = $row['COUNT(id)'];
 				$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
 
+				if(!isset($_GET['page'])){
+					$this->page = 1;
+				}
+				else{
+					if(is_numeric($_GET['page'])){
+						$this->page = $_GET['page'];	
+					}
+					else{
+						$this->page = 1;
+					}
+				}
+
 				if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
 					$id = " AND id <= " . prepareSQL($album[1]);
 				}
