@@ -88,6 +88,8 @@ class lncln{
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
+		$rowsPerPage = 50;		
+		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 			$this->maxPage = 0;
@@ -97,7 +99,7 @@ class lncln{
 			$result = mysql_fetch_assoc($result);
 
 			$this->maxPage = $result['COUNT(id)'];
-			$this->maxPage = ceil($this->maxPage / 50);
+			$this->maxPage = ceil($this->maxPage / $rowsPerPage);
 			
 			if(!isset($_GET['page'])){
 				$this->page = 1;
@@ -111,9 +113,9 @@ class lncln{
 				}
 			}
 			
-			$offset = ($this->page - 1) * 50;
+			$offset = ($this->page - 1) * $rowsPerPage;
 			
-			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", 50";
+			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $rowsPerPage;
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
