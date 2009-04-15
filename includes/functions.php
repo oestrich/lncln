@@ -514,18 +514,18 @@ class lncln{
 		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
 		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
-		if ($this->firstImage == $this->highestID && $this->lastImage != $this->lowestID){
-	        return "<a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
+		if ($this->page == 1 && $this->page != $this->maxPage){
+	        return "<a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
-	    elseif($this->firstImage == $this->highestID && $this->lastImage == $this->lowestID){
+	    elseif($this->page == 1 && $this->page == $this->maxPage){
 	    	return "";
 	    }
-	    elseif($this->lastImage == $this->lowestID){
-	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>";
+	    elseif($this->page == $this->maxPage){
+	        return "<a href='" . $this->script . "?img=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        return "<a href='" . $this->script . "?img=" . $this->aboveFifty . $extra . "' class='prevNext'>Prev 50</a>
-	        <a href='" . $this->script . "?img=" . $this->belowFifty . $extra . "' class='prevNext'>Next 50</a>";
+	        return "<a href='" . $this->script . "?img=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev 50</a>
+	        <a href='" . $this->script . "?img=" . ($this->page + 1) . $extra . "' class='prevNext'>Next 50</a>";
 	    }
 	}
 
