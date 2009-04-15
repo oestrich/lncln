@@ -29,12 +29,10 @@ define("DB_PASSWORD", "");
  * 
  * @since 0.6.0
  */
- 
-//Now in load.php
-//define("ABSPATH", dirname(__FILE__) . "/");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
 define("URL", "/");
+define("SERVER", "");
 
 ?>

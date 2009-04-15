@@ -10,7 +10,7 @@ INSTALLATION
 ------------
 
 Upload all contents to your webserver.
-Rename config-sample.php to config.php and edit accordingly. Only the database settings should need editing.
+Rename config-sample.php to config.php and edit accordingly. Database settings, server, and URL need to be edited.
 Query the database with the contents of mysql.sql
 
 Go ahead and login!  Your default user is 'admin' with a password of 'password' (no quotes).
