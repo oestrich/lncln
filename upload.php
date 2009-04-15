@@ -52,8 +52,9 @@ require_once(ABSPATH . "includes/header.php");
 	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
 <?
 foreach($lncln->uploaded as $image):
-		if($image == "404"){
-			echo "Image is 404\n<br />";
+		if(isset($image['error'])){
+			if($image['error'] == "404")
+				echo "<br /><br />Image located at " . $image['image'] . " is 404\n<br />";
 			continue;
 		}
 
