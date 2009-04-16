@@ -32,13 +32,13 @@ if($_GET['post'] == true){
 
 if(isset($_GET['delete']) && $lncln->user->permissions['isAdmin'] == 1){
 	$deletion = $lncln->delete($_GET['delete']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['delete']);
+	header("location:" . $scriptLocation . "#" . $_GET['delete']);
 	exit();
 }
 
 if(isset($_GET['obscene']) && $lncln->user->isUser){
 	$obscene = $lncln->obscene($_GET['obscene']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['obscene']);
+	header("location:" . $scriptLocation . "#" . $_GET['obscene']);
 	exit();
 }
 
@@ -49,7 +49,7 @@ if(isset($_GET['rateUp']) && $lncln->user->isUser){
 		$rating = 5;
 	}
 	$lncln->rate($_GET['rateUp'], $rating);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['rateUp']);
+	header("location:" . $scriptLocation . "#" . $_GET['rateUp']);
 	exit();
 }
 
@@ -60,7 +60,7 @@ if(isset($_GET['rateDown']) && $lncln->user->isUser){
 		$rating = -5;
 	}
 	$lncln->rate($_GET['rateDown'], $rating);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['rateDown']);
+	header("location:" . $scriptLocation . "#" . $_GET['rateDown']);
 	exit();
 }
 
@@ -86,25 +86,25 @@ if(isset($_GET['refresh']) && $lncln->user->isUser){
 		$row = mysql_fetch_assoc($result);
 		$lncln->thumbnail($id . "." . $row['type']);
 	}
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_GET['refresh']);
+	header("location:" . $scriptLocation . "#" . $_GET['refresh']);
 	exit();
 }
 
 if($_GET['caption'] && $lncln->user->isUser){
 	$lncln->caption($_POST['id'], $_POST['caption']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
 
 if($_GET['tag'] && $lncln->user->isUser){
 	$lncln->tag($_POST['id'], $_POST['tags']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
 
 if($_GET['action'] == "album" && $lncln->user->isUser){
 	$lncln->changeAlbum($_POST['id'], $_POST['album']);
-	header("location:" . URL . $lncln->script . "?img=" . $_GET['img'] . $extra . "#" . $_POST['id']);
+	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
 ?>
