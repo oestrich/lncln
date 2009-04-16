@@ -30,11 +30,18 @@ if(isset($added)){
 				<td>Password:</td>
 				<td><input type='password' name='password' /></td>
 			</tr>
-		Password: <input type='password' name='passwordconfirm' /><br />
-		Admin: <select name="admin">
+			<tr>
+				<td>Password:</td>
+				<td><input type='password' name='passwordconfirm' /></td>
+			</tr>
+			<tr>
+				<td>Admin:</td>
+				<td><select name="admin">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
-				</select>
+				</select></td>
+			</tr>
+		</table>
 		<input type="submit" value="Add user" />
 	</div>
 </form>
