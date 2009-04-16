@@ -53,11 +53,11 @@ if($lncln->user->isUser){
 else{
 ?>
 				<a href='<?echo URL;?>login.php'>Log in</a>
+				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
 <?
 }
 
 ?>
-				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
 				<br />
 				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
 
