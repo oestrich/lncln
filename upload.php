@@ -41,7 +41,7 @@ if($_GET['action'] == "cancel"){
 //Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
 if(!isset($_POST['type'])){
 	require_once("includes/header.php");
-	echo "Please don't come to this page on your own.";
+	echo "Please don't come to this page on your own.  If you didn't come here on your own, you may have uploaded more than " . ini_get("upload_max_filesize");
 	require_once("includes/footer.php");
 	exit();
 }
