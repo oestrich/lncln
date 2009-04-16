@@ -56,12 +56,6 @@ class lncln{
 		$this->user = new User();
 		$this->display = new Display();
 		
-		if($action != "none"){
-			if(method_exists($this, $action)){
-				$this->$action($params);
-			}
-		}
-		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
 	}
