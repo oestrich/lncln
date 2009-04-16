@@ -2,16 +2,28 @@
 -- version 2.11.9.3
 -- http://www.phpmyadmin.net
 --
--- Host: mysql.boomboxlincoln.org
--- Generation Time: Feb 07, 2009 at 10:50 AM
+-- Host: mysql.lncln.com
+-- Generation Time: Apr 15, 2009 at 07:53 PM
 -- Server version: 5.0.67
 -- PHP Version: 5.2.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Database: `bblincoln`
+-- Database: `betalncln`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albums`
+--
+
+CREATE TABLE IF NOT EXISTS `albums` (
+  `id` int(8) NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -37,6 +49,20 @@ CREATE TABLE IF NOT EXISTS `images` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(8) NOT NULL auto_increment,
+  `postTime` int(32) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `news` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rating`
 --
 
@@ -46,7 +72,20 @@ CREATE TABLE IF NOT EXISTS `rating` (
   `userId` int(8) NOT NULL,
   `upDown` int(1) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -59,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `picId` int(6) NOT NULL,
   `tag` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -77,51 +116,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `numImages` int(2) NOT NULL,
   `postTime` int(32) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
-INSERT INTO `users` (`id`, `name`, `password`, `admin`, `obscene`, `numImages`, `postTime`) VALUES
-(1, 'Anonymous', '', 0, 0, 0, 1, 1239058806),
-(2, 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `news`
---
-
-CREATE TABLE IF NOT EXISTS `news` (
-  `id` int(8) NOT NULL auto_increment,
-  `postTime` int(32) NOT NULL,
-  `news` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `albums`
---
-
-CREATE TABLE IF NOT EXISTS `albums` (
-  `id` int(8) NOT NULL auto_increment,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `news`
+-- Dumping data for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `news` (
-  `id` int(8) NOT NULL auto_increment,
-  `postTime` int(32) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `news` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- --------------------------------------------------------
-
-ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ;
+INSERT INTO `users` (`name`, `password`, `admin`, `toHome`, `obscene`, `numImages`, `postTime`) VALUES
+('Anonymous', '', 0, 0, 0, 0, 0),
+('admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 1, 0, 0);

@@ -1,9 +1,23 @@
 /* $Id$ */
 
-Upgrading from 0.10.0
+Upgrading from 0.10.1
 ---------------------
 
-Replace:
- includes/header.php
- includes/functions.php
- 
+Make sure your site is backed up before attempting an upgrade.
+
+The recommended way to upgrade is to remove everything but the
+images folder.  Upload the new version of lncln and apply these
+SQL commands:
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(8) NOT NULL auto_increment,
+  `postTime` int(32) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `news` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ; 
+
+If you have a problem creating the `news` table then please try the forums
+for help.
