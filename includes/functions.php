@@ -659,11 +659,11 @@ class lncln{
 				$num = $flip;
 		}
 		else{
-			//This is line #666, watch out
 			return "No such image.";
 		}
 		
 		$sql = "UPDATE images SET obscene = " . $num . " WHERE id = " . $image;
+		//This is line #666, watch out
 		
 		mysql_query($sql);
 		

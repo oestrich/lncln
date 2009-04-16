@@ -20,9 +20,16 @@ if(isset($added)){
 }
 ?>
 <form enctype="multipart/form-data" action="<?=createLink("add");?>" method="post">
-		<div id="adduser">
-		Username: <input type="text" name="username" /><br />
-		Password: <input type='password' name='password' /><br />
+	<div id="adduser">
+		<table>
+			<tr>
+				<td>Username:</td>
+				<td><input type="text" name="username" /></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type='password' name='password' /></td>
+			</tr>
 		Password: <input type='password' name='passwordconfirm' /><br />
 		Admin: <select name="admin">
 					<option value="0">No</option>

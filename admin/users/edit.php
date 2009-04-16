@@ -30,17 +30,33 @@ $user = $lncln->getUser($_GET['user']);
 	<div>
 		Edit User: <?=$user['name'];?><br />
 		<input type="hidden" name="id" value=<?=$user['id'];?> />
-		Password: <input type="password" name="password" /><br />
-		Password: <input type="password" name="confirm" /><br />
-		Leave password blank to keep the same.<br />
-		Admin:  <select name="admin">
+		<table>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" name="password" /></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" name="confirm" /></td>
+			</tr>
+			<tr>
+				<td colspan="2">Leave password blank to keep the same.</td>
+			</tr>
+			<tr>
+				<td>Admin:</td>
+				<td><select name="admin">
 					<option value=0 <?if($user['admin'] == 0) echo "selected";?>>No</option>
 					<option value=1 <?if($user['admin'] == 1) echo "selected";?>>Yes</option>
-				</select><br />
-		View Obscene: <select name="viewObscene">
+				</select></td>
+			</tr>
+			<tr>
+				<td>View Obscene:</td>
+				<td><select name="viewObscene">
 							<option value=0 <?if($user['obscene'] == 0) echo "selected";?>>No</option>
 							<option value=1 <?if($user['obscene'] == 1) echo "selected";?>>Yes</option>
-						</select><br />
+						</select></td>
+			</tr>
+		</table>
 		<input type="submit" value="Edit user"/>
 	</div>
 </form>

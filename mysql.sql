@@ -96,7 +96,7 @@ INSERT INTO `settings` (`name`, `value`) VALUES
 ('version', '0.11.0'),
 ('theme', 'bbl'),
 ('perpage', '15'),
-('tbp', '10');
+('tbp', '15');
 
 
 -- --------------------------------------------------------
