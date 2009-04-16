@@ -555,7 +555,7 @@ class lncln{
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 					
-		$postTime = time() >= ($row['MAX(postTime)'] + (60 * 15)) ? time() : $row['MAX(postTime)'] + (60 * 15);
+		$postTime = time() >= ($row['MAX(postTime)'] + (60 * $this->display->settings['tbp'])) ? time() : $row['MAX(postTime)'] + (60 * $this->display->settings['tbp']);
 
 		$this->user->checkUploadLimit(true);
 

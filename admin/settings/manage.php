@@ -46,7 +46,7 @@ Change the board settings: <br />
 			</tr>
 			<tr>
 				<td>Time between posts:</td>
-				<td><input type="text" name="tbp" value="<?=$lncln->display->settings['tbp'];?>" size="20" /> minutes</td>
+				<td><input type="text" name="tbp" value="<?=$lncln->display->settings['tbp'];?>" size="10" /> minutes</td>
 			</tr>
 			<tr>
 				<td>Theme:</td>
