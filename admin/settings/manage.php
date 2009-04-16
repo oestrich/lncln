@@ -45,6 +45,10 @@ Change the board settings: <br />
 				<td><input type="text" name="perpage" value="<?=$lncln->display->settings['perpage'];?>" /></td>
 			</tr>
 			<tr>
+				<td>Time between posts:</td>
+				<td><input type="text" name="tbp" value="<?=$lncln->display->settings['tbp'];?>" size="20" /> minutes</td>
+			</tr>
+			<tr>
 				<td>Theme:</td>
 				<td><?=$themes;?></td>
 			</tr>
