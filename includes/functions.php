@@ -31,7 +31,6 @@ class lncln{
 
 	public $page;
 	public $maxPage;
-	public $rowsPerPage = 25;
 	
 	public $search; 			//tag being searched for
 	public $album;				//album being viewed
@@ -82,7 +81,7 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 
 			$this->maxPage = $row['COUNT(id)'];
-			$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
+			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
 			
 			if(!isset($_GET['page'])){
 				$this->page = 1;
@@ -96,9 +95,9 @@ class lncln{
 				}
 			}
 			
-			$offset = ($this->page - 1) * $this->rowsPerPage;
+			$offset = ($this->page - 1) * $this->display->settings['perpage'];
 			
-			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
+			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
 			$result = mysql_query($sql);
 			
 			$numRows = mysql_num_rows($result);
@@ -155,7 +154,7 @@ class lncln{
 			$row = mysql_fetch_assoc($result);
 			
 			$this->maxPage = $row['COUNT(picId)'];
-			$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
+			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
 			
 			if(!isset($_GET['page'])){
 				$this->page = 1;
@@ -176,9 +175,9 @@ class lncln{
 				$id = "";
 			}
 			
-			$offset = ($this->page - 1) * $this->rowsPerPage;
+			$offset = ($this->page - 1) * $this->display->settings['perpage'];
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
@@ -215,7 +214,7 @@ class lncln{
 				$row = mysql_fetch_assoc($result);
 				
 				$this->maxPage = $row['COUNT(id)'];
-				$this->maxPage = ceil($this->maxPage / $this->rowsPerPage);
+				$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
 
 				if(!isset($_GET['page'])){
 					$this->page = 1;
@@ -236,9 +235,9 @@ class lncln{
 					$id = "";
 				}
 				
-				$offset = ($this->page - 1) * $this->rowsPerPage;
+				$offset = ($this->page - 1) * $this->display->settings['perpage'];
 				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->rowsPerPage;
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
 				$result = mysql_query($sql);
 		
 				while($row = mysql_fetch_assoc($result)){
@@ -262,7 +261,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT " . $this->rowsPerPage;
+			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT " . $this->display->settings['perpage'];
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
@@ -293,7 +292,7 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT " . $this->rowsPerPage;
+			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT " . $this->display->settings['perpage'];
 			$result = mysql_query($sql);
 			
 			while($row = mysql_fetch_assoc($result)){

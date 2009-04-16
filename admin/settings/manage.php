@@ -41,8 +41,8 @@ Change the board settings: <br />
 				<td><input type="text" name="title" value="<?=$lncln->display->settings['title'];?>"/></td>
 			</tr>
 			<tr>
-				<td>Images per Page:</td>
-				<td><input type="text" name="images" value="<?=$lncln->display->settings['images'];?>" /></td>
+				<td>Images/Page:</td>
+				<td><input type="text" name="perpage" value="<?=$lncln->display->settings['perpage'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Theme:</td>
