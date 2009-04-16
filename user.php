@@ -17,7 +17,7 @@ require_once("includes/header.php");
 
 if(isset($_POST['username'])){
 	echo $lncln->user->updateUser($_POST);
-	echo "Click <a href='" . URL . "index.php'>here</a> to continue";
+	echo "<br />Click <a href='" . URL . "index.php'>here</a> to continue";
 	include(ABSPATH . "includes/footer.php");
 	exit();
 }
