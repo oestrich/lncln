@@ -17,6 +17,7 @@ if($lncln->page == 0 && $lncln->maxPage == 0){
 	echo "<br /><br />No images.<br />";
 }
 
+$action = $lncln->script == "image.php" ? $lncln->script . "?img= " . $lncln->page . $lncln->extra : $lncln->script . "?page=" . $lncln->page . $lncln->extra;
 
 foreach ($lncln->images as $image){
 	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
@@ -96,7 +97,7 @@ foreach ($lncln->images as $image){
 
 			</div>
 		<?if(($lncln->user->isUser && $image['caption'] == "") || $lncln->user->permissions['isAdmin']):?>
-			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $lncln->script;?>?caption=true&amp;page=<?echo $lncln->page . $lncln->extra;?>" method="post">
+			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $action;?>&amp;caption=true" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
 				<input type="submit" value="Caption!" />
@@ -124,7 +125,7 @@ foreach ($lncln->images as $image){
 				<br />
 			</div>
 		<?if($lncln->user->isUser):?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?tag=true&amp;page=<?echo $lncln->page . $lncln->extra;?>" method="post">
+			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;tag=true" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
@@ -149,7 +150,7 @@ foreach ($lncln->images as $image){
 				Album: <?=$image['album'];?>
 			</div>
 		<?if(($lncln->user->isUser && $image['album'] == "No Album") || $lncln->user->permissions['isAdmin'] == 1):?>
-			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $lncln->script;?>?action=album&amp;page=<?echo $lncln->page . $lncln->extra;?>" method="post">
+			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=album" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					<select name="album">

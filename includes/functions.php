@@ -131,7 +131,7 @@ class lncln{
 
 		$this->imagesToGet[] = $image;
 				
-		$this->page = 1;
+		$this->page = $_GET['img'];
 		$this->maxPage = 1;
 	}
 	
