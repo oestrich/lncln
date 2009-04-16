@@ -13,8 +13,6 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
-
 if(isset($_POST['username'])){
 	$updated = $lncln->user->updateUser($_POST);
 }

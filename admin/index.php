@@ -13,8 +13,6 @@
 
 require_once("../load.php");
 
-$lncln = new lncln();
-
 include("admin.php");
 
 include(ABSPATH . "includes/header.php");

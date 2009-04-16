@@ -26,7 +26,7 @@ require_once(ABSPATH . "includes/functions.php");
 
 connect();
 
-$display = new Display();
+$lncln = new lncln();
 
 $sql = "SHOW TABLES LIKE \"images\"";
 $result = mysql_query($sql);

@@ -14,7 +14,6 @@
 require_once("load.php");
 
 if($_GET['action'] == "finishUpload"){
-	$lncln = new lncln();
 	foreach($_POST['check'] as $key => $value){
 		$lncln->upload($key, $_POST['images'][$key]);
 	}
@@ -23,8 +22,6 @@ if($_GET['action'] == "finishUpload"){
 }
 
 if($_GET['action'] == "cancel"){
-	$lncln = new lncln();
-	
 	foreach($_POST['images'] as $image){
 		@unlink(CURRENT_IMG_TEMP_DIRECTORY . $image);
 	}
@@ -48,7 +45,7 @@ if(!isset($_POST['type'])){
 
 
 
-$lncln = new lncln("tempUpload");
+$lncln->tempUpload();
 
 require_once(ABSPATH . "includes/header.php");
 

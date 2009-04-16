@@ -11,8 +11,6 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
-
 require_once("includes/header.php");
 
 ?>

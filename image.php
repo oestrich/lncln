@@ -13,7 +13,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln("image");
+$lncln->image();
 
 require_once("includes/iconActions.php");
 

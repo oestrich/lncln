@@ -13,7 +13,7 @@
 
 require_once("../load.php");
 
-$lncln = new lncln("queue");
+$lncln->queue();
 
 include("admin.php");
 

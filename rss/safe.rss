@@ -15,7 +15,7 @@ header('Content-type: text/xml');
 
 require_once("../load.php");
 
-$lncln = new lncln("rss", array("safe"));
+$lncln->rss(array("safe"));
 $lncln->img();
 
 $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/safe.rss", "", $_SERVER['SCRIPT_NAME']);

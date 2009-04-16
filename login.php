@@ -13,8 +13,6 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
-
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
 		setcookie("username", "", time() - 30);
@@ -60,7 +58,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <html lang="en" xml:lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title><?echo $config['title'];?> Login</title>
+	<title><?echo $lncln->display->settings['title'];?> Login</title>
 	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
 <?
 	if($isLoggedIn){
@@ -87,7 +85,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
-			<div id="title"><?echo $display->settings['title'];?></div>
+			<div id="title"><?echo $lncln->display->settings['title'];?></div>
 		</div>
 		<div id="mainBody">
 <?

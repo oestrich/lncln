@@ -13,7 +13,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln("search", array($_GET['search'], $_GET['img']));
+$lncln->search(array($_GET['search'], $_GET['img']));
 
 if(!isset($_GET['search']) || $_GET['search'] == ""){
 	header("location:index.php");

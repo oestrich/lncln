@@ -27,6 +27,7 @@ class lncln{
 	public $moderationOn = false;
 	
 	public $script;
+	public $display;
 
 	public $page;
 	public $maxPage;
@@ -53,6 +54,7 @@ class lncln{
 	 */
 	function __construct($action = "none", $params = array()){	
 		$this->user = new User();
+		$this->display = new Display();
 		
 		if($action != "none"){
 			if(method_exists($this, $action)){
@@ -1021,7 +1023,7 @@ class User{
 }
 
 /**
- * Display class.  Manages board settings
+ * Display class.  Manages settings
  * 
  * @since 0.11.0
  * @package lncln

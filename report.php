@@ -13,8 +13,6 @@
 
 require_once("load.php");
 
-$lncln = new lncln();
-
 if($lncln->user->isUser){
 	$amount = 5;
 }

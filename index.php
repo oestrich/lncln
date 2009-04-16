@@ -13,7 +13,7 @@
 
 require_once("load.php");
 
-$lncln = new lncln("index");
+$lncln->index();
 
 require_once(ABSPATH . "includes/iconActions.php");
 
