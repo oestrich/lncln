@@ -14,14 +14,12 @@
 require_once("load.php");
 
 if(isset($_POST['username'])){
-	$updated = $lncln->user->updateUser($_POST);
+	echo $lncln->user->updateUser($_POST);
+	echo "Click <a href='" . URL . "index.php'>here</a> to continue";
+	exit();
 }
 
 require_once("includes/header.php");
-
-if(isset($updated)){
-	echo $updated;
-}
 
 if($lncln->user->isUser){
 	$sql = "SELECT obscene FROM users WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1";
