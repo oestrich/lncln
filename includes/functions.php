@@ -1004,8 +1004,6 @@ class User{
 			setcookie("password", $newPassword, time() + (60 * 60 * 24));
 		}
 		
-		$obscene = $obscene ? 1 : 0;
-		
 		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
 		mysql_query($sql);
 		
