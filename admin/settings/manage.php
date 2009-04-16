@@ -35,8 +35,16 @@ Change the board settings: <br />
 
 <form action="<?=createLink("manage", array("subAction" => "edit"));?>" method="post" />
 	<div>
-		Title: <input type="text" name="title" value="<?=$display->settings['title'];?>"/><br />
-		Theme: <?=$themes;?><br />
+		<table>
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title" value="<?=$display->settings['title'];?>"/></td>
+			</tr>
+			<tr>
+				<td>Theme:</td>
+				<td><?=$themes;?></td>
+			</tr>
+		</table>
 		<input type="submit" value="Submit" />
 	</div>
 </form>

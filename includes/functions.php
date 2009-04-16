@@ -1010,7 +1010,7 @@ class User{
 		setcookie('obscene', $obscene, time() + (60 * 60 * 24));
 	
 		
-		return "User " . $username . " updated";
+		return "User " . $username . " updated.";
 	}
 }
 
