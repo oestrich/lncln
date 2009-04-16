@@ -24,7 +24,7 @@ if($_GET['subAction'] == "edit"){
 $themes = "<select name='theme'>";
 
 foreach($lncln->listThemes() as $theme){
-	$selected = $theme == $display->settings['theme'] ? " selected " : "";
+	$selected = $theme == $lncln->display->settings['theme'] ? " selected " : "";
 	
 	$themes .= "<option value='" . $theme . "' " . $selected . ">" . $theme . "</option>"; 
 }
@@ -38,7 +38,11 @@ Change the board settings: <br />
 		<table>
 			<tr>
 				<td>Title:</td>
-				<td><input type="text" name="title" value="<?=$display->settings['title'];?>"/></td>
+				<td><input type="text" name="title" value="<?=$lncln->display->settings['title'];?>"/></td>
+			</tr>
+			<tr>
+				<td>Images per Page:</td>
+				<td><input type="text" name="images" value="<?=$lncln->display->settings['images'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Theme:</td>
