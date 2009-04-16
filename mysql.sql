@@ -87,6 +87,18 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`name`, `value`) VALUES
+('title', 'The Archive'),
+('version', '0.11.0'),
+('theme', 'bbl'),
+('perpage', '15'),
+('tbp', '10');
+
+
 -- --------------------------------------------------------
 
 --

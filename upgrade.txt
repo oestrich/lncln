@@ -17,6 +17,20 @@ CREATE TABLE IF NOT EXISTS `news` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+INSERT INTO `settings` (`name`, `value`) VALUES
+('title', 'The Archive'),
+('version', '0.11.0'),
+('theme', 'bbl'),
+('perpage', '15'),
+('tbp', '10');
+
 ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ; 
 
 If you have a problem creating the `news` table then please try the forums
