@@ -53,7 +53,7 @@ if($lncln->user->isUser){
 else{
 ?>
 				<a href='<?echo URL;?>login.php'>Log in</a>
-				All images will be directed to the queue.
+				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
 <?
 }
 
