@@ -978,8 +978,8 @@ class User{
 	 * @return string Whether it updated or not
 	 */
 	function updateUser($user){
-		$username = prepareSQL($user['obscene']);
-		$obscene = prepareSQL($user['username']);
+		$username = prepareSQL($user['username']);
+		$obscene = prepareSQL($user['obscene']);
 		
 		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
 			$oldPassword = prepareSQL($user['password']);
@@ -1004,7 +1004,7 @@ class User{
 			setcookie("password", $newPassword, time() + (60 * 60 * 24));
 		}
 		
-		$obscene = $_POST['viewObscene'] ? 1 : 0;
+		$obscene = $obscene ? 1 : 0;
 		
 		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
 		mysql_query($sql);

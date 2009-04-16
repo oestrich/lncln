@@ -43,7 +43,10 @@ if($lncln->user->isUser){
 			New Password: <input type='password' name='newPassword' /><br />
 			New Password: <input type='password' name='newPasswordConfirm' /><br />
 			<br />
-			View Obscene: <input type='checkbox' name='viewObscene' <?echo $checked;?>/><br />
+			View Obscene: <select name="viewObscene">
+							<option value=0 <?if($_COOKIE['obscene'] == 0) echo "selected";?>>No</option>
+							<option value=1 <?if($_COOKIE['obscene'] == 1) echo "selected";?>>Yes</option>
+						</select><br />
 			<input type='submit' value="Login" />
 		</div>
 	</form>
