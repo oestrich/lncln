@@ -72,8 +72,7 @@ if($_GET['viewObscene']){
 }
 
 if(isset($_GET['refresh']) && $lncln->user->isUser){
-	$id = stripslashes($_GET['refresh']);
-	$id = mysql_real_escape_string($id);
+	$id = prepareSQL($_GET['refresh']);
 	
 	$sql = "SELECT type FROM images WHERE id = " . $id;
 	$result = mysql_query($sql);
