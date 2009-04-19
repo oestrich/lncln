@@ -34,7 +34,6 @@ class lncln{
 	
 	public $search; 			//tag being searched for
 	public $album;				//album being viewed
-	public $queue = false;		//if you're in the queue
 	public $uploaded = array();
 	
 	public $imagesToGet = array();		//The images that data will be pulled for
@@ -838,7 +837,6 @@ class lncln{
 		
 		echo "search: " . $this->search . "\n";
 		echo "album: " . $this->album . "\n";
-		echo "queue: " . $this->queue . "\n";
 		
 		echo "imagesToGet: ";
 		print_r($this->imagesToGet);

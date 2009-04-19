@@ -17,10 +17,6 @@ $lncln->queue();
 
 include("admin.php");
 
-if($lncln->user->permissions['isAdmin'] == 1){
-	$lncln->queue = true;
-}
-
 if($_GET['action'] == "update" && $lncln->user->permissions['isAdmin'] == 1){
 	$lncln->dequeue($_POST);
 	header("location:" . URL . "admin/" . $lncln->script);
