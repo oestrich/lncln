@@ -18,6 +18,19 @@ $lncln->queue();
 include("admin.php");
 
 if($_GET['action'] == "update"){
+	foreach($_POST['check'] as $key => $value){
+		$lncln->tag($key, $_POST['images'][$key]['tags']);
+		$lncln->caption($key, $_POST['images'][$key]['caption']);
+		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
+		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
+	}
+	
+	foreach($_POST['approve'] as $key => $value){
+		$lncln->dequeue($key);
+	}
+}
+
+if($_GET['action'] == "update"){
 	$lncln->dequeue($_POST);
 	header("location:" . URL . "admin/" . $lncln->script);
 	exit();

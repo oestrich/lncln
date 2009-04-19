@@ -617,11 +617,11 @@ class lncln{
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
-	function dequeue($images){
-		foreach($images as $image){
-			$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $image . " LIMIT 1";
-			mysql_query($sql);
-		}
+	function dequeue($image){
+		$id = prepareSQL($image);
+		
+		$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $id . " LIMIT 1";
+		mysql_query($sql);
 	}
 		
 	/**
