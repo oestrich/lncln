@@ -57,7 +57,7 @@ echo $lncln->prevNext();
 ?>
 	<div id="<?=$image['id'];?>" class="modDiv">
 		<input type="hidden" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" value="0" />
-		Approve: <input type="checkbox" name="approve[<?=$image['id'];?>]" id="approve<?=$image['id'];?>" style="height: 20px; width: 20px;" /><br />
+		Approve: <input type="checkbox" name="approve[<?=$image['id'];?>]" id="approve<?=$image['id'];?>" /><br />
 		Obscene: <select name="images[<?=$image['id'];?>][obscene]" >
 				<?if($image['obscene'] == 1):?>
 					<option value="1" selected>Yes</option><option value="0">No</option>
