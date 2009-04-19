@@ -10,6 +10,7 @@ INSTALLATION
 ------------
 
 Upload all contents to your webserver.
+Make sure that the images/ folder and all subfolders are writable by the webserver.
 Rename config-sample.php to config.php and edit accordingly. Database settings, server, and URL need to be edited.
 Query the database with the contents of mysql.sql
 
