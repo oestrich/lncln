@@ -6,7 +6,7 @@
  * Contains the main class lncln, as well as other functions
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.10.0  $Id$
+ * @version 0.11.0  $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -26,11 +26,11 @@ class lncln{
 	public $user;
 	public $moderationOn = false;
 	
-	public $script;
-	public $display;
+	public $script;				//what page is being loaded
+	public $display;			//The Display class, controlls settings
 
-	public $page;
-	public $maxPage;
+	public $page;				//The page you are on
+	public $maxPage;			//Total number of pages
 	
 	public $search; 			//tag being searched for
 	public $album;				//album being viewed
