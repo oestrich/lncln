@@ -31,17 +31,13 @@ $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);
 $result = mysql_fetch_assoc($result);
 
-if(isset($output)){
-	echo $output . "<br />";
-}
-
 echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 ?>
 <br /><br/>
 <?
 echo $lncln->prevNext();
 ?>
-<form action="queue.php?action=update<?=$img;?>" method="post">
+<form action="queue.php?action=update" method="post">
 <?
 	foreach($lncln->images as $image):	
 		$tags = join(', ', $image['tags']);
