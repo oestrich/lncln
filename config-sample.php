@@ -32,6 +32,7 @@ define("DB_PASSWORD", "");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
+//Include trailing slash
 define("URL", "/");
 define("SERVER", "");
 
