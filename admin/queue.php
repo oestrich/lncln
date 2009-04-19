@@ -37,9 +37,7 @@ if(isset($output)){
 
 echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 ?>
-<br />
-This page will show the first 50 items in the queue<br />
-
+<br /><br/>
 <?
 echo $lncln->prevNext();
 ?>
