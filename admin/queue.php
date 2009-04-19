@@ -43,7 +43,7 @@ echo $lncln->prevNext();
 		$tags = join(', ', $image['tags']);
 ?>
 	<div id="<?=$image['id'];?>" class="modDiv">
-		<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />
+		Approve: <input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />
 		Obscene: <select name="images[<?=$image['id'];?>][obscene]" onfocus="modCheck('<?=$image['id'];?>')">
 				<?if($image['obscene'] == 1):?>
 					<option value="1" selected>Yes</option><option value="0">No</option>
