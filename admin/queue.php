@@ -41,6 +41,9 @@ if(isset($_GET['refresh'])){
 		$row = mysql_fetch_assoc($result);
 		$lncln->thumbnail($id . "." . $row['type']);
 	}
+	
+	header("location:queue.php");
+	exit();
 }
 
 $lncln->img();
