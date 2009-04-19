@@ -91,3 +91,7 @@ function album(divid){
 function modCheck(divid){
 	document.getElementById('check' + divid).checked = true;
 }
+
+function queueCheck(divid){
+	document.getElementById('check' + divid).value = 1;
+}
