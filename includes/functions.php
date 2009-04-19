@@ -260,10 +260,30 @@ class lncln{
 		$row = mysql_fetch_assoc($result);
 		
 		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 1 ORDER BY `id` ASC LIMIT " . $this->display->settings['perpage'];
+			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 1");
+			$row = mysql_fetch_assoc($result);
+
+			$this->maxPage = $row['COUNT(id)'];
+			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
+			
+			if(!isset($_GET['page'])){
+				$this->page = 1;
+			}
+			else{
+				if(is_numeric($_GET['page'])){
+					$this->page = $_GET['page'];	
+				}
+				else{
+					$this->page = 1;
+				}
+			}
+			
+			$offset = ($this->page - 1) * $this->display->settings['perpage'];
+			
+			$sql = "SELECT id FROM `images` WHERE queue = 1 ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
 			$result = mysql_query($sql);
-	
-			while($row = mysql_fetch_assoc($result)){
+			
+			while($row = mysql_fetch_assoc($result)){				
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
