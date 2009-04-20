@@ -904,10 +904,9 @@ class User{
 		$row = mysql_fetch_assoc($result);
 		
 		$this->permissions['isAdmin'] = $row['admin'];
-		$this->permissions['toHome'] = $row['toHome'];
 		$this->group = $row['group'];
 		
-		$this->loadPerm();
+		$this->loadPermissions();
 		
 		$this->checkUploadLimit();
 	}
@@ -918,7 +917,7 @@ class User{
 	 * @since 0.12.0
 	 * @package lncln
 	 */
-	function loadPerm(){
+	function loadPermissions(){
 		$sql = "SELECT * FROM groups WHERE id = " . $this->group . " LIMIT 1";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
@@ -1001,7 +1000,7 @@ class User{
 			$this->permissions['toQueue'] = 0;
 	 	}
 	 	
-	 	if($this->permissions['toHome'] == 0){
+	 	if($this->permissions['index'] == 0){
 	 		$this->permissions['toQueue'] = 1;
 	 	}
 	 }
