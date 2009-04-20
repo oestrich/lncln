@@ -13,6 +13,6 @@
  
 $name['groups'] = "Groups";
  
-$links['skeleton'][0]['name'] = "Add Group";
-$links['skeleton'][0]['url'] = "add";
+$links['groups'][0]['name'] = "Add Group";
+$links['groups'][0]['url'] = "add";
 ?>
