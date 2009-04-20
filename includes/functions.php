@@ -878,6 +878,7 @@ class lncln{
 class User{
 	public $username;  //String, username
 	public $userID;  //Int, the user's id
+	public $group;
 	
 	public $isUser = false; //registered user or just anonymous
 	
@@ -904,8 +905,30 @@ class User{
 		
 		$this->permissions['isAdmin'] = $row['admin'];
 		$this->permissions['toHome'] = $row['toHome'];
+		$this->group = $row['group'];
+		
+		$this->loadPerm();
 		
 		$this->checkUploadLimit();
+	}
+	
+	/**
+	 * Loads user permissions
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 */
+	function loadPerm(){
+		$sql = "SELECT * FROM groups WHERE id = " . $this->group . " LIMIT 1";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		foreach($row as $key => $permission){
+			if($key == "id" || $key == "name")
+				continue;
+			
+			$this->permissions[$key] = $permission;
+		}
 	}
 	
 	/**

@@ -28,6 +28,27 @@ CREATE TABLE IF NOT EXISTS `albums` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `groups`
+--
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(8) NOT NULL auto_increment,
+  `name` varchar(30) NOT NULL,
+  `index` int(1) NOT NULL,
+  `report` int(2) NOT NULL,
+  `rate` int(2) NOT NULL,
+  `obscene` int(1) NOT NULL,
+  `refresh` int(1) NOT NULL,
+  `delete` int(1) NOT NULL,
+  `caption` int(1) NOT NULL,
+  `tag` int(1) NOT NULL,
+  `album` int(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `images`
 --
 
