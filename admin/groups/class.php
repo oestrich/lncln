@@ -11,6 +11,17 @@
  * @package lncln
  */ 
  
-class Skeleton extends lncln{
+class Group extends lncln{
 
+	/**
+	 * Add a new group
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $data array Info needed for a new group
+	 */
+	function addGroup($data){
+		
+	}
 }

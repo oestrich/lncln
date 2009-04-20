@@ -12,12 +12,9 @@
  */
  
 if(isset($_POST['username'])){
-	$added = $lncln->adduser($_POST);
+	echo $lncln->adduser($_POST);
 }
 
-if(isset($added)){
-	echo $added;
-}
 ?>
 <form enctype="multipart/form-data" action="<?=createLink("add");?>" method="post">
 	<div id="adduser">

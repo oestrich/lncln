@@ -10,6 +10,10 @@
  * 
  * @package lncln
  */
+ 
+if(isset($_POST['name'])){
+	echo $lncln->addGroup($_POST);
+}
 ?>
 
 <form action="<?=createLink("add");?>" method="post" />
