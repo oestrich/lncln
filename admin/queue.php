@@ -85,6 +85,14 @@ echo $lncln->prevNext();
 ?>
 	<input type="submit" value="Submit" />
 </form>
+<form action="queue.php?action=update">
+	<div>
+	<?foreach($lncln->images as $image):?>
+		<input type="hidden" name="approve[<?=$image['id'];?>" value="1" />
+	<?endforeach;?>
+		<input type="submit" value="Approve All" />
+	</div>
+</form>
 <div id='bPrevNext'>
 <?
 	echo $lncln->prevNext();
