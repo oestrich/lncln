@@ -11,8 +11,8 @@
  * @package lncln
  */ 
  
-$name['skeleton'] = "Skeleton";
+$name['groups'] = "Groups";
  
-$links['skeleton'][0]['name'] = "Link One";
-$links['skeleton'][0]['url'] = "link";
+$links['skeleton'][0]['name'] = "Add Group";
+$links['skeleton'][0]['url'] = "add";
 ?>
