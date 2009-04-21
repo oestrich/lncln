@@ -22,6 +22,22 @@ class Group extends lncln{
 	 * @param $data array Info needed for a new group
 	 */
 	function addGroup($data){
+		$data = array_map("prepareSQL", $data);
 		
+		$name = $data['name'];
+		$index = $data['index'];
+		$numIndex = $data['numIndex'];
+		$report = $data['report'];
+		$rate = $data['rate'];
+		$obscene = $data['obscene'];
+		$refresh = $data['refresh'];
+		$delete = $data['delete'];
+		$caption = $data['caption'];
+		$tag = $data['tag'];
+		$album = $data['album'];
+		
+		$sql = 	"INSERT INTO groups (name, index, numIndex, report, rate, obscene, refresh, delete, caption, tag, album) " .
+				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
+		echo $sql;
 	}
 }

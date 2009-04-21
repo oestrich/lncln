@@ -25,7 +25,7 @@ if(isset($_POST['name'])){
 			</tr>
 			<tr>
 				<td>Directly to Index:</td>
-				<td><input type="text" name="index" /></td>
+				<td><select name="index" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>
 			<tr>
 				<td title="Number of images that go directly to the homepage">Number to Index:</td>
