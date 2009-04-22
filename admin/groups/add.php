@@ -29,15 +29,15 @@ if(isset($_POST['name'])){
 			</tr>
 			<tr>
 				<td title="Number of images that go directly to the homepage">Number to Index:</td>
-				<td><input type="text" name="numIndex" /></td>
+				<td><input type="text" name="numIndex" size="3" /></td>
 			</tr>
 			<tr>
 				<td>Report Value:</td>
-				<td><input type="text" name="report" /></td>
+				<td><input type="text" name="report" size="3" /></td>
 			</tr>
 			<tr>
 				<td>Rate Value:</td>
-				<td><input type="text" name="rate" /></td>
+				<td><input type="text" name="rate" size="3" /></td>
 			</tr>
 			<tr>
 				<td>Use obscene:</td>
