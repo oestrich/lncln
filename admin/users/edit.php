@@ -58,7 +58,7 @@ $user = $lncln->getUser($_GET['user']);
 			</tr>
 			<tr>
 				<td>Group:</td>
-				<td><?=$lncln->listGroups();?></td>
+				<td><?=$lncln->listGroups($user['group']);?></td>
 			</tr>
 		</table>
 		<input type="submit" value="Edit user"/>

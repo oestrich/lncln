@@ -156,7 +156,7 @@ class Users extends lncln{
 	 * 
 	 * @return string Contains a select for all groups
 	 */
-	function listGroups(){
+	function listGroups($id = 0){
 		$sql = "SELECT id, name FROM groups WHERE 1";
 		$result = mysql_query($sql);
 		
@@ -169,7 +169,9 @@ class Users extends lncln{
 		$select = "<select name='group'>";
 		
 		foreach($groups as $group){
-			$select .= "<option value='" . $group['id'] . "'>" . $group['name'] . "</option>";
+			$selected = ($id == $group['id'] && $id != 0) ? " selected " : "";
+			
+			$select .= "<option value='" . $group['id'] . "' " . $selected . ">" . $group['name'] . "</option>";
 		}
 		
 		$select .= "</select>";
