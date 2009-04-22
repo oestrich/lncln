@@ -179,7 +179,7 @@ foreach ($lncln->images as $image){
 	<?if($lncln->user->permissions['obscene'] == 1):?>
 			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
 	<?endif;?>
-	<?if($lncln->user->permissions['refres'] == 1):?>
+	<?if($lncln->user->permissions['refresh'] == 1):?>
 			<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 	<?endif;?>
 	<?if($lncln->user->permissions['delete']):?>
