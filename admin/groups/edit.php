@@ -33,7 +33,7 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td title="Number of images that go directly to the homepage">Number to Index:</td>
-				<td><input type="text" name="numIndex" size="3" value="<?=$group['numImages'];?>" /></td>
+				<td><input type="text" name="numIndex" size="3" value="<?=$group['numIndex'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Report Value:</td>
