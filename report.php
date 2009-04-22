@@ -20,9 +20,7 @@ if($lncln->user->permissions['rate'] == 0){
 	exit();
 }
 
-$image = $_GET['img'];
-$image = stripslashes($image);
-$image = mysql_real_escape_string($image);
+$image = prepareSQL($_GET['img']);
 
 $sql = "UPDATE images SET report = report + " . $lncln->user->permissions['rateValue'] . " WHERE id = " . $image . " LIMIT 1";
 mysql_query($sql);
