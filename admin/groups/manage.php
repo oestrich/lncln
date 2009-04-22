@@ -25,6 +25,7 @@ if($_GET['subAction'] == "delete"){
 	echo "</select>";
 	echo "<input type='submit' value='Submit' />";
 	echo "</form>";
+	include(ABSPATH . "includes/footer.php");
 	exit();
 }
 ?>
