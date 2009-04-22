@@ -61,10 +61,11 @@ class Users extends lncln{
 	 * @param $info array Contains the users information
 	 */
 	function changeUser($info){
-		if(is_numeric($info['admin']) && is_numeric($info['viewObscene']) && is_numeric($info['id'])){
+		if(is_numeric($info['admin']) && is_numeric($info['viewObscene']) && is_numeric($info['id']) && is_numeric($info['group'])){
 			$admin = $info['admin'];
 			$obscene = $info['viewObscene'] ? 1 : 0;
 			$id = $info['id'];
+			$group = $info['group'];
 		}
 		else{
 			return "";
@@ -82,7 +83,7 @@ class Users extends lncln{
 			}
 		}
 		
-		$sql = "UPDATE users SET admin = " . $admin . ", obscene = " . $obscene . " " . $passwordSQL . " WHERE id = " . $id;
+		$sql = "UPDATE users SET admin = " . $admin . ", group = " . $group . ", obscene = " . $obscene . " " . $passwordSQL . " WHERE id = " . $id;
 		mysql_query($sql);
 	}
 	

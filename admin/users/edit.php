@@ -56,6 +56,10 @@ $user = $lncln->getUser($_GET['user']);
 							<option value=1 <?if($user['obscene'] == 1) echo "selected";?>>Yes</option>
 						</select></td>
 			</tr>
+			<tr>
+				<td>Group:</td>
+				<td><?=$lncln->listGroups();?></td>
+			</tr>
 		</table>
 		<input type="submit" value="Edit user"/>
 	</div>
