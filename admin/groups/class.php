@@ -95,11 +95,16 @@ class Group extends lncln{
 	 */
 	function deleteGroup($id, $moveTo){
 		if(is_numeric($id) && is_numeric($moveTo)){
+			$group = $this->getGroup($id);
+			
 			$sql = "UPDATE users SET `group` = " . $moveTo . " WHERE `group` = " . $id;
 			mysql_query($sql);
 			
 			$sql = "DELETE FROM groups WHERE id = " . $id;
 			mysql_query($sql);
+			
+			return "Deleted " . $group['name'] . ".  Click <a href='" . createLink("manage") . "'>here</a> to continue managing groups.";
 		}
+		return "";
 	}
 }
