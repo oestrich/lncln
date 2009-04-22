@@ -13,18 +13,18 @@
 
 require_once("load.php");
 
-if($lncln->user->isUser){
-	$amount = 5;
-}
-else{
-	$amount = 1;
+if($lncln->user->permissions['rate'] == 0){
+	include(ABSPATh . "includes/header.php");
+	echo "You can't report images";
+	include(ABSPATH . "includes/footer.php");
+	exit();
 }
 
 $image = $_GET['img'];
 $image = stripslashes($image);
 $image = mysql_real_escape_string($image);
 
-$sql = "UPDATE images SET report = report + " . $amount . " WHERE id = " . $image . " LIMIT 1";
+$sql = "UPDATE images SET report = report + " . $lncln->user->permissions['rateValue'] . " WHERE id = " . $image . " LIMIT 1";
 mysql_query($sql);
 
 if(mysql_affected_rows() == 1){

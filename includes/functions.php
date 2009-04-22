@@ -987,8 +987,8 @@ class User{
 	 	$result = mysql_query($sql);
 	 	$row = mysql_fetch_assoc($result);
 	 	
-	 	//Number images <= 20 goto homepage
-	 	if($row['numImages'] <= 20){
+	 	//Number images <= group limit goto homepage, if 0 unlimited
+	 	if($row['numImages'] <= $this->user->permissions['numIndex'] && $this->user->permissions['numIndex'] != 0){
 	 		$this->permissions['toQueue'] = 0;
 	 	}
 	 	
