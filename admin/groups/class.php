@@ -40,6 +40,8 @@ class Group extends lncln{
 				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
 		
 		mysql_query($sql);
+		
+		return "Group " . $name . " added.";
 	}
 	
 	/**
