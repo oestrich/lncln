@@ -10,6 +10,17 @@
  * 
  * @package lncln
  */
+
+if($_GET['subAction'] == "delete"){
+	$group = $lncln->getGroup($_GET['group']);
+	
+	echo "Move all users from " . $group['name'] . " to which group?<br />";
+	echo "<select name='group'>";
+	foreach($lncln->getGroups() as $group){
+		echo "<option value='" . $group['id'] . "'>" . $group['name'] ."</option>";
+	}
+	echo "</select>";
+}
 ?>
 
 	Groups:<br />

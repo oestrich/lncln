@@ -42,6 +42,9 @@ class Group extends lncln{
 		mysql_query($sql);
 	}
 	
+	/**
+	 * 
+	 */
 	function getGroups(){
 		$sql = "SELECT id, name FROM groups WHERE 1";
 		$result = mysql_query($sql);
@@ -53,5 +56,26 @@ class Group extends lncln{
 		}
 		
 		return $groups;
+	}
+	
+	/**
+	 * Return all of the permissions in a group
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $id int Group id
+	 * 
+	 * @return array Contains the groups permissions
+	 */
+	function getGroup($id){
+		if(is_numeric($id)){
+			$sql = "SELECT * FROM groups WHERE id = " . $id . " LIMIT 1";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			return $row;
+		}
+		return array();
 	}
 }
