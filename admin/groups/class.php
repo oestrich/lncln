@@ -36,6 +36,10 @@ class Group extends lncln{
 		$tag = $data['tag'];
 		$album = $data['album'];
 		
+		if(!is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
+			return "Invalid field";
+		}
+		
 		$sql = 	"INSERT INTO groups (`name`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
 				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
 		
