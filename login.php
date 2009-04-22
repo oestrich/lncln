@@ -20,12 +20,12 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	}
 	
 	if(isset($_POST['username'])){
-		$username = stripslashes($_POST['username']);
-		$password = stripslashes($_POST['password']);
+		$username = addslashes($_POST['username']);
+		$password = addslashes($_POST['password']);
 	}
 	if(isset($_COOKIE['password'])){
-		$username = stripslashes($_POST['username']);
-		$password = stripslashes($_POST['password']);
+		$username = addslashes($_POST['username']);
+		$password = addslashes($_POST['password']);
 	}
 	
 	$username = mysql_real_escape_string($username);
