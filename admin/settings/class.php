@@ -74,8 +74,7 @@ class Settings extends lncln{
 		$select = "<select name='defaultGroup'>";
 		
 		foreach($groups as $group){
-			if($this->display->settings['defaultGroup'] == $group['id'])
-				$selected = " selected ";
+			$selected = $this->display->settings['defaultGroup'] == $group['id'] ? " selected " : "";
 			
 			$select .= "<option value='" . $group['id'] . "' " . $selected . ">" . $group['name'] . "</option>";
 		}
