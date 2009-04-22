@@ -54,7 +54,7 @@ Change the board settings: <br />
 			</tr>
 			<tr>
 				<td>Default Group:</td>
-				<td><?$lncln->listGroups();?></td>
+				<td><?=$lncln->listGroups();?></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
