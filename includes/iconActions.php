@@ -26,13 +26,13 @@ if($_GET['post'] == true){
 	exit();
 }
 
-if(isset($_GET['delete']) && $lncln->user->permissions['isAdmin'] == 1){
+if(isset($_GET['delete']) && $lncln->user->permissions['delete'] == 1){
 	$deletion = $lncln->delete($_GET['delete']);
 	header("location:" . $scriptLocation . "#" . $_GET['delete']);
 	exit();
 }
 
-if(isset($_GET['obscene']) && $lncln->user->isUser){
+if(isset($_GET['obscene']) && $lncln->user->permissions['obscene'] == 1){
 	$obscene = $lncln->obscene($_GET['obscene']);
 	header("location:" . $scriptLocation . "#" . $_GET['obscene']);
 	exit();
@@ -40,22 +40,14 @@ if(isset($_GET['obscene']) && $lncln->user->isUser){
 
 if(isset($_GET['rateUp']) && $lncln->user->isUser){
 	//This should probably be handled by the function itself
-	$rating = 1;
-	if($lncln->user->permissions['isAdmin'] == 1){
-		$rating = 5;
-	}
-	$lncln->rate($_GET['rateUp'], $rating);
+	$lncln->rate($_GET['rateUp'], $lncln->user->permissions['rate']);
 	header("location:" . $scriptLocation . "#" . $_GET['rateUp']);
 	exit();
 }
 
 if(isset($_GET['rateDown']) && $lncln->user->isUser){	
 	//This should probably be handled by the function itself
-	$rating = -1;
-	if($lncln->user->permissions['isAdmin'] == 1){
-		$rating = -5;
-	}
-	$lncln->rate($_GET['rateDown'], $rating);
+	$lncln->rate($_GET['rateDown'], -1 * $lncln->user->permissions['rate']);
 	header("location:" . $scriptLocation . "#" . $_GET['rateDown']);
 	exit();
 }
@@ -71,7 +63,7 @@ if($_GET['viewObscene']){
 	exit();
 }
 
-if(isset($_GET['refresh']) && $lncln->user->isUser){
+if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	$id = prepareSQL($_GET['refresh']);
 	
 	$sql = "SELECT type FROM images WHERE id = " . $id;
@@ -85,19 +77,19 @@ if(isset($_GET['refresh']) && $lncln->user->isUser){
 	exit();
 }
 
-if($_GET['caption'] && $lncln->user->isUser){
+if($_GET['caption'] && $lncln->user->permissions['caption'] == 1){
 	$lncln->caption($_POST['id'], $_POST['caption']);
 	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
 
-if($_GET['tag'] && $lncln->user->isUser){
+if($_GET['tag'] && $lncln->user->permissions['tag'] == 1){
 	$lncln->tag($_POST['id'], $_POST['tags']);
 	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
 
-if($_GET['action'] == "album" && $lncln->user->isUser){
+if($_GET['action'] == "album" && $lncln->user->permissions['album'] == 1){
 	$lncln->changeAlbum($_POST['id'], $_POST['album']);
 	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
