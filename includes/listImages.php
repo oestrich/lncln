@@ -77,7 +77,7 @@ foreach ($lncln->images as $image){
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']):
 		//caption stuff
-		if(($lncln->user->isUser && $image['caption'] == "") || $lncln->user->permissions['isAdmin']){
+		if($lncln->user->permissions['caption'] == 1){
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
 			$class = "class='caption'";
 		}
@@ -96,7 +96,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 
 			</div>
-		<?if(($lncln->user->isUser && $image['caption'] == "") || $lncln->user->permissions['isAdmin']):?>
+		<?if($lncln->user->permissions['caption'] == 1):?>
 			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $action;?>&amp;caption=true" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
@@ -111,7 +111,7 @@ foreach ($lncln->images as $image){
 			$tags = "None.";
 		}
 		
-		if($lncln->user->isUser){
+		if($lncln->user->permissions['tag'] == 1){
 			$classTag = "class='tag'";
 			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
@@ -124,7 +124,7 @@ foreach ($lncln->images as $image){
 				Tags: <?echo $tags;?> 
 				<br />
 			</div>
-		<?if($lncln->user->isUser):?>
+		<?if($lncln->user->permissions['tag'] == 1):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;tag=true" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
@@ -136,7 +136,7 @@ foreach ($lncln->images as $image){
 		<?endif;?>
 
 <?
-		if(($lncln->user->isUser && $image['album'] == "No Album") || $lncln->user->permissions['isAdmin']){
+		if($lncln->user->permissions['album'] == 1){
 			$class = "class='album'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";
 		}
@@ -149,7 +149,7 @@ foreach ($lncln->images as $image){
 			<div id='album<?echo $image['id'];?>' <?=$class;?> <?=$onClick;?>>
 				Album: <?=$image['album'];?>
 			</div>
-		<?if(($lncln->user->isUser && $image['album'] == "No Album") || $lncln->user->permissions['isAdmin'] == 1):?>
+		<?if($lncln->user->permissions['album'] == 1):?>
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=album" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
