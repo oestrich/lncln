@@ -17,6 +17,8 @@ if($_GET['subAction'] == "delete"){
 	echo "Move all users from " . $group['name'] . " to which group?<br />";
 	echo "<select name='group'>";
 	foreach($lncln->getGroups() as $group){
+		if($group['id'] == $_GET['group'])
+			continue;
 		echo "<option value='" . $group['id'] . "'>" . $group['name'] ."</option>";
 	}
 	echo "</select>";
