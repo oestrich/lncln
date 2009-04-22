@@ -36,8 +36,12 @@ if(isset($_POST['name'])){
 				<td><input type="text" name="report" size="3" /></td>
 			</tr>
 			<tr>
+				<td>Rate:</td>
+				<td><select name="rate" ><option value="0">No</option><option value="1">Yes</option></select></td>
+			</tr>
+			<tr>
 				<td>Rate Value:</td>
-				<td><input type="text" name="rate" size="3" /></td>
+				<td><input type="text" name="rateValue" size="3" /></td>
 			</tr>
 			<tr>
 				<td>Use obscene:</td>

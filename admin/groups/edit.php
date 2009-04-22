@@ -40,8 +40,12 @@ $group = $lncln->getGroup($_GET['group']);
 				<td><input type="text" name="report" size="3" value="<?=$group['report'];?>" /></td>
 			</tr>
 			<tr>
+				<td>Rate:</td>
+				<td><?=$lncln->createSelect("rate", $group['rate']);?></td>
+			</tr>
+			<tr>
 				<td>Rate Value:</td>
-				<td><input type="text" name="rate" size="3" value="<?=$group['rate'];?>" /></td>
+				<td><input type="text" name="rate" size="3" value="<?=$group['rateValue'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Use obscene:</td>
