@@ -142,4 +142,33 @@ class Users extends lncln{
 		
 		return $row;
 	}
+	
+	/**
+	 * Lists groups in a select style.
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @return string Contains a select for all groups
+	 */
+	function listGroups(){
+		$sql = "SELECT id, name FROM groups WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$groups[] = array(  "id" => $row['id'],
+								"name" => $row['name']
+								);
+		}
+		
+		$select = "<select name='group'>";
+		
+		foreach($groups as $group){
+			$select .= "<option value='" . $group['id'] . "'>" . $group['name'] . "</option>";
+		}
+		
+		$select .= "</select>";
+		
+		return $select;
+	}
 }

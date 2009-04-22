@@ -38,6 +38,10 @@ if(isset($_POST['username'])){
 					<option value="1">Yes</option>
 				</select></td>
 			</tr>
+			<tr>
+				<td>Group:</td>
+				<td><?=$lncln->listGroups();?></td>
+			</tr>
 		</table>
 		<input type="submit" value="Add user" />
 	</div>
