@@ -41,14 +41,16 @@ $modules = array("users" => "users", "albums" => "albums", "settings" => "settin
  * 
  * @param $action string The action to be used
  * @param $params array Key and value will become "&key=value" in link
+ * @param $form bool If its for a form, don't want "&amp;"
  * 
  * @return string The link that was created
  */
-function createLink($action, $params = array()){
+function createLink($action, $params = array(), $form = false){
 	$link = "index.php?action=" . $action;
+	$amp = $form ? "&" : "&amp;";
 	
 	foreach($params as $key => $value){
-		$link .= "&amp;" . $key . "=" . $value;
+		$link .= $amp . $key . "=" . $value;
 	}
 	
 	return $link;
