@@ -52,6 +52,10 @@ Change the board settings: <br />
 				<td>Theme:</td>
 				<td><?=$themes;?></td>
 			</tr>
+			<tr>
+				<td>Default Group:</td>
+				<td><?$lncln->listGroups();?></td>
+			</tr>
 		</table>
 		<input type="submit" value="Submit" />
 	</div>

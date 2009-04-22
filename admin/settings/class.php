@@ -31,6 +31,14 @@ class Settings extends lncln{
 		}
 	}
 	
+	/**
+	 * Lists themes installed
+	 * 
+	 * @since 0.11.0
+	 * @package lncln
+	 * 
+	 * @return string Select of themes
+	 */
 	function listThemes(){
 		$tempThemes = scandir(ABSPATH . "theme/");
 		$themes = array();
@@ -43,5 +51,37 @@ class Settings extends lncln{
 		}
 		
 		return $themes;
+	}
+	
+	/**
+	 * Lists groups in a select style.
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @return string Contains a select for all groups
+	 */
+	function listGroups(){
+		$sql = "SELECT id, name FROM groups WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$groups[] = array(  "id" => $row['id'],
+								"name" => $row['name']
+								);
+		}
+		
+		$select = "<select name='defaultGroup'>";
+		
+		foreach($groups as $group){
+			if($this->display->settings['defaultGroup'] == $group['id'])
+				$selected = " selected ";
+			
+			$select .= "<option value='" . $group['id'] . "' " . $selected . ">" . $group['name'] . "</option>";
+		}
+		
+		$select .= "</select>";
+		
+		return $select;
 	}
 }

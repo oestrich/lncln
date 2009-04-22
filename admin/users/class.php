@@ -28,6 +28,10 @@ class Users extends lncln{
 		$passwordConfirm = prepareSQL($user['passwordconfirm']);
 		$admin = prepareSQL($user['admin']);
 		
+		if(!is_numeric($user['group']))
+			return "Bad group id";
+		$group = $user['group'];
+		
 		$password = sha1($password);
 		$passwordConfirm = sha1($passwordConfirm);
 		
@@ -42,7 +46,7 @@ class Users extends lncln{
 		}
 		
 		
-		$sql = "INSERT INTO users (name, password, admin) VALUES ('" . $username . "', '" . $password . "', " . $admin . ")";
+		$sql = "INSERT INTO users (name, password, admin, group) VALUES ('" . $username . "', '" . $password . "', " . $admin . ", " . $group . ")";
 		mysql_query($sql);
 		
 		return "User " . $username . " added";
