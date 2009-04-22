@@ -36,8 +36,12 @@ $group = $lncln->getGroup($_GET['group']);
 				<td><input type="text" name="numIndex" size="3" value="<?=$group['numIndex'];?>" /></td>
 			</tr>
 			<tr>
+				<td>Report:</td>
+				<td><?=$lncln->createSelect("report", $group['report']);?></td>
+			</tr>
+			<tr>
 				<td>Report Value:</td>
-				<td><input type="text" name="report" size="3" value="<?=$group['report'];?>" /></td>
+				<td><input type="text" name="report" size="3" value="<?=$group['reportValue'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Rate:</td>

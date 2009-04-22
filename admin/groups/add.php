@@ -32,8 +32,12 @@ if(isset($_POST['name'])){
 				<td><input type="text" name="numIndex" size="3" /></td>
 			</tr>
 			<tr>
+				<td>Report:</td>
+				<td><select name="rate" ><option value="0">No</option><option value="1">Yes</option></select></td>
+			</tr>
+			<tr>
 				<td>Report Value:</td>
-				<td><input type="text" name="report" size="3" /></td>
+				<td><input type="text" name="reportValue" size="3" /></td>
 			</tr>
 			<tr>
 				<td>Rate:</td>
