@@ -95,11 +95,11 @@ class Group extends lncln{
 	 */
 	function deleteGroup($id, $moveTo){
 		if(is_numeric($id) && is_numeric($moveTo)){
-			$sql = "UPDATE users SET group = " . $moveTo . " WHERE group = " . $id;
-			echo $sql;
+			$sql = "UPDATE users SET `group` = " . $moveTo . " WHERE `group` = " . $id;
+			mysql_query($sql);
 			
 			$sql = "DELETE FROM groups WHERE id = " . $id;
-			echo $sql;			
+			mysql_query($sql);
 		}
 	}
 }

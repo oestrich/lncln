@@ -14,7 +14,7 @@
 if($_GET['subAction'] == "delete"){
 	if(is_numeric($_POST['group'])){
 		$lncln->deleteGroup($_GET['group'], $_POST['group']);
-		include(ABSPATH . "include/footer.php");
+		include(ABSPATH . "includes/footer.php");
 		exit();
 	}
 	
