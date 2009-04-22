@@ -20,6 +20,8 @@ if($_GET['subAction'] == "delete"){
 		echo "<option value='" . $group['id'] . "'>" . $group['name'] ."</option>";
 	}
 	echo "</select>";
+	echo "<input type='submit' value='Submit' />";
+	exit();
 }
 ?>
 
