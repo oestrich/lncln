@@ -43,7 +43,12 @@ class Group extends lncln{
 	}
 	
 	/**
+	 * Get all groups
 	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @return array Keys: id, name
 	 */
 	function getGroups(){
 		$sql = "SELECT id, name FROM groups WHERE 1";
@@ -77,5 +82,24 @@ class Group extends lncln{
 			return $row;
 		}
 		return array();
+	}
+	
+	/**
+	 * Deletes a group
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $id int Group to be deleted
+	 * @param $moveTo int Group users will be moved to
+	 */
+	function deleteGroup($id, $moveTo){
+		if(is_numeric($id) && is_numeric($moveTo)){
+			$sql = "UPDATE users SET group = " . $moveTo . " WHERE group = " . $id;
+			echo $sql;
+			
+			$sql = "DELETE FROM groups WHERE id = " . $id;
+			echo $sql;			
+		}
 	}
 }

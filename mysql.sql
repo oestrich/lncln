@@ -67,6 +67,17 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) VALUES
+(1, 'Anonymous', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(2, 'New User', 1, 5, 3, 1, 0, 0, 0, 0, 1, 0),
+(3, 'Trusted User', 1, 20, 5, 3, 1, 0, 0, 1, 1, 1),
+(4, 'Admin', 1, 0, 5, 5, 1, 1, 1, 1, 1, 1);
+
+
 -- --------------------------------------------------------
 
 --

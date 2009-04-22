@@ -12,10 +12,14 @@
  */
 
 if($_GET['subAction'] == "delete"){
+	if(is_numeric($_POST['group'])){
+		
+	}
+	
 	$group = $lncln->getGroup($_GET['group']);
 	
 	echo "Move all users from " . $group['name'] . " to which group?<br />";
-	echo "<form action='" . createLink("manage", array("subAction" => "delete"), true) . "' method='post'>";
+	echo "<form action='" . createLink("manage", array("subAction" => "delete", "group" => $group['id']), true) . "' method='post'>";
 	echo "<select name='group'>";
 	foreach($lncln->getGroups() as $group){
 		if($group['id'] == $_GET['group'])
