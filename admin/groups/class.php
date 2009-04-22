@@ -38,6 +38,20 @@ class Group extends lncln{
 		
 		$sql = 	"INSERT INTO groups (name, index, numIndex, report, rate, obscene, refresh, delete, caption, tag, album) " .
 				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
-		echo $sql;
+		
+		mysql_query($sql);
+	}
+	
+	function getGroups(){
+		$sql = "SELECT id, name FROM groups WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$groups[] = array(  "id" => $row['id'],
+								"name" => $row['name']
+								);
+		}
+		
+		return $groups;
 	}
 }

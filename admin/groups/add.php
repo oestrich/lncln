@@ -2,7 +2,7 @@
 /**
  * add.php
  * 
- * Let's an admin create a user, what else?
+ * Let's an admin create a group, what else?
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.11.0 $Id$
