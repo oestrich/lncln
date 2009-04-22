@@ -36,7 +36,7 @@ class Group extends lncln{
 		$tag = $data['tag'];
 		$album = $data['album'];
 		
-		$sql = 	"INSERT INTO groups (name, index, numIndex, report, rate, obscene, refresh, delete, caption, tag, album) " .
+		$sql = 	"INSERT INTO groups (`name`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
 				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
 		
 		mysql_query($sql);
