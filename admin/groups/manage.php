@@ -15,6 +15,7 @@ if($_GET['subAction'] == "delete"){
 	$group = $lncln->getGroup($_GET['group']);
 	
 	echo "Move all users from " . $group['name'] . " to which group?<br />";
+	echo "<form action='" . createLink("manage", array("subAction" => "delete")) . "' method='post'>";
 	echo "<select name='group'>";
 	foreach($lncln->getGroups() as $group){
 		if($group['id'] == $_GET['group'])
@@ -23,6 +24,7 @@ if($_GET['subAction'] == "delete"){
 	}
 	echo "</select>";
 	echo "<input type='submit' value='Submit' />";
+	echo "</form>";
 	exit();
 }
 ?>
