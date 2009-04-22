@@ -128,7 +128,7 @@ class Group extends lncln{
 	function createSelect($name, $option){
 		$select = "<select name='" . $name ."'>";
 		
-		$select .= $option == 1 ? "<option value='0'>No</option><option value='1' checked>Yes</option>" : "<option value='0' checked>No</option><option value='1'>Yes</option>";
+		$select .= $option == 1 ? "<option value='0'>No</option><option value='1' selected>Yes</option>" : "<option value='0' selected>No</option><option value='1'>Yes</option>";
 		$select .= "</select>";
 		
 		return $select;
