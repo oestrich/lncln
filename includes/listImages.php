@@ -172,14 +172,17 @@ foreach ($lncln->images as $image){
 
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 
-	<?if($lncln->user->isUser):?>
+	<?if($lncln->user->permissions['rate'] == 1):?>
 			<a href="<?=$action;?>&amp;rateUp=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/up.png" alt="Up" title="Up" style='border: none;'/></a>
 			<a href="<?=$action;?>&amp;rateDown=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/down.png" alt="Down" title="Down" style='border: none;'/></a>
+	<?endif;?>
+	<?if($lncln->user->permissions['obscene'] == 1):?>
 			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+	<?endif;?>
+	<?if($lncln->user->permissions['refres'] == 1):?>
 			<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 	<?endif;?>
-
-	<?if($lncln->user->permissions['isAdmin']):?>
+	<?if($lncln->user->permissions['delete']):?>
 			<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 	<?endif;?>
 
