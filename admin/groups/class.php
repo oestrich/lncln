@@ -113,4 +113,24 @@ class Group extends lncln{
 		}
 		return "";
 	}
+	
+	/**
+	 * Make a select field for editing, auto select the right option
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $name String name of select
+	 * @param $option bool Which one to select
+	 * 
+	 * @return String Select box
+	 */
+	function createSelect($name, $option){
+		$select = "<select name='" . $option ."'";
+		
+		$select .= $option ? "<option value='0'>No</option><option value='1' checked>Yes</option>" : "<option value='0' checked>No</option><option value='1'>Yes</option>";
+		$select .= "</select>";
+		
+		return $select;
+	}
 }
