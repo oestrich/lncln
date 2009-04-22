@@ -45,27 +45,27 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td>Use obscene:</td>
-				<td><?createSelect("obscene", $group['obscene']);?></td>
+				<td><?$lncln->createSelect("obscene", $group['obscene']);?></td>
 			</tr>
 			<tr>
 				<td>Use refresh:</td>
-				<td><?createSelect("refresh", $group['refresh']);?></td>
+				<td><?$lncln->createSelect("refresh", $group['refresh']);?></td>
 			</tr>
 			<tr>
 				<td>Use delete:</td>
-				<td><?createSelect("delete", $group['delete']);?></td>
+				<td><?$lncln->createSelect("delete", $group['delete']);?></td>
 			</tr>
 			<tr>
 				<td>Use caption:</td>
-				<td><?createSelect("caption", $group['caption']);?></td>
+				<td><?$lncln->createSelect("caption", $group['caption']);?></td>
 			</tr>
 			<tr>
 				<td>Use tag:</td>
-				<td><?createSelect("tag", $group['tag']);?></td>
+				<td><?$lncln->createSelect("tag", $group['tag']);?></td>
 			</tr>
 			<tr>
 				<td>Manage albums:</td>
-				<td><?createSelect("album", $group['album']);?></td>
+				<td><?$lncln->createSelect("album", $group['album']);?></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
