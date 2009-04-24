@@ -84,7 +84,7 @@ echo $lncln->prevNext();
 	endforeach;
 ?>
 	<input type="submit" value="Submit" />
-	<input type="submit" value="Delete Selected" onclick="function(){document.getElementById('queue').action = 'queue.php?action=delete';}" />
+	<input type="submit" value="Delete Selected" onclick="document.getElementById('queue').action = 'queue.php?action=delete';" />
 </form>
 <form action="queue.php?action=update" method="post">
 	<div>
