@@ -30,7 +30,7 @@ if($_GET['action'] == "update"){
 	}
 }
 
-if($_GET['action'] == "delete"){
+if($_GET['action'] == "delete" && is_array($_POST['approve'])){
 	foreach($_POST['approve'] as $key => $value){
 		$lncln->delete($key);
 	}
