@@ -11,5 +11,7 @@ SQL commands:
 
 ALTER TABLE `images` ADD `view` INT( 12 ) NOT NULL DEFAULT '0';
 
+ALTER TABLE `users` ADD `uploadCount` INT( 8 ) NOT NULL DEFAULT '0';
+
 If you have a problem creating the `news` table then please try the forums
 for help.

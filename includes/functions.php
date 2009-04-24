@@ -996,7 +996,10 @@ class User{
 	 */
 	 function checkUploadLimit($new = 0){
 	 	if($new == 1){
-			$sql = "UPDATE users SET postTime = " . time() . ", numImages = numImages + 1 WHERE id = '" . $this->userID . "' LIMIT 1"; 
+			$sql = "UPDATE users " .
+					"SET postTime = " . time() . ", numImages = numImages + 1, uploadCount = uploadCount + 1 " .
+					"WHERE id = '" . $this->userID . "' " .
+					"LIMIT 1"; 
 			mysql_query($sql);
 	 	}
 	 	
