@@ -50,7 +50,7 @@ echo "There are " . $result['COUNT(*)'] . " items in the queue.";
 <?
 echo $lncln->prevNext();
 ?>
-<form action="queue.php?action=update" method="post">
+<form id='queue' action="queue.php?action=update" method="post">
 <?
 	foreach($lncln->images as $image):	
 		$tags = join(', ', $image['tags']);
@@ -84,6 +84,7 @@ echo $lncln->prevNext();
 	endforeach;
 ?>
 	<input type="submit" value="Submit" />
+	<input type="submit" value="Delete Selected" onclick="function(){document.getElementById('queue').action = 'queue.php?action=delete';}" />
 </form>
 <form action="queue.php?action=update" method="post">
 	<div>
