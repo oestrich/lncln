@@ -1,6 +1,6 @@
 /* $Id$ */
 
-Upgrading from 0.10.1
+Upgrading from 0.11.0
 ---------------------
 
 Make sure your site is backed up before attempting an upgrade.
@@ -9,29 +9,7 @@ The recommended way to upgrade is to remove everything but the
 images folder.  Upload the new version of lncln and apply these
 SQL commands:
 
-CREATE TABLE IF NOT EXISTS `news` (
-  `id` int(8) NOT NULL auto_increment,
-  `postTime` int(32) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `news` text NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
-CREATE TABLE IF NOT EXISTS `settings` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL,
-  `value` varchar(255) NOT NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-INSERT INTO `settings` (`name`, `value`) VALUES
-('title', 'The Archive'),
-('version', '0.11.0'),
-('theme', 'bbl'),
-('perpage', '15'),
-('tbp', '15');
-
-ALTER TABLE `news` ADD `title` VARCHAR( 50 ) NOT NULL AFTER `postTime` ; 
+ALTER TABLE `images` ADD `view` INT( 12 ) NOT NULL DEFAULT '0';
 
 If you have a problem creating the `news` table then please try the forums
 for help.

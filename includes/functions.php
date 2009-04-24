@@ -122,6 +122,8 @@ class lncln{
 		else{
 			return;
 		}
+		
+		$this->increaseView($image);
 
 		$this->imagesToGet[] = $image;
 				
@@ -865,6 +867,21 @@ class lncln{
 		print_r($this->images);
 		echo "type: " . $this->type . "\n";
 		echo "extra: " . $this->extra . "\n";
+	}
+	
+	/**
+	 * Increase the view count of an image
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $image int Id of image
+	 */
+	function increaseView($image){
+		if(is_numeric($image)){
+			$sql = "UPDATE images SET view = view + 1 WHERE id = " . $image;
+			mysql_query($sql);
+		}
 	}
 }
 
