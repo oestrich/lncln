@@ -30,6 +30,12 @@ if($_GET['action'] == "update"){
 	}
 }
 
+if($_GET['action'] == "delete"){
+	foreach($_POST['approve'] as $key => $value){
+		$lncln->delete($key);
+	}
+}
+
 if($_GET['action'] == "update"){
 	$lncln->dequeue($_POST);
 	header("location:" . URL . "admin/" . $lncln->script);
