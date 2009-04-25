@@ -56,6 +56,10 @@ Change the board settings: <br />
 				<td>Default Group:</td>
 				<td><?=$lncln->listGroups();?></td>
 			</tr>
+			<tr>
+				<td>Allow Registration:</td>
+				<td><?=$lncln->createSelect($lncln->display->settings['register']);?></td>
+			</tr>
 		</table>
 		<input type="submit" value="Submit" />
 	</div>

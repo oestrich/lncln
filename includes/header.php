@@ -54,6 +54,9 @@ else{
 ?>
 				<a href='<?echo URL;?>login.php'>Log in</a>
 				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
+				<?if($lncln->display->settings['register'] == 1):?>
+					<a href='<?echo URL;?>register.php'>Register</a>
+				<?endif;?>
 <?
 }
 

@@ -83,4 +83,24 @@ class Settings extends lncln{
 		
 		return $select;
 	}
+	
+	/**
+	 * Make a select field for editing, auto select the right option
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @param $name String name of select
+	 * @param $option bool Which one to select
+	 * 
+	 * @return String Select box
+	 */
+	function createSelect($name, $option){
+		$select = "<select name='" . $name ."'>";
+		
+		$select .= $option == 1 ? "<option value='0'>No</option><option value='1' selected>Yes</option>" : "<option value='0' selected>No</option><option value='1'>Yes</option>";
+		$select .= "</select>";
+		
+		return $select;
+	}
 }
