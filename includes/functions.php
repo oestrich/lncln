@@ -1011,6 +1011,9 @@ class User{
 	 	if($row['numImages'] <= $this->permissions['numIndex'] || ($this->permissions['index'] == 1 && $this->permissions['numIndex'] == 0)){
 	 		$this->permissions['toQueue'] = 0;
 	 	}
+	 	else{
+	 		$this->permissions['toQueue'] = 1;
+	 	}
 	 	
 	 	//If over 24 hrs later, reset number images
 	 	if(date('d', $row['postTime']) != date('d', time())){
