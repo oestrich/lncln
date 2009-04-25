@@ -46,7 +46,7 @@ class Users extends lncln{
 		}
 		
 		
-		$sql = "INSERT INTO users (name, password, admin, group) VALUES ('" . $username . "', '" . $password . "', " . $admin . ", " . $group . ")";
+		$sql = "INSERT INTO users (`name`, `password`, `admin`, `group`) VALUES ('" . $username . "', '" . $password . "', " . $admin . ", " . $group . ")";
 		mysql_query($sql);
 		
 		return "User " . $username . " added";
