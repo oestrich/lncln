@@ -37,7 +37,7 @@ ALTER TABLE `images` ADD `view` INT( 12 ) NOT NULL DEFAULT '0';
 
 ALTER TABLE `users` ADD `uploadCount` INT( 8 ) NOT NULL DEFAULT '0';
 
-INSERT INTO `betalncln`.`settings` (`id`, `name`, `value`) VALUES (NULL, 'register', '1');
+INSERT INTO `betalncln`.`settings` (`name`, `value`) VALUES ('defaultGroup', '2'), ('register', '1');
 
 If you have a problem creating the `news` table then please try the forums
 for help.

@@ -136,12 +136,15 @@ CREATE TABLE IF NOT EXISTS `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`name`, `value`) VALUES
-('title', 'The Archive'),
-('version', '0.11.0'),
-('theme', 'bbl'),
-('perpage', '15'),
-('tbp', '15');
+INSERT INTO `settings` (`id`, `name`, `value`) VALUES
+(1, 'title', 'The Archive'),
+(2, 'version', '0.11.0'),
+(3, 'theme', 'bbl'),
+(4, 'perpage', '12'),
+(5, 'tbp', '10'),
+(6, 'defaultGroup', '2'),
+(7, 'register', '1');
+ 
 
 
 -- --------------------------------------------------------
