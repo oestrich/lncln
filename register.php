@@ -25,6 +25,10 @@ if(isset($_POST['username'])){
 	include(ABSPATH . "admin/users/class.php");
 	
 	Users::addUser($user);
+	
+	echo "Thank you for registering " . $user['username'] . ".";
+	include(ABSPATH . "includes/header.php");
+	exit();
 }
 ?>
 
