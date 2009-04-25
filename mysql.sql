@@ -35,8 +35,11 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(8) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL,
   `index` int(1) NOT NULL,
-  `report` int(2) NOT NULL,
-  `rate` int(2) NOT NULL,
+  `numIndex` int(3) NOT NULL,
+  `report` int(1) NOT NULL,
+  `reportValue` int(2) NOT NULL default '0',
+  `rate` int(1) NOT NULL,
+  `rateValue` int(2) NOT NULL default '0',
   `obscene` int(1) NOT NULL,
   `refresh` int(1) NOT NULL,
   `delete` int(1) NOT NULL,
@@ -44,7 +47,17 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `tag` int(1) NOT NULL,
   `album` int(1) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) VALUES
+(1, 'Anonymous', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'New User', 1, 5, 1, 3, 1, 1, 0, 0, 0, 0, 1, 0),
+(3, 'Trusted User', 1, 20, 1, 5, 1, 3, 1, 0, 0, 1, 1, 1),
+(4, 'Admin', 1, 0, 1, 5, 1, 5, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 

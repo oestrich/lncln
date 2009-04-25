@@ -15,7 +15,7 @@ require_once("load.php");
 
 require_once("includes/header.php");
 
-if(isset($_POST['username'])){
+if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 	$user = array(  "username" => $_POST['username'],
 					"password" => $_POST['password'],
 					"passwordconfirm" => $_POST['passwordconfirm'],
