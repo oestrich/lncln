@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT INTO `settings` (`id`, `name`, `value`) VALUES
 (1, 'title', 'The Archive'),
-(2, 'version', '0.11.0'),
+(2, 'version', '0.12.0'),
 (3, 'theme', 'bbl'),
 (4, 'perpage', '12'),
 (5, 'tbp', '10'),
