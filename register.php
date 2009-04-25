@@ -27,7 +27,7 @@ if(isset($_POST['username'])){
 	Users::addUser($user);
 	
 	echo "Thank you for registering " . $user['username'] . ".";
-	include(ABSPATH . "includes/header.php");
+	include(ABSPATH . "includes/footer.php");
 	exit();
 }
 ?>
