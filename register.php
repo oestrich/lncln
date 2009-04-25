@@ -15,6 +15,17 @@ require_once("load.php");
 
 require_once("includes/header.php");
 
+if(isset($_POST['username'])){
+	$user = array(  "username" => $_POST['username'],
+					"password" => $_POST['password'],
+					"passwordconfirm" => $_POST['passwordconfirm'],
+					"group" => $lncln->display->settings['defaultGroup'],
+					"admin" => 0
+					);
+	include(ABSPATH . "admin/users/class.php");
+	
+	Users::addUser($user);
+}
 ?>
 
 <form action="register.php" method="post">
