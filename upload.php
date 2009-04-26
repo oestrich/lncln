@@ -5,7 +5,7 @@
  * Landing page for uploading images
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -37,17 +37,15 @@ if($_GET['action'] == "cancel"){
 
 //Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
 if(!isset($_POST['type'])){
-	require_once("includes/header.php");
-	echo "Please don't come to this page on your own.  If you didn't come here on your own, you may have uploaded more than " . ini_get("upload_max_filesize");
-	require_once("includes/footer.php");
-	exit();
+	$lncln->display->message("Please don't come to this page on your own.  If you didn't come here on your own, you may have uploaded more than " . ini_get("upload_max_filesize"));
+
 }
 
 
 
 $lncln->tempUpload();
 
-require_once(ABSPATH . "includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 ?>
 	Tags are manditory.
@@ -103,6 +101,6 @@ endforeach;
 	</form>
 <?
 
-require_once(ABSPATH . "includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 
 ?>

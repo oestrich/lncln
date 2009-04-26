@@ -18,18 +18,10 @@ if(isset($_COOKIE['username'])){
 	setcookie("password", "", time() - (60 * 60 * 24));
 }
 
-
-require_once("includes/header.php");
-
 if(isset($_COOKIE['username'])){
-?>
-	You are now logged out.
-<?
+	$lncln->display->message("You are now logged out.");
 }
 else{
-?>
-	Please log in before you can log out.
-<?}
-
-require_once("includes/footer.php");
+	$lncln->display->message("Please log in before you can log out.");
+}
 ?>

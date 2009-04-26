@@ -5,7 +5,7 @@
  * Lists albums if no $_GET['album'], otherwise lists that album
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -15,11 +15,11 @@ require_once("load.php");
 
 $lncln->album(array($_GET['album'], $_GET['img']));
 
-require_once(ABSPATH . "includes/iconActions.php");
+include_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
-require_once("includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 if(!isset($_GET['album']) || $_GET['album'] == ""){
 	foreach($lncln->getAlbums() as $album){
@@ -37,7 +37,7 @@ else{
 	
 	echo $lncln->prevNext();
 	
-	require_once("includes/listImages.php");
+	include_once(ABSPATH . "includes/listImages.php");
 	
 ?>
 		<div id='bPrevNext'>
@@ -48,7 +48,5 @@ else{
 <?
 }
 
-
-
-require_once("includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>

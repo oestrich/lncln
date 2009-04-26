@@ -5,18 +5,14 @@
  * Let's an admin create an album
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
  */
 
 if(isset($_POST['name'])){
-	$album = $lncln->addAlbum($_POST['name']);
-}
-
-if(isset($album)){
-	echo $album . "<br />";
+	echo $lncln->addAlbum($_POST['name']);
 }
 ?>
 

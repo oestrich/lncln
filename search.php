@@ -5,7 +5,7 @@
  * Boots a user back to the homepage if $_GET['search'] is empty
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -20,11 +20,11 @@ if(!isset($_GET['search']) || $_GET['search'] == ""){
 	exit();
 }
 
-require_once(ABSPATH . "includes/iconActions.php");
+include_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
-require_once("includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 ?>
 	You searched for: <?echo $_GET['search'];?> <br />
@@ -32,7 +32,7 @@ require_once("includes/header.php");
 
 echo $lncln->prevNext();
 
-require_once("includes/listImages.php");
+include_once(ABSPATH . "includes/listImages.php");
 
 ?>
 	<div id='bPrevNext'>
@@ -42,6 +42,6 @@ echo $lncln->prevNext();
 	</div>
 <?
 
-require_once("includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 
 ?>

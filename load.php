@@ -6,7 +6,7 @@
  * Every page should include this
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -15,14 +15,14 @@
 define("ABSPATH", dirname(__FILE__) . "/");
 
 if(file_exists(ABSPATH . "config.php")){
-	require_once(ABSPATH . "config.php");	
+	include_once(ABSPATH . "config.php");	
 }
 else{
 	echo "Please configure your config.php file.  You can use config-sample.php as a base.";
 	die();
 }
 
-require_once(ABSPATH . "includes/functions.php");
+include_once(ABSPATH . "includes/functions.php");
 
 connect();
 

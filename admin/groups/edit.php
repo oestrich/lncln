@@ -5,7 +5,7 @@
  * Let's an admin edit a group
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -13,7 +13,7 @@
 
 if(!isset($_GET['group'])){
 	echo "Please don't come here on your own.";
-	include(ABSPATH . "includes/footer.php");
+	require_once(ABSPATH . "includes/footer.php");
 	exit();
 }
 

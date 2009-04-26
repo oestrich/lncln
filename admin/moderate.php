@@ -2,10 +2,10 @@
 /**
  * moderate.php
  * 
- * Easily moderate 50 images at a time.  Bulk editing has never been easier!
+ * Easily moderate many images at a time.  Bulk editing has never been easier!
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -15,7 +15,7 @@ require_once("../load.php");
 
 $lncln->index();
 
-include("admin.php");
+include_once("admin.php");
 
 if($_GET['action'] == "update"){
 	foreach($_POST['check'] as $key => $value){
@@ -28,7 +28,7 @@ if($_GET['action'] == "update"){
 
 $lncln->img();
 
-require_once(ABSPATH . "includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 echo $lncln->prevNext();
 
@@ -78,6 +78,6 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 <?
 
 
-require_once(ABSPATH . "includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 
 ?>

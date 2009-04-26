@@ -5,7 +5,7 @@
  * Displays the settings to be changed
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -16,9 +16,7 @@ if($_GET['subAction'] == "edit"){
 		$lncln->changeSetting($name, $value);
 	}
 	
-	echo "Settings have been saved.  Click <a href='" . URL . "admin/'>here</a> to continue";
-	include(ABSPATH . "includes/footer.php");
-	exit();
+	$lncln->display->message("Settings have been saved.  Click <a href='" . URL . "admin/'>here</a> to continue");
 } 
 
 $themes = "<select name='theme'>";

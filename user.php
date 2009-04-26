@@ -5,7 +5,7 @@
  * Allows a user to change settings.  Their control panel.
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -13,12 +13,12 @@
 
 require_once("load.php");
 
-require_once("includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 if(isset($_POST['username'])){
 	echo $lncln->user->updateUser($_POST);
 	echo "<br />Click <a href='" . URL . "index.php'>here</a> to continue";
-	include(ABSPATH . "includes/footer.php");
+	include_once(ABSPATH . "includes/footer.php");
 	exit();
 }
 
@@ -52,5 +52,5 @@ if($lncln->user->isUser){
 
 <?
 }
-require_once("includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>

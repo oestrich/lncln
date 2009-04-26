@@ -5,16 +5,14 @@
  * Let's an admin edit a news item
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
  */
 
 if(!isset($_GET['news'])){
-	echo "Please don't come here on your own.";
-	include(ABSPATH . "includes/footer.php");
-	exit();
+	$lncln->display->message("Please don't come here on your own.");
 }
 
 if(isset($_POST['id'])){

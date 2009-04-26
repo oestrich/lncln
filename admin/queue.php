@@ -5,7 +5,7 @@
  * Exactly what it sounds like
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -15,7 +15,7 @@ require_once("../load.php");
 
 $lncln->queue();
 
-include("admin.php");
+include_once("admin.php");
 
 if($_GET['action'] == "update"){
 	foreach($_POST['check'] as $key => $value){
@@ -44,7 +44,7 @@ if($_GET['action'] == "update"){
 
 $lncln->img();
 
-require_once("../includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 $sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 $result = mysql_query($sql);
@@ -108,5 +108,5 @@ echo $lncln->prevNext();
 <?
 
 
-require_once("../includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>

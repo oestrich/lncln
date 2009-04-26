@@ -5,7 +5,7 @@
  * Main administration panel for lncln
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -13,9 +13,9 @@
 
 require_once("../load.php");
 
-include("admin.php");
+include_once("admin.php");
 
-include(ABSPATH . "includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 echo "Welcome to the admin panel<br />";
 
@@ -30,7 +30,7 @@ foreach($links as $key => $module){
 	}
 }
 
-include(ABSPATH . "includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>
 
 

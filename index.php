@@ -5,7 +5,7 @@
  * Main page, does the "index" action
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -15,11 +15,11 @@ require_once("load.php");
 
 $lncln->index();
 
-require_once(ABSPATH . "includes/iconActions.php");
+include_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
-require_once(ABSPATH . "includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 
 //News
@@ -70,16 +70,10 @@ if($_SESSION['uploaded']){
 		unset($_SESSION['uploadKey']);
 	}
 }
-if(isset($deletion)){
-	echo $deletion . "<br />";
-}
-if(isset($obscene)){
-	echo $obscene . "<br />";
-}
 
 echo $lncln->prevNext();
 
-require_once(ABSPATH . "includes/listImages.php");
+include_once(ABSPATH . "includes/listImages.php");
 
 ?>
 	<div id='bPrevNext'>
@@ -88,5 +82,5 @@ echo $lncln->prevNext();
 ?>
 	</div>
 <?
-require_once("includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>

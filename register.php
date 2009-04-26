@@ -5,7 +5,7 @@
  * A new user can register
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -13,7 +13,7 @@
 
 require_once("load.php");
 
-include_once("includes/header.php");
+include_once(ABSPATH . "includes/header.php");
 
 if($lncln->display->settings['register'] == 0){
 	$lncln->display->message("This site has not allowed registrations.  Thank you for wanting to register though.");
@@ -55,5 +55,5 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 </form>
 
 <?
-include(ABSPATH . "includes/footer.php");
+include_once(ABSPATH . "includes/footer.php");
 ?>

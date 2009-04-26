@@ -6,7 +6,7 @@
  * Edit to suit your needs
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -32,7 +32,7 @@ define("DB_PASSWORD", "");
 define("CURRENT_IMG_DIRECTORY", ABSPATH . "images/full/");
 define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
-//Include trailing slash
+//Include trailing slash in URL
 define("URL", "/");
 define("SERVER", "");
 

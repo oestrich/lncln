@@ -5,7 +5,7 @@
  * Let's an admin manage groups?
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.11.0 $Id$
+ * @version 0.12.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
@@ -13,9 +13,7 @@
 
 if($_GET['subAction'] == "delete"){
 	if(is_numeric($_POST['group'])){
-		echo $lncln->deleteGroup($_GET['group'], $_POST['group']);
-		include(ABSPATH . "includes/footer.php");
-		exit();
+		$lncln->display->message($lncln->deleteGroup($_GET['group'], $_POST['group']));
 	}
 	
 	$group = $lncln->getGroup($_GET['group']);
@@ -31,7 +29,7 @@ if($_GET['subAction'] == "delete"){
 	echo "</select>";
 	echo "<input type='submit' value='Submit' />";
 	echo "</form>";
-	include(ABSPATH . "includes/footer.php");
+	include_once(ABSPATH . "includes/footer.php");
 	exit();
 }
 ?>
