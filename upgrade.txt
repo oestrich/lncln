@@ -37,6 +37,8 @@ ALTER TABLE `images` ADD `view` INT( 12 ) NOT NULL DEFAULT '0';
 
 ALTER TABLE `users` ADD `uploadCount` INT( 8 ) NOT NULL DEFAULT '0';
 
+ALTER TABLE `users` DROP `toHome`  
+
 INSERT INTO `settings` (`name`, `value`) VALUES ('defaultGroup', '2'), ('register', '1');
 
 UPDATE `settings` SET `value` = '0.12.0' WHERE `settings`.`id` =2 LIMIT 1 ;

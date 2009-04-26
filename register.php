@@ -30,9 +30,7 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 	
 	Users::addUser($user);
 	
-	echo "Thank you for registering " . $user['username'] . ".";
-	include_once(ABSPATH . "includes/footer.php");
-	exit();
+	$lncln->display->message("Thank you for registering " . $user['username'] . ".");
 }
 ?>
 
