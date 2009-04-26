@@ -16,7 +16,7 @@ require_once("load.php");
 include_once("includes/header.php");
 
 if($lncln->display->settings['register'] == 0){
-	$lncln->display-message("This site has not allowed registrations.  Thank you for wanting to register though.");
+	$lncln->display->message("This site has not allowed registrations.  Thank you for wanting to register though.");
 }
 
 if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
