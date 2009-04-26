@@ -1095,6 +1095,25 @@ class Display{
 		
 		define("THEME", $this->settings['theme']);
 	}
+	
+	/**
+	 * Show only the message given on the screen.
+	 * Useful for "Please login"  or "Not allowed"
+	 * Exits upon completion
+	 * 
+	 * @since 0.12.0
+	 * @package lnlcn
+	 * 
+	 * @param $msg String Message to be shown
+	 */
+	function message($msg){
+		include_once(ABSPATH . "includes/header.php");
+		
+		echo $msg;
+		
+		include_once(ABSPATH . "includes/footer.php");
+		exit();
+	}
 }
 
 /**

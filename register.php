@@ -13,7 +13,11 @@
 
 require_once("load.php");
 
-require_once("includes/header.php");
+include_once("includes/header.php");
+
+if($lncln->display->settings['register'] == 0){
+	$lncln->display-message("This site has not allowed registrations.  Thank you for wanting to register though.");
+}
 
 if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 	$user = array(  "username" => $_POST['username'],
@@ -22,12 +26,12 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 					"group" => $lncln->display->settings['defaultGroup'],
 					"admin" => 0
 					);
-	include(ABSPATH . "admin/users/class.php");
+	include_once(ABSPATH . "admin/users/class.php");
 	
 	Users::addUser($user);
 	
 	echo "Thank you for registering " . $user['username'] . ".";
-	include(ABSPATH . "includes/footer.php");
+	include_once(ABSPATH . "includes/footer.php");
 	exit();
 }
 ?>
