@@ -18,6 +18,6 @@
 			Designed for Firefox - Powered by <a href="http://lncln.com">lncln <?echo $display->settings['version'];?></a>
 		</div>
 	</div>
-<?include_once(ABSPATH . "googleAnalytics.html");?> 
+<?include_once(ABSPATH . "includes/googleAnalytics.html");?> 
 </body>
 </html>
