@@ -134,5 +134,5 @@ if($lncln->user->permissions['isAdmin'] == 1){
 		<div id="mainBody">
 			<br />
 			<?if($lncln->user->permissions['isAdmin'] == 1  && $lncln->moderationOn):?>
-				<div style="text-align: center; left: -50px; position: relative; z-index: 1;"><a href="<?=URL;?>admin/moderate.php">Moderate Images</a></div>
+				<div style="text-align: center; left: -50px; position: relative; z-index: 1; padding-bottom: 20px;"><a href="<?=URL;?>admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>	
