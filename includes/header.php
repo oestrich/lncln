@@ -42,7 +42,7 @@
 	}
 ?>
 				<a href='<?echo URL;?>album.php'>Albums</a>
-				<a href='<?echo URL;?>index.php?img=<?echo $lncln->firstImage . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
+				<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
 <?
 if($lncln->user->isUser){
 ?>
@@ -76,25 +76,25 @@ else{
 					<div>
 						<input type="hidden" name="type" id="formType" value="regular" />
 						Uploaded files will be moderated<br />
-						<input name="upload0" id="upload0" type="file" onchange="TestFileType(this.form.upload0.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload0" id="upload0" type="file" />
 						<br />
-						<input name="upload1" id="upload1" type="file" onchange="TestFileType(this.form.upload1.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload1" id="upload1" type="file" />
 						<br />
-						<input name="upload2" id="upload2" type="file" onchange="TestFileType(this.form.upload2.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload2" id="upload2" type="file" />
 						<br />
-						<input name="upload3" id="upload3" type="file" onchange="TestFileType(this.form.upload3.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload3" id="upload3" type="file" />
 						<br />
-						<input name="upload4" id="upload4" type="file" onchange="TestFileType(this.form.upload4.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload4" id="upload4" type="file" />
 						<br />
-						<input name="upload5" id="upload5" type="file" onchange="TestFileType(this.form.upload5.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload5" id="upload5" type="file" />
 						<br />
-						<input name="upload6" id="upload6" type="file" onchange="TestFileType(this.form.upload6.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload6" id="upload6" type="file" />
 						<br />
-						<input name="upload7" id="upload7" type="file" onchange="TestFileType(this.form.upload7.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload7" id="upload7" type="file" />
 						<br />
-						<input name="upload8" id="upload8" type="file" onchange="TestFileType(this.form.upload8.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload8" id="upload8" type="file" />
 						<br />
-						<input name="upload9" id="upload9" type="file" onchange="TestFileType(this.form.upload9.value, ['', 'gif', 'jpg', 'png']);"/>
+						<input name="upload9" id="upload9" type="file" />
 						<br />
 						<input type="submit" value="Upload File" />
 						<br />

@@ -73,16 +73,6 @@ function both(divid){
 	document.getElementById('l' + divid).href = "image.php?img=" + divid;
 }
 
-function TestFileType( fileName, fileTypes ) {
-	if (!fileName) return;
-
-	dots = fileName.split(".")
-	//get the part AFTER the LAST period.
-	fileType = "." + dots[dots.length-1];
-
-	return (fileTypes.join(".").indexOf(fileType) != -1) ? 1 : alert("Please only upload files that end in types: \n" + (fileTypes.join(" .")) + "\n\nNothing will be done with these files.\n\nPlease upload a valid image.");
-}
-
 function caption(divid){
 	document.getElementById('c' + divid).style.display = 'block';
 	document.getElementById('formCaption' + divid).focus();
