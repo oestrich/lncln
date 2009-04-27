@@ -25,7 +25,7 @@ include_once(ABSPATH . "includes/header.php");
 $news = $lncln->getNews();
 ?>	
 	<div id="news"> 
-		<h3><?echo $news['title'];?></h3><br/>
+		<span style="font-weight: bold;"><?echo $news['title'];?>:</span><br/>
 		<?echo $news['news'];?><br /><br />
 	</div> 
 <?
