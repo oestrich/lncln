@@ -92,7 +92,7 @@ function album(divid){
 
 function news(){
 	var actualNews = document.getElementById('actualNews');
-	if(news.display == "none"){
+	if(actualNews.style.display == "none"){
 		actualNews.style.display = "block";
 	}
 	else{
