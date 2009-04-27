@@ -69,8 +69,8 @@ class Group extends lncln{
 			return "Invalid field";
 		}
 		
-		$sql = 	"UPDATE groups SET name = '$name', upload = $upload, index = $index, numIndex = $numIndex, report = $report, rate = $rate," .
-				" obscene = $obscene, refresh = $refresh, delete = $delete, caption = $caption, tag = $tag, album = $album WHERE id = " . $id;
+		$sql = 	"UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `rate` = $rate," .
+				" `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tag` = $tag, `album` = $album WHERE id = " . $id;
 		
 		mysql_query($sql);
 		
