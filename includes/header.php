@@ -44,7 +44,7 @@
 				<a href='<?echo URL;?>album.php'>Albums</a>
 				<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
 <?
-if($lncln->user->isUser){
+if($lncln->user->isUser == true){
 ?>
 				<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
 				<a href='<?echo URL;?>user.php'>Change Settings</a>

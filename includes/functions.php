@@ -847,15 +847,9 @@ class lncln{
 	 */
 	function debug(){		
 		echo "script: " . $this->script . "\n";
-		
-		echo "firstImage: " . $this->firstImage . "\n";
-		echo "lastImage: " . $this->lastImage . "\n";
-		
-		echo "aboveFifty: " . $this->aboveFifty . "\n";
-		echo "belowFifty: " . $this->belowFifty . "\n";
-		
-		echo "highestID: " . $this->highestID . "\n";
-		echo "lowestID: " . $this->lowestID . "\n";
+
+		echo "page: " . $this->page . "\n";
+		echo "maxPage: " . $this->maxPage . "\n";
 		
 		echo "search: " . $this->search . "\n";
 		echo "album: " . $this->album . "\n";
