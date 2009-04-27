@@ -50,7 +50,7 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td>Report Value:</td>
-				<td><input type="text" name="report" size="3" value="<?=$group['reportValue'];?>" /></td>
+				<td><input type="text" name="reportValue" size="3" value="<?=$group['reportValue'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Rate:</td>
@@ -58,7 +58,7 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td>Rate Value:</td>
-				<td><input type="text" name="rate" size="3" value="<?=$group['rateValue'];?>" /></td>
+				<td><input type="text" name="rateValue" size="3" value="<?=$group['rateValue'];?>" /></td>
 			</tr>
 			<tr>
 				<td>Use obscene:</td>

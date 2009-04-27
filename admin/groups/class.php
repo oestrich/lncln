@@ -29,7 +29,9 @@ class Group extends lncln{
 		$index = $data['index'];
 		$numIndex = $data['numIndex'];
 		$report = $data['report'];
+		$reportValue = $data['reportValue'];
 		$rate = $data['rate'];
+		$rateValue = $data['rateValue'];
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
@@ -41,8 +43,8 @@ class Group extends lncln{
 			return "Invalid field";
 		}
 		
-		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
-				"VALUES ('$name', $upload, $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
+		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
+				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $caption, $tag, $album)";
 		
 		mysql_query($sql);
 		
@@ -57,7 +59,9 @@ class Group extends lncln{
 		$index = $data['index'];
 		$numIndex = $data['numIndex'];
 		$report = $data['report'];
+		$reportValue = $data['reportValue'];
 		$rate = $data['rate'];
+		$rateValue = $data['rateValue'];
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
@@ -69,8 +73,9 @@ class Group extends lncln{
 			return "Invalid field";
 		}
 		
-		$sql = 	"UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `rate` = $rate," .
-				" `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tag` = $tag, `album` = $album WHERE id = " . $id;
+		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue " .
+			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tag` = $tag, " .
+			   "`album` = $album WHERE id = " . $id;
 		
 		mysql_query($sql);
 		
