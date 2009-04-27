@@ -74,7 +74,7 @@ class Group extends lncln{
 		
 		mysql_query($sql);
 		
-		return "Group " . $name . " added.";
+		return "Group " . $name . " edited.";
 	}
 	
 	/**
