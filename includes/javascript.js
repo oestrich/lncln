@@ -31,7 +31,7 @@ function toggleDiv(type){
 			var upload = temp.cloneNode(false);
 			upload.setAttribute('type','text');
 			upload.setAttribute('size', 30);
-			temp.parentNode.replaceChild(temp, upload);
+			temp.parentNode.replaceChild(upload, temp);
 		}
 		document.getElementById('formType').value = "url";
 		document.getElementById('form').action = formAction + "?url=true";
@@ -42,7 +42,7 @@ function toggleDiv(type){
 			var upload = temp.cloneNode(false);
 			upload.setAttribute('type','file');
 			upload.setAttribute('size', 20);
-			temp.parentNode.replaceChild(temp, upload);
+			temp.parentNode.replaceChild(upload, temp);
 		}
 		document.getElementById('formType').value = "regular";
 		document.getElementById('form').action = formAction;
