@@ -28,8 +28,8 @@ function toggleDiv(type){
 	if(type == "url"){
 		for(var a = 0; a < 10; a++){
 			var upload = document.getElementById('upload' + a);
-			upload.type = "text";
-			upload.size = "30";
+			upload.setAttribute('type','text');
+			upload.setAttribute('size', 30);
 		}
 		document.getElementById('formType').value = "url";
 		document.getElementById('form').action = formAction + "?url=true";
@@ -37,8 +37,8 @@ function toggleDiv(type){
 	else{
 		for(var a = 0; a < 10; a++){
 			var upload = document.getElementById('upload' + a);
-			upload.type = "file";
-			upload.size = "20";
+			upload.setAttribute('type','file');
+			upload.setAttribute('size', 20);
 		}
 		document.getElementById('formType').value = "regular";
 		document.getElementById('form').action = formAction;
