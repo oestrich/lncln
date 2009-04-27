@@ -79,11 +79,11 @@ class Users extends lncln{
 			$confirm = sha1($confirm);
 			
 			if($password == $confirm){
-				$passwordSQL = ", password = '" . $password . "' ";
+				$passwordSQL = ", `password` = '" . $password . "' ";
 			}
 		}
 		
-		$sql = "UPDATE users SET admin = " . $admin . ", group = " . $group . ", obscene = " . $obscene . " " . $passwordSQL . " WHERE id = " . $id;
+		$sql = "UPDATE users SET `admin` = " . $admin . ", `group` = " . $group . ", `obscene` = " . $obscene . " " . $passwordSQL . " WHERE id = " . $id;
 		mysql_query($sql);
 	}
 	
