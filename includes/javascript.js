@@ -93,10 +93,10 @@ function album(divid){
 function news(){
 	var news = document.getElementById('actualNews');
 	if(news.display == "none"){
-		news.visibility = "block";
+		news.display = "block";
 	}
 	else{
-		news.visibility = "none";
+		news.display = "none";
 	}
 }
 
