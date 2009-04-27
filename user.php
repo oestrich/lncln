@@ -37,15 +37,32 @@ if($lncln->user->isUser){
 	<form enctype="multipart/form-data" action="user.php" method="post">
 		<div id="user">
 			<input type="hidden" name="username" value="<?echo $_COOKIE['username'];?>" />
-			Only put in your password if you want to change it.<br />
-			Old Password: <input type='password' name='password' /><br />
-			New Password: <input type='password' name='newPassword' /><br />
-			New Password: <input type='password' name='newPasswordConfirm' /><br />
-			<br />
-			View Obscene: <select name="obscene">
+			<table>
+				<tr>
+					<td colspan="2">Only put in your password if you want to change it.</td>
+				</tr>
+				<tr>
+					<td>Old Password:</td>
+					<td><input type='password' name='password' /></td>
+				</tr>
+				<tr>
+					<td>New Password:</td>
+					<td><input type='password' name='newPassword' /></td>
+				</tr>
+				<tr>
+					<td>New Password:</td>
+					<td><input type='password' name='newPasswordConfirm' /></td>
+				</td>
+				<tr>
+					<td>View Obscene:</td>
+					<td>
+						<select name="obscene">
 							<option value=0 <?if($_COOKIE['obscene'] == 0) echo "selected";?>>No</option>
 							<option value=1 <?if($_COOKIE['obscene'] == 1) echo "selected";?>>Yes</option>
-						</select><br />
+						</select>
+					</td>
+				</tr>
+			</table>
 			<input type='submit' value="Login" />
 		</div>
 	</form>
