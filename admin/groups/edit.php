@@ -17,10 +17,15 @@ if(!isset($_GET['group'])){
 	exit();
 }
 
+if(isset($_POST['name'])){
+	$lncln->display->message($lncln->editGroup($_GET['group'], $_POST));
+	
+}
+
 $group = $lncln->getGroup($_GET['group']);
 ?>
 
-<form action="<?=createLink("add");?>" method="post" />
+<form action="<?=createLink("edit", array("group" => $_GET['group']));?>" method="post" />
 	<div>
 		<table>
 			<tr>

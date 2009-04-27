@@ -49,6 +49,34 @@ class Group extends lncln{
 		return "Group " . $name . " added.";
 	}
 	
+	function editGroup($id, $data){
+		$data = array_map("prepareSQL", $data);
+		
+		$name = $data['name'];
+		$upload = $data['upload'];
+		$index = $data['index'];
+		$numIndex = $data['numIndex'];
+		$report = $data['report'];
+		$rate = $data['rate'];
+		$obscene = $data['obscene'];
+		$refresh = $data['refresh'];
+		$delete = $data['delete'];
+		$caption = $data['caption'];
+		$tag = $data['tag'];
+		$album = $data['album'];
+		
+		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
+			return "Invalid field";
+		}
+		
+		$sql = 	"UPDATE groups SET name = '$name', upload = $upload, index = $index, numIndex = $numIndex, report = $report, rate = $rate," .
+				" obscene = $obscene, refresh = $refresh, delete = $delete, caption = $caption, tag = $tag, album = $album WHERE id = " . $id;
+		
+		mysql_query($sql);
+		
+		return "Group " . $name . " added.";
+	}
+	
 	/**
 	 * Get all groups
 	 * 
