@@ -137,3 +137,7 @@ a{
 	display: block;
 	height: 180px;
 }
+
+#actualNews{
+	display: none;
+}

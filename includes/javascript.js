@@ -90,6 +90,16 @@ function album(divid){
 	document.getElementById('album' + divid).style.display = 'none';
 }
 
+function news(){
+	var news = document.getElementById('actualNews');
+	if(news.display == "none"){
+		news.visibility = "block";
+	}
+	else{
+		news.visibility = "none";
+	}
+}
+
 function modCheck(divid){
 	document.getElementById('check' + divid).checked = true;
 }
