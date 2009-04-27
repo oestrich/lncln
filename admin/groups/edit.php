@@ -25,7 +25,7 @@ if(isset($_POST['name'])){
 $group = $lncln->getGroup($_GET['group']);
 ?>
 
-<form action="<?=createLink("edit", array("group" => $_GET['group']));?>" method="post" />
+<form action="<?=createLink("edit", array("group" => $_GET['group']), true);?>" method="post" />
 	<div>
 		<table>
 			<tr>

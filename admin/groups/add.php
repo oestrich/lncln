@@ -16,7 +16,7 @@ if(isset($_POST['name'])){
 }
 ?>
 
-<form action="<?=createLink("add");?>" method="post" />
+<form action="<?=createLink("add", array(), true);?>" method="post" />
 	<div>
 		<table>
 			<tr>
