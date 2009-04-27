@@ -26,7 +26,10 @@ $news = $lncln->getNews();
 ?>	
 	<div id="news"> 
 		<span style="font-weight: bold;"><?echo $news['title'];?>:</span><br/>
-		<?echo $news['news'];?><br /><br />
+		<p id="actualNews">
+			<?echo $news['news'];?>
+		</p>
+		<br /><br />
 	</div> 
 <?
 
