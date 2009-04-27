@@ -26,13 +26,13 @@ if(mysql_affected_rows() == 1){
 	$sql = "SELECT report FROM images WHERE id = " . $image;
 	$result = mysql_query($sql);
 	
-	$result = mysql_fetch_assoc($result);
+	$row = mysql_fetch_assoc($result);
 	
-	if($result['report'] >= 5){
+	if($row['report'] >= 5){
 		$sql = "UPDATE images SET queue = 1 WHERE id = " . $image . " LIMIT 1";
 		mysql_query($sql);
 	}
 }
 
-$lncln->display->message("The image " . $image . "has been reported.  Thank you.");
+$lncln->display->message("Image #" . $image . " has been reported.  Thank you.");
 ?>
