@@ -28,9 +28,13 @@ function toggleDiv(type){
 	if(type == "url"){
 		for(var a = 0; a < 10; a++){
 			var temp = document.getElementById('upload' + a);
-			var upload = temp.cloneNode(false);
+			var upload = document.createElement('input');
+			
 			upload.setAttribute('type','text');
 			upload.setAttribute('size', 30);
+			upload.setAttribute('id', 'upload' + a);
+			upload.setAttribute('name', 'upload' + a);
+			
 			temp.parentNode.replaceChild(upload, temp);
 		}
 		document.getElementById('formType').value = "url";
@@ -39,9 +43,13 @@ function toggleDiv(type){
 	else{
 		for(var a = 0; a < 10; a++){
 			var temp = document.getElementById('upload' + a);
-			var upload = temp.cloneNode(false);
+			var upload = document.createElement('input');
+			
 			upload.setAttribute('type','file');
 			upload.setAttribute('size', 20);
+			upload.setAttribute('id', 'upload' + a);
+			upload.setAttribute('name', 'upload' + a);
+			
 			temp.parentNode.replaceChild(upload, temp);
 		}
 		document.getElementById('formType').value = "regular";
