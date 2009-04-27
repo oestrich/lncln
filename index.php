@@ -25,7 +25,10 @@ include_once(ABSPATH . "includes/header.php");
 $news = $lncln->getNews();
 ?>	
 	<div id="news"> 
-		<span style="font-weight: bold; text-decoration: underline" onclick="news()"><?echo $news['title'];?> <span style="color: #22FF00">(click to show)</span>:</span><br/>
+		<span style="font-weight: bold; text-decoration: underline" onclick="news()">
+			<?echo $news['title'];?> <span style="color: #22FF00">(click to show)</span>: on <?=date("m/d/Y", $news['postTime']);?>:
+		</span>
+		<br/>
 		<p id="actualNews">
 			<?echo $news['news'];?> 
 		</p>
