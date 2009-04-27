@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `albums` (
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(8) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL,
+  `upload` int(1) NOT NULL,
   `index` int(1) NOT NULL,
   `numIndex` int(3) NOT NULL,
   `report` int(1) NOT NULL,
@@ -53,11 +54,11 @@ CREATE TABLE IF NOT EXISTS `groups` (
 -- Dumping data for table `groups`
 --
 
-INSERT INTO `groups` (`id`, `name`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) VALUES
-(1, 'Anonymous', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 'New User', 1, 5, 1, 3, 1, 1, 0, 0, 0, 0, 1, 0),
-(3, 'Trusted User', 1, 20, 1, 5, 1, 3, 1, 0, 0, 1, 1, 1),
-(4, 'Admin', 1, 0, 1, 5, 1, 5, 1, 1, 1, 1, 1, 1);
+INSERT INTO `groups` (`id`, `name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) VALUES
+(1, 'Anonymous', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'New User', 1, 1, 5, 1, 3, 1, 1, 0, 0, 0, 0, 1, 0),
+(3, 'Trusted User', 1, 1, 20, 1, 5, 1, 3, 1, 0, 0, 1, 1, 1),
+(4, 'Admin', 1, 1, 0, 1, 5, 1, 5, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
