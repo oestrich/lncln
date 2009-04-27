@@ -22,14 +22,13 @@ $lncln->img();
 include_once(ABSPATH . "includes/header.php");
 
 
-//News
-$sql = "SELECT * FROM `news` ORDER BY id DESC LIMIT 1";
-$result = mysql_query($sql);
-$row = mysql_fetch_assoc($result);
-
-?>	<div id="news"> <?
-echo $row['news'] . "<br /><br />";
-?>	</div> <?
+$news = $lncln->getNews();
+?>	
+	<div id="news"> 
+		<h3><?echo $news['title'];?></h3><br/>
+		<?echo $news['news'];?><br /><br />
+	</div> 
+<?
 
 /**
  * Upload block that lets the user know how the upload went
