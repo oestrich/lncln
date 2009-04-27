@@ -73,7 +73,7 @@ class Group extends lncln{
 			return "Invalid field";
 		}
 		
-		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue " .
+		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue, " .
 			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tag` = $tag, " .
 			   "`album` = $album WHERE id = " . $id;
 		
