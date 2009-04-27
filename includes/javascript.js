@@ -91,12 +91,12 @@ function album(divid){
 }
 
 function news(){
-	var news = document.getElementById('actualNews');
+	var actualNews = document.getElementById('actualNews');
 	if(news.display == "none"){
-		news.style.display = "block";
+		actualNews.style.display = "block";
 	}
 	else{
-		news.style.display = "none";
+		actualNews.style.display = "none";
 	}
 }
 
