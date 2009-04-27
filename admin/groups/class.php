@@ -25,6 +25,7 @@ class Group extends lncln{
 		$data = array_map("prepareSQL", $data);
 		
 		$name = $data['name'];
+		$upload = $data['upload'];
 		$index = $data['index'];
 		$numIndex = $data['numIndex'];
 		$report = $data['report'];
@@ -36,12 +37,12 @@ class Group extends lncln{
 		$tag = $data['tag'];
 		$album = $data['album'];
 		
-		if(!is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
+		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
 			return "Invalid field";
 		}
 		
-		$sql = 	"INSERT INTO groups (`name`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
-				"VALUES ('$name', $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
+		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
+				"VALUES ('$name', $upload, $index, $numIndex, $report, $rate, $obscene, $refresh, $delete, $caption, $tag, $album)";
 		
 		mysql_query($sql);
 		

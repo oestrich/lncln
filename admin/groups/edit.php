@@ -28,6 +28,10 @@ $group = $lncln->getGroup($_GET['group']);
 				<td><input type="text" name="name" value="<?=$group['name'];?>" /></td>
 			</tr>
 			<tr>
+				<td>Upload:</td>
+				<td><?=$lncln->createSelect("upload", $group['upload']);?></td>
+			</tr>
+			<tr>
 				<td>Directly to Index:</td>
 				<td><?=$lncln->createSelect("index", $group['index']);?></td>
 			</tr>

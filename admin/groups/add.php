@@ -24,6 +24,10 @@ if(isset($_POST['name'])){
 				<td><input type="text" name="name" /></td>
 			</tr>
 			<tr>
+				<td>Upload:</td>
+				<td><select name="upload" ><option value="0">No</option><option value="1">Yes</option></select></td>
+			</td>
+			<tr>
 				<td>Directly to Index:</td>
 				<td><select name="index" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>

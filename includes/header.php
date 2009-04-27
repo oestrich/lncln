@@ -70,7 +70,7 @@ else{
 	$result = mysql_fetch_assoc($result);
 ?>
 				We have <?echo $result['COUNT(*)'];?> images.
-								
+	<?if($lncln->user->permissions['upload'] == 1):?>
 				<!-- upload form -->
 				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
 					<div>
@@ -101,8 +101,9 @@ else{
 						Max total upload size: <?=ini_get("upload_max_filesize");?>
 					</div>
 				</form>
-
 <?
+	endif;
+	
 if($lncln->user->permissions['isAdmin'] == 1){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
