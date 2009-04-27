@@ -25,11 +25,11 @@ include_once(ABSPATH . "includes/header.php");
 $news = $lncln->getNews();
 ?>	
 	<div id="news"> 
-		<span style="font-weight: bold;"><?echo $news['title'];?>:</span><br/>
+		<span style="font-weight: bold; text-decoration: underline" onclick="news()"><?echo $news['title'];?>:</span><br/>
 		<p id="actualNews">
 			<?echo $news['news'];?> 
 		</p>
-		<br /><br />
+		<br />
 	</div> 
 <?
 
