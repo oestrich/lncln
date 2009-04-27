@@ -883,6 +883,22 @@ class lncln{
 			mysql_query($sql);
 		}
 	}
+		
+	/**
+	 * Returns the latest news
+	 * 
+	 * @since 0.12.0
+	 * @package lncln
+	 * 
+	 * @return string The Latest news
+	 */
+	function getNews(){
+		$sql = "SELECT news, postTime, title FROM `news` ORDER BY id DESC LIMIT 1";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		return $row;
+	}
 }
 
 /**
@@ -1073,22 +1089,6 @@ class User{
 	
 		
 		return "User " . $username . " updated.";
-	}
-	
-	/**
-	 * Returns the latest news
-	 * 
-	 * @since 0.12.0
-	 * @package lncln
-	 * 
-	 * @return string The Latest news
-	 */
-	function getNews(){
-		$sql = "SELECT news, postTime, title FROM `news` ORDER BY id DESC LIMIT 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		
-		return $row;
 	}
 }
 
