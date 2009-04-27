@@ -62,8 +62,9 @@ else{
 
 ?>
 				<br />
+	<?if($lncln->user->permissions['upload'] == 1):?>
 				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
-
+	<?endif;?> 
 <?
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
 	$result = mysql_query($sql);
