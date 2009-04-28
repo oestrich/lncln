@@ -81,17 +81,6 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `groups`
---
-
-INSERT INTO `groups` (`id`, `name`, `index`, `numIndex`, `report`, `rate`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) VALUES
-(1, 'Anonymous', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
-(2, 'New User', 1, 5, 3, 1, 0, 0, 0, 0, 1, 0),
-(3, 'Trusted User', 1, 20, 5, 3, 1, 0, 0, 1, 1, 1),
-(4, 'Admin', 1, 0, 5, 5, 1, 1, 1, 1, 1, 1);
-
-
 -- --------------------------------------------------------
 
 --
@@ -139,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT INTO `settings` (`id`, `name`, `value`) VALUES
 (1, 'title', 'The Archive'),
-(2, 'version', '0.12.0'),
+(2, 'version', '0.12.1'),
 (3, 'theme', 'bbl'),
 (4, 'perpage', '12'),
 (5, 'tbp', '10'),
@@ -172,17 +161,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` char(32) NOT NULL,
   `password` char(40) NOT NULL,
   `admin` tinyint(1) NOT NULL default '0',
-  `toHome` int(1) NOT NULL default '1',
+  `group` int(3) NOT NULL,
   `obscene` tinyint(1) NOT NULL default '1',
-  `numImages` int(2) NOT NULL,
-  `postTime` int(32) NOT NULL,
+  `numImages` int(2) NOT NULL default '0',
+  `postTime` int(32) NOT NULL default '0',
+  `uploadCount` int(8) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`name`, `password`, `admin`, `toHome`, `obscene`, `numImages`, `postTime`) VALUES
-('Anonymous', '', 0, 0, 0, 0, 0),
-('admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 1, 1, 0, 0);
+INSERT INTO `users` (`name`, `password`, `admin`, `group`, `obscene`, `numImages`, `postTime`) VALUES
+('Anonymous', '', 0, 1, 0, 0, 0),
+('admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, 4, 1, 0, 0);

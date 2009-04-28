@@ -38,7 +38,9 @@ ALTER TABLE `images` ADD `view` INT( 12 ) NOT NULL DEFAULT '0';
 
 ALTER TABLE `users` ADD `uploadCount` INT( 8 ) NOT NULL DEFAULT '0';
 
-ALTER TABLE `users` DROP `toHome`  
+ALTER TABLE `users` ADD `group` INT( 3 ) NOT NULL;
+
+ALTER TABLE `users` DROP `toHome`;
 
 INSERT INTO `settings` (`name`, `value`) VALUES ('defaultGroup', '2'), ('register', '1');
 
