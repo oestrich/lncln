@@ -37,7 +37,7 @@ else{
 	
 	echo $lncln->prevNext();
 	
-	include_once(ABSPATH . "includes/listImages.php");
+	include_once(ABSPATH . "includes/listing.php");
 	
 ?>
 		<div id='bPrevNext'>

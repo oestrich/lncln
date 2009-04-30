@@ -22,7 +22,7 @@ include_once(ABSPATH . "includes/header.php");
 $lncln->img();
 
 if(isset($_GET['img']) && is_numeric($_GET['img'])){
-	include_once(ABSPATH . "includes/listImages.php");	
+	include_once(ABSPATH . "includes/listing.php");	
 }
 else{
 	echo "No such image.";
