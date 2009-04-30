@@ -5,19 +5,13 @@
  * Contains the interface for modules
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
  */
 
-/**
- * Module interface
- * 
- * @since 0.13.0
- * @package lncln
- */
-interface Module{
+class Tags implements Module{
 	/**
 	 * Called after a successful upload
 	 * 
@@ -27,7 +21,9 @@ interface Module{
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
 	 */
-	public function add($id, $data);
+	public function add($id, $data){
+		
+	}
 	
 	/**
 	 * Edits an image with the data provided
@@ -38,7 +34,9 @@ interface Module{
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
-	public function edit($id, $data);
+	public function edit($id, $data){
+		
+	}
 	
 	/**
 	 * Called during the upload screen. Contains the form information needed,
@@ -47,7 +45,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function upload();
+	public function upload(){
+		
+	}
 	
 	/**
 	 * Creates the form information needed during moderation
@@ -55,7 +55,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function moderate();
+	public function moderate(){
+		
+	}
 	
 	/**
 	 * Creates the link in the header
@@ -63,7 +65,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function headerLink();
+	public function headerLink(){
+		
+	}
 	
 	/**
 	 * Creates the icon underneath images
@@ -71,7 +75,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon();
+	public function icon(){
+		
+	}
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
@@ -79,6 +85,8 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage();	
+	public function underImage(){
+		
+	}
 }
 ?>
