@@ -1,6 +1,6 @@
 <?
 /**
- * listImages.php
+ * listing.php
  * 
  * The page that actually displays the images.  This includes the icons.
  * Runs through $lncln-images for all image data and prints it
