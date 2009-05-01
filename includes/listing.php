@@ -75,7 +75,7 @@ foreach ($lncln->images as $image){
 		//caption stuff
 		if($lncln->user->permissions['caption'] == 1){
 			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
-			$class = "class='caption'";
+			$class = "class='underImage'";
 		}
 		else{
 			$onClick = "";
@@ -108,7 +108,7 @@ foreach ($lncln->images as $image){
 		}
 		
 		if($lncln->user->permissions['tags'] == 1){
-			$classTag = "class='caption'";
+			$classTag = "class='underImage'";
 			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
 		else{
@@ -118,7 +118,6 @@ foreach ($lncln->images as $image){
 ?>
 			<div id='tag<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?>>
 				<?=$lncln->modules['tags']->underImage($image['id']);?>
-				<br />
 			</div>
 		<?if($lncln->user->permissions['tags'] == 1):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=tags" method="post">
@@ -133,7 +132,7 @@ foreach ($lncln->images as $image){
 
 <?
 		if($lncln->user->permissions['album'] == 1){
-			$class = "class='caption'";
+			$class = "class='underImage'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";
 		}
 		else{

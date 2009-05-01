@@ -94,10 +94,10 @@ a{
 	display: none;
 }
 
-.caption{
+.underImage{
 	width: 600px;
 }
-.caption:hover{
+.underImage:hover{
 	background-color: white;
 	color: black;
 }
