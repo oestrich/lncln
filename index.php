@@ -14,7 +14,7 @@
 require_once("load.php");
 
 if(isset($_GET['module']) && $_GET['module'] != ""){
-	if(method_exists($lncln->modules[$_GET['modules']], "index")){
+	if(method_exists($lncln->modules[$_GET['module']], "index")){
 		$lncln->modules[$_GET['module']]->index();
 	}
 	else{
