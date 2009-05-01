@@ -125,8 +125,8 @@ class Tags implements Module{
 	 */
 	public function underImage($id, $action){
 		if($this->lncln->user->permissions['tags'] == 1){
-			$classTag = "class='underImage' ";
-			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\" ";
+			$classTag = " class='underImage'";
+			$onClick = " onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
 		}
 		else{
 			$classTag = "";
@@ -134,7 +134,7 @@ class Tags implements Module{
 		}
 		
 		$output = "
-			<div id='tags$id' $classTag$onClick>
+			<div id='tags$id'" . $classTag . $onClick . ">
 				Tags: " . $this->getTags($id, true) . "
 			</div>\n";
 		

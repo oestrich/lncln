@@ -779,42 +779,6 @@ class lncln{
 	}
 	
 	/**
-	 * Tags an image.  Splits the $tags string by ','s and then secures it
-	 * for MySQL insertion.  
-	 * 
-	 * @since 0.5.0
-	 * @package lncln
-	 * 
-	 * @param int $id The id of the image
-	 * @param string $tags A comma seperated string that contains the tags
-	 */
-	function tag($id, $tags){
-		$id = stripslashes($id);
-		$id = mysql_real_escape_string($id);
-		
-		$tags = split(',', $tags);
-		$tags = array_map('trim', $tags);
-		$tags = array_map('stripslashes', $tags);
-		$tags = array_map('mysql_real_escape_string', $tags);
-		
-		$sql = "DELETE FROM tags WHERE picId = " . $id;
-		mysql_query($sql);
-		
-		$sql = "INSERT INTO tags (picId, tag) VALUES ";
-		
-		foreach($tags as $tag){
-			if($tag == ""){
-				continue;
-			}
-			$sql .= "(" . $id . ", '" . $tag . "'), ";
-		}
-	
-		$sql = substr_replace($sql ,"",-2);
-		
-		mysql_query($sql);
-	}
-	
-	/**
 	 * Returns all of the albums currently in the database
 	 * 
 	 * @since 0.9.0
