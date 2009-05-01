@@ -130,7 +130,7 @@ class Tags implements Module{
 	 * 
 	 * @return mixed Array of tags or string joined by ','
 	 */
-	function getTags($id, $string = false){
+	private function getTags($id, $string = false){
 		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
 		$result = mysql_query($sql);
 		
