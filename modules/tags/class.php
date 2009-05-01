@@ -118,7 +118,18 @@ class Tags implements Module{
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
 	 */
-	
+
+	/**
+	 * Gathers tags from an image together, string or array form
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $id int Image id
+	 * @param $string bool String if true, array if false
+	 * 
+	 * @return mixed Array of tags or string joined by ','
+	 */
 	function getTags($id, $string = false){
 		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
 		$result = mysql_query($sql);
