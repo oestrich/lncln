@@ -22,7 +22,9 @@ if($_GET['action'] == "update"){
 		$_POST['check'] = array();
 	
 	foreach($_POST['check'] as $key => $value){
-		$lncln->tag($key, $_POST['images'][$key]['tags']);
+		foreach($lncln->modules as $modKey => $module){
+			$module->edit($key, $_POST['images'][$key][$modKey]);
+		}
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
 		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
