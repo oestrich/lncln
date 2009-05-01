@@ -35,10 +35,8 @@
 <?
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
-					<a href='<?echo URL;?>album.php'>Albums</a>
 					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
-				</div>
-				<div class="headerRow">
+					<a href='<?echo URL;?>album.php'>Albums</a>
 <?
 if($lncln->user->isUser == true){
 ?>
@@ -100,13 +98,13 @@ else{?>
 if($lncln->user->permissions['isAdmin'] == 1){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
-	$result = mysql_fetch_assoc($result);
+	$row = mysql_fetch_assoc($result);
 
 ?>
 				<div class="headerRow">
 					Admin: 
 					<a href="<?=URL;?>admin/">Admin Panel</a>
-					<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+					<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $row['COUNT(*)'];?>)</a>
 				</div>
 <?
 }
