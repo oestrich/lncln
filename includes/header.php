@@ -33,7 +33,7 @@
 				<div class="headerRow">
 					<a href='<?echo URL;?>index.php'>Newest</a>
 <?
-	$thumb = $_GET['thumb'] ? "&amp;thumb=true" : "";
+	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
 					<a href='<?echo URL;?>album.php'>Albums</a>
 					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
