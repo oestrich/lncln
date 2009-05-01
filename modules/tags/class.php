@@ -123,8 +123,21 @@ class Tags implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage($id){
-		return "Tags: " . $this->getTags($id, true);
+	public function underImage($id, $action){
+		if($this->lncln->user->permissions['tags'] == 1){
+			$classTag = "class='underImage'";
+			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
+		}
+		else{
+			$classTag = "";
+			$onClick = "";
+		}
+		
+		$output = "<div id='tags<?=$id;?>' $classTag $onClick >
+			Tags: " . $this->getTags($id, true) . "
+		</div>";
+				
+		return $output;
 	}
 	
 	/**

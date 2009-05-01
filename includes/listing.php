@@ -93,13 +93,6 @@ foreach ($lncln->images as $image){
 			</form>
 		<?endif;?>
 <?
-		//tags
-		$tags = join(', ', $image['tags']);
-		$tagsForm = $tags;
-		if($tags == ""){
-			$tags = "None.";
-		}
-		
 		if($lncln->user->permissions['tags'] == 1){
 			$classTag = "class='underImage'";
 			$onClick = "onclick=\"showModule('" . $lncln->modules['tags']->name . "', '" . $image['id'] . "');\"";
@@ -109,9 +102,7 @@ foreach ($lncln->images as $image){
 			$onClick = "";
 		}
 ?>
-			<div id='tags<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?> >
-				<?=$lncln->modules['tags']->underImage($image['id']);?>
-			</div>
+		<?=$lncln->modules['tags']->underImage($image['id'], $action);?>
 		<?if($lncln->user->permissions['tags'] == 1):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=tags" method="post">
 				<div>

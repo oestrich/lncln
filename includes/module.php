@@ -92,6 +92,6 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage($id);	
+	public function underImage($id, $action);	
 }
 ?>
