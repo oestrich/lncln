@@ -68,8 +68,8 @@ if(isset($_POST['name'])){
 				<td><select name="caption" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>
 			<tr>
-				<td>Use tag:</td>
-				<td><select name="tag" ><option value="0">No</option><option value="1">Yes</option></select></td>
+				<td>Use tags:</td>
+				<td><select name="tags" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>
 			<tr>
 				<td>Manage albums:</td>
