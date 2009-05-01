@@ -97,7 +97,7 @@ foreach ($lncln->images as $image){
 		 * Main part of the script right here 
 		 */
 		foreach($lncln->modules as $module){
-			$module->underImage($image['id'], $action);
+			echo $module->underImage($image['id'], $action);
 		}
 
 		if($lncln->user->permissions['album'] == 1){
