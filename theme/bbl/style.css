@@ -102,22 +102,6 @@ a{
 	color: black;
 }
 
-.tag{
-	width: 600px;
-}
-.tag:hover{
-	background-color: white;
-	color: black;
-}
-
-.album{
-	width: 600px;
-}
-.album:hover{
-	background-color: white;
-	color: black;
-}
-
 .modDiv{
 	display: block;
 	height: 290px;

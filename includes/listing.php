@@ -108,7 +108,7 @@ foreach ($lncln->images as $image){
 		}
 		
 		if($lncln->user->permissions['tags'] == 1){
-			$classTag = "class='tag'";
+			$classTag = "class='caption'";
 			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
 		else{
@@ -133,7 +133,7 @@ foreach ($lncln->images as $image){
 
 <?
 		if($lncln->user->permissions['album'] == 1){
-			$class = "class='album'";
+			$class = "class='caption'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";
 		}
 		else{
