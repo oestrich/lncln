@@ -111,7 +111,7 @@ foreach ($lncln->images as $image){
 			$tags = "None.";
 		}
 		
-		if($lncln->user->permissions['tag'] == 1){
+		if($lncln->user->permissions['tags'] == 1){
 			$classTag = "class='tag'";
 			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
 		}
