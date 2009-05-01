@@ -59,7 +59,7 @@ foreach ($lncln->images as $image){
 	<?endif;?>
 
 	<?if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['rating'] <= -10):?>
-			<div class="badImage" id="i<?echo $image['id'];?>">
+			<div class="badImage" id="b<?echo $image['id'];?>">
 	<?endif;?>
 	
 			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
