@@ -90,7 +90,7 @@ class Tags implements Module{
 		
 		$tags = join(', ', $tags);
 		
-		return array("type" => "text", "name" => "tags", "value" => $tag);
+		return array("type" => "text", "name" => "tags", "value" => $tags);
 	}
 	
 	/**
