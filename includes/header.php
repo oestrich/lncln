@@ -36,7 +36,7 @@
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
 					<a href='<?echo URL;?>album.php'>Albums</a>
-					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>.
+					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
 				</div>
 				<div class="headerRow">
 <?
@@ -44,19 +44,14 @@ if($lncln->user->isUser == true){
 ?>
 					<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
 					<a href='<?echo URL;?>user.php'>Change Settings</a>
-<?
-}
-else{
-?>
-					<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
+<?}
+else{?>
 					<a href='<?echo URL;?>login.php'>Log in</a>
 					<?if($lncln->display->settings['register'] == 1):?>
 						<a href='<?echo URL;?>register.php'>Register</a>
 					<?endif;?>
-<?
-}
-
-?>
+					<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
+<?}?>
 				</div>
 				<div class="headerRow">
 	<?if($lncln->user->permissions['upload'] == 1):?>
