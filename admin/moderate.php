@@ -23,7 +23,7 @@ if($_GET['action'] == "update"){
 	
 	foreach($_POST['check'] as $key => $value){
 		foreach($lncln->modules as $modKey => $module){
-			$module->edit($key, $_POST['images'][$key][$modKey]);
+			$module->edit($key, array($_POST['images'][$key][$modKey]));
 		}
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
