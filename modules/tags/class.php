@@ -104,7 +104,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		
+		return "";
 	}
 	
 	/**
@@ -114,7 +114,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	public function icon($id){
-		
+		return "";
 	}
 	
 	/**
