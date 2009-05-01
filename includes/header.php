@@ -33,17 +33,10 @@
 				<div class="headerRow">
 					<a href='<?echo URL;?>index.php'>Newest</a>
 <?
-	if($_GET['thumb']){
-		$thumb = "";
-		$onOff = "Off";
-	}
-	else{
-		$thumb = "&amp;thumb=true";
-		$onOff = "On";
-	}
+	$thumn = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
 					<a href='<?echo URL;?>album.php'>Albums</a>
-					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
+					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
 <?
 if($lncln->user->isUser == true){
 ?>

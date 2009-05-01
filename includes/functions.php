@@ -65,6 +65,8 @@ class lncln{
 		//Key is folder, value is class name
 		$modules = array("tags" => "Tags");
 		
+		$this->display->rows = array(2 => "tags");
+		
 		foreach($modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
 			$this->modules[$folder] = new $class($this);
@@ -1075,6 +1077,8 @@ class User{
 class Display{
 	public $settings = array();
 	public $lncln;
+	
+	public $rows;
 	
 	function __construct(&$lncln){
 		$this->lncln = $lncln;
