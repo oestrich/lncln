@@ -27,6 +27,10 @@ class Tags implements Module{
 		$this->lncln = $lncln;
 	}
 	
+	public function index(){
+		
+	}
+	
 	/**
 	 * Called after a successful upload
 	 * 

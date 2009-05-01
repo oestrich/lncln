@@ -34,9 +34,5 @@ if(mysql_affected_rows() == 1){
 	}
 }
 
-include_once(ABSPATH . "includes/header.php");
-
-echo "Image #" . $image . " has been reported.  Thank you.";
-		
-include_once(ABSPATH . "includes/footer.php");
+$lncln->display->message("Image #" . $image . " has been reported.  Thank you.");
 ?>

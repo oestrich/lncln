@@ -30,6 +30,15 @@ interface Module{
 	public function __construct(&$lncln);
 	
 	/**
+	 * Called if the Module has it's own page
+	 * Such as albums or search
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function index();
+	
+	/**
 	 * Called after a successful upload
 	 * 
 	 * @since 0.13.0

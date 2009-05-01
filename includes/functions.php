@@ -54,7 +54,7 @@ class lncln{
 	 */
 	function __construct($action = "none", $params = array()){	
 		$this->user = new User();
-		$this->display = new Display();
+		$this->display = new Display($this);
 		$this->loadModules();
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
@@ -1074,8 +1074,9 @@ class User{
  */
 class Display{
 	public $settings = array();
+	public $lncln;
 	
-	function __construct(){
+	function __construct(&$lncln){
 		$sql = "SELECT * FROM settings";
 		$result = mysql_query($sql);
 				
@@ -1097,6 +1098,8 @@ class Display{
 	 * @param $msg String Message to be shown
 	 */
 	function message($msg){
+		$lncln = $this->lncln;
+		
 		include_once(ABSPATH . "includes/header.php");
 		
 		echo $msg;
