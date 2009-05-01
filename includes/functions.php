@@ -67,7 +67,7 @@ class lncln{
 		
 		foreach($modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
-			$this->modules[$folder] = new $class();
+			$this->modules[$folder] = new $class($this);
 		}
 	}
 	

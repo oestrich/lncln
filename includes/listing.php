@@ -45,7 +45,6 @@ foreach ($lncln->images as $image){
 		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a> Rating: <?echo $image['rating'];?> Posted: <?=$date;?> 
 
 		<div class="imageLink" >
-
 	<?if($image['obscene'] == 1):?>
 			This has been voted obscene.<br />
 	<?endif;?>
@@ -54,7 +53,7 @@ foreach ($lncln->images as $image){
 			This is a gif.<br />
 	<?endif;?>
 
-	<?if($image['postTime'] > time()):?> 
+	<?if($image['postTime'] > time()):?>
 			This is not on the homepage yet.<br />
 	<?endif;?>
 
@@ -110,7 +109,7 @@ foreach ($lncln->images as $image){
 			$onClick = "";
 		}
 ?>
-			<div id='tags<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?>>
+			<div id='tags<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?> >
 				<?=$lncln->modules['tags']->underImage($image['id']);?>
 			</div>
 		<?if($lncln->user->permissions['tags'] == 1):?>

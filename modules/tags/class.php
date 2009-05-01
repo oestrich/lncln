@@ -15,6 +15,19 @@ class Tags implements Module{
 	public $name = "Tags"; //Name printed out in forms
 	
 	/**
+	 * Construct to pass the reference of lncln so that modules 
+	 * can access permissions and settings
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $lncln lncln Main class variable
+	 */
+	public function __construct(&$lncln){
+		$this->lncln = $lncln;
+	}
+	
+	/**
 	 * Called after a successful upload
 	 * 
 	 * @since 0.13.0
