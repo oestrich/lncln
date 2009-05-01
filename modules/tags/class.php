@@ -136,6 +136,10 @@ class Tags implements Module{
 		
 		$tags = array();
 		
+		if(mysql_num_rows($result) < 1){
+			return $string ? "None." : array("None");
+		}
+		
 		while($row = mysql_fetch_assoc($result)){
 			$tags[] = $row['tag'];
 		}
