@@ -134,14 +134,14 @@ class Tags implements Module{
 		}
 		
 		$output = "
-		<div id='tags$id' $classTag $onClick >
-			Tags: " . $this->getTags($id, true) . "
-		</div>\n";
+			<div id='tags$id' $classTag $onClick >
+				Tags: " . $this->getTags($id, true) . "
+			</div>\n";
 		
 		if($this->lncln->user->permissions['tags'] == 1):
 			$tags = $this->getTags($id, true);
 			
-			if($tags == "None")
+			if($tags == "None.")
 				$tags = "";
 		
 			$output .= "
