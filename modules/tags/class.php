@@ -65,9 +65,11 @@ class Tags implements Module{
 	 * 
 	 * @since 0.13.0
 	 * @package lncln
+	 * 
+	 * @return array Keys: type, name, value
 	 */
 	public function upload(){
-		
+		return array("type" => "text", "name" => "tags", "value" => "");
 	}
 	
 	/**
@@ -76,8 +78,17 @@ class Tags implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function moderate(){
+	public function moderate($id){
+		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
+		$result = mysql_query($sql);
 		
+		$tag = "";
+		
+		while($row = mysql_fetch_assoc($result)){
+			$tags .= $row['tag'];
+		}
+		
+		return array("type" => "text", "name" => "tags", "value" => $tag);
 	}
 	
 	/**

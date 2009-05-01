@@ -53,16 +53,28 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 		<a href="<?=URL;?>images/full/<?=$image['file'];?>" target="_blank" class="modImage"><img src="<?=URL;?>images/thumb/<?=$image['file'];?>" /></a>
 		<div class="modForms">
 			<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
-			Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image['id'];?>][tags]' value="<?=$tags;?>" onfocus="modCheck('<?=$image['id'];?>')"/><br />
-			Caption:&nbsp;<textarea name="images[<?=$image['id'];?>][caption]" rows="10" cols="50" wrap="off" onfocus="modCheck('<?=$image['id'];?>')"><?=$image['caption'];?></textarea><br />
-			Album:&nbsp;&nbsp;&nbsp;
-			<select name="images[<?=$image['id'];?>][album]" onfocus="modCheck('<?=$image['id'];?>')">
-				<option value="0">No album</option>
-	<?foreach($lncln->getAlbums() as $album):?>
-		<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
-				<option value="<?=$album['id'];?>" <?=$selected;?>><?=$album['name'];?></option>
-	<?endforeach;?>
-			</select>
+			<table>
+				<tr>
+					<td>Tags:</td>
+					<td><?=createInput($lncln->modules['tags']->moderate(), $image['id']);?></td>
+				</tr>
+				<tr>
+					<td>Caption:</td>
+					<td><textarea name="images[<?=$image['id'];?>][caption]" rows="10" cols="50" wrap="off" onfocus="modCheck('<?=$image['id'];?>')"><?=$image['caption'];?></textarea></td>
+				</tr>
+				<tr>
+					<td>Album:</td>
+					<td><select name="images[<?=$image['id'];?>][album]" onfocus="modCheck('<?=$image['id'];?>')">
+							<option value="0">No album</option>
+				<?foreach($lncln->getAlbums() as $album):?>
+					<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
+							<option value="<?=$album['id'];?>" <?=$selected;?>><?=$album['name'];?></option>
+				<?endforeach;?>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<!--Tags:<input type="text" name='images[<?=$image['id'];?>][tags]' value="<?=$tags;?>" onfocus="modCheck('<?=$image['id'];?>')"/><br />-->
 		</div>
 	</div>
 <?

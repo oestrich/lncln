@@ -616,7 +616,7 @@ class lncln{
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
 		$this->thumbnail($imgID . '.' . $type);
-		$this->tag($imgID, $data['tags']);
+		$this->modules['tag']->add($imgID, array($data['tags']));
 		$this->caption($imgID, $data['caption']);
 		$this->changeAlbum($imgID, $data['album']);	
 		if($data['obscene']){
@@ -1199,5 +1199,23 @@ function tempName($name){
 	}
 	
 	return $string . '.' . $type;
+}
+
+/**
+ * Creates an input based on type and other values
+ * 
+ * @since 0.13.0
+ * @package lncln
+ * 
+ * @param $input array Keys: name, type, value
+ * @param $id mixed Image that is being edited, id or temporary name
+ * 
+ * @return string Input string for form
+ */
+function createInput($input, $id){
+	switch($input['type']){
+		case "text":
+			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' />";
+	}
 }
 ?>
