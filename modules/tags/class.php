@@ -82,11 +82,13 @@ class Tags implements Module{
 		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
 		$result = mysql_query($sql);
 		
-		$tag = "";
+		$tag = array();
 		
 		while($row = mysql_fetch_assoc($result)){
-			$tags .= $row['tag'];
+			$tags[] = $row['tag'];
 		}
+		
+		$tags = join(', ', $tags);
 		
 		return array("type" => "text", "name" => "tags", "value" => $tag);
 	}
