@@ -81,18 +81,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	public function moderate($id){
-		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
-		$result = mysql_query($sql);
-		
-		$tag = array();
-		
-		while($row = mysql_fetch_assoc($result)){
-			$tags[] = $row['tag'];
-		}
-		
-		$tags = join(', ', $tags);
-		
-		return array("type" => "text", "name" => "tags", "value" => $tags);
+		return array("type" => "text", "name" => "tags", "value" => $this->getTags($id, true));
 	}
 	
 	/**
@@ -123,6 +112,29 @@ class Tags implements Module{
 	 */
 	public function underImage(){
 		
+	}
+	
+	/**
+	 * Required functions above, Below are other useful ones 
+	 * related to only this class
+	 */
+	
+	function getTags($id, $string = false){
+		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
+		$result = mysql_query($sql);
+		
+		$tags = array();
+		
+		while($row = mysql_fetch_assoc($result)){
+			$tags[] = $row['tag'];
+		}
+		
+		if($string == false)
+			return $tags;
+		
+		$tags = join(', ', $tags);
+		
+		return $tags;
 	}
 }
 ?>

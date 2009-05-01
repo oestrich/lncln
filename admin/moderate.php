@@ -59,7 +59,7 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 			<table>
 				<?foreach($lncln->modules as $module):?>
 				<tr>
-					<td><?=$module->name;?></td>
+					<td><?=$module->name;?>:</td>
 					<td><?=createInput($module->moderate($image['id']), $image['id'], " onfocus=\"modCheck('" . $image['id'] . "')\" ");?></td>
 				</tr>
 				<?endforeach;?>
