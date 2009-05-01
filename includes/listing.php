@@ -118,7 +118,7 @@ foreach ($lncln->images as $image){
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
 					Split tags with a ','.<br />
-					<input name="tags" id='formTag<?echo $image['id'];?>' value='<?echo $tagsForm;?>' size='85'/>
+					<input name="tags" id='formTags<?echo $image['id'];?>' value='<?echo $tagsForm;?>' size='85'/>
 					<input type="submit" value="Tag it!" />
 				</div>
 			</form>
