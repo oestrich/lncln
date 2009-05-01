@@ -36,7 +36,9 @@
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
 					<a href='<?echo URL;?>album.php'>Albums</a>
-					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
+					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>.
+				</div>
+				<div class="headerRow">
 <?
 if($lncln->user->isUser == true){
 ?>
@@ -46,8 +48,8 @@ if($lncln->user->isUser == true){
 }
 else{
 ?>
-					<a href='<?echo URL;?>login.php'>Log in</a>
 					<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
+					<a href='<?echo URL;?>login.php'>Log in</a>
 					<?if($lncln->display->settings['register'] == 1):?>
 						<a href='<?echo URL;?>register.php'>Register</a>
 					<?endif;?>
