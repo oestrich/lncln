@@ -13,6 +13,17 @@
 
 require_once("load.php");
 
+if(isset($_GET['module']) && $_GET['module'] != ""){
+	if(method_exists($lncln->modules[$_GET['modules']], "index")){
+		$lncln->modules[$_GET['module']]->index();
+	}
+	else{
+		$lncln->display->message("That module does not exist");
+	}
+	exit();
+}
+
+
 $lncln->index();
 
 include_once(ABSPATH . "includes/iconActions.php");

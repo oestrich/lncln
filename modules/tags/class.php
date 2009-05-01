@@ -28,7 +28,7 @@ class Tags implements Module{
 	}
 	
 	public function index(){
-		
+		echo "Temporary string";
 	}
 	
 	/**

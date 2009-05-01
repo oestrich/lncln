@@ -1090,6 +1090,30 @@ class Display{
 	}
 	
 	/**
+	 * Shows the header, pulls information from above class
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	function header(){
+		$lncln = $this->lncln;
+		
+		include_once(ABSPATH . "includes/header.php");
+	}
+	
+	/**
+	 * Shows the footer, pulls information from above class
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	function footer(){
+		$lncln = $this->lncln;
+		
+		include_once(ABSPATH . "includes/footer.php");
+	}
+	
+	/**
 	 * Show only the message given on the screen.
 	 * Useful for "Please login"  or "Not allowed"
 	 * Exits upon completion
