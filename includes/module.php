@@ -54,8 +54,10 @@ interface Module{
 	 * 
 	 * @since 0.13.0
 	 * @package lncln
+	 * 
+	 * @param $id int Image to gather information about and populate the input
 	 */
-	public function moderate();
+	public function moderate($id);
 	
 	/**
 	 * Creates the link in the header
