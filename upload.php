@@ -74,15 +74,29 @@ foreach($lncln->uploaded as $image):
 			<a href="<?=URL;?>images/temp/<?=$image;?>" target="_blank" class="modImage"><img src="<?=URL;?>images/temp/<?=$image;?>" <?=$thumb;?>/></a>
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
-				Tags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name='images[<?=$image;?>][tags]' /><br />
-				Caption:&nbsp;<textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea><br />
-				Album:&nbsp;&nbsp;&nbsp;
-				<select name="images[<?=$image;?>][album]">
-					<option value="0">No album</option>
-		<?foreach($lncln->getAlbums() as $album):?>
-					<option value="<?=$album['id'];?>" ><?=$album['name'];?></option>
-		<?endforeach;?>
-				</select>
+				<table>
+					<?foreach($lncln->modules as $module):?>
+					<tr>
+						<td><?=$module->name;?>:</td>
+						<td><?=createInput($module->upload(), $image);?></td>
+					</tr>
+					<?endforeach;?>
+					<tr>
+						<td>Caption:</td>
+						<td><textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea></td>
+					</tr>
+					<tr>
+						<td>Album</td>
+						<td>
+							<select name="images[<?=$image;?>][album]">
+								<option value="0">No album</option>
+					<?foreach($lncln->getAlbums() as $album):?>
+								<option value="<?=$album['id'];?>" ><?=$album['name'];?></option>
+					<?endforeach;?>
+							</select>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 
