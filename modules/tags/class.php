@@ -133,7 +133,7 @@ class Tags implements Module{
 			$onClick = "";
 		}
 		
-		$output = "<div id='tags<?=$id;?>' $classTag $onClick >
+		$output = "<div id='tags$id' $classTag $onClick >
 			Tags: " . $this->getTags($id, true) . "
 		</div>";
 				
