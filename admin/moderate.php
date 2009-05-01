@@ -56,7 +56,7 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 			<table>
 				<tr>
 					<td>Tags:</td>
-					<td><?=createInput($lncln->modules['tags']->moderate(), $image['id']);?></td>
+					<td><?=createInput($lncln->modules['tags']->moderate($image['id']), $image['id']);?></td>
 				</tr>
 				<tr>
 					<td>Caption:</td>
