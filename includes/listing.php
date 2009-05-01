@@ -103,17 +103,6 @@ foreach ($lncln->images as $image){
 		}
 ?>
 		<?=$lncln->modules['tags']->underImage($image['id'], $action);?>
-		<?if($lncln->user->permissions['tags'] == 1):?>
-			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=tags" method="post">
-				<div>
-					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
-					Split tags with a ','.<br />
-					<input name="tags" id='formTags<?echo $image['id'];?>' value='<?echo $tagsForm;?>' size='85'/>
-					<input type="submit" value="Tag it!" />
-				</div>
-			</form>
-		<?endif;?>
-
 <?
 		if($lncln->user->permissions['album'] == 1){
 			$class = "class='underImage'";
