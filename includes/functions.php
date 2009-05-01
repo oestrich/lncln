@@ -1212,12 +1212,12 @@ function tempName($name){
  * 
  * @return string Input string for form
  */
-function createInput($input, $id){
+function createInput($input, $id, $extra = ""){
 	switch($input['type']){
 		case "text":
-			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' />";
+			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' " . $extra . " />";
 		case "textarea":
-			return "<textarea name='images[$id][" . $input['name'] . "'>" . $input['value'] . "</textarea>";
+			return "<textarea name='images[$id][" . $input['name'] . "' " . $extra . ">" . $input['value'] . "</textarea>";
 	}
 }
 ?>
