@@ -77,8 +77,8 @@ $group = $lncln->getGroup($_GET['group']);
 				<td><?=$lncln->createSelect("caption", $group['caption']);?></td>
 			</tr>
 			<tr>
-				<td>Use tag:</td>
-				<td><?=$lncln->createSelect("tag", $group['tag']);?></td>
+				<td>Use tags:</td>
+				<td><?=$lncln->createSelect("tags", $group['tags']);?></td>
 			</tr>
 			<tr>
 				<td>Manage albums:</td>

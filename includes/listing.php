@@ -124,7 +124,7 @@ foreach ($lncln->images as $image){
 				Tags: <?echo $tags;?> 
 				<br />
 			</div>
-		<?if($lncln->user->permissions['tag'] == 1):?>
+		<?if($lncln->user->permissions['tags'] == 1):?>
 			<form id="t<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=tags" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
