@@ -54,6 +54,11 @@ a{
 	padding-right: 50px;
 }
 
+#row1{
+	display: block;
+	width: 100%;
+}
+
 .obCheck{
 	margin-left: 18px;
 	margin-right: 19px;

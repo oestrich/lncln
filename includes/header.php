@@ -30,6 +30,7 @@
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
+				<div id="row1">
 				<a href='<?echo URL;?>index.php'>Newest</a>
 <?
 	if($_GET['thumb']){
@@ -41,27 +42,27 @@
 		$onOff = "On";
 	}
 ?>
-				<a href='<?echo URL;?>album.php'>Albums</a>
-				<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
+					<a href='<?echo URL;?>album.php'>Albums</a>
+					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view (<?echo $onOff;?>)</a>
 <?
 if($lncln->user->isUser == true){
 ?>
-				<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
-				<a href='<?echo URL;?>user.php'>Change Settings</a>
+					<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
+					<a href='<?echo URL;?>user.php'>Change Settings</a>
 <?
 }
 else{
 ?>
-				<a href='<?echo URL;?>login.php'>Log in</a>
-				<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
-				<?if($lncln->display->settings['register'] == 1):?>
-					<a href='<?echo URL;?>register.php'>Register</a>
-				<?endif;?>
+					<a href='<?echo URL;?>login.php'>Log in</a>
+					<a href='<?echo URL;?>index.php?viewObscene=true'>View Obscene (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)</a>
+					<?if($lncln->display->settings['register'] == 1):?>
+						<a href='<?echo URL;?>register.php'>Register</a>
+					<?endif;?>
 <?
 }
 
 ?>
-				<br />
+				</div>
 	<?if($lncln->user->permissions['upload'] == 1):?>
 				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
 	<?endif;?> 
