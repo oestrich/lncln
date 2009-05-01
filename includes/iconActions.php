@@ -83,7 +83,7 @@ if($_GET['caption'] && $lncln->user->permissions['caption'] == 1){
 }
 
 if($_GET['tag'] && $lncln->user->permissions['tag'] == 1){
-	$lncln->tag($_POST['id'], $_POST['tags']);
+	$lncln->modules['tag']->edit($_POST['id'], array($_POST['tags']));
 	header("location:" . $scriptLocation . "#" . $_POST['id']);
 	exit();
 }
