@@ -123,7 +123,7 @@ if($lncln->user->permissions['isAdmin'] == 1){
 				<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
 <?	
 	}
-	$lncln->modules['tags']->headerLink();
+	echo $lncln->modules['tags']->headerLink();
 ?>
 			</div>
 		</div>
