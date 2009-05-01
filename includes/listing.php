@@ -101,9 +101,11 @@ foreach ($lncln->images as $image){
 			$classTag = "";
 			$onClick = "";
 		}
+		
 ?>
 		<?=$lncln->modules['tags']->underImage($image['id'], $action);?>
 <?
+
 		if($lncln->user->permissions['album'] == 1){
 			$class = "class='underImage'";
 			$onClick = "onclick=\"album('". $image['id'] . "');\"";

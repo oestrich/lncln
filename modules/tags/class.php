@@ -133,9 +133,9 @@ class Tags implements Module{
 			$onClick = "";
 		}
 		
-		$output = "<div id='tags$id' $classTag $onClick >
+		$output = "\n<div id='tags$id' $classTag $onClick >
 			Tags: " . $this->getTags($id, true) . "
-		</div>";
+		</div>\n";
 		
 		if($this->lncln->user->permissions['tags'] == 1):
 			$tags = $this->getTags($id, true);
@@ -143,14 +143,14 @@ class Tags implements Module{
 			if($tags == "None")
 				$tags = "";
 		
-			$output .= "<form id='t$id' style='display: none;' action='$action&amp;action=tags' method='post'>
+			$output .= "\n<form id='t$id' style='display: none;' action='$action&amp;action=tags' method='post'>
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					Split tags with a ','.<br />
 					<input name='tags' id='formTags$id' value='$tags' size='85'/>
 					<input type='submit' value='Tag it!' />
 				</div>
-			</form>";
+			</form>\n";
 		endif;
 				
 		return $output;
