@@ -99,23 +99,13 @@ if($lncln->user->permissions['isAdmin'] == 1){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
 	$row = mysql_fetch_assoc($result);
-
 ?>
 				<div class="headerRow">
 					Admin: 
 					<a href="<?=URL;?>admin/">Admin Panel</a>
 					<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $row['COUNT(*)'];?>)</a>
 				</div>
-<?
-}
-
-	if(file_exists("bblincoln-latest.tar.gz")){
-?>
-				<div class="headerRow">
-					<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
-				</div>
-	<?}?>
-	
+<?}?>	
 				<div class="headerRow">
 	<?echo $lncln->modules['tags']->headerLink();?>
 				</div>
