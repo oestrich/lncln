@@ -57,10 +57,12 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 		<div class="modForms">
 			<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
 			<table>
+				<?foreach($lncln->modules as $module):?>
 				<tr>
-					<td>Tags:</td>
-					<td><?=createInput($lncln->modules['tags']->moderate($image['id']), $image['id'], "onfocus=\"modCheck('" . $image['id'] . "')\"");?></td>
+					<td><?=$module->name;?></td>
+					<td><?=createInput($module->moderate($image['id']), $image['id'], " onfocus=\"modCheck('" . $image['id'] . "')\" ");?></td>
 				</tr>
+				<?endforeach;?>
 				<tr>
 					<td>Caption:</td>
 					<td><textarea name="images[<?=$image['id'];?>][caption]" rows="10" cols="50" wrap="off" onfocus="modCheck('<?=$image['id'];?>')"><?=$image['caption'];?></textarea></td>

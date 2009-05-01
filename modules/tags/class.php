@@ -12,6 +12,8 @@
  */
 
 class Tags implements Module{
+	public $name = "Tags"; //Name printed out in forms
+	
 	/**
 	 * Called after a successful upload
 	 * 

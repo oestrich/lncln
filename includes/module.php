@@ -19,6 +19,14 @@
  */
 interface Module{
 	/**
+	 * Used for printing out in forms
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public $name;
+	
+	/**
 	 * Called after a successful upload
 	 * 
 	 * @since 0.13.0
