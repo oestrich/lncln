@@ -137,7 +137,7 @@ class Tags implements Module{
 			Tags: " . $this->getTags($id, true) . "
 		</div>";
 		
-		if($lncln->user->permissions['tags'] == 1):
+		if($this->lncln->user->permissions['tags'] == 1):
 			$tags = $this->getTags($id, true);
 			
 			if($tags == "None")
