@@ -100,7 +100,7 @@ class Tags implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon(){
+	public function icon($id){
 		
 	}
 	
@@ -110,8 +110,8 @@ class Tags implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage(){
-		
+	public function underImage($id){
+		return "Tags: " . $this->getTags($id);
 	}
 	
 	/**

@@ -73,7 +73,7 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon();
+	public function icon($id);
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
@@ -81,6 +81,6 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage();	
+	public function underImage($id);	
 }
 ?>

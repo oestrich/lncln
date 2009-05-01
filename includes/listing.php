@@ -117,7 +117,7 @@ foreach ($lncln->images as $image){
 		}
 ?>
 			<div id='tag<?echo $image['id'];?>' <?echo $classTag;?> <?=$onClick;?>>
-				Tags: <?echo $tags;?> 
+				<?=$lncln->modules['tags']->underImage($image['id']);?>
 				<br />
 			</div>
 		<?if($lncln->user->permissions['tags'] == 1):?>
