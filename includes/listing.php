@@ -27,13 +27,7 @@ foreach ($lncln->images as $image){
 		$link = "image.php?img=" . $image['id'];
 	}
 	
-	if($_GET['thumb']){
-		$date = date('m/d/Y', $image['postTime'] + 3 * 60 * 60);
-	}
-	else{
-		$date = date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
-	}
-
+	$date = $_GET['thumb'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
 ?>
 
 	<div class="<?echo $lncln->type;?>">
