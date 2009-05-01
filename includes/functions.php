@@ -615,8 +615,8 @@ class lncln{
 		
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
-		foreach($lncln->modules as $modKey => $module){
-			$module->edit($imgID, array($data[$modKey]));
+		foreach($lncln->modules as $key => $module){
+			$module->edit($imgID, array($data[$key]));
 		}
 		
 		$this->thumbnail($imgID . '.' . $type);
