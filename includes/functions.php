@@ -1077,6 +1077,8 @@ class Display{
 	public $lncln;
 	
 	function __construct(&$lncln){
+		$this->lncln = $lncln;
+		
 		$sql = "SELECT * FROM settings";
 		$result = mysql_query($sql);
 				
