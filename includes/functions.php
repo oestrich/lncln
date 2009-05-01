@@ -615,8 +615,11 @@ class lncln{
 		
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
+		foreach($lncln->modules as $modKey => $module){
+			$module->edit($imgID, array($data[$modKey]));
+		}
+		
 		$this->thumbnail($imgID . '.' . $type);
-		$this->modules['tag']->add($imgID, array($data['tags']));
 		$this->caption($imgID, $data['caption']);
 		$this->changeAlbum($imgID, $data['album']);	
 		if($data['obscene']){
