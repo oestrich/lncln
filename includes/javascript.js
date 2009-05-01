@@ -57,19 +57,8 @@ function toggleDiv(type){
 	}
 }
 
-function obscene(divid){
-	document.getElementById('i' + divid).style.display = 'block';
-	document.getElementById('l' + divid).href = "image.php?img=" + divid;
-}
-
 function badImage(divid){
 	document.getElementById('b' + divid).style.display = 'block';
-	document.getElementById('l' + divid).href = "image.php?img=" + divid;
-}
-
-function both(divid){
-	document.getElementById('b' + divid).style.display = 'block';
-	document.getElementById('i' + divid).style.display = 'block';
 	document.getElementById('l' + divid).href = "image.php?img=" + divid;
 }
 

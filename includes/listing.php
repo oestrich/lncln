@@ -21,14 +21,8 @@ $action = $lncln->script == "image.php" ? URL . $lncln->script . "?img=" . $lncl
 
 foreach ($lncln->images as $image){
 	if($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))){
-		if($image['obscene'] && $image['rating'] <= -10){
-			$link = "javascript:both('" . $image['id'] . "');";
-		}
-		else if($image['rating'] <= -10){
+		if($image['obscene'] || $image['rating'] <= -10){
 			$link = "javascript:badImage('" . $image['id'] . "');";
-		}
-		else if($image['obscene']){
-			$link = "javascript:obscene('". $image['id'] . "');";
 		}
 		else{
 			$link = "image.php?img=" . $image['id'];
