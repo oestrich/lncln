@@ -97,7 +97,7 @@ if($_GET['action'] == "album" && $lncln->user->permissions['album'] == 1){
 }
 
 foreach($lncln->modules as $module){
-	if($_GET['action'] == strtolower($module->name)){
+	if($_GET['action'] == strtolower($module->name) && $lncln->user->permission[strtolower($module->name)] == 1){
 		$module->edit($_POST['id'], array($_POST[$_GET['action']]));
 		header("location:" . $scriptLocation . "#" . $_POST['id']);
 		exit();
