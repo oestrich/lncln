@@ -66,7 +66,7 @@ class lncln{
 		$modules = array("tags" => "Tags");
 		
 		foreach($modules as $folder => $class){
-			include(ABSPATH . "modules/" . $folder);
+			include(ABSPATH . "modules/" . $folder . "/class.php");
 			$this->modules[$folder] = new $class();
 		}
 	}
