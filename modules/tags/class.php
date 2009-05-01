@@ -22,7 +22,7 @@ class Tags implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
-		
+		$this->edit($id, $data);
 	}
 	
 	/**
@@ -35,7 +35,28 @@ class Tags implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
+		$id = stripslashes($id);
+		$id = mysql_real_escape_string($id);
 		
+		$tags = split(',', $data[0]);
+		$tags = array_map('trim', $tags);
+		$tags = array_map('prepareSQL', $tags);
+		
+		$sql = "DELETE FROM tags WHERE picId = " . $id;
+		mysql_query($sql);
+		
+		$sql = "INSERT INTO tags (picId, tag) VALUES ";
+		
+		foreach($tags as $tag){
+			if($tag == ""){
+				continue;
+			}
+			$sql .= "(" . $id . ", '" . $tag . "'), ";
+		}
+	
+		$sql = substr_replace($sql ,"",-2);
+		
+		mysql_query($sql);
 	}
 	
 	/**

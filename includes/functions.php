@@ -41,6 +41,8 @@ class lncln{
 	public $type;				//Normal or thumb
 	public $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
+	public $modules = array();
+	
 	/**
 	 * Gets the class ready for action!
 	 * 
@@ -53,9 +55,20 @@ class lncln{
 	function __construct($action = "none", $params = array()){	
 		$this->user = new User();
 		$this->display = new Display();
+		$this->loadModules();
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
+	}
+	
+	function loadModules(){
+		//Key is folder, value is class name
+		$modules = array("tags" => "Tags");
+		
+		foreach($modules as $folder => $class){
+			include(ABSPATH . "modules/" . $folder);
+			$this->modules[$folder] = new $class();
+		}
 	}
 	
 	/**
