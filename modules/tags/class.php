@@ -111,13 +111,13 @@ class Tags implements Module{
 	 */
 	public function headerLink(){
 		return "
-				<form id='search' enctype='multipart/form-data' action='" . URL . "search.php' method='get'>
-					<div>
-						Tag search:
-						<input type='text' name='search' />
-						<input type='submit' value='Search' />
-					</div>
-				</form> ";
+					<form id='search' enctype='multipart/form-data' action='" . URL . "search.php' method='get'>
+						<div>
+							Tag search:
+							<input type='text' name='search' />
+							<input type='submit' value='Search' />
+						</div>
+					</form> ";
 	}
 	
 	/**

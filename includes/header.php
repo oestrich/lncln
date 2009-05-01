@@ -30,8 +30,8 @@
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
-				<div id="row1">
-				<a href='<?echo URL;?>index.php'>Newest</a>
+				<div class="headerRow">
+					<a href='<?echo URL;?>index.php'>Newest</a>
 <?
 	if($_GET['thumb']){
 		$thumb = "";
@@ -63,69 +63,74 @@ else{
 
 ?>
 				</div>
+				<div class="headerRow">
 	<?if($lncln->user->permissions['upload'] == 1):?>
-				Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
+					Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
 	<?endif;?> 
 <?
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);
 ?>
-				We have <?echo $result['COUNT(*)'];?> images.
+					We have <?echo $result['COUNT(*)'];?> images.
 	<?if($lncln->user->permissions['upload'] == 1):?>
-				<!-- upload form -->
-				<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
-					<div>
-						<input type="hidden" name="type" id="formType" value="regular" />
-						Uploaded files will be moderated<br />
-						<input name="upload0" id="upload0" type="file" />
-						<br />
-						<input name="upload1" id="upload1" type="file" />
-						<br />
-						<input name="upload2" id="upload2" type="file" />
-						<br />
-						<input name="upload3" id="upload3" type="file" />
-						<br />
-						<input name="upload4" id="upload4" type="file" />
-						<br />
-						<input name="upload5" id="upload5" type="file" />
-						<br />
-						<input name="upload6" id="upload6" type="file" />
-						<br />
-						<input name="upload7" id="upload7" type="file" />
-						<br />
-						<input name="upload8" id="upload8" type="file" />
-						<br />
-						<input name="upload9" id="upload9" type="file" />
-						<br />
-						<input type="submit" value="Upload File" />
-						<br />
-						Max total upload size: <?=ini_get("upload_max_filesize");?>
-					</div>
-				</form>
-<?
-	endif;
-	
+					<!-- upload form -->
+					<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
+						<div>
+							<input type="hidden" name="type" id="formType" value="regular" />
+							Uploaded files will be moderated<br />
+							<input name="upload0" id="upload0" type="file" />
+							<br />
+							<input name="upload1" id="upload1" type="file" />
+							<br />
+							<input name="upload2" id="upload2" type="file" />
+							<br />
+							<input name="upload3" id="upload3" type="file" />
+							<br />
+							<input name="upload4" id="upload4" type="file" />
+							<br />
+							<input name="upload5" id="upload5" type="file" />
+							<br />
+							<input name="upload6" id="upload6" type="file" />
+							<br />
+							<input name="upload7" id="upload7" type="file" />
+							<br />
+							<input name="upload8" id="upload8" type="file" />
+							<br />
+							<input name="upload9" id="upload9" type="file" />
+							<br />
+							<input type="submit" value="Upload File" />
+							<br />
+							Max total upload size: <?=ini_get("upload_max_filesize");?>
+						</div>
+					</form>
+	<?endif;?>
+				</div>
+<?	
 if($lncln->user->permissions['isAdmin'] == 1){
 	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
 	$result = mysql_query($sql);
 	$result = mysql_fetch_assoc($result);
 
 ?>
-				<br />Admin: 
-				<a href="<?=URL;?>admin/">Admin Panel</a>
-				<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+				<div class="headerRow">
+					Admin: 
+					<a href="<?=URL;?>admin/">Admin Panel</a>
+					<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $result['COUNT(*)'];?>)</a>
+				</div>
 <?
 }
 
 	if(file_exists("bblincoln-latest.tar.gz")){
 ?>
-				<br />
-				<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
-<?	
-	}
-	echo $lncln->modules['tags']->headerLink();
-?>
+				<div class="headerRow">
+					<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
+				</div>
+	<?}?>
+	
+				<div class="headerRow">
+	<?echo $lncln->modules['tags']->headerLink();?>
+				</div>
 			</div>
 		</div>
 		<div id="mainBody">
