@@ -18,6 +18,9 @@ $lncln->index();
 include_once("admin.php");
 
 if($_GET['action'] == "update"){
+	if(!is_array($_POST['check']))
+		$_POST['check'] = array();
+	
 	foreach($_POST['check'] as $key => $value){
 		$lncln->tag($key, $_POST['images'][$key]['tags']);
 		$lncln->caption($key, $_POST['images'][$key]['caption']);

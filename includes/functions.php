@@ -1216,6 +1216,8 @@ function createInput($input, $id){
 	switch($input['type']){
 		case "text":
 			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' />";
+		case "textarea":
+			return "<textarea name='images[$id][" . $input['name'] . "'>" . $input['value'] . "</textarea>";
 	}
 }
 ?>
