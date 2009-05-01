@@ -106,9 +106,18 @@ class Tags implements Module{
 	 * 
 	 * @since 0.13.0
 	 * @package lncln
+	 * 
+	 * @return string Contains the form to do a search
 	 */
 	public function headerLink(){
-		return "";
+		return "
+				<form id='search' enctype='multipart/form-data' action='" . URL . "search.php' method='get>
+					<div>
+						Tag search:
+						<input type='text' name='search' />
+						<input type='submit' value='Search' />
+					</div>
+				</form> ";
 	}
 	
 	/**

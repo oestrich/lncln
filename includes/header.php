@@ -123,14 +123,8 @@ if($lncln->user->permissions['isAdmin'] == 1){
 				<a href="<?echo URL;?>bblincoln-latest.tar.gz">Download them all</a> Updates at 1AM PST.
 <?	
 	}
+	$lncln->modules['tags']->headerLink();
 ?>
-				<form id='search' enctype="multipart/form-data" action="<?echo URL;?>search.php" method="get">
-					<div>
-						Tag search:
-						<input type='text' name='search' />
-						<input type='submit' value='Search' />
-					</div>
-				</form>
 			</div>
 		</div>
 		<div id="mainBody">
