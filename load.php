@@ -23,6 +23,7 @@ else{
 }
 
 include_once(ABSPATH . "includes/functions.php");
+include_once(ABSPATH . "includes/module.php");
 
 connect();
 
