@@ -62,6 +62,12 @@ function badImage(divid){
 	document.getElementById('l' + divid).href = "image.php?img=" + divid;
 }
 
+function showModule(module, divid){
+	document.getElementById(module.charAt(0).toLowerCase() + divid).style.display = 'block';
+	document.getElementById('form' + module + divid).focus();
+	document.getElemebtById(module.toLowerCase + divid).style.display = 'none';
+}
+
 function caption(divid){
 	document.getElementById('c' + divid).style.display = 'block';
 	document.getElementById('formCaption' + divid).focus();

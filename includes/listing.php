@@ -103,7 +103,7 @@ foreach ($lncln->images as $image){
 		
 		if($lncln->user->permissions['tags'] == 1){
 			$classTag = "class='underImage'";
-			$onClick = "onclick=\"tag('" . $image['id'] . "');\"";
+			$onClick = "onclick=\"showModule('" . $lncln->modules['tags']->name . "', '" . $image['id'] . "');\"";
 		}
 		else{
 			$classTag = "";
@@ -142,7 +142,7 @@ foreach ($lncln->images as $image){
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=album" method="post">
 				<div>
 					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
-					<select name="album">
+					<select name="album" id='formAlbum<?=$image['id'];?>'>
 						<option value="0">No album</option>
 			<?foreach($lncln->getAlbums() as $album):?>
 				<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
