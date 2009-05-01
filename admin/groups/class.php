@@ -36,15 +36,15 @@ class Group extends lncln{
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
 		$caption = $data['caption'];
-		$tag = $data['tag'];
+		$tags = $data['tags'];
 		$album = $data['album'];
 		
 		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
 			return "Invalid field";
 		}
 		
-		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tag`, `album`) " .
-				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $caption, $tag, $album)";
+		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tags`, `album`) " .
+				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $caption, $tags, $album)";
 		
 		mysql_query($sql);
 		
@@ -66,7 +66,7 @@ class Group extends lncln{
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
 		$caption = $data['caption'];
-		$tag = $data['tag'];
+		$tags = $data['tags'];
 		$album = $data['album'];
 		
 		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
@@ -74,7 +74,7 @@ class Group extends lncln{
 		}
 		
 		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue, " .
-			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tag` = $tag, " .
+			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tags` = $tags, " .
 			   "`album` = $album WHERE id = " . $id;
 		
 		mysql_query($sql);
