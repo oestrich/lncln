@@ -111,7 +111,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	public function underImage($id){
-		return "Tags: " . $this->getTags($id);
+		return "Tags: " . $this->getTags($id, true);
 	}
 	
 	/**
