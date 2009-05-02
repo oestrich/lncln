@@ -125,7 +125,7 @@ class Albums implements Module{
 		
 		$output = "			
 			<div id='album$id' " . $class . $onClick . ">
-				Album: " . $this->getAlbum($id) . "
+				Album: " . $this->getAlbumName($id) . "
 			</div>";
 			
 		return $output;
@@ -136,13 +136,32 @@ class Albums implements Module{
 	 * related to only this class
 	 */
 	
-	private function getAlbum($id){
+	/**
+	 * Returns the name of an album based on an image
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $id int Image id
+	 * 
+	 * @return String Name of album
+	 */
+	private function getAlbumName($id){
 		$sql = "SELECT album FROM images WHERE id = " . $id;
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
+		if($row['album'] == 0){
+			return "No Album";
+		}
+		
 		$sql = "SELECT name FROM albums WHERE id = " . $row['album'];
 		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) < 1){
+			return "No Album";
+		}
+		
 		$row = mysql_fetch_assoc($result);
 		
 		return $row['name'];
