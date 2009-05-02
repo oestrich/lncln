@@ -231,7 +231,7 @@ class Albums implements Module{
 					$this->lncln->imagesToGet[] = $row['id'];
 				}
 				
-				$this->lncln->extra .= "&amp;album=" . $this->album;
+				$this->lncln->extra .= "&amp;module=albums&amp;album=" . $this->album;
 			}
 		}
 	}
