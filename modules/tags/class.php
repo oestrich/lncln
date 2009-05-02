@@ -217,7 +217,7 @@ class Tags implements Module{
 			$row = mysql_fetch_assoc($result);
 			
 			$this->lncln->maxPage = $row['COUNT(picId)'];
-			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->display->settings['perpage']);
+			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
 			
 			if(!isset($_GET['page'])){
 				$this->lncln->page = 1;
