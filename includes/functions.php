@@ -150,65 +150,7 @@ class lncln{
 		$this->page = $_GET['img'];
 		$this->maxPage = 1;
 	}
-	
-	/**
-	 * Makes searching happen
-	 * 
-	 * @since 0.9.0
-	 * @package lncln
-	 * 
-	 * @param array $search The first term of the array is the search term
-	 */
-	function search($search){
-		$this->search = prepareSQL($search[0]);
 		
-		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		
-		if($row['COUNT(*)'] == 0){
-			$this->page = 0;
-		}
-		else{		
-			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			$this->maxPage = $row['COUNT(picId)'];
-			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
-			
-			if(!isset($_GET['page'])){
-				$this->page = 1;
-			}
-			else{
-				if(is_numeric($_GET['page'])){
-					$this->page = $_GET['page'];	
-				}
-				else{
-					$this->page = 1;
-				}
-			}
-			
-			if(isset($search[1]) && is_numeric($search[1]) && $search[1] != ""){
-				$id = " AND picId <= " . prepareSQL($search[1]);
-			}
-			else{
-				$id = "";
-			}
-			
-			$offset = ($this->page - 1) * $this->display->settings['perpage'];
-			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' " . $id . " ORDER BY picId DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
-			$result = mysql_query($sql);
-	
-			while($row = mysql_fetch_assoc($result)){
-				$this->imagesToGet[] = $row['picId'];
-			}
-
-			$this->extra .= "&amp;search=" . $this->search;
-		}
-	}
-	
 	/**
 	 * Function for loading albums
 	 * 
