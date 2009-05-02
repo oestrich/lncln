@@ -85,17 +85,6 @@ foreach($lncln->uploaded as $image):
 						<td>Caption:</td>
 						<td><textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea></td>
 					</tr>
-					<tr>
-						<td>Album</td>
-						<td>
-							<select name="images[<?=$image;?>][album]">
-								<option value="0">No album</option>
-					<?foreach($lncln->getAlbums() as $album):?>
-								<option value="<?=$album['id'];?>" ><?=$album['name'];?></option>
-					<?endforeach;?>
-							</select>
-						</td>
-					</tr>
 				</table>
 			</div>
 		</div>

@@ -76,7 +76,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function upload(){
-		
+		return array("type" => "select", "name" => "albums", "value" => "", "options" => $this->getAlbums());
 	}
 	
 	/**
