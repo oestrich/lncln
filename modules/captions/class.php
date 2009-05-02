@@ -125,9 +125,18 @@ class Captions implements Module{
 		}
 		
 		$output = "
-			<div id='caption$id' " . $onClick . $class . ">
+			<div id='captions$id' " . $onClick . $class . ">
 					" . $this->getCaption($id) . "
 			</div>";
+		
+		if($this->lncln->user->permissions['captions'] == 1){
+			$output .= "
+			<form id='c$id' style='display: none;' enctype='multipart/form-data' action='$action&amp;caption=true' method='post'>
+				<input type='hidden' name='id' value='$id' />
+				<textarea name='caption' rows='6' cols='40' id='formCaption$id'>" . $this->getCaption($id, false) . "</textarea>
+				<input type='submit' value='Caption!' />
+			</form>";
+		}
 			
 		return $output;
 	}
@@ -145,7 +154,7 @@ class Captions implements Module{
 	 * 
 	 * @param $id int Image id
 	 */
-	private function getCaption($id){
+	private function getCaption($id, $noCaption = true){
 		if(!is_numeric($id))
 			return "Bad id";
 		
@@ -157,7 +166,7 @@ class Captions implements Module{
 			
 		$row = mysql_fetch_assoc($result);
 		
-		if($row['caption'] == "")
+		if($row['caption'] == "" && $noCaption == true)
 			return "No caption.";
 		
 		return $row['caption'];

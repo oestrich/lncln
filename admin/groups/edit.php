@@ -74,7 +74,7 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td>Use caption:</td>
-				<td><?=$lncln->createSelect("caption", $group['caption']);?></td>
+				<td><?=$lncln->createSelect("captions", $group['captions']);?></td>
 			</tr>
 			<tr>
 				<td>Use tags:</td>

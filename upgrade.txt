@@ -12,5 +12,7 @@ SQL commands:
  ALTER TABLE `groups` CHANGE `tag` `tags` INT( 1 ) NOT NULL ;
  
  ALTER TABLE `groups` CHANGE `album` `albums` INT( 1 ) NOT NULL ;
+ 
+ ALTER TABLE `groups` CHANGE `caption` `captions` INT( 1 ) NOT NULL ;
 
 If you have any other problems, please visit the forums.

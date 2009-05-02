@@ -56,34 +56,6 @@ foreach ($lncln->images as $image){
 <?	
 	//don't show caption if in thumbnails
 	if(!$_GET['thumb']):
-		//caption stuff
-		if($lncln->user->permissions['caption'] == 1){
-			$onClick = "onclick=\"caption('" . $image['id'] . "')\"";
-			$class = "class='underImage'";
-		}
-		else{
-			$onClick = "";
-			$class = "";
-		}
-		
-?>
-		<?if($lncln->user->permissions['caption'] == 1):?>
-			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $action;?>&amp;caption=true" method="post">
-				<input type="hidden" name="id" value="<?echo $image['id'];?>" />
-				<textarea name="caption" rows="6" cols="40" id='formCaption<?echo $image['id'];?>'><?echo $image['caption'];?></textarea>
-				<input type="submit" value="Caption!" />
-			</form>
-		<?endif;?>
-<?
-		if($lncln->user->permissions['tags'] == 1){
-			$classTag = "class='underImage'";
-			$onClick = "onclick=\"showModule('" . $lncln->modules['tags']->name . "', '" . $image['id'] . "');\"";
-		}
-		else{
-			$classTag = "";
-			$onClick = "";
-		}
-		
 		/**
 		 * Main part of the script right here 
 		 */

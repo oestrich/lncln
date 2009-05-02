@@ -65,7 +65,7 @@ if(isset($_POST['name'])){
 			</tr>
 			<tr>
 				<td>Use caption:</td>
-				<td><select name="caption" ><option value="0">No</option><option value="1">Yes</option></select></td>
+				<td><select name="captions" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>
 			<tr>
 				<td>Use tags:</td>

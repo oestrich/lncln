@@ -35,7 +35,7 @@ class Group extends lncln{
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
-		$caption = $data['caption'];
+		$captions = $data['captions'];
 		$tags = $data['tags'];
 		$albums = $data['albums'];
 		
@@ -43,8 +43,8 @@ class Group extends lncln{
 			return "Invalid field";
 		}
 		
-		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `caption`, `tags`, `albums`) " .
-				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $caption, $tags, $albums)";
+		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `captions`, `tags`, `albums`) " .
+				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $captions, $tags, $albums)";
 		
 		mysql_query($sql);
 		
@@ -65,7 +65,7 @@ class Group extends lncln{
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
-		$caption = $data['caption'];
+		$captions = $data['captions'];
 		$tags = $data['tags'];
 		$albums = $data['albums'];
 		
@@ -74,7 +74,7 @@ class Group extends lncln{
 		}
 		
 		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue, " .
-			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `caption` = $caption, `tags` = $tags, " .
+			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `captions` = $captions, `tags` = $tags, " .
 			   "`albums` = $albums WHERE id = " . $id;
 		
 		mysql_query($sql);
