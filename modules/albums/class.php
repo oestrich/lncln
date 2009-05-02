@@ -192,6 +192,8 @@ class Albums implements Module{
 	function album(){	
 		$album = $_GET['album'];
 		
+		$this->lncln->scriptExtra = "album=" . $_GET['album'];
+		
 		if($album != 0){
 			$this->album = prepareSQL($album);
 			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";

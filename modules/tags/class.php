@@ -247,8 +247,6 @@ class Tags implements Module{
 			while($row = mysql_fetch_assoc($result)){
 				$this->lncln->imagesToGet[] = $row['picId'];
 			}
-
-			$this->lncln->extra .= "&amp;search=" . $this->search;
 		}
 	}
 

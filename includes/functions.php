@@ -149,67 +149,6 @@ class lncln{
 		$this->page = $_GET['img'];
 		$this->maxPage = 1;
 	}
-		
-	/**
-	 * Function for loading albums
-	 * 
-	 * @since 0.9.0
-	 * @package lncln
-	 * 
-	 * @param array $album First term is which album to load
-	 */
-	function album($album){	
-		if($album[0] != 0){
-			$this->album = prepareSQL($album[0]);
-			$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
-			
-			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album . $time;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			if($row['COUNT(*)'] == 0){
-				$this->page = 0;
-			}
-			else{				
-				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $this->album . $time;
-				$result = mysql_query($sql);
-				$row = mysql_fetch_assoc($result);
-				
-				$this->maxPage = $row['COUNT(id)'];
-				$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
-
-				if(!isset($_GET['page'])){
-					$this->page = 1;
-				}
-				else{
-					if(is_numeric($_GET['page'])){
-						$this->page = $_GET['page'];	
-					}
-					else{
-						$this->page = 1;
-					}
-				}
-
-				if(isset($album[1]) && is_numeric($album[1]) && $album[1] != ""){
-					$id = " AND id <= " . prepareSQL($album[1]);
-				}
-				else{
-					$id = "";
-				}
-				
-				$offset = ($this->page - 1) * $this->display->settings['perpage'];
-				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " " . $id . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
-				$result = mysql_query($sql);
-		
-				while($row = mysql_fetch_assoc($result)){
-					$this->imagesToGet[] = $row['id'];
-				}
-				
-				$this->extra .= "&amp;album=" . $this->album;
-			}
-		}
-	}
 	
 	/**
 	 * Function for loading the queue
@@ -443,8 +382,6 @@ class lncln{
 	 */
 	function prevNext($bottom = false){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
-		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
-		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
 		$script = $this->script;
 		$script .= $this->module != "" ? "?module=" . $this->module . "&" : "?";
