@@ -1,23 +1,17 @@
 <?
 /**
- * module.php
+ * class.php
  * 
  * Contains the interface for modules
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
  */
 
-/**
- * Module interface
- * 
- * @since 0.13.0
- * @package lncln
- */
-interface Module{	
+class Albums implements Module{
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -27,7 +21,9 @@ interface Module{
 	 * 
 	 * @param $lncln lncln Main class variable
 	 */
-	public function __construct(&$lncln);
+	public function __construct(&$lncln){
+		$this->lncln = $lncln;
+	}
 	
 	/**
 	 * Called if the Module has it's own page
@@ -36,7 +32,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function index();
+	public function index(){
+		
+	}
 	
 	/**
 	 * Called after a successful upload
@@ -47,7 +45,9 @@ interface Module{
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
 	 */
-	public function add($id, $data);
+	public function add($id, $data){
+		
+	}
 	
 	/**
 	 * Edits an image with the data provided
@@ -58,7 +58,9 @@ interface Module{
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
-	public function edit($id, $data);
+	public function edit($id, $data){
+		
+	}
 	
 	/**
 	 * Called during the upload screen. Contains the form information needed,
@@ -67,7 +69,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function upload();
+	public function upload(){
+		
+	}
 	
 	/**
 	 * Creates the form information needed during moderation
@@ -77,7 +81,9 @@ interface Module{
 	 * 
 	 * @param $id int Image to gather information about and populate the input
 	 */
-	public function moderate($id);
+	public function moderate($id){
+		
+	}
 	
 	/**
 	 * Creates the link in the header
@@ -85,7 +91,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function headerLink();
+	public function headerLink(){
+		
+	}
 	
 	/**
 	 * Creates the icon underneath images
@@ -93,7 +101,9 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon($id);
+	public function icon($id){
+		
+	}
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
@@ -101,6 +111,8 @@ interface Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function underImage($id, $action);
+	public function underImage($id, $action){
+		
+	}
 }
 ?>
