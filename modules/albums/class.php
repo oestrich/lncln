@@ -44,7 +44,7 @@ class Albums implements Module{
 		$this->lncln->display->includeFile("header.php");
 		
 		if(!isset($_GET['album']) || $_GET['album'] == ""){
-			foreach($this->getAlbums() as $album){
+			foreach($this->getAlbums(false) as $album){
 		?>
 					<a href="<?=$lncln->lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
 		<?
@@ -262,13 +262,16 @@ class Albums implements Module{
 	 * @since 0.9.0
 	 * @package lncln
 	 * 
+	 * @param $noAlbum bool Include "No Album" in list
+	 * 
 	 * @return array All of the albums in their own arrays, with 'id' and 'name'
 	 */
-	function getAlbums(){
+	function getAlbums($noAlbum = true){
 		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
 		
-		$albums[] = array("id" => 0, "name" => "No album");
+		if($noAlbum == true)
+			$albums[] = array("id" => 0, "name" => "No album");
 		
 		while($row = mysql_fetch_assoc($result)){
 			$albums[] = array("id"	 => $row['id'],
