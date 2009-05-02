@@ -80,7 +80,6 @@ class Tags implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
-		$id = stripslashes($id);
 		$id = mysql_real_escape_string($id);
 		
 		$tags = split(',', $data[0]);
