@@ -77,7 +77,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function upload(){
-		return array();
+		return array("type" => "textarea", "name" => "captions", "value" => "");
 	}
 	
 	/**

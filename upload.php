@@ -81,10 +81,6 @@ foreach($lncln->uploaded as $image):
 						<td><?=createInput($module->upload(), $image);?></td>
 					</tr>
 					<?endforeach;?>
-					<tr>
-						<td>Caption:</td>
-						<td><textarea name="images[<?=$image;?>][caption]" rows="10" cols="50" wrap="off"></textarea></td>
-					</tr>
 				</table>
 			</div>
 		</div>
