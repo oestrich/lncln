@@ -315,7 +315,7 @@ class lncln{
 	function img(){		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
-		$sql = "SELECT id, caption, postTime, type, album, obscene, rating FROM images WHERE ";
+		$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE ";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
@@ -331,36 +331,15 @@ class lncln{
 		
 		for($i = 0; $i < $numRows; $i++){
 			$image = mysql_fetch_assoc($result);
-			
-			$sql = "SELECT tag FROM tags WHERE picId = " . $image['id'];
-			$tags = mysql_query($sql);
-			
-			$imageTags = array();
-			
-			while($tag = mysql_fetch_assoc($tags)){
-				$imageTags[] = $tag['tag'];
-			}
-			
-			if($image['album'] != 0){
-				$sql = "SELECT name FROM albums WHERE id = " . $image['album'];
-				$album = mysql_query($sql);
-				$album = mysql_fetch_assoc($album);
-			}
-			else{
-				$album['name'] = "No Album";
-			}
-			
-			
+						
 			$this->images[$i] = array(
 				'id' 		=> $image['id'],
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
-				'album'		=> $album['name'],
 				'obscene' 	=> $image['obscene'],
 				'rating' 	=> $image['rating'],
 				'postTime'	=> $image['postTime'],
 				'caption'	=> $image['caption'],
-				'tags' 		=> $imageTags
 				);
 		}
 		
