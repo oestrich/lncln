@@ -13,6 +13,7 @@
 
 class Tags implements Module{
 	public $name = "Tags"; //Name printed out in forms
+	public $displayName = "Tags";
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 

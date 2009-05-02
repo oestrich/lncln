@@ -13,6 +13,7 @@
 
 class Albums implements Module{
 	public $name = "Albums";
+	public $displayName = "Album";
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 

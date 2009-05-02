@@ -77,7 +77,7 @@ foreach($lncln->uploaded as $image):
 				<table>
 					<?foreach($lncln->modules as $module):?>
 					<tr>
-						<td><?=$module->name;?>:</td>
+						<td><?=$module->displayName;?>:</td>
 						<td><?=createInput($module->upload(), $image);?></td>
 					</tr>
 					<?endforeach;?>

@@ -13,6 +13,7 @@
 
 class Captions implements Module{	
 	public $name = "Captions";
+	public $displayName = "Caption";
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
