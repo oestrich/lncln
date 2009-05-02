@@ -32,7 +32,6 @@ class lncln{
 	public $page;				//The page you are on
 	public $maxPage;			//Total number of pages
 	
-	public $search; 			//tag being searched for
 	public $album;				//album being viewed
 	public $uploaded = array();
 	
@@ -1094,28 +1093,18 @@ class Display{
 	}
 	
 	/**
-	 * Shows the header, pulls information from above class
+	 * includes a file from include folder
+	 * So that you can include files that require a $lncln variable from a module
 	 * 
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	function header(){
+	function includeFile($includeFile){
 		$lncln = $this->lncln;
 		
-		include_once(ABSPATH . "includes/header.php");
+		include_once(ABSPATH . "includes/" . $includeFile);
 	}
-	
-	/**
-	 * Shows the footer, pulls information from above class
-	 * 
-	 * @since 0.13.0
-	 * @package lncln
-	 */
-	function footer(){
-		$lncln = $this->lncln;
-		
-		include_once(ABSPATH . "includes/footer.php");
-	}
+
 	
 	/**
 	 * Show only the message given on the screen.

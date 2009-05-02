@@ -33,7 +33,21 @@ class Tags implements Module{
 			exit();
 		}
 		
-		$this->lncln->display->message("You searched for " . $_GET['search']);
+		$this->search();
+		
+		$this->lncln->display->includeFile("iconActions.php");
+		
+		$this->lncln->img();
+		
+		$this->lncln->display->includeFile("header.php");
+		
+		echo "You searched for: " . $this->search . "<br />";
+		
+		echo $this->lncln->prevNext();
+		
+		$this->lncln->display->includeFile("listing.php");
+		
+		$this->lncln->display->includeFile("footer.php");		
 	}
 	
 	/**
@@ -180,6 +194,55 @@ class Tags implements Module{
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
 	 */
+
+	/**
+	 * Sets up the pages for searching
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	function search(){
+		$this->search = prepareSQL($_GET['search']);
+		
+		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['COUNT(*)'] == 0){
+			$this->page = 0;
+		}
+		else{		
+			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			$this->lncln->maxPage = $row['COUNT(picId)'];
+			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->display->settings['perpage']);
+			
+			if(!isset($_GET['page'])){
+				$this->lncln->page = 1;
+			}
+			else{
+				if(is_numeric($_GET['page'])){
+					$this->lncln->page = $_GET['page'];	
+				}
+				else{
+					$this->lncln->page = 1;
+				}
+			}
+			
+			$offset = ($this->page - 1) * $this->display->settings['perpage'];
+			
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
+			$result = mysql_query($sql);
+	
+			while($row = mysql_fetch_assoc($result)){
+				$this->lncln->imagesToGet[] = $row['picId'];
+			}
+
+			$this->lncln->extra .= "&amp;search=" . $this->search;
+		}
+	}
 
 	/**
 	 * Gathers tags from an image together, string or array form
