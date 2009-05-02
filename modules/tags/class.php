@@ -47,7 +47,7 @@ class Tags implements Module{
 		
 		$this->lncln->display->includeFile("listing.php");
 		
-		$this->lncln->prevNext(true);
+		echo $this->lncln->prevNext(true);
 		
 		$this->lncln->display->includeFile("footer.php");		
 	}

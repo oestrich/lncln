@@ -58,6 +58,10 @@ class lncln{
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
+		
+		if(isset($_GET['module']) && $_GET['module'] != ""){
+			$this->script .= "?module=" . $_GET['module'];
+		}
 	}
 	
 	function loadModules(){
