@@ -35,7 +35,21 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function index(){
-		$this->lncln->display->message("Welcome to albums");
+		$this->album();
+		
+		$this->lncln->display->includeFile("iconActions.php");
+		
+		$this->lncln->img();
+		
+		$this->lncln->display->includeFile("header.php");
+		
+		if(!isset($_GET['album']) || $_GET['album'] == ""){
+			foreach($lncln->getAlbums() as $album){
+		?>
+					<a href="<?=$lncln->lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
+		<?
+			}
+		}
 	}
 	
 	/**
@@ -157,6 +171,59 @@ class Albums implements Module{
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
 	 */
+	
+	/**
+	 * Function for loading albums
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 */
+	function album(){	
+		$album = $_GET['album'];
+		
+		if($album != 0){
+			$this->album = prepareSQL($album);
+			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
+			
+			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album . $time;
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			if($row['COUNT(*)'] == 0){
+				$this->lncln->page = 0;
+			}
+			else{				
+				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $this->album . $time;
+				$result = mysql_query($sql);
+				$row = mysql_fetch_assoc($result);
+				
+				$this->lncln->maxPage = ceil($row['COUNT(id)'] / $this->lncln->display->settings['perpage']);
+
+				if(!isset($_GET['page'])){
+					$this->lncln->page = 1;
+				}
+				else{
+					if(is_numeric($_GET['page'])){
+						$this->lncln->page = $_GET['page'];	
+					}
+					else{
+						$this->lncln->page = 1;
+					}
+				}
+				
+				$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
+				
+				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
+				$result = mysql_query($sql);
+		
+				while($row = mysql_fetch_assoc($result)){
+					$this->lncln->imagesToGet[] = $row['id'];
+				}
+				
+				$this->lncln->extra .= "&amp;album=" . $this->album;
+			}
+		}
+	}
 	
 	/**
 	 * Returns the name of an album based on an image
