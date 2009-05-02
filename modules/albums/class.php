@@ -118,7 +118,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function underImage($id, $action){
-		if($this->lncln->user->permissions['album'] == 1){
+		if($this->lncln->user->permissions['albums'] == 1){
 			$class = "class='underImage'";
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
 		}
