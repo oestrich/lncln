@@ -41,8 +41,7 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 ?>
 <form action="moderate.php?action=update<?=$img;?>" method="post">
 <?
-	foreach($lncln->images as $image):	
-		$tags = join(', ', $image['tags']);
+	foreach($lncln->images as $image):
 ?>
 	<div id="<?=$image['id'];?>" class="modDiv">
 		<input type="checkbox" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" /><br />

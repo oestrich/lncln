@@ -59,8 +59,7 @@ echo $lncln->prevNext();
 ?>
 <form id='queue' action="queue.php?action=update" method="post">
 <?
-	foreach($lncln->images as $image):	
-		$tags = join(', ', $image['tags']);
+	foreach($lncln->images as $image):
 ?>
 	<div id="<?=$image['id'];?>" class="modDiv">
 		<input type="hidden" name="check[<?=$image['id'];?>]" id="check<?=$image['id'];?>" value="0" />
