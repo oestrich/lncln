@@ -67,15 +67,6 @@ foreach ($lncln->images as $image){
 		}
 		
 ?>
-			<div id="caption<?echo $image['id'];?>" <?echo $onClick; echo $class;?>>
-
-		<?if($image['caption'] == ""):?>
-				No Caption.
-		<?else:?>
-				<?=$image['caption'];?> 
-		<?endif;?>
-
-			</div>
 		<?if($lncln->user->permissions['caption'] == 1):?>
 			<form id="c<?echo $image['id'];?>" style="display:none;" enctype="multipart/form-data" action="<?echo $action;?>&amp;caption=true" method="post">
 				<input type="hidden" name="id" value="<?echo $image['id'];?>" />

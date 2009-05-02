@@ -72,7 +72,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function upload(){
-		
+		return array();
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class Captions implements Module{
 	 * @param $id int Image to gather information about and populate the input
 	 */
 	public function moderate($id){
-		
+		return array();
 	}
 	
 	/**
@@ -104,7 +104,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function icon($id){
-		
+		return "";
 	}
 	
 	/**
@@ -114,7 +114,53 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function underImage($id, $action){
+		//caption stuff
+		if($this->lncln->user->permissions['caption'] == 1){
+			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
+			$class = "class='underImage'";
+		}
+		else{
+			$onClick = "";
+			$class = "";
+		}
 		
+		$output = "
+			<div id='caption$id' " . $onClick . $class . ">
+					" . $this->getCaption($id) . "
+			</div>";
+			
+		return $output;
+	}
+	
+	/**
+	 * Required functions above, Below are other useful ones 
+	 * related to only this class
+	 */
+	
+	/**
+	 * Get an image's caption
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $id int Image id
+	 */
+	private function getCaption($id){
+		if(!is_numeric($id))
+			return "Bad id";
+		
+		$sql = "SELECT caption FROM images WHERE id = " . $id;
+		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) < 1)
+			return "No such image";
+			
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['caption'] == "")
+			return "No caption.";
+		
+		return $row['caption'];
 	}
 }
 
