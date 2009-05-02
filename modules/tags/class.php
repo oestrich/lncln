@@ -28,7 +28,12 @@ class Tags implements Module{
 	}
 	
 	public function index(){
-		$this->lncln->display->message("Temporary string");
+		if(isset($_POST['search']) && !isset($_GET['search'])){
+			header("location:" . URL . "index.php?module=tags&search=" . $_POST['search']);
+			exit();
+		}
+		
+		$this->lncln->display->message("You searched for " . $_GET['search']);
 	}
 	
 	/**
