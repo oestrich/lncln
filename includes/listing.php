@@ -99,20 +99,7 @@ foreach ($lncln->images as $image){
 		foreach($lncln->modules as $module){
 			echo $module->underImage($image['id'], $action);
 		}
-
-		if($lncln->user->permissions['album'] == 1){
-			$class = "class='underImage'";
-			$onClick = "onclick=\"album('". $image['id'] . "');\"";
-		}
-		else{
-			$class = "";
-			$onClick = "";
-		}
-
 ?>
-			<div id='album<?echo $image['id'];?>' <?=$class;?> <?=$onClick;?>>
-				Album: <?=$image['album'];?>
-			</div>
 		<?if($lncln->user->permissions['album'] == 1):?>
 			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=album" method="post">
 				<div>

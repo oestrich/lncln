@@ -12,6 +12,8 @@
  */
 
 class Albums implements Module{
+	public $name = "Albums";
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -112,7 +114,34 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function underImage($id, $action){
+		if($this->lncln->user->permissions['album'] == 1){
+			$class = "class='underImage'";
+			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
+		}
+		else{
+			$class = "";
+			$onClick = "";
+		}
 		
+		$output = "			
+			<div id='album$id' " . $class . $onClick . ">
+				Album: " . $this->getAlbum($id) . "
+			</div>";
+			
+		return $output;
+	}
+	
+	/**
+	 * Required functions above, Below are other useful ones 
+	 * related to only this class
+	 */
+	
+	private function getAlbum($id){
+		$sql = "SELECT name FROM albums WHERE id = " . $id;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		return $row['name'];
 	}
 }
 ?>
