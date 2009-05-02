@@ -33,7 +33,7 @@ class Tags implements Module{
 			exit();
 		}
 		
-		if(!isset($_GET['search'])){
+		if($_GET['search'] == ""){
 			header("location:" . URL . "index.php");
 			exit();
 		}
