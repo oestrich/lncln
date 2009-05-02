@@ -35,7 +35,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function index(){
-		
+		$this->lncln->display->message("Welcome to albums");
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		return "<a href='" . URL . "album.php'>Albums</a>";
+		return "\n\t\t\t\t\t<a href='" . URL . "index.php?module=albums'>Albums</a>";
 	}
 	
 	/**
