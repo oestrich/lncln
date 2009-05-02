@@ -231,7 +231,7 @@ class Tags implements Module{
 				}
 			}
 			
-			$offset = ($this->page - 1) * $this->lncln->display->settings['perpage'];
+			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
 			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
 			$result = mysql_query($sql);
