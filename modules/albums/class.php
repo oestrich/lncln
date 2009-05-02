@@ -53,12 +53,14 @@ class Albums implements Module{
 		else{
 			echo "You're viewing " . $this->getAlbumName($this->album) . "\n <br />";
 			
-			echo $lncln->prevNext();
+			echo $this->lncln->prevNext();
 			
 			$this->lncln->display->includeFile("listing.php");
 
-			echo $lncln->prevNext();
+			echo $this->lncln->prevNext();
 		}
+		
+		$this->lncln->display->includeFile("footer.php");
 	}
 	
 	/**
