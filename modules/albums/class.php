@@ -124,7 +124,7 @@ class Albums implements Module{
 		}
 		
 		$output = "			
-			<div id='album$id' " . $class . $onClick . ">
+			<div id='albums$id' " . $class . $onClick . ">
 				Album: " . $this->getAlbumName($id) . "
 			</div>";
 			
