@@ -137,7 +137,11 @@ class Albums implements Module{
 	 */
 	
 	private function getAlbum($id){
-		$sql = "SELECT name FROM albums WHERE id = " . $id;
+		$sql = "SELECT album FROM images WHERE id = " . $id;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$sql = "SELECT name FROM albums WHERE id = " . $row['album'];
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
