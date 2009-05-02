@@ -136,7 +136,7 @@ class Captions implements Module{
 		
 		if($this->lncln->user->permissions['captions'] == 1){
 			$output .= "
-			<form id='c$id' style='display: none;' enctype='multipart/form-data' action='$action&amp;caption=true' method='post'>
+			<form id='c$id' style='display: none;' enctype='multipart/form-data' action='$action&amp;action=captions' method='post'>
 				<input type='hidden' name='id' value='$id' />
 				<textarea name='captions' rows='6' cols='40' id='formCaptions$id'>" . $this->getCaption($id, false) . "</textarea>
 				<input type='submit' value='Caption!' />
