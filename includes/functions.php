@@ -490,26 +490,34 @@ class lncln{
 	 * @since 0.5.0
 	 * @package lncln
 	 * 
+	 * @param $bottom bool If it's a bottom link
+	 * 
 	 * @return string Contains the links Prev Next
 	 */
-	function prevNext(){
+	function prevNext($bottom = false){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
 		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
+		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
+		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        return "<a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
-	    	return "";
+	    	$output .= "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
+	        $output .= "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        return "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
+	        $output .= "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
 	        <a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
+	    
+	    $output .= $bottom == true ? "</div>" : "";
+	    
+	    return $output;
 	}
 
 	/**
