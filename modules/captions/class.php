@@ -115,7 +115,7 @@ class Captions implements Module{
 	 */
 	public function underImage($id, $action){
 		//caption stuff
-		if($this->lncln->user->permissions['caption'] == 1){
+		if($this->lncln->user->permissions['captions'] == 1){
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
 			$class = "class='underImage'";
 		}
