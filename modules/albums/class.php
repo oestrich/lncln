@@ -51,7 +51,7 @@ class Albums implements Module{
 			}
 		}
 		else{
-			echo "You're viewing " . $this->getAlbumName($this->album) . "\n <br />";
+			echo "You're viewing " . $this->getAlbumName($_GET['album']) . "\n <br />";
 			
 			echo $this->lncln->prevNext();
 			
