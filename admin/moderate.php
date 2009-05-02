@@ -62,10 +62,6 @@ $img = $_GET['img'] != '' ? "&amp;img=" . $_GET['img'] : "";
 					<td><?=createInput($module->moderate($image['id']), $image['id'], " onfocus=\"modCheck('" . $image['id'] . "')\" ");?></td>
 				</tr>
 				<?endforeach;?>
-				<tr>
-					<td>Caption:</td>
-					<td><textarea name="images[<?=$image['id'];?>][caption]" rows="10" cols="50" wrap="off" onfocus="modCheck('<?=$image['id'];?>')"><?=$image['caption'];?></textarea></td>
-				</tr>
 			</table>
 		</div>
 	</div>

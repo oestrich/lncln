@@ -89,7 +89,7 @@ class Captions implements Module{
 	 * @param $id int Image to gather information about and populate the input
 	 */
 	public function moderate($id){
-		return array();
+		return array("type" => "textarea", "name" => "captions", "value" => $this->getCaption($id));
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		
+		return "";
 	}
 	
 	/**

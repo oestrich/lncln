@@ -76,12 +76,6 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	exit();
 }
 
-if($_GET['caption'] && $lncln->user->permissions['caption'] == 1){
-	$lncln->caption($_POST['id'], $_POST['caption']);
-	header("location:" . $scriptLocation . "#" . $_POST['id']);
-	exit();
-}
-
 foreach($lncln->modules as $module){
 	if($_GET['action'] == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
 		$module->edit($_POST['id'], array($_POST[$_GET['action']]));
