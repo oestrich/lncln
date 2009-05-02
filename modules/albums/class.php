@@ -113,7 +113,7 @@ class Albums implements Module{
 	 * @param $id int Image to gather information about and populate the input
 	 */
 	public function moderate($id){
-		return array("type" => "select", "name" => "albums", "value" => $this->getAlbumName($id), "options" => $this->getAlbums());
+		return array("type" => "select", "name" => "albums", "value" => $this->getImageAlbum($id), "options" => $this->getAlbums());
 	}
 	
 	/**
@@ -154,7 +154,7 @@ class Albums implements Module{
 		
 		$output = "			
 			<div id='albums$id' " . $class . $onClick . ">
-				Album: " . $this->getAlbumName($id) . "
+				Album: " . $this->getImageAlbum($id) . "
 			</div>";
 		
 		
@@ -166,7 +166,7 @@ class Albums implements Module{
 					<select name='albums' id='formAlbums$id'>
 						<option value='0'>No album</option>";
 			foreach($this->getAlbums() as $album):
-				$selected = $album['name'] == $this->getAlbumName($id) ? "selected" : "";
+				$selected = $album['name'] == $this->getImageAlbum($id) ? "selected" : "";
 				$output .= "<option value='" . $album['id'] ."' $selected>" . $album['name'] . "</option>";
 			endforeach;
 			$output .= "
@@ -237,16 +237,16 @@ class Albums implements Module{
 	}
 	
 	/**
-	 * Returns the name of an album based on an image
+	 * Get an album name based on an image
 	 * 
 	 * @since 0.13.0
 	 * @package lncln
 	 * 
-	 * @param $id int Image id
+	 * @param $id int Image ID
 	 * 
-	 * @return String Name of album
+	 * @return String Album name
 	 */
-	private function getAlbumName($id){
+	private function getImageAlbum($id){
 		$sql = "SELECT album FROM images WHERE id = " . $id;
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
@@ -255,7 +255,21 @@ class Albums implements Module{
 			return "No Album";
 		}
 		
-		$sql = "SELECT name FROM albums WHERE id = " . $row['album'];
+		return $this->getAlbumName($row['album']);
+	}
+	
+	/**
+	 * Returns the name of an album
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $id int Album id
+	 * 
+	 * @return String Name of album
+	 */
+	private function getAlbumName($id){
+		$sql = "SELECT name FROM albums WHERE id = " . $id;
 		$result = mysql_query($sql);
 		
 		if(mysql_num_rows($result) < 1){
