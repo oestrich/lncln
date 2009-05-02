@@ -295,8 +295,13 @@ class Albums implements Module{
 		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
 		
+		$albums = array();
+		
 		if($noAlbum == true)
 			$albums[] = array("id" => 0, "name" => "No album");
+			
+		if(mysql_num_rows($result) < 1)
+			return $albums;
 		
 		while($row = mysql_fetch_assoc($result)){
 			$albums[] = array("id"	 => $row['id'],
