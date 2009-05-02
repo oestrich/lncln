@@ -507,6 +507,7 @@ class lncln{
 		
 		$script = $this->script;
 		$script .= $this->module != "" ? "?module=" . $this->module . "&" : "?";
+		$script .= $this->scriptExtra != "" ? $this->scriptExtra . "&" : "";
 		
 		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
 		

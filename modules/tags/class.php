@@ -206,6 +206,8 @@ class Tags implements Module{
 	function search(){
 		$this->search = prepareSQL($_GET['search']);
 		
+		$this->lncln->scriptExtra = "search=" . $_GET['search'];
+		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
