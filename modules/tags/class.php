@@ -33,6 +33,11 @@ class Tags implements Module{
 			exit();
 		}
 		
+		if(!isset($_GET['search'])){
+			header("location:" . URL . "index.php");
+			exit();
+		}
+		
 		$this->search();
 		
 		$this->lncln->display->includeFile("iconActions.php");
