@@ -98,7 +98,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		
+		return "<a href='" . URL . "album.php'>Albums</a>";
 	}
 	
 	/**

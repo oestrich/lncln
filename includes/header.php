@@ -36,8 +36,8 @@
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
 					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
-					<a href='<?echo URL;?>album.php'>Albums</a>
 <?
+	echo $lncln->modules['albums']->headerLink();
 if($lncln->user->isUser == true){
 ?>
 					<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
