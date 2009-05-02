@@ -41,8 +41,6 @@ if(!isset($_POST['type'])){
 
 }
 
-
-
 $lncln->tempUpload();
 
 include_once(ABSPATH . "includes/header.php");
