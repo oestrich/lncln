@@ -49,7 +49,7 @@ class Captions implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
-		
+		$this->edit($id, $data);
 	}
 	
 	/**
@@ -62,7 +62,11 @@ class Captions implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
+		$image = prepareSQL($id);
+		$caption = prepareSQL($data[0]);
 		
+		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
+		mysql_query($sql);
 	}
 	
 	/**
