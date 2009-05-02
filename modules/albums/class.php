@@ -46,9 +46,18 @@ class Albums implements Module{
 		if(!isset($_GET['album']) || $_GET['album'] == ""){
 			foreach($this->getAlbums(false) as $album){
 		?>
-					<a href="<?=$lncln->lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
+					<a href="<?=$lncln->lncln->script;?>?module=albums&amp;album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
 		<?
 			}
+		}
+		else{
+			echo "You're viewing " . $this->getAlbumName($this->album) . "\n <br />";
+			
+			echo $lncln->prevNext();
+			
+			$this->lncln->display->includeFile("listing.php");
+
+			echo $lncln->prevNext();
 		}
 	}
 	
