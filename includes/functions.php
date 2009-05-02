@@ -1147,9 +1147,9 @@ function createInput($input, $id, $extra = ""){
 		case "text":
 			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' " . $extra . " />";
 		case "textarea":
-			return "<textarea name='images[$id][" . $input['name'] . "' " . $extra . ">" . $input['value'] . "</textarea>";
+			return "<textarea name='images[$id][" . $input['name'] . "]' " . $extra . ">" . $input['value'] . "</textarea>";
 		case "select":
-			$output = "<select name='" . $input['name'] . "' >";
+			$output = "<select name='images[$id][" . $input['name'] . "]' " . $extra . ">";
 			
 			foreach($input['options'] as $option){
 				$selected = $option['name'] == $input['value'] ? "selected" : "";
