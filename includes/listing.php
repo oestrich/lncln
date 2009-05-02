@@ -100,21 +100,6 @@ foreach ($lncln->images as $image){
 			echo $module->underImage($image['id'], $action);
 		}
 ?>
-		<?if($lncln->user->permissions['album'] == 1):?>
-			<form id="a<?echo $image['id'];?>" style="display:none;" action="<?echo $action;?>&amp;action=album" method="post">
-				<div>
-					<input type="hidden" name="id" value="<?echo $image['id'];?>" />
-					<select name="album" id='formAlbums<?=$image['id'];?>'>
-						<option value="0">No album</option>
-			<?foreach($lncln->getAlbums() as $album):?>
-				<?$selected = $album['name'] == $image['album'] ? "selected" : "";?>
-						<option value="<?=$album['id'];?>" <?=$selected;?>><?=$album['name'];?></option>
-			<?endforeach;?>
-					</select>
-					<input type="submit" value="Change album" />
-				</div>
-			</form>
-		<?endif;?>
 	<?endif;?>
 
 	<?if($_GET['thumb']):?>

@@ -127,7 +127,25 @@ class Albums implements Module{
 			<div id='albums$id' " . $class . $onClick . ">
 				Album: " . $this->getAlbumName($id) . "
 			</div>";
-			
+		
+		
+		if($this->lncln->user->permissions['album'] == 1):
+			$output .= "
+			<form id='a$id' style='display: none;' action='<$action&amp;action=album' method='post'>
+				<div>
+					<input type='hidden' name='id' value=''$id' />
+					<select name='album' id='formAlbums$id'>
+						<option value='0'>No album</option>";
+			foreach($this->getAlbums() as $album):
+				$selected = $album['name'] == $this->getAlbumName($id) ? "selected" : "";
+				$output .= "<option value='" . $album['id'] ."' $selected>" . $album['name'] . "</option>";
+			endforeach;
+			$output .= "
+					</select>
+					<input type='submit' value='Change album' />
+				</div>
+			</form>";
+		endif;
 		return $output;
 	}
 	
@@ -165,6 +183,27 @@ class Albums implements Module{
 		$row = mysql_fetch_assoc($result);
 		
 		return $row['name'];
+	}
+	
+	/**
+	 * Returns all of the albums currently in the database
+	 * 
+	 * @since 0.9.0
+	 * @package lncln
+	 * 
+	 * @return array All of the albums in their own arrays, with 'id' and 'name'
+	 */
+	function getAlbums(){
+		$sql = "SELECT id, name FROM albums WHERE 1";
+		$result = mysql_query($sql);
+		
+		while($row = mysql_fetch_assoc($result)){
+			$albums[] = array("id"	 => $row['id'],
+							  "name" => $row['name']
+							  );	
+		}
+		
+		return $albums;
 	}
 }
 ?>
