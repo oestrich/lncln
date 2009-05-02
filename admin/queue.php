@@ -23,7 +23,6 @@ if($_GET['action'] == "update"){
 			$module->edit($key, array($_POST['images'][$key][$modKey]));
 		}
 		$lncln->caption($key, $_POST['images'][$key]['caption']);
-		$lncln->changeAlbum($key, $_POST['images'][$key]['album']);
 		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
 	}
 	

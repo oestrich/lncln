@@ -581,7 +581,6 @@ class lncln{
 		
 		$this->thumbnail($imgID . '.' . $type);
 		$this->caption($imgID, $data['caption']);
-		$this->changeAlbum($imgID, $data['album']);	
 		if($data['obscene']){
 			$this->obscene($imgID);
 		}
@@ -760,23 +759,6 @@ class lncln{
 		}
 		
 		return $albums;
-	}
-	
-	/**
-	 * Changes an image's album
-	 * 
-	 * @since 0.9.0
-	 * @package lncln
-	 * 
-	 * @param int $img The image to be changed
-	 * @param int $album The album id 
-	 */
-	function changeAlbum($img, $album){
-		$img = prepareSQL($img);
-		$album = prepareSQL($album);
-		
-		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $img;
-		mysql_query($sql);
 	}
 	
 	/**

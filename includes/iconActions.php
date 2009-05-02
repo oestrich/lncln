@@ -82,20 +82,6 @@ if($_GET['caption'] && $lncln->user->permissions['caption'] == 1){
 	exit();
 }
 
-/*
-if($_GET['tag'] && $lncln->user->permissions['tag'] == 1){
-	$lncln->modules['tags']->edit($_POST['id'], array($_POST['tags']));
-	header("location:" . $scriptLocation . "#" . $_POST['id']);
-	exit();
-}
-*/
-
-if($_GET['action'] == "album" && $lncln->user->permissions['album'] == 1){
-	$lncln->changeAlbum($_POST['id'], $_POST['album']);
-	header("location:" . $scriptLocation . "#" . $_POST['id']);
-	exit();
-}
-
 foreach($lncln->modules as $module){
 	if($_GET['action'] == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
 		$module->edit($_POST['id'], array($_POST[$_GET['action']]));
