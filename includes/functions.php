@@ -32,7 +32,6 @@ class lncln{
 	public $page;				//The page you are on
 	public $maxPage;			//Total number of pages
 	
-	public $album;				//album being viewed
 	public $uploaded = array();
 	
 	public $imagesToGet = array();		//The images that data will be pulled for
@@ -67,13 +66,17 @@ class lncln{
 	
 	function loadModules(){
 		//Key is folder, value is class name
-		$modules = array("tags" => "Tags", "albums" => "Albums");
+		$this->modules = array("tags" => "Tags", "albums" => "Albums");
 		
 		$this->display->rows = array(1 => array("albums"),2 => array("tags"));
 		
-		foreach($modules as $folder => $class){
+		foreach($this->modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
 			$this->modules[$folder] = new $class($this);
+			
+			if(!($this->modules[$folder] instanceof Module)){
+				unset($this->modules[$folder]);
+			}
 		}
 	}
 	

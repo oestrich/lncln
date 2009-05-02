@@ -189,15 +189,14 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	function album(){	
-		$album = $_GET['album'];
+		$album = prepareSQL($_GET['album']);
 		
-		$this->lncln->scriptExtra = "album=" . $_GET['album'];
+		$this->lncln->scriptExtra = "album=" . $album;
 		
 		if($album != 0){
-			$this->album = prepareSQL($album);
 			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 			
-			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $this->album . $time;
+			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $album . $time;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
@@ -205,7 +204,7 @@ class Albums implements Module{
 				$this->lncln->page = 0;
 			}
 			else{				
-				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $this->album . $time;
+				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $album . $time;
 				$result = mysql_query($sql);
 				$row = mysql_fetch_assoc($result);
 				
@@ -225,14 +224,14 @@ class Albums implements Module{
 				
 				$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 				
-				$sql = "SELECT id FROM images WHERE album = " . $this->album . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
+				$sql = "SELECT id FROM images WHERE album = " . $album . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
 				$result = mysql_query($sql);
 		
 				while($row = mysql_fetch_assoc($result)){
 					$this->lncln->imagesToGet[] = $row['id'];
 				}
 				
-				$this->lncln->extra .= "&amp;module=albums&amp;album=" . $this->album;
+				$this->lncln->extra .= "&amp;module=albums&amp;album=" . $album;
 			}
 		}
 	}
