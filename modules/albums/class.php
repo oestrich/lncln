@@ -48,7 +48,7 @@ class Albums implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
-		
+		$this->edit($id, $data);
 	}
 	
 	/**
@@ -61,7 +61,11 @@ class Albums implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
+		$img = prepareSQL($id);
+		$album = prepareSQL($data[0]);
 		
+		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $id;
+		mysql_query($sql);
 	}
 	
 	/**
