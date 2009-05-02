@@ -133,7 +133,7 @@ class Captions implements Module{
 			$output .= "
 			<form id='c$id' style='display: none;' enctype='multipart/form-data' action='$action&amp;caption=true' method='post'>
 				<input type='hidden' name='id' value='$id' />
-				<textarea name='caption' rows='6' cols='40' id='formCaption$id'>" . $this->getCaption($id, false) . "</textarea>
+				<textarea name='captions' rows='6' cols='40' id='formCaptions$id'>" . $this->getCaption($id, false) . "</textarea>
 				<input type='submit' value='Caption!' />
 			</form>";
 		}
