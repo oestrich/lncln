@@ -44,7 +44,7 @@ class Albums implements Module{
 		$this->lncln->display->includeFile("header.php");
 		
 		if(!isset($_GET['album']) || $_GET['album'] == ""){
-			foreach($lncln->getAlbums() as $album){
+			foreach($this->getAlbums() as $album){
 		?>
 					<a href="<?=$lncln->lncln->script;?>?album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
 		<?
