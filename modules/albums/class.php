@@ -137,7 +137,7 @@ class Albums implements Module{
 			$output .= "
 			<form id='a$id' style='display: none;' action='$action&amp;action=album' method='post'>
 				<div>
-					<input type='hidden' name='id' value=''$id' />
+					<input type='hidden' name='id' value='$id' />
 					<select name='album' id='formAlbums$id'>
 						<option value='0'>No album</option>";
 			foreach($this->getAlbums() as $album):
