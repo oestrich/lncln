@@ -26,6 +26,8 @@ class lncln{
 	public $user;
 	public $moderationOn = false;
 	
+	public $module; 			//Currently used module ex. ?module=tags 
+	
 	public $script;				//what page is being loaded
 	public $display;			//The Display class, controlls settings
 
@@ -60,7 +62,7 @@ class lncln{
 		$this->script = $this->script[count($this->script) - 1];
 		
 		if(isset($_GET['module']) && $_GET['module'] != ""){
-			$this->script .= "?module=" . $_GET['module'];
+			$this->module = $_GET['module'];
 		}
 	}
 	
@@ -503,20 +505,23 @@ class lncln{
 		$extra .= $this->search == "" ? "" : "&amp;search=" . $this->search;
 		$extra .= $this->album == "" ? "" : "&amp;album=" . $this->album;
 		
+		$script = $this->script;
+		$script .= $this->module != "" ? "?module=" . $this->module . "&" : "?";
+		
 		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . "page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        $output .= "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
+	        $output .= "<a href='" . $script . "page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        $output .= "<a href='" . $this->script . "?page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
-	        <a href='" . $this->script . "?page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . "page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
+	        <a href='" . $script . "page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
 	    }
 	    
 	    $output .= $bottom == true ? "</div>" : "";
