@@ -201,7 +201,7 @@ class Albums implements Module{
 		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
 		
-		$album[] = array("id" => 0, "name" => "No album");
+		$albums[] = array("id" => 0, "name" => "No album");
 		
 		while($row = mysql_fetch_assoc($result)){
 			$albums[] = array("id"	 => $row['id'],
