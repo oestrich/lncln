@@ -499,7 +499,6 @@ class lncln{
 		}
 		
 		$this->thumbnail($imgID . '.' . $type);
-		$this->caption($imgID, $data['caption']);
 		if($data['obscene']){
 			$this->obscene($imgID);
 		}
@@ -642,23 +641,6 @@ class lncln{
 		}
 	}
 
-	/**
-	 * Adds a caption to a picture
-	 * 
-	 * @since 0.5.0
-	 * @package lncln
-	 * 
-	 * @param int $id The id of the image to have a caption added
-	 * @param string $caption The caption for the image
-	 */
-	function caption($id, $caption){
-		$id = prepareSQL($id);
-		$caption = prepareSQL($caption);
-		
-		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
-		mysql_query($sql);
-	}
-	
 	/**
 	 * Debug function to print out the private variables;
 	 * 
@@ -1042,7 +1024,7 @@ function createInput($input, $id, $extra = ""){
 		case "text":
 			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' " . $extra . " />";
 		case "textarea":
-			return "<textarea name='images[$id][" . $input['name'] . "]' " . $extra . ">" . $input['value'] . "</textarea>";
+			return "<textarea name='images[$id][" . $input['name'] . "]' " . $extra . " rows='10' cols='50'>" . $input['value'] . "</textarea>";
 		case "select":
 			$output = "<select name='images[$id][" . $input['name'] . "]' " . $extra . ">";
 			

@@ -25,7 +25,6 @@ if($_GET['action'] == "update"){
 		foreach($lncln->modules as $modKey => $module){
 			$module->edit($key, array($_POST['images'][$key][$modKey]));
 		}
-		$lncln->caption($key, $_POST['images'][$key]['caption']);
 		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
 	}
 }
