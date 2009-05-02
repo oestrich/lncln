@@ -73,7 +73,7 @@ if(isset($_POST['name'])){
 			</tr>
 			<tr>
 				<td>Manage albums:</td>
-				<td><select name="album" ><option value="0">No</option><option value="1">Yes</option></select></td>
+				<td><select name="albums" ><option value="0">No</option><option value="1">Yes</option></select></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />

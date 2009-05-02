@@ -82,7 +82,7 @@ $group = $lncln->getGroup($_GET['group']);
 			</tr>
 			<tr>
 				<td>Manage albums:</td>
-				<td><?=$lncln->createSelect("album", $group['album']);?></td>
+				<td><?=$lncln->createSelect("albums", $group['albums']);?></td>
 			</tr>
 		</table>
 		<input type="submit" value="Submit" />
