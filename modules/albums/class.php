@@ -98,7 +98,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		return "\n\t\t\t\t\t<a href='" . URL . "index.php?module=albums'>Albums</a>";
+		return "\t\t\t\t\t<a href='" . URL . "index.php?module=albums'>Albums</a>\n";
 	}
 	
 	/**
@@ -108,7 +108,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function icon($id){
-		
+		return "";
 	}
 	
 	/**

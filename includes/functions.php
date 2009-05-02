@@ -26,8 +26,6 @@ class lncln{
 	public $user;
 	public $moderationOn = false;
 	
-	public $module; 			//Currently used module ex. ?module=tags 
-	
 	public $script;				//what page is being loaded
 	public $display;			//The Display class, controlls settings
 
@@ -43,6 +41,7 @@ class lncln{
 	public $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
 	public $modules = array();
+	public $module;				//Currently used module ex. ?module=tags 
 	
 	/**
 	 * Gets the class ready for action!
@@ -70,7 +69,7 @@ class lncln{
 		//Key is folder, value is class name
 		$modules = array("tags" => "Tags", "albums" => "Albums");
 		
-		$this->display->rows = array(2 => "tags");
+		$this->display->rows = array(1 => array("albums"),2 => array("tags"));
 		
 		foreach($modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");

@@ -37,7 +37,10 @@
 ?>
 					<a href='<?echo URL;?>index.php?page=<?echo $lncln->page . $thumb;?>'>Thumbnail view</a>
 <?
-	echo $lncln->modules['albums']->headerLink();
+foreach($lncln->display->rows[1] as $module){
+	echo $lncln->modules[$module]->headerLink();
+}
+
 if($lncln->user->isUser == true){
 ?>
 					<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
@@ -107,7 +110,11 @@ if($lncln->user->permissions['isAdmin'] == 1){
 				</div>
 <?}?>	
 				<div class="headerRow">
-	<?echo $lncln->modules['tags']->headerLink();?>
+<?
+foreach($lncln->display->rows[2] as $module){
+	echo $lncln->modules[$module]->headerLink();
+}
+?>
 				</div>
 			</div>
 		</div>
