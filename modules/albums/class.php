@@ -133,7 +133,7 @@ class Albums implements Module{
 			</div>";
 		
 		
-		if($this->lncln->user->permissions['album'] == 1):
+		if($this->lncln->user->permissions['albums'] == 1):
 			$output .= "
 			<form id='a$id' style='display: none;' action='$action&amp;action=albums' method='post'>
 				<div>
