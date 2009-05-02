@@ -660,27 +660,6 @@ class lncln{
 	}
 	
 	/**
-	 * Returns all of the albums currently in the database
-	 * 
-	 * @since 0.9.0
-	 * @package lncln
-	 * 
-	 * @return array All of the albums in their own arrays, with 'id' and 'name'
-	 */
-	function getAlbums(){
-		$sql = "SELECT id, name FROM albums WHERE 1";
-		$result = mysql_query($sql);
-		
-		while($row = mysql_fetch_assoc($result)){
-			$albums[] = array("id"	 => $row['id'],
-							  "name" => $row['name']
-							  );	
-		}
-		
-		return $albums;
-	}
-	
-	/**
 	 * Debug function to print out the private variables;
 	 * 
 	 * @since 0.9.0
@@ -691,9 +670,6 @@ class lncln{
 
 		echo "page: " . $this->page . "\n";
 		echo "maxPage: " . $this->maxPage . "\n";
-		
-		echo "search: " . $this->search . "\n";
-		echo "album: " . $this->album . "\n";
 		
 		echo "imagesToGet: ";
 		print_r($this->imagesToGet);
