@@ -96,6 +96,14 @@ interface Module{
 	public function icon($id);
 	
 	/**
+	 * Creates text above the image.  Text only
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function aboveImage($id, $action);
+	
+	/**
 	 * Creates text underneath the image.  May contain a form
 	 * 
 	 * @since 0.13.0

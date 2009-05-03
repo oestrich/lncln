@@ -138,6 +138,16 @@ class Albums implements Module{
 	}
 	
 	/**
+	 * Creates text above the image.  Text only
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function aboveImage($id, $action){
+		return "";
+	}
+	
+	/**
 	 * Creates text underneath the image.  May contain a form
 	 * 
 	 * @since 0.13.0

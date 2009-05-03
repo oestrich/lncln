@@ -14,5 +14,7 @@ SQL commands:
  ALTER TABLE `groups` CHANGE `album` `albums` INT( 1 ) NOT NULL ;
  
  ALTER TABLE `groups` CHANGE `caption` `captions` INT( 1 ) NOT NULL ;
+ 
+ RENAME TABLE `betalncln`.`rating`  TO `betalncln`.`ratings` ;
 
 If you have any other problems, please visit the forums.
