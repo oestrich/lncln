@@ -66,7 +66,7 @@ class lncln{
 	
 	function loadModules(){
 		//Key is folder, value is class name
-		$this->modules = array("tags" => "Tags", "albums" => "Albums", "captions" => "Captions");
+		$this->modules = array("tags" => "Tags", "albums" => "Albums", "captions" => "Captions", "ratings" => "Ratings");
 		
 		$this->display->rows = array(1 => array("albums"),2 => array("tags"));
 		
