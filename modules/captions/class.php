@@ -36,7 +36,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function index(){
-		
+		$this->lncln->display->message("This module does not have an associated page");
 	}
 	
 	/**
@@ -131,7 +131,7 @@ class Captions implements Module{
 		
 		$output = "
 			<div id='captions$id' " . $onClick . $class . ">
-					" . $this->getCaption($id) . "
+				" . $this->getCaption($id) . "
 			</div>";
 		
 		if($this->lncln->user->permissions['captions'] == 1){
