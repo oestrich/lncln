@@ -13,13 +13,13 @@
 
 require_once("load.php");
 
-if($lncln->user->permissions['rate'] == 0){
+if($lncln->user->permissions['report'] == 0){
 	$lncln->display->message("You can't report images");
 }
 
 $image = prepareSQL($_GET['img']);
 
-$sql = "UPDATE images SET report = report + " . $lncln->user->permissions['rateValue'] . " WHERE id = " . $image . " LIMIT 1";
+$sql = "UPDATE images SET report = report + " . $lncln->user->permissions['reportValue'] . " WHERE id = " . $image . " LIMIT 1";
 mysql_query($sql);
 
 if(mysql_affected_rows() == 1){

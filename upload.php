@@ -73,7 +73,10 @@ foreach($lncln->uploaded as $image):
 			<div class="modForms">
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
 				<table>
-					<?foreach($lncln->modules as $module):?>
+					<?foreach($lncln->modules as $module):
+						if($module->upload() == "")
+							continue;
+					?>
 					<tr>
 						<td><?=$module->displayName;?>:</td>
 						<td><?=createInput($module->upload(), $image);?></td>
