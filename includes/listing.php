@@ -50,7 +50,7 @@ foreach ($lncln->images as $key => $image){
 			This is not on the homepage yet.<br />
 	<?endif;?>
 
-	<?if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] <= 1):?>
+	<?if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
 			<div class="badImage" id="b<?echo $image['id'];?>">
 	<?endif;?>
 	
