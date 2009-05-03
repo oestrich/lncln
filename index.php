@@ -91,12 +91,7 @@ echo $lncln->prevNext();
 
 include_once(ABSPATH . "includes/listing.php");
 
-?>
-	<div id='bPrevNext'>
-<?
-echo $lncln->prevNext();
-?>
-	</div>
-<?
+echo $lncln->prevNext(true);
+
 include_once(ABSPATH . "includes/footer.php");
 ?>

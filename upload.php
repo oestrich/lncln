@@ -82,7 +82,6 @@ foreach($lncln->uploaded as $image):
 				</table>
 			</div>
 		</div>
-
 <?
 endforeach;
 ?>
