@@ -11,9 +11,9 @@
  * @package lncln
  */
 
-class Captions implements Module{	
-	public $name = "Captions";
-	public $displayName = "Caption";
+class Ratings implements Module{
+	public $name = "Ratings";
+	public $displayName = "Rating";
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
@@ -49,7 +49,7 @@ class Captions implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
-		$this->edit($id, $data);
+		
 	}
 	
 	/**
@@ -62,11 +62,7 @@ class Captions implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
-		$image = prepareSQL($id);
-		$caption = prepareSQL($data[0]);
 		
-		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
-		mysql_query($sql);
 	}
 	
 	/**
@@ -77,7 +73,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function upload(){
-		return array("type" => "textarea", "name" => "captions", "value" => "");
+		return "";
 	}
 	
 	/**
@@ -89,7 +85,7 @@ class Captions implements Module{
 	 * @param $id int Image to gather information about and populate the input
 	 */
 	public function moderate($id){
-		return array("type" => "textarea", "name" => "captions", "value" => $this->getCaption($id));
+		return "";
 	}
 	
 	/**
@@ -109,7 +105,13 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function icon($id){
-		return "";
+		if($this->lncln->user->permissions['rate'] == 1):
+			$output = "
+			<a href='$action&amp;rateUp=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
+			<a href='$action&amp;rateDown=$id'><img src='" .URL ."theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>";
+		endif;
+		
+		return $output;
 	}
 	
 	/**
@@ -119,7 +121,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function aboveImage($id, $action){
-		return "";
+		
 	}
 	
 	/**
@@ -129,63 +131,7 @@ class Captions implements Module{
 	 * @package lncln
 	 */
 	public function underImage($id, $action){
-		//caption stuff
-		if($this->lncln->user->permissions['captions'] == 1){
-			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
-			$class = "class='underImage'";
-		}
-		else{
-			$onClick = "";
-			$class = "";
-		}
-		
-		$output = "
-			<div id='captions$id' " . $onClick . $class . ">
-				" . $this->getCaption($id) . "
-			</div>";
-		
-		if($this->lncln->user->permissions['captions'] == 1){
-			$output .= "
-			<form id='c$id' style='display: none;' enctype='multipart/form-data' action='$action&amp;action=captions' method='post'>
-				<input type='hidden' name='id' value='$id' />
-				<textarea name='captions' rows='6' cols='40' id='formCaptions$id'>" . $this->getCaption($id, false) . "</textarea>
-				<input type='submit' value='Caption!' />
-			</form>";
-		}
-		
-		return $output;
-	}
-	
-	/**
-	 * Required functions above, Below are other useful ones 
-	 * related to only this class
-	 */
-	
-	/**
-	 * Get an image's caption
-	 * 
-	 * @since 0.13.0
-	 * @package lncln
-	 * 
-	 * @param $id int Image id
-	 */
-	private function getCaption($id, $noCaption = true){
-		if(!is_numeric($id))
-			return "Bad id";
-		
-		$sql = "SELECT caption FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		
-		if(mysql_num_rows($result) < 1)
-			return "No such image";
-			
-		$row = mysql_fetch_assoc($result);
-		
-		if($row['caption'] == "" && $noCaption == true)
-			return "No caption.";
-		
-		return $row['caption'];
+		return "";
 	}
 }
-
 ?>
