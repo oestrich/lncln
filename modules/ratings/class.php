@@ -155,7 +155,7 @@ class Ratings implements Module{
 	 */
 	public function icon($id, $action){
 		if($this->lncln->user->permissions['ratings'] == 1):
-			$output = "<a href='$action&amp;action=ratings&amp;subAction=up&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
+			$output = "\t\t\t<a href='$action&amp;action=ratings&amp;subAction=up&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
 			<a href='$action&amp;action=ratings&amp;subAction=down&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>\n";
 		endif;
 		
