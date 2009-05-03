@@ -17,7 +17,9 @@ if(isset($_GET['thumb'])){
 
 $extra .= str_replace("&amp;", "&", $lncln->extra);
 
-$scriptLocation = $lncln->script == "image.php" ? $scriptLocation = URL . $lncln->script . "?img=" . $_GET['img'] . $extra : URL . $lncln->script . "?page=" . $_GET['page'] . $extra;
+$scriptLocation = $lncln->script == "image.php" ? 
+	$scriptLocation = URL . $lncln->script . "?img=" . $_GET['img'] . $extra :
+	URL . $lncln->script . "?page=" . $_GET['page'] . $extra;
 
 if($_GET['post'] == true){
 	$lncln->upload();

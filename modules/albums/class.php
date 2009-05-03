@@ -241,8 +241,6 @@ class Albums implements Module{
 				while($row = mysql_fetch_assoc($result)){
 					$this->lncln->imagesToGet[] = $row['id'];
 				}
-				
-				$this->lncln->extra .= "&amp;module=albums&amp;album=" . $album;
 			}
 		}
 	}
