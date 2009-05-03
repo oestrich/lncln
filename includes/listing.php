@@ -32,7 +32,9 @@ foreach ($lncln->images as $image){
 
 	<div class="<?echo $lncln->type;?>">
 		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a>
-		Rating: <?echo $image['rating'];?> 
+		<?foreach($lncln->modules as $module){
+			echo $module->aboveImage($image['id'], $action);
+		}?>
 		Posted: <?=$date;?> 
 
 		<div class="imageLink" >

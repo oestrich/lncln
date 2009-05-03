@@ -168,7 +168,7 @@ class Ratings implements Module{
 	 * @package lncln
 	 */
 	public function aboveImage($id, $action){
-		
+		return "Rating: " . $this->getRating($id);
 	}
 	
 	/**
@@ -179,6 +179,30 @@ class Ratings implements Module{
 	 */
 	public function underImage($id, $action){
 		return "";
+	}
+	
+	/**
+	 * Required functions above, Below are other useful ones 
+	 * related to only this class
+	 */
+	
+	/**
+	 * 
+	 */
+	private function getRating($id){
+		if(!is_numeric($id))
+			return 0;
+		
+		$sql = "SELECT rating FROM images WHERE id = " . $id;
+		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) < 1){
+			return 0;
+		}
+		
+		$row = mysql_fetch_assoc($result);
+		
+		return $row['rating'];
 	}
 }
 ?>

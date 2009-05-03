@@ -337,7 +337,6 @@ class lncln{
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
 				'obscene' 	=> $image['obscene'],
-				'rating' 	=> $image['rating'],
 				'postTime'	=> $image['postTime'],
 				'caption'	=> $image['caption'],
 				);
