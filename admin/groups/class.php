@@ -30,8 +30,8 @@ class Group extends lncln{
 		$numIndex = $data['numIndex'];
 		$report = $data['report'];
 		$reportValue = $data['reportValue'];
-		$rate = $data['rate'];
-		$rateValue = $data['rateValue'];
+		$ratings = $data['ratings'];
+		$ratingsValue = $data['ratingsValue'];
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
@@ -39,12 +39,12 @@ class Group extends lncln{
 		$tags = $data['tags'];
 		$albums = $data['albums'];
 		
-		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
+		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($ratings)){
 			return "Invalid field";
 		}
 		
-		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `rate`, `rateValue`, `obscene`, `refresh`, `delete`, `captions`, `tags`, `albums`) " .
-				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $rate, $rateValue, $obscene, $refresh, $delete, $captions, $tags, $albums)";
+		$sql = 	"INSERT INTO groups (`name`, `upload`, `index`, `numIndex`, `report`, `reportValue`, `ratings`, `ratingsValue`, `obscene`, `refresh`, `delete`, `captions`, `tags`, `albums`) " .
+				"VALUES ('$name', $upload, $index, $numIndex, $report, $reportValue, $ratings, $ratingsValue, $obscene, $refresh, $delete, $captions, $tags, $albums)";
 		
 		mysql_query($sql);
 		
@@ -60,8 +60,8 @@ class Group extends lncln{
 		$numIndex = $data['numIndex'];
 		$report = $data['report'];
 		$reportValue = $data['reportValue'];
-		$rate = $data['rate'];
-		$rateValue = $data['rateValue'];
+		$ratings = $data['ratings'];
+		$ratingsValue = $data['ratingsValue'];
 		$obscene = $data['obscene'];
 		$refresh = $data['refresh'];
 		$delete = $data['delete'];
@@ -69,12 +69,12 @@ class Group extends lncln{
 		$tags = $data['tags'];
 		$albums = $data['albums'];
 		
-		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($rate)){
+		if(!is_numeric($upload) || !is_numeric($numIndex) || !is_numeric($report) || !is_numeric($ratings)){
 			return "Invalid field";
 		}
 		
 		$sql = "UPDATE groups SET `name` = '$name', `upload` = $upload, `index` = $index, `numIndex` = $numIndex, `report` = $report, `reportValue` = $reportValue, " .
-			   "`rate` = $rate, `rateValue` = $rateValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `captions` = $captions, `tags` = $tags, " .
+			   "`ratings` = $ratings, `ratingsValue` = $ratingsValue, `obscene` = $obscene, `refresh` = $refresh, `delete` = $delete, `captions` = $captions, `tags` = $tags, " .
 			   "`albums` = $albums WHERE id = " . $id;
 		
 		mysql_query($sql);

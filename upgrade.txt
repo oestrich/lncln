@@ -15,6 +15,9 @@ SQL commands:
  
  ALTER TABLE `groups` CHANGE `caption` `captions` INT( 1 ) NOT NULL ;
  
- RENAME TABLE `betalncln`.`rating`  TO `betalncln`.`ratings` ;
+ RENAME TABLE `rating`  TO `ratings` ;
+ 
+ ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
+	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
 
 If you have any other problems, please visit the forums.

@@ -37,20 +37,6 @@ if(isset($_GET['obscene']) && $lncln->user->permissions['obscene'] == 1){
 	exit();
 }
 
-if(isset($_GET['rateUp']) && $lncln->user->permissions['rate'] == 1){
-	//This should probably be handled by the function itself
-	$lncln->rate($_GET['rateUp'], $lncln->user->permissions['rateValue']);
-	header("location:" . $scriptLocation . "#" . $_GET['rateUp']);
-	exit();
-}
-
-if(isset($_GET['rateDown']) && $lncln->user->permissions['rate'] == 1){	
-	//This should probably be handled by the function itself
-	$lncln->rate($_GET['rateDown'], -1 * $lncln->user->permissions['rateValue']);
-	header("location:" . $scriptLocation . "#" . $_GET['rateDown']);
-	exit();
-}
-
 if($_GET['viewObscene']){
 	if($_COOKIE['obscene'] == false || !$_COOKIE['obscene']){
 		setcookie('obscene', true, time() + (60 * 60 * 24));

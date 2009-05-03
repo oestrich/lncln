@@ -62,7 +62,48 @@ class Ratings implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
+		$rating = $this->lncln->users->permissions['ratingsValue'];
 		
+		if($data[1] == "down")
+			$rating = $rating * -1;
+		
+		$sql = "SELECT upDown FROM rating WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
+		$result = mysql_query($sql);
+		$numRows = mysql_num_rows($result);
+		
+		if($numRows > 0){
+			$row = mysql_fetch_assoc($result);
+		}
+		
+		if($numRows == 1 && $row['upDown'] == $rating){
+			return "You already rated it";
+		}
+		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
+			if(isset($row['upDown']) && $row['upDown'] != $rating){
+				$sql = "DELETE FROM rating WHERE picID = " . $id . " AND userID = " . $this->user->userID;
+			}
+			else{
+				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $id . ", " . $this->user->userID . ", " . $rating . ")";
+			}
+			
+			mysql_query($sql);
+			
+			$sql = "SELECT SUM(upDown) FROM rating WHERE picId = " . $id;
+			$result = mysql_query($sql);
+			$row = mysql_fetch_assoc($result);
+			
+			if($row['SUM(upDown)'] == null){
+				$row['SUM(upDown)'] = 0;
+			}
+			
+			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $id . " LIMIT 1";
+			mysql_query($sql);
+			
+			return "Rated successfully";
+		}
+		elseif($numRows > 0){
+			return "You already rated it";
+		}
 	}
 	
 	/**
