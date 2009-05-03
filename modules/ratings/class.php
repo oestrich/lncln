@@ -104,7 +104,7 @@ class Ratings implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon($id){
+	public function icon($id, $action){
 		if($this->lncln->user->permissions['rate'] == 1):
 			$output = "
 			<a href='$action&amp;rateUp=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>

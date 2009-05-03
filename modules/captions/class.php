@@ -108,7 +108,7 @@ class Captions implements Module{
 	 * @since 0.13.0
 	 * @package lncln
 	 */
-	public function icon($id){
+	public function icon($id, $action){
 		return "";
 	}
 	
