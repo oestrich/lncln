@@ -73,7 +73,7 @@ foreach ($lncln->images as $image){
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 	<?endif;?>
 	<?foreach($lncln->modules as $module){
-		echo $module->icon($image['id']);
+		echo $module->icon($image['id'], $action);
 	}?>
 	<?if($lncln->user->permissions['obscene'] == 1):?>
 			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
