@@ -62,6 +62,9 @@ class Ratings implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
+		if($this->lncln->user->permissions['ratings'] == 0)
+			return "You cannot rate";		
+		
 		$rating = $this->lncln->user->permissions['ratingsValue'];
 		
 		if($data[1] == "down")
