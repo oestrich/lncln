@@ -43,25 +43,20 @@ foreach ($lncln->images as $image){
 		Posted: <?=$date;?> 
 
 		<div class="imageLink" >
-	<?if($image['obscene'] == 1):?>
+<?	if($image['obscene'] == 1):?>
 			This has been voted obscene.<br />
-	<?endif;?>
-
-	<?if(!$_GET['thumb'] && $image['type'] == 'gif'):?>
+<?	endif;?>
+<?	if(!$_GET['thumb'] && $image['type'] == 'gif'):?>
 			This is a gif.<br />
-	<?endif;?>
-
-	<?if($image['postTime'] > time()):?>
+<?	endif;?>
+<?	if($image['postTime'] > time()):?>
 			This is not on the homepage yet.<br />
-	<?endif;?>
-
-	<?if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
+<?	endif;?>
+<?	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
 			<div class="badImage" id="b<?echo $image['id'];?>">
-	<?endif;?>
-	
+<?	endif;?>
 			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
-<?	
-	//don't show caption if in thumbnails
+<?	//don't show underImage() if in thumbnails
 	if(!$_GET['thumb']):
 		/**
 		 * Main part of the script right here 
@@ -69,32 +64,27 @@ foreach ($lncln->images as $image){
 		foreach($lncln->modules as $module){
 			echo $module->underImage($image['id'], $action);
 		}
-?>
-	<?endif;?>
-
-	<?if($_GET['thumb']):?>
-			<br />
-	<?endif;?>
-
-	<?if($lncln->user->permissions['report'] == 1):?>
+		echo "\t\t\t<br />";
+	endif;?>
+<?	if($lncln->user->permissions['report'] == 1):?>
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
-	<?endif;?>
-	<?foreach($lncln->modules as $module){
+<?	endif;?>
+<?	foreach($lncln->modules as $module):
 		echo $module->icon($image['id'], $action);
-	}?>
-	<?if($lncln->user->permissions['obscene'] == 1):?>
+	endforeach;?>
+<?	if($lncln->user->permissions['obscene'] == 1):?>
 			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
-	<?endif;?>
-	<?if($lncln->user->permissions['refresh'] == 1):?>
+<?	endif;?>
+<?	if($lncln->user->permissions['refresh'] == 1):?>
 			<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
-	<?endif;?>
-	<?if($lncln->user->permissions['delete']):?>
+<?	endif;?>
+<?	if($lncln->user->permissions['delete']):?>
 			<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
-	<?endif;?>
+<?	endif;?>
 
-	<?if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
+<?	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
 			</div>
-	<?endif;?>
+<?	endif;?>
 
 		</div>
 	</div>
