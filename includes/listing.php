@@ -81,11 +81,9 @@ foreach ($lncln->images as $image){
 <?	if($lncln->user->permissions['delete']):?>
 			<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?	endif;?>
-
 <?	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
 			</div>
 <?	endif;?>
-
 		</div>
 	</div>
 	<br />
