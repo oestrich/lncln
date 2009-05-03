@@ -17,6 +17,8 @@ SQL commands:
  
  RENAME TABLE `rating`  TO `ratings` ;
  
+ ALTER TABLE `ratings` CHANGE `upDown` `rating` INT( 1 ) NOT NULL;
+ 
  ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
 	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
 

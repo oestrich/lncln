@@ -67,7 +67,7 @@ class Ratings implements Module{
 		if($data[1] == "down")
 			$rating = $rating * -1;
 		
-		$sql = "SELECT upDown FROM rating WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
+		$sql = "SELECT rating FROM rating WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
 		
@@ -75,28 +75,28 @@ class Ratings implements Module{
 			$row = mysql_fetch_assoc($result);
 		}
 		
-		if($numRows == 1 && $row['upDown'] == $rating){
+		if($numRows == 1 && $row['rating'] == $rating){
 			return "You already rated it";
 		}
 		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
-			if(isset($row['upDown']) && $row['upDown'] != $rating){
-				$sql = "DELETE FROM rating WHERE picID = " . $id . " AND userID = " . $this->user->userID;
+			if(isset($row['rating']) && $row['rating'] != $rating){
+				$sql = "DELETE FROM rating WHERE picID = " . $id . " AND userID = " . $this->lncln->user->userID;
 			}
 			else{
-				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $id . ", " . $this->user->userID . ", " . $rating . ")";
+				$sql = "INSERT INTO rating (picID, userId, rating) VALUES (" . $id . ", " . $this->lncln->user->userID . ", " . $rating . ")";
 			}
 			
 			mysql_query($sql);
 			
-			$sql = "SELECT SUM(upDown) FROM rating WHERE picId = " . $id;
+			$sql = "SELECT SUM(rating) FROM rating WHERE picId = " . $id;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
-			if($row['SUM(upDown)'] == null){
-				$row['SUM(upDown)'] = 0;
+			if($row['SUM(rating)'] == null){
+				$row['SUM(rating)'] = 0;
 			}
 			
-			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $id . " LIMIT 1";
+			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id . " LIMIT 1";
 			mysql_query($sql);
 			
 			return "Rated successfully";
@@ -148,8 +148,8 @@ class Ratings implements Module{
 	public function icon($id, $action){
 		if($this->lncln->user->permissions['ratings'] == 1):
 			$output = "
-			<a href='$action&amp;action=rate&amp;subAction=up&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
-			<a href='$action&amp;action=rate&amp;subAction=down&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>";
+			<a href='$action&amp;action=ratings&amp;subAction=up&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
+			<a href='$action&amp;action=ratings&amp;subAction=down&amp;id=$id'><img src='" .URL ."theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>";
 		endif;
 		
 		return $output;
