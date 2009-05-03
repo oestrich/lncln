@@ -89,7 +89,7 @@ class Captions implements Module{
 	 * @param $id int Image to gather information about and populate the input
 	 */
 	public function moderate($id){
-		return array("type" => "textarea", "name" => "captions", "value" => $this->getCaption($id));
+		return array("type" => "textarea", "name" => "captions", "value" => $this->getCaption($id, false));
 	}
 	
 	/**
