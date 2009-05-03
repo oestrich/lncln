@@ -62,7 +62,7 @@ class Ratings implements Module{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
-		$rating = $this->lncln->users->permissions['ratingsValue'];
+		$rating = $this->lncln->user->permissions['ratingsValue'];
 		
 		if($data[1] == "down")
 			$rating = $rating * -1;
