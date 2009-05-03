@@ -68,23 +68,6 @@ function showModule(module, divid){
 	document.getElementById(module.toLowerCase() + divid).style.display = 'none';
 }
 
-function caption(divid){
-	document.getElementById('c' + divid).style.display = 'block';
-	document.getElementById('formCaption' + divid).focus();
-	document.getElementById('caption' + divid).style.display = 'none';
-}
-
-function tag(divid){
-	document.getElementById('t' + divid).style.display = 'block';
-	document.getElementById('formTag' + divid).focus();
-	document.getElementById('tag' + divid).style.display = 'none';
-}
-
-function album(divid){
-	document.getElementById('a' + divid).style.display = 'block';
-	document.getElementById('album' + divid).style.display = 'none';
-}
-
 function news(){
 	var actualNews = document.getElementById('actualNews');
 	if(actualNews.style.display == "block"){

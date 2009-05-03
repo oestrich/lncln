@@ -193,8 +193,7 @@ class Tags implements Module{
 			if($tags == "None.")
 				$tags = "";
 		
-			$output .= "
-			<form id='t$id' style='display: none;' action='$action&amp;action=tags' method='post'>
+			$output .= "\t\t\t<form id='t$id' style='display: none;' action='$action&amp;action=tags' method='post'>
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					Split tags with a ','.<br />
