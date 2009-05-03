@@ -102,7 +102,11 @@ class Ratings implements Module{
 				$row['SUM(rating)'] = 0;
 			}
 			
-			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id . " LIMIT 1";
+			if($row['SUM(rating)'] < -10){
+				$small = ", small = 1 ";
+			}
+			
+			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . $small . " WHERE id = " . $id . " LIMIT 1";
 			mysql_query($sql);
 			
 			return "Rated successfully";

@@ -315,7 +315,7 @@ class lncln{
 	function img(){		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
-		$sql = "SELECT id, caption, postTime, type, obscene, rating FROM images WHERE ";
+		$sql = "SELECT id, caption, postTime, type, obscene, small FROM images WHERE ";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
@@ -339,6 +339,7 @@ class lncln{
 				'obscene' 	=> $image['obscene'],
 				'postTime'	=> $image['postTime'],
 				'caption'	=> $image['caption'],
+				'small'		=> $image['small'],
 				);
 		}
 		
