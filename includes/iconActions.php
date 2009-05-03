@@ -71,8 +71,8 @@ foreach($lncln->modules as $module){
 		
 		$module->edit($id, array($_POST[$_GET['action']], $_GET['subAction']));
 		
-		if($_GET['module'] != "")
-			$scriptLocation .= "&module=" . strtolower($module->name);
+		if($lncln->module != "")
+			$scriptLocation .= "&module=" . strtolower($lncln->module);
 		if($lncln->scriptExtra != "")
 			$scriptLocation .= "&" . $lncln->scriptExtra;
 		
