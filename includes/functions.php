@@ -583,63 +583,6 @@ class lncln{
 		
 		return "Updated image";
 	}
-	
-	/**
-	 * Rates an image.  Adds the user to a table named rating with
-	 * their up or down.
-	 * 
-	 * @todo Need to come back and escape $image, $user, and $rating.
-	 * 
-	 * @since 0.5.0
-	 * @package lncln
-	 * 
-	 * @todo Delete record if they already voted.
-	 * 
-	 * @param int $image The image to be changed
-	 * @param int $user The user that is doing the rating
-	 * @param int $rating The rating, could be -1, 1, -5, or 5
-	 * 
-	 * @return string Whether rating went swell or not
-	 */
-	function rate($image, $rating){
-		$sql = "SELECT upDown FROM rating WHERE picId = " . $image . " AND userId = " . $this->user->userID;
-		$result = mysql_query($sql);
-		$numRows = mysql_num_rows($result);
-		
-		if($numRows > 0){
-			$row = mysql_fetch_assoc($result);
-		}
-		
-		if($numRows == 1 && $row['upDown'] == $rating){
-			return "You already rated it";
-		}
-		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
-			if(isset($row['upDown']) && $row['upDown'] != $rating){
-				$sql = "DELETE FROM rating WHERE picID = " . $image . " AND userID = " . $this->user->userID;
-			}
-			else{
-				$sql = "INSERT INTO rating (picID, userId, upDown) VALUES (" . $image . ", " . $this->user->userID . ", " . $rating . ")";
-			}
-			
-			mysql_query($sql);
-			
-			$sql = "SELECT SUM(upDown) FROM rating WHERE picId = " . $image;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			if($row['SUM(upDown)'] == null){
-				$row['SUM(upDown)'] = 0;
-			}
-			
-			$sql = "UPDATE images SET rating = " . $row['SUM(upDown)'] . " WHERE id = " . $image . " LIMIT 1";
-			mysql_query($sql);
-			
-			return "Rated successfully";
-		}
-		elseif($numRows > 0){
-			return "You already rated it";
-		}
-	}
 
 	/**
 	 * Debug function to print out the private variables;

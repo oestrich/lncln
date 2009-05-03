@@ -65,6 +65,9 @@ class Ratings implements Module{
 		if($this->lncln->user->permissions['ratings'] == 0)
 			return "You cannot rate";		
 		
+		if($data[1] != "down" && $data[1] != "up")
+			return "No need to rate now";
+		
 		$rating = $this->lncln->user->permissions['ratingsValue'];
 		
 		if($data[1] == "down")
