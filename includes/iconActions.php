@@ -70,6 +70,12 @@ foreach($lncln->modules as $module){
 			$id = $_POST['id'];
 		
 		$module->edit($id, array($_POST[$_GET['action']], $_GET['subAction']));
+		
+		if($_GET['module'] != "")
+			$scriptLocation .= "module=" . strtolower($module->name);
+		if($lncln->scriptExtra != "")
+			$scriptLocation .= "&" . $lncln->scriptExtra;
+		
 		header("location:" . $scriptLocation . "#" . $_POST['id']);
 		exit();
 	}
