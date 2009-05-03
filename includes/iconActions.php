@@ -78,7 +78,7 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 
 foreach($lncln->modules as $module){
 	if($_GET['action'] == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
-		$module->edit($_POST['id'], array($_POST[$_GET['action']]));
+		$module->edit($_POST['id'], array($_POST[$_GET['action']], $_GET['subAction']));
 		header("location:" . $scriptLocation . "#" . $_POST['id']);
 		exit();
 	}
