@@ -67,7 +67,7 @@ class Ratings implements Module{
 		if($data[1] == "down")
 			$rating = $rating * -1;
 		
-		$sql = "SELECT rating FROM rating WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
+		$sql = "SELECT rating FROM ratings WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
 		$result = mysql_query($sql);
 		$numRows = mysql_num_rows($result);
 		
@@ -80,15 +80,15 @@ class Ratings implements Module{
 		}
 		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
 			if(isset($row['rating']) && $row['rating'] != $rating){
-				$sql = "DELETE FROM rating WHERE picID = " . $id . " AND userID = " . $this->lncln->user->userID;
+				$sql = "DELETE FROM ratings WHERE picID = " . $id . " AND userID = " . $this->lncln->user->userID;
 			}
 			else{
-				$sql = "INSERT INTO rating (picID, userId, rating) VALUES (" . $id . ", " . $this->lncln->user->userID . ", " . $rating . ")";
+				$sql = "INSERT INTO ratings (picID, userId, rating) VALUES (" . $id . ", " . $this->lncln->user->userID . ", " . $rating . ")";
 			}
 			
 			mysql_query($sql);
 			
-			$sql = "SELECT SUM(rating) FROM rating WHERE picId = " . $id;
+			$sql = "SELECT SUM(rating) FROM ratings WHERE picId = " . $id;
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
