@@ -44,9 +44,8 @@ foreach($lncln->images as $image){
 		<?foreach($lncln->modules as $module):
 			$output = $module->rss($image['id']);
 			if($output != "")
-				echo $output . "\n\t\t\t<br/>";
-			?>
-		<?endforeach;?>
+				echo "\n\t\t\t" . $output . "\n\t\t\t<br/>";
+		endforeach;?>
 		]]>
 		</description>
 	</item>
