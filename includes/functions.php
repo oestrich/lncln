@@ -209,7 +209,7 @@ class lncln{
 	 * @param array $rss First term is the type of rss feed (all/safe)
 	 */
 	function rss($rss){
-		$safe = $rss[0] == "safe" ? " AND obscene = 0" : "";
+		$safe = $rss[0] != "all" ? " AND obscene = 0" : "";
 		
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
 		$result = mysql_query($sql);
