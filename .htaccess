@@ -1,4 +1,5 @@
 #$Id$
  
 RewriteEngine On 
-RewriteRule ^page/([0-9]+)$ /index.php?page=$1
+RewriteRule ^page/([0-9]+)$ index.php?page=$1
+RewriteRule ^rss/([a-zA-Z]+)$ rss.php?action=$1
