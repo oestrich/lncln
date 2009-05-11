@@ -32,10 +32,6 @@ $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/safe.rss", "", 
 
 <?
 foreach($lncln->images as $image){
-	$tags = join(', ', $image['tags']);
-	if($tags == ""){
-		$tags = "None.";
-	}
 ?>
 	<item>
 		<title><?echo $image['id'];?></title>
