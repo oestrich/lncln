@@ -41,9 +41,11 @@ foreach($lncln->images as $image){
 		<description>
 		<![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
 		<a href="<?echo $server;?>images/full/<?echo $image['id'] . "." . $image['type']?>" />Larger</a><br />
-		<?foreach($lncln->modules as $module):		
-			echo $module->rss($image['id']);?>
-			<br />
+		<?foreach($lncln->modules as $module):
+			$output = $module->rss($image['id']);
+			if($output != "")
+				echo $output . "\n\t\t\t<br/>";
+			?>
 		<?endforeach;?>
 		]]>
 		</description>
