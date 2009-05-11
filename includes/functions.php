@@ -637,7 +637,7 @@ class lncln{
 	}
 	
 	function getImagePath($id, $size = "full"){
-		if(!is_numeric($id))
+		if(!is_numeric((int)$id))
 			return "";
 		
 		$sql = "SELECT type FROM images WHERE id = " . $id . " LIMIT 1";
