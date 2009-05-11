@@ -635,6 +635,23 @@ class lncln{
 		
 		return $row;
 	}
+	
+	function getImagePath($id, $size = "full"){
+		if(!is_numeric($id))
+			return "";
+		
+		$sql = "SELECT type FROM images WHERE id = " . $id . "LIMIT 1";
+		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) == 1){
+			$row = mysql_fetch_assoc($result);
+			$type = $row['type'];
+			
+			return "http://" . SERVER . URL ."images/$size/$id.$type";
+		}
+		
+		return "";
+	}
 }
 
 /**

@@ -34,6 +34,7 @@ define("CURRENT_IMG_TEMP_DIRECTORY", ABSPATH . "images/temp/");
 
 //Include trailing slash in URL
 define("URL", "/");
+//Include your domain name, no slashes
 define("SERVER", "");
 
 ?>
