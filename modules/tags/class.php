@@ -207,6 +207,16 @@ class Tags implements Module{
 	}
 	
 	/**
+	 * Pushes content out via the RSS feed
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function rss($id){
+		return "Tags: " . $this->getTags($id, true);
+	}
+	
+	/**
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
 	 */

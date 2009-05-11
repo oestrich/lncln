@@ -189,6 +189,16 @@ class Albums implements Module{
 	}
 	
 	/**
+	 * Pushes content out via the RSS feed
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function rss($id){
+		return "";
+	}
+	
+	/**
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
 	 */
@@ -300,7 +310,7 @@ class Albums implements Module{
 	 * 
 	 * @return array All of the albums in their own arrays, with 'id' and 'name'
 	 */
-	function getAlbums($noAlbum = true){
+	private function getAlbums($noAlbum = true){
 		$sql = "SELECT id, name FROM albums WHERE 1";
 		$result = mysql_query($sql);
 		

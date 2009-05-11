@@ -110,5 +110,13 @@ interface Module{
 	 * @package lncln
 	 */
 	public function underImage($id, $action);
+	
+	/**
+	 * Pushes content out via the RSS feed
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
+	public function rss($id);
 }
 ?>

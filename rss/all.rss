@@ -32,21 +32,21 @@ $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/all.rss", "", $
 
 <?
 foreach($lncln->images as $image){
-	$tags = join(', ', $image['tags']);
-	if($tags == ""){
-		$tags = "None.";
-	}
 ?>
 	<item>
 		<title><?echo $image['id'];?></title>
 		<link><?echo $server;?>image.php?img=<?echo $image['id'];?></link>
 		<guid><?echo $server;?>image.php?img=<?echo $image['id'];?></guid>
 		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
-		<description><![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
+		<description>
+		<![CDATA[ <img src="<?echo $server;?>images/index/<?echo $image['id'] . "." . $image['type']?>" alt="<?echo $image['id'];?>"/> <br />
 		<a href="<?echo $server;?>images/full/<?echo $image['id'] . "." . $image['type']?>" />Larger</a><br />
-		<?echo $image['caption'];?><br />
-		Tags: <?echo $tags;?>
-		]]></description>
+		<?foreach($lncln->modules as $module):		
+			echo $module->rss($image['id']);?>
+			<br />
+		<?endforeach;?>
+		]]>
+		</description>
 	</item>
 <?
 }
