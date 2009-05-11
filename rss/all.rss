@@ -39,8 +39,8 @@ foreach($lncln->images as $image){
 		<guid><?echo $server;?>image.php?img=<?echo $image['id'];?></guid>
 		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
 		<description>
-		<![CDATA[ <img src="<?$lncln->getImagePath($image['id'], "index");?>" alt="<?echo $image['id'];?>"/> <br />
-		<a href=<?$lncln->getImagePath($image['id'], "full");?>" />Larger</a><br />
+		<![CDATA[ <img src="<?=$lncln->getImagePath($image['id'], "index");?>" alt="<?echo $image['id'];?>"/> <br />
+		<a href="<?=$lncln->getImagePath($image['id'], "full");?>" />Larger</a><br />
 		<?foreach($lncln->modules as $module):
 			$output = $module->rss($image['id']);
 			if($output != "")
