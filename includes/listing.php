@@ -27,7 +27,7 @@ foreach ($lncln->images as $image){
 		$link = URL . "image/" . $image['id'];
 	}
 	
-	$date = $_GET['thumb'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
+	$date = $_SESSION['thumbnail'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
 ?>
 
 	<div class="<?echo $lncln->type;?>">
@@ -52,7 +52,7 @@ foreach ($lncln->images as $image){
 <?	endif;?>
 			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
 <?	//don't show underImage() if in thumbnails
-	if(!$_GET['thumb']):
+	if(!$_SESSION['thumbnail']):
 		/**
 		 * Main part of the script right here 
 		 */
