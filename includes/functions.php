@@ -402,17 +402,21 @@ class lncln{
 	function prevNext($bottom = false){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
-		$script = $this->script;
-		$script .= $this->module != "" ? "?module=" . $this->module . "&" : "?";
-		$script .= $this->scriptExtra != "" ? $this->scriptExtra . "&" : "";
+		$script = URL . $this->module . "/";
+
+		$tempParams = $this->params;
+		array_pop($tempParams); // Remove page
+		$tempParams = join($tempParams, "/");
+		
+		if(substr($tempParams, -1) != "/")
+			$tempParams .= "/";
+		
+		$script .= $tempParams;
 		
 		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
 		
-		$tempParams = $this->params;
-		array_pop($tempParams); // Remove page
-		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . URL . $this->module . "/" . join($tempParams, "/") . "/" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page + 1) . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
