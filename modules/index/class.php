@@ -30,7 +30,7 @@ class Index implements Module{
 	 * @since 0.13.0
 	 */
 	public function index(){
-		$this->index();
+		$this->prepareIndex();
 
 		$lncln->img();
 		
@@ -149,7 +149,7 @@ class Index implements Module{
 	 * The function that makes the index go round
 	 * @since 0.9.0
 	 */
-	function index(){
+	private function prepareIndex(){
 		$this->lncln->moderationOn = true;
 		$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 		
