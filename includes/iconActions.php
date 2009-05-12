@@ -65,7 +65,7 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 }
 
 foreach($lncln->modules as $module){
-	if($lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
+	if($lncln->action == true && $lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
 		if(!isset($_POST['id']) || $_POST['id'] == "")
 			$id = end($lncln->params);
 		else

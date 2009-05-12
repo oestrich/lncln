@@ -43,6 +43,8 @@ class lncln{
 	public $module;				//Currently used module ex. ?module=tags 
 	public $params = array();
 	
+	public $action = false; //bool
+	
 	/**
 	 * Gets the class ready for action!
 	 * 
@@ -65,6 +67,8 @@ class lncln{
 		if(isset($_GET['module']) && $_GET['module'] != ""){
 			if($_GET['module'] == "action"){				
 				$this->module = array_shift($this->params);
+				
+				$this->action = true;
 			}
 			else{			
 				$this->module = $_GET['module'];
