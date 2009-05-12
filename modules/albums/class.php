@@ -232,13 +232,15 @@ class Albums implements Module{
 				$row = mysql_fetch_assoc($result);
 				
 				$this->lncln->maxPage = ceil($row['COUNT(id)'] / $this->lncln->display->settings['perpage']);
+				
+				$page = (int)end($this->lncln->params);
 
-				if(!isset(end($this->lncln->params))){
+				if(!isset($page)){
 					$this->lncln->page = 1;
 				}
 				else{
-					if(is_numeric((int)end($this->lncln->params))){
-						$this->lncln->page = (int)end($this->lncln->params);	
+					if(is_numeric($page)){
+						$this->lncln->page = $page;	
 					}
 					else{
 						$this->lncln->page = 1;
