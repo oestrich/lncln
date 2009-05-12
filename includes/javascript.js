@@ -61,7 +61,7 @@ function toggleDiv(type){
 
 function badImage(divid){
 	document.getElementById('b' + divid).style.display = 'block';
-	document.getElementById('l' + divid).href = URL + "image.php?img=" + divid;
+	document.getElementById('l' + divid).href = URL + "image/" + divid;
 }
 
 function showModule(module, divid){

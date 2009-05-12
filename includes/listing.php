@@ -19,17 +19,12 @@ if($lncln->page == 0 && $lncln->maxPage == 0){
 
 $action = $lncln->script == "image.php" ? URL . $lncln->script . "?img=" . $lncln->page . $lncln->extra : URL . $lncln->script . "?page=" . $lncln->page . $lncln->extra;
 
-if($lncln->module != "")
-	$action .= "&module=" . $lncln->module;
-if($lncln->scriptExtra != "")
-	$action .= "&" . $lncln->scriptExtra;
-
 foreach ($lncln->images as $image){
 	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1){
 		$link = "javascript:badImage('" . $image['id'] . "');";
 	}
 	else{
-		$link = URL . "image.php?img=" . $image['id'];
+		$link = URL . "image/" . $image['id'];
 	}
 	
 	$date = $_GET['thumb'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
