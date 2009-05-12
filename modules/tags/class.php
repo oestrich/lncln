@@ -228,9 +228,9 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	function search(){
-		$this->search = prepareSQL($this->removePluses($this->lncln->param[0]));
+		$search = prepareSQL($this->removePluses($this->lncln->param[0]));
 		
-		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $search . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
@@ -238,7 +238,7 @@ class Tags implements Module{
 			$this->page = 0;
 		}
 		else{		
-			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
+			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $search . "%'";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
