@@ -5,10 +5,8 @@
  * Easily moderate many images at a time.  Bulk editing has never been easier!
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
 
 require_once("../load.php");

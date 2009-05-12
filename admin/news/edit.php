@@ -5,10 +5,8 @@
  * Let's an admin edit a news item
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */
 
 if(!isset($_GET['news'])){

@@ -5,18 +5,14 @@
  * Main class for the user admin module
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
  
 class UsersAdmin extends lncln{
 	/**
 	 * Adds a user to the site.
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param array $user Contains the users information, username, password, if they're an admin
 	 * 
@@ -54,9 +50,7 @@ class UsersAdmin extends lncln{
 	
 	/**
 	 * Changes the user's information and permissions
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $info array Contains the users information
 	 */
@@ -90,9 +84,7 @@ class UsersAdmin extends lncln{
 	/**
 	 * Deletes the user associated to the id
 	 * No going back after you call this
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $id int User id to be deleted
 	 */
@@ -111,9 +103,7 @@ class UsersAdmin extends lncln{
 		
 	/**
 	 * Return all users currently in the system
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @return array Contains all users. Keys: id, name
 	 */
@@ -132,9 +122,9 @@ class UsersAdmin extends lncln{
 	
 	/**
 	 * Returns all information regarding on user
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
+	 * 
+	 * @param $id int User ID
 	 * 
 	 * @return array Information on user. Keys: id, name
 	 */
@@ -150,9 +140,9 @@ class UsersAdmin extends lncln{
 	
 	/**
 	 * Lists groups in a select style.
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
+	 * 
+	 * @param $id int Group ID
 	 * 
 	 * @return string Contains a select for all groups
 	 */

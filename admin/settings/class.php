@@ -5,19 +5,15 @@
  * Main class for the settings admin module
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
  
 class Settings extends lncln{
 	
 	/**
 	 * Changes a setting only if it really exists
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $name string Config name
 	 * @param $value string Config value
@@ -33,9 +29,7 @@ class Settings extends lncln{
 	
 	/**
 	 * Lists themes installed
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @return string Select of themes
 	 */
@@ -55,9 +49,7 @@ class Settings extends lncln{
 	
 	/**
 	 * Lists groups in a select style.
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @return string Contains a select for all groups
 	 */
@@ -86,9 +78,7 @@ class Settings extends lncln{
 	
 	/**
 	 * Make a select field for editing, auto select the right option
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @param $name String name of select
 	 * @param $option bool Which one to select

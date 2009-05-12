@@ -2,13 +2,11 @@
 /**
  * class.php
  * 
- * Contains the interface for modules
+ * Albums module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */
 
 class Albums implements Module{
@@ -18,9 +16,7 @@ class Albums implements Module{
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $lncln lncln Main class variable
 	 */
@@ -31,9 +27,7 @@ class Albums implements Module{
 	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 */
 	public function index(){
 		$this->album();
@@ -66,9 +60,7 @@ class Albums implements Module{
 	
 	/**
 	 * Called after a successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
@@ -79,9 +71,7 @@ class Albums implements Module{
 	
 	/**
 	 * Edits an image with the data provided
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
@@ -97,9 +87,9 @@ class Albums implements Module{
 	/**
 	 * Called during the upload screen. Contains the form information needed,
 	 * will be passed to add() after successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 *
+	 * @return array Keys: type, name, value, options
 	 */
 	public function upload(){
 		return array("type" => "select", "name" => "albums", "value" => "", "options" => $this->getAlbums());
@@ -107,11 +97,11 @@ class Albums implements Module{
 	
 	/**
 	 * Creates the form information needed during moderation
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int Image to gather information about and populate the input
+	 *
+	 * @return array Keys: type, name, value, options
 	 */
 	public function moderate($id){
 		return array("type" => "select", "name" => "albums", "value" => $this->getImageAlbum($id), "options" => $this->getAlbums());
@@ -119,9 +109,9 @@ class Albums implements Module{
 	
 	/**
 	 * Creates the link in the header
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 *
+	 * @return string Link or form
 	 */
 	public function headerLink(){
 		return "\t\t\t\t\t<a href='" . URL . "albums/'>Albums</a>\n";
@@ -129,9 +119,12 @@ class Albums implements Module{
 	
 	/**
 	 * Creates the icon underneath images
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the icon
+	 * 
+	 * @return string Icon underneath the image
 	 */
 	public function icon($id, $action){
 		return "";
@@ -139,9 +132,12 @@ class Albums implements Module{
 	
 	/**
 	 * Creates text above the image.  Text only
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text above the image
 	 */
 	public function aboveImage($id, $action){
 		return "";
@@ -149,9 +145,12 @@ class Albums implements Module{
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text underneath the image
 	 */
 	public function underImage($id, $action){
 		if($this->lncln->user->permissions['albums'] == 1){
@@ -190,9 +189,11 @@ class Albums implements Module{
 	
 	/**
 	 * Pushes content out via the RSS feed
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return string Output for the RSS feed
 	 */
 	public function rss($id){
 		return "";
@@ -205,9 +206,7 @@ class Albums implements Module{
 	
 	/**
 	 * Function for loading albums
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 */
 	function album(){	
 		$album = prepareSQL($this->lncln->params[0]);
@@ -259,9 +258,7 @@ class Albums implements Module{
 	
 	/**
 	 * Get an album name based on an image
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int Image ID
 	 * 
@@ -281,9 +278,7 @@ class Albums implements Module{
 	
 	/**
 	 * Returns the name of an album
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int Album id
 	 * 
@@ -307,9 +302,7 @@ class Albums implements Module{
 	
 	/**
 	 * Return the id of an album based off of it's name
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $name String Album name
 	 * 
@@ -330,9 +323,7 @@ class Albums implements Module{
 	
 	/**
 	 * Returns all of the albums currently in the database
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 * 
 	 * @param $noAlbum bool Include "No Album" in list
 	 * 

@@ -7,10 +7,8 @@
  * Another very important page.
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */
 
 if($lncln->page == 0 && $lncln->maxPage == 0){

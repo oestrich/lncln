@@ -6,17 +6,14 @@
  * Contains the main class lncln, as well as other functions
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0  $Id$
+ * @version 0.13.0  $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */
  
 /**
  * The main class for lncln.  Shall handle most features.  
  * 
  * @since 0.6.0
- * @package lncln
  * 
  * @param string $action The action you wish to perform
  * @param array $params The parameters to be sent to the action
@@ -47,9 +44,7 @@ class lncln{
 	
 	/**
 	 * Gets the class ready for action!
-	 * 
 	 * @since 0.6.0
-	 * @package lncln
 	 * 
 	 * @param string $action Which type of page is being loaded
 	 * @param array $params any extra parameters that will be passed onto the action
@@ -88,9 +83,7 @@ class lncln{
 	
 	/**
 	 * Loads parameters set by the URL
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 */
 	function loadParams(){
 		$q = $_GET['q'];
@@ -104,6 +97,11 @@ class lncln{
 		}
 	}
 	
+	/**
+	 * Loads enabled modules
+	 * @todo make modules configurable by the admin panel
+	 * @since 0.13.0
+	 */
 	function loadModules(){
 		//Key is folder, value is class name
 		$this->modules = array("captions" => "Captions", "tags" => "Tags", "albums" => "Albums", "ratings" => "Ratings");
@@ -122,9 +120,7 @@ class lncln{
 	
 	/**
 	 * The function that makes the index go round
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 */
 	function index(){
 		$this->moderationOn = true;
@@ -175,9 +171,7 @@ class lncln{
 	
 	/**
 	 * Function that makes image.php go round
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 */
 	function image(){
 		if(isset($_GET['image']) && is_numeric($_GET['image'])){
@@ -199,9 +193,7 @@ class lncln{
 	
 	/**
 	 * Function for loading the queue
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 */
 	function queue(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
@@ -246,9 +238,7 @@ class lncln{
 	
 	/**
 	 * Gets data ready for the rss feed
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 * 
 	 * @param array $rss First term is the type of rss feed (all/safe)
 	 */
@@ -271,9 +261,7 @@ class lncln{
 	
 	/**
 	 * Limits the availability of certain variables
-	 * 
 	 * @since 0.6.0
-	 * @package lncln
 	 * 
 	 * @param mixed $variable The variable to be returned
 	 * 
@@ -293,9 +281,7 @@ class lncln{
 	 * 
 	 * Should really make it so that if ImageMagick isn't installed
 	 * it doesn't die.
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param string $img String containing the filename of the image
 	 */
@@ -350,11 +336,8 @@ class lncln{
 
 	/**
 	 * Creates the data required for listImages.php
-	 * 
 	 * @todo possibly rename to getData()
-	 * 
 	 * @since 0.5.0
-	 * @package lncln 
 	 */
 	function img(){		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
@@ -396,9 +379,7 @@ class lncln{
 
 	/**
 	 * Creates the Prev Next links on the page
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param $bottom bool If it's a bottom link
 	 * 
@@ -442,9 +423,7 @@ class lncln{
 	/**
 	 * The first part of uploading, moves the image to a temporary spot
 	 * This allows for taging, captions, etc
-	 * 
 	 * @since 0.10.0
-	 * @package lncln
 	 */
 	function tempUpload(){
 	 	$_SESSION['uploaded'] = true;
@@ -502,9 +481,7 @@ class lncln{
 	/**
 	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
 	 * direct input.
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 */
 	function upload($name, $data){
 		if($data['tags'] == ""){
@@ -555,9 +532,7 @@ class lncln{
 	
 	/**
 	 * Removes an image from the queue
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
@@ -571,9 +546,7 @@ class lncln{
 	/**
 	 * Removes an image.  First deletes the image from sql and then unlinks
 	 * the image itself and then the two thumbnails
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param int $image The image to be deleted
 	 * 
@@ -602,9 +575,7 @@ class lncln{
 	
 	/**
 	 * Obscenes images.  Just flips the images obscene number
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param int $image The image to be changed
 	 * 
@@ -635,9 +606,7 @@ class lncln{
 
 	/**
 	 * Debug function to print out the private variables;
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 */
 	function debug(){		
 		echo "script: " . $this->script . "\n";
@@ -656,9 +625,7 @@ class lncln{
 	
 	/**
 	 * Increase the view count of an image
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @param $image int Id of image
 	 */
@@ -671,9 +638,7 @@ class lncln{
 		
 	/**
 	 * Returns the latest news
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @return string The Latest news
 	 */
@@ -685,6 +650,10 @@ class lncln{
 		return $row;
 	}
 	
+	/**
+	 * Return the full path of an image
+	 * @since 0.13.0
+	 */
 	function getImagePath($id, $size = "full"){
 		if(!is_numeric((int)$id))
 			return "";
@@ -708,7 +677,6 @@ class lncln{
  * Contains all the information regarding a user
  * 
  * @since 0.10.0
- * @package lncln
  */
 class User{
 	public $username;  //String, username
@@ -722,9 +690,7 @@ class User{
 	/**
 	 * Sets up the permissions array, checks if user is logged in, etc
 	 * Starts with default values, and then fills in where appropriate
-	 * 
 	 * @since 0.10.0
-	 * @package lncln
 	 */
 	function __construct(){
 		$this->loggedIn();
@@ -748,9 +714,7 @@ class User{
 	
 	/**
 	 * Loads user permissions
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 */
 	function loadPermissions(){
 		$sql = "SELECT * FROM groups WHERE id = " . $this->group . " LIMIT 1";
@@ -768,9 +732,7 @@ class User{
 	/**
 	 * Checks to see if a user is logged in
 	 * Moved from lncln as of 0.10.0
-	 * 
 	 * @since 0.10.0
-	 * @package lncln
 	 * 
 	 * @todo Move to a session based system as well, not just relying on cookies
 	 */
@@ -806,9 +768,7 @@ class User{
 	
 	/**
 	 * Checks if a user can upload straight to the homepage
-	 * 
 	 * @since 0.10.0
-	 * @package lncln
 	 * 
 	 * @param bool $new If a user uploaded a new image, defaults to 0
 	 */
@@ -849,9 +809,7 @@ class User{
 	/**
 	 * Updates a user's information.
 	 * Moved from lncln main class
-	 * 
 	 * @since 0.5.0
-	 * @package lncln
 	 * 
 	 * @param array $user Contains the user's updated information
 	 * 
@@ -898,7 +856,6 @@ class User{
  * Display class.  Manages settings
  * 
  * @since 0.11.0
- * @package lncln
  */
 class Display{
 	public $settings = array();
@@ -906,6 +863,10 @@ class Display{
 	
 	public $rows;
 	
+	/**
+	 * Sets up the settings array
+	 * @since 0.11.0
+	 */
 	function __construct(&$lncln){
 		$this->lncln = $lncln;
 		
@@ -922,9 +883,7 @@ class Display{
 	/**
 	 * includes a file from include folder
 	 * So that you can include files that require a $lncln variable from a module
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 */
 	function includeFile($includeFile){
 		$lncln = $this->lncln;
@@ -937,9 +896,7 @@ class Display{
 	 * Show only the message given on the screen.
 	 * Useful for "Please login"  or "Not allowed"
 	 * Exits upon completion
-	 * 
 	 * @since 0.12.0
-	 * @package lnlcn
 	 * 
 	 * @param $msg String Message to be shown
 	 */
@@ -957,9 +914,7 @@ class Display{
 
 /**
  * Connects to the database
- * 
  * @since 0.5.0
- * @package lncln
  * 
  * @param array $config Contains the information needed to connect to the database
  */
@@ -972,9 +927,7 @@ function connect(){
 
 /**
  * Prepares a variable for SQL
- * 
  * @since 0.9.0
- * @package lncln
  * 
  * @param string $var the variable that is being prepared
  * 
@@ -989,9 +942,7 @@ function prepareSQL($var){
 /**
  * Creates a temporary name for uploads, returns a string
  * that is 25 random characters, a-zA-Z0-9
- * 
  * @since 0.10.0
- * @package lncln
  * 
  * @param string $name The name of the file that was uploaded, so it can pull the type
  * 
@@ -1019,9 +970,7 @@ function tempName($name){
 
 /**
  * Creates an input based on type and other values
- * 
  * @since 0.13.0
- * @package lncln
  * 
  * @param $input array Keys: name, type, value
  * @param $id mixed Image that is being edited, id or temporary name

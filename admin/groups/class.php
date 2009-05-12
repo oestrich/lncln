@@ -5,21 +5,19 @@
  * Main class for the group module
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
  
 class GroupAdmin extends lncln{
 
 	/**
 	 * Add a new group
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @param $data array Info needed for a new group
+	 * 
+	 * @return string Message
 	 */
 	function addGroup($data){
 		$data = array_map("prepareSQL", $data);
@@ -51,6 +49,15 @@ class GroupAdmin extends lncln{
 		return "Group " . $name . " added.";
 	}
 	
+	/**
+	 * Edits a group
+	 * @since 0.12.0
+	 * 
+	 * @param $id int Group ID
+	 * @param $data array Info needed for group
+	 * 
+	 * @return string Message
+	 */
 	function editGroup($id, $data){
 		$data = array_map("prepareSQL", $data);
 		
@@ -84,9 +91,7 @@ class GroupAdmin extends lncln{
 	
 	/**
 	 * Get all groups
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @return array Keys: id, name
 	 */
@@ -105,9 +110,7 @@ class GroupAdmin extends lncln{
 	
 	/**
 	 * Return all of the permissions in a group
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @param $id int Group id
 	 * 
@@ -126,12 +129,12 @@ class GroupAdmin extends lncln{
 	
 	/**
 	 * Deletes a group
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
-	 * 
+	 *  
 	 * @param $id int Group to be deleted
 	 * @param $moveTo int Group users will be moved to
+	 * 
+	 * @return string Message
 	 */
 	function deleteGroup($id, $moveTo){
 		if(is_numeric($id) && is_numeric($moveTo)){
@@ -150,9 +153,7 @@ class GroupAdmin extends lncln{
 	
 	/**
 	 * Make a select field for editing, auto select the right option
-	 * 
 	 * @since 0.12.0
-	 * @package lncln
 	 * 
 	 * @param $name String name of select
 	 * @param $option bool Which one to select

@@ -2,13 +2,11 @@
 /**
  * class.php
  * 
- * Contains the interface for modules
+ * Ratings module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */
 
 class Ratings implements Module{
@@ -18,9 +16,7 @@ class Ratings implements Module{
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $lncln lncln Main class variable
 	 */
@@ -31,9 +27,7 @@ class Ratings implements Module{
 	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 */
 	public function index(){
 		$this->lncln->display->message("This module does not have an associated page");
@@ -41,9 +35,7 @@ class Ratings implements Module{
 	
 	/**
 	 * Called after a successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
@@ -54,9 +46,7 @@ class Ratings implements Module{
 	
 	/**
 	 * Edits an image with the data provided
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
@@ -117,9 +107,9 @@ class Ratings implements Module{
 	/**
 	 * Called during the upload screen. Contains the form information needed,
 	 * will be passed to add() after successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 *
+	 * @return array Keys: type, name, value, options
 	 */
 	public function upload(){
 		return "";
@@ -127,11 +117,11 @@ class Ratings implements Module{
 	
 	/**
 	 * Creates the form information needed during moderation
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int Image to gather information about and populate the input
+	 *
+	 * @return array Keys: type, name, value, options
 	 */
 	public function moderate($id){
 		return "";
@@ -139,9 +129,9 @@ class Ratings implements Module{
 	
 	/**
 	 * Creates the link in the header
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 *
+	 * @return string Link or form
 	 */
 	public function headerLink(){
 		return "";
@@ -149,9 +139,12 @@ class Ratings implements Module{
 	
 	/**
 	 * Creates the icon underneath images
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the icon
+	 * 
+	 * @return string Icon underneath the image
 	 */
 	public function icon($id, $action){
 		if($this->lncln->user->permissions['ratings'] == 1):
@@ -164,9 +157,12 @@ class Ratings implements Module{
 	
 	/**
 	 * Creates text above the image.  Text only
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text above the image
 	 */
 	public function aboveImage($id, $action){
 		return "Rating: " . $this->getRating($id);
@@ -174,9 +170,12 @@ class Ratings implements Module{
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text underneath the image
 	 */
 	public function underImage($id, $action){
 		return "";
@@ -184,9 +183,11 @@ class Ratings implements Module{
 	
 	/**
 	 * Pushes content out via the RSS feed
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return string Output for the RSS feed
 	 */
 	public function rss($id){
 		return "";
@@ -198,7 +199,10 @@ class Ratings implements Module{
 	 */
 	
 	/**
+	 * Get the rating for an image
+	 * @since 0.13.0
 	 * 
+	 * @param $id int Image id
 	 */
 	private function getRating($id){
 		if(!is_numeric($id))

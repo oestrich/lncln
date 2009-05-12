@@ -2,7 +2,7 @@
 /**
  * module.php
  * 
- * Contains the interface for modules
+ * Tags module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
@@ -20,9 +20,7 @@ class Tags implements Module{
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $lncln lncln Main class variable
 	 */
@@ -30,6 +28,11 @@ class Tags implements Module{
 		$this->lncln = $lncln;
 	}
 	
+	/**
+	 * Called if the Module has it's own page
+	 * Such as albums or search
+	 * @since 0.13.0
+	 */
 	public function index(){
 		if(isset($_POST['search']) && !isset($_GET['search'])){
 			header("location:" . URL . "tags/" . $this->addPluses($_POST['search']));
@@ -62,9 +65,7 @@ class Tags implements Module{
 	
 	/**
 	 * Called after a successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
@@ -75,9 +76,7 @@ class Tags implements Module{
 	
 	/**
 	 * Edits an image with the data provided
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
@@ -109,9 +108,7 @@ class Tags implements Module{
 	/**
 	 * Called during the upload screen. Contains the form information needed,
 	 * will be passed to add() after successful upload
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @return array Keys: type, name, value
 	 */
@@ -121,9 +118,11 @@ class Tags implements Module{
 	
 	/**
 	 * Creates the form information needed during moderation
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image to gather information about and populate the input
+	 *
+	 * @return array Keys: type, name, value, options
 	 */
 	public function moderate($id){
 		return array("type" => "text", "name" => "tags", "value" => $this->getTags($id, true));
@@ -131,9 +130,7 @@ class Tags implements Module{
 	
 	/**
 	 * Creates the link in the header
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @return string Contains the form to do a search
 	 */
@@ -150,9 +147,12 @@ class Tags implements Module{
 	
 	/**
 	 * Creates the icon underneath images
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the icon
+	 * 
+	 * @return string Icon underneath the image
 	 */
 	public function icon($id, $action){
 		return "";
@@ -160,9 +160,12 @@ class Tags implements Module{
 	
 	/**
 	 * Creates text above the image.  Text only
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text above the image
 	 */
 	public function aboveImage($id, $action){
 		return "";
@@ -170,9 +173,12 @@ class Tags implements Module{
 	
 	/**
 	 * Creates text underneath the image.  May contain a form
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * @param $action array Action for the form
+	 * 
+	 * @return string Text underneath the image
 	 */
 	public function underImage($id, $action){
 		if($this->lncln->user->permissions['tags'] == 1){
@@ -210,9 +216,11 @@ class Tags implements Module{
 	
 	/**
 	 * Pushes content out via the RSS feed
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return string Output for the RSS feed
 	 */
 	public function rss($id){
 		return "Tags: " . $this->getTags($id, true);
@@ -225,11 +233,9 @@ class Tags implements Module{
 
 	/**
 	 * Sets up the pages for searching
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 */
-	function search(){
+	private function search(){
 		$this->searchTerm = prepareSQL($this->removePluses($this->lncln->params[0]));
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
@@ -274,9 +280,7 @@ class Tags implements Module{
 
 	/**
 	 * Gathers tags from an image together, string or array form
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $id int Image id
 	 * @param $string bool String if true, array if false
@@ -307,9 +311,7 @@ class Tags implements Module{
 	
 	/**
 	 * Quick shortcut to replace spaces with plus signs
-	 * 
 	 * @since 0.13.0
-	 * @package lncln
 	 * 
 	 * @param $string String search string
 	 * 

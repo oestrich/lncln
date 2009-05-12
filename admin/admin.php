@@ -6,10 +6,8 @@
  * Checks and makes sure that the user is an admin before continuing.
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
 
 if($lncln->user->permissions['isAdmin'] == 0){
@@ -23,18 +21,14 @@ if($lncln->user->permissions['isAdmin'] == 0){
  */
 /**
  * The enabled modules
- * 
  * @since 0.11.0
- * @package lncln
  */
 $modules = array("users" => "users", "albums" => "albums", "settings" => "settings", "news" => "news", "groups" => "groups");
  
 
 /**
  * Creates URLs that are ready to be used in links.
- * 
  * @since 0.11.0
- * @package lncln
  * 
  * @param $action string The action to be used
  * @param $params array Key and value will become "&key=value" in link

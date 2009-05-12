@@ -5,18 +5,14 @@
  * Main class for the album admin module
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
 
 class AlbumsAdmin extends lncln{
 	/**
 	 * Adds an album to the database
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 * 
 	 * @param string $name The name of the album
 	 * 
@@ -38,9 +34,7 @@ class AlbumsAdmin extends lncln{
 	
 	/**
 	 * Deletes an album
-	 * 
 	 * @since 0.9.0
-	 * @package lncln
 	 * 
 	 * @param int $album The album id to be deleted
 	 */
@@ -57,11 +51,8 @@ class AlbumsAdmin extends lncln{
 	}
 	
 	/**
-	 * Gets information about the album,
-	 * name and id
-	 * 
+	 * Gets information about the album, name and id
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $album int Album id
 	 * 
@@ -80,9 +71,7 @@ class AlbumsAdmin extends lncln{
 	
 	/**
 	 * Changes the album's name
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $id int Album id
 	 * @param $name string New name

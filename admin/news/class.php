@@ -5,19 +5,15 @@
  * Main class for the News module
  * 
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
- * 
- * @package lncln
  */ 
  
 class NewsAdmin extends lncln{
 	
 	/**
 	 * Adds a new news ticket type thing to the index
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $news array Keys - title, body
 	 */
@@ -33,9 +29,7 @@ class NewsAdmin extends lncln{
 	
 	/**
 	 * Returns all news
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @return array Keys- id, postTime, title, news
 	 */
@@ -54,9 +48,7 @@ class NewsAdmin extends lncln{
 	
 	/**
 	 * Delete a news item
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $id int Item to be deleted
 	 */
@@ -69,9 +61,7 @@ class NewsAdmin extends lncln{
 	
 	/**
 	 * Fetch one news story
-	 * 
 	 * @since 0.11.0
-	 * @package lncln
 	 * 
 	 * @param $id int Item to be found
 	 * 
@@ -87,6 +77,12 @@ class NewsAdmin extends lncln{
 		}
 	}
 	
+	/**
+	 * Edit's news items
+	 * @since 0.12.0
+	 * 
+	 * @param $data array Keys: title, news, postTime
+	 */
 	function changeNews($data){
 		$title = prepareSQL($data['title']);
 		$news = prepareSQL($data['news']);
