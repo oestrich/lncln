@@ -32,7 +32,7 @@ class Index implements Module{
 	public function index(){
 		$this->prepareIndex();
 
-		$lncln->img();
+		$this->lncln->img();
 		
 		$this->lncln->display->includeFile("header.php");
 		
