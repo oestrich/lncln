@@ -30,11 +30,6 @@
 			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
 				<div class="headerRow">
-					<a href='<?echo URL;?>index/'>Newest</a>
-<?
-	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
-?>
-					<a href='<?echo URL;?>thumbnail/<?=$_SESSION['thumbnail'] == 1 ? "off" : "on";?>'>Thumbnail view</a>
 <?
 foreach($lncln->display->rows[1] as $module){
 	echo $lncln->modules[$module]->headerLink();
