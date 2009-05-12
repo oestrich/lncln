@@ -378,12 +378,10 @@ class lncln{
 				);
 		}
 		
-		$this->type .= "index";
-		$this->extra .= "";
+		$this->type = "index";
 		
-		if($_GET['thumb']){
+		if($_SESSION['thumb'] == true){
 			$this->type = "thumb";
-			$this->extra .= "&amp;thumb=true";
 		}
 	}
 

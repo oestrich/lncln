@@ -64,6 +64,12 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	exit();
 }
 
+if($lncln->module == "thumbnail"){
+	$_SESSION['thumbnail'] = $lncln->params[0] == "off" ? false : true;
+	header("location:" . URL . $_SESSION['URL']);
+	exit();
+}
+
 foreach($lncln->modules as $module){
 	if($lncln->action == true && $lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
 		if(!isset($_POST['id']) || $_POST['id'] == "")
