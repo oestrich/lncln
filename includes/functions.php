@@ -64,7 +64,7 @@ class lncln{
 		
 		if(isset($_GET['module']) && $_GET['module'] != ""){
 			if($_GET['module'] == "action"){
-				$this->module = $this->params[0];
+				$this->module = array_shift($this->params);
 			}
 			else{			
 				$this->module = $_GET['module'];
