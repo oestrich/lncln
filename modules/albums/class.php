@@ -237,8 +237,8 @@ class Albums implements Module{
 					$this->lncln->page = 1;
 				}
 				else{
-					if(is_numeric(end($this->lncln->params))){
-						$this->lncln->page = end($this->lncln->params);	
+					if(is_numeric((int)end($this->lncln->params))){
+						$this->lncln->page = (int)end($this->lncln->params);	
 					}
 					else{
 						$this->lncln->page = 1;
