@@ -21,7 +21,7 @@ include_once(ABSPATH . "includes/header.php");
 
 $lncln->img();
 
-if(isset($_GET['img']) && is_numeric($_GET['img'])){
+if(isset($_GET['image']) && is_numeric($_GET['image'])){
 	include_once(ABSPATH . "includes/listing.php");	
 }
 else{

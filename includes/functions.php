@@ -173,8 +173,8 @@ class lncln{
 	 * @package lncln
 	 */
 	function image(){
-		if(isset($_GET['img']) && is_numeric($_GET['img'])){
-			$image = prepareSQL($_GET['img']);
+		if(isset($_GET['image']) && is_numeric($_GET['image'])){
+			$image = prepareSQL($_GET['image']);
 		}
 		else{
 			return;

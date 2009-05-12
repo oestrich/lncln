@@ -6,4 +6,6 @@ RewriteRule ^rss(?:/)?([a-zA-Z]+)?$ rss.php?action=$1
 
 RewriteRule ^admin/$ admin/ [L]
 
+RewriteRule ^image/([0-9]+)$ image.php?image=$1 [L]
+
 RewriteRule ^([a-z]*)(?:/)?([a-zA-Z0-9/+]+)?$ index.php?module=$1&q=$2
