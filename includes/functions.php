@@ -409,7 +409,7 @@ class lncln{
 		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . $this->module . join($this->params, "/") . "/" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . URL . $this->module . join($this->params, "/") . "/" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
