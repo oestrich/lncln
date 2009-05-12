@@ -64,9 +64,15 @@ class lncln{
 			$this->module = $_GET['module'];
 		}
 		
-		
+		$this->loadParams();
 	}
 	
+	/**
+	 * Loads parameters set by the URL
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 */
 	function loadParams(){
 		$q = $_GET['q'];
 		
