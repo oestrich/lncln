@@ -15,6 +15,8 @@ class Tags implements Module{
 	public $name = "Tags"; //Name printed out in forms
 	public $displayName = "Tags";
 	
+	public $searchTerm;
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -47,7 +49,7 @@ class Tags implements Module{
 		
 		$this->lncln->display->includeFile("header.php");
 		
-		echo "You searched for: " . $this->search . "<br />";
+		echo "You searched for: " . $this->searchTerm . "<br />";
 		
 		echo $this->lncln->prevNext();
 		
@@ -228,9 +230,9 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	function search(){
-		$search = prepareSQL($this->removePluses($this->lncln->params[0]));
+		$this->searchTerm = prepareSQL($this->removePluses($this->lncln->params[0]));
 		
-		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $search . "%'";
+		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
 		$result = mysql_query($sql);
 		$row = mysql_fetch_assoc($result);
 		
@@ -238,7 +240,7 @@ class Tags implements Module{
 			$this->page = 0;
 		}
 		else{		
-			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $search . "%'";
+			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
 			$result = mysql_query($sql);
 			$row = mysql_fetch_assoc($result);
 			
