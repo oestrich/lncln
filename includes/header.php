@@ -29,7 +29,7 @@
 	<input type="hidden" id="URL" value="<?=URL;?>" />
 	<div id="container">
 		<div id="header">
-			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
+			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
 				<div class="headerRow">
 					<a href='<?echo URL;?>index.php'>Newest</a>
