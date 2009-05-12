@@ -34,7 +34,7 @@ class Tags implements Module{
 	 * @since 0.13.0
 	 */
 	public function index(){
-		if(isset($_POST['search']) && !isset($_GET['search'])){
+		if(isset($_POST['search']) && !isset($this->lncln->params[0])){
 			header("location:" . URL . "tags/" . $this->addPluses($_POST['search']));
 			exit();
 		}
@@ -201,7 +201,7 @@ class Tags implements Module{
 			if($tags == "None.")
 				$tags = "";
 		
-			$output .= "\t\t\t<form id='t$id' style='display: none;' action='$action&amp;action=tags' method='post'>
+			$output .= "\t\t\t<form id='t$id' style='display: none;' action='" . URL . "action/tags/$id' method='post'>
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					Split tags with a ','.<br />
