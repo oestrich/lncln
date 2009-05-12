@@ -79,8 +79,10 @@ class Index implements Module{
 	}
 	
 	public function headerLink(){
+		$thumbnail = $_SESSION['thumbnail'] == 1 ? "off" : "on";
+		
 		return "\t\t\t\t<a href='<?echo URL;?>index/'>Newest</a>
-					<a href='<?echo URL;?>thumbnail/" . $_SESSION['thumbnail'] == 1 ? "off" : "on" . "'>Thumbnail view</a>";
+					<a href='<?echo URL;?>thumbnail/" . $thumbnail . "'>Thumbnail view</a>";
 	}
 	
 	public function icon($id, $action){
