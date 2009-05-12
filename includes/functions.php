@@ -81,8 +81,8 @@ class lncln{
 			$_SESSION['URL'] = str_replace(" ", "+", $_SESSION['URL']);
 		}
 		else{
-			header("location:" . URL . "index/");
-			exit();
+			$this->module = "index";
+			$_SESSION['URL'] = $this->module;
 		}
 	}
 	
