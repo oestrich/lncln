@@ -67,17 +67,12 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 foreach($lncln->modules as $module){
 	if($_GET['action'] == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
 		if(!isset($_POST['id']) || $_POST['id'] == "")
-			$id = $_GET['id'];
+			$id = end($lncln->params);
 		else
 			$id = $_POST['id'];
 		
-		$module->edit($id, array($_POST[$_GET['action']], $_GET['subAction']));
-		
-		if($lncln->module != "")
-			$scriptLocation .= "&module=" . strtolower($lncln->module);
-		if($lncln->scriptExtra != "")
-			$scriptLocation .= "&" . $lncln->scriptExtra;
-		
+		$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
+
 		header("location:" . $_SESSION['URL'] . "#" . $_POST['id']);
 		exit();
 	}
