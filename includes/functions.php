@@ -106,7 +106,7 @@ class lncln{
 		//Key is folder, value is class name
 		$this->modules = array("captions" => "Captions", "tags" => "Tags", "albums" => "Albums", "ratings" => "Ratings", "index" => "Index", "image" => "Image");
 		
-		$this->display->rows = array(1 => array("albums"),2 => array("tags"));
+		$this->display->rows = array(1 => array("index", "albums"),2 => array("tags"));
 		
 		foreach($this->modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
