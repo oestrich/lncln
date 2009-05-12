@@ -119,28 +119,6 @@ class lncln{
 	}
 	
 	/**
-	 * Function that makes image.php go round
-	 * @since 0.9.0
-	 */
-	function image(){
-		if(isset($_GET['image']) && is_numeric($_GET['image'])){
-			$image = prepareSQL($_GET['image']);
-		}
-		else{
-			return;
-		}
-		
-		$this->increaseView($image);
-
-		$this->imagesToGet[] = $image;
-				
-		$this->page = $_GET['img'];
-		$this->maxPage = 1;
-		
-		$_SESSION['thumbnail'] = 0;
-	}
-	
-	/**
 	 * Function for loading the queue
 	 * @since 0.9.0
 	 */
