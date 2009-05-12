@@ -71,7 +71,7 @@ class lncln{
 				$this->action = true;
 			}
 			elseif($_GET['module'] == "index"){
-				$this->module = "";
+				$this->module = "index";
 				$_SESSION['URL'] = "index/";
 			}
 			else{			
@@ -409,7 +409,7 @@ class lncln{
 		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . $script . "page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $this->module . join($this->params, "/") . "/" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
