@@ -214,8 +214,6 @@ class Albums implements Module{
 		
 		$album = $this->getAlbumId($album);
 		
-		$this->lncln->scriptExtra = "album=" . $album;
-		
 		if($album != 0){
 			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 			
