@@ -15,7 +15,7 @@ require_once("load.php");
 
 include_once(ABSPATH . "includes/iconActions.php");
 
-if(isset($lncln->module) && $lncln->module != ""){
+if(isset($lncln->module) && $lncln->module != "" && $lncln->module != "index"){
 	if(method_exists($lncln->modules[$lncln->module], "index")){
 		$lncln->modules[$lncln->module]->index();
 	}
