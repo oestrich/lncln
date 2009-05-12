@@ -316,7 +316,7 @@ class Albums implements Module{
 		$sql = "SELECT id FROM albums WHERE name = '" . $name . "' LIMIT 1";
 		$result = mysql_query($sql);
 		
-		if(mysql_num_rows($result) > 1){
+		if(mysql_num_rows($result) == 1){
 			$row = mysql_fetch_assoc($result);
 			
 			return $row['id']; 
