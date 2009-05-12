@@ -104,7 +104,7 @@ class lncln{
 	 */
 	function loadModules(){
 		//Key is folder, value is class name
-		$this->modules = array("captions" => "Captions", "tags" => "Tags", "albums" => "Albums", "ratings" => "Ratings");
+		$this->modules = array("captions" => "Captions", "tags" => "Tags", "albums" => "Albums", "ratings" => "Ratings", "index" => "Index");
 		
 		$this->display->rows = array(1 => array("albums"),2 => array("tags"));
 		
@@ -114,57 +114,6 @@ class lncln{
 			
 			if(!($this->modules[$folder] instanceof Module)){
 				unset($this->modules[$folder]);
-			}
-		}
-	}
-	
-	/**
-	 * The function that makes the index go round
-	 * @since 0.9.0
-	 */
-	function index(){
-		$this->moderationOn = true;
-		$time = !$this->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
-		
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $time;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
-		
-		if($row['COUNT(*)'] == 0){
-			$this->page = 0;
-		}
-		else{
-			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
-			$row = mysql_fetch_assoc($result);
-
-			$this->maxPage = $row['COUNT(id)'];
-			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
-			
-			$page = (int)end($this->params);
-			
-			if(!isset($page)){
-				$this->page = 1;
-			}
-			else{
-				if(is_numeric($page) && $page != ""){
-					$this->page = $page;	
-				}
-				else{
-					$this->page = 1;
-				}
-			}
-			
-			$offset = ($this->page - 1) * $this->display->settings['perpage'];
-			
-			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
-			$result = mysql_query($sql);
-			
-			$numRows = mysql_num_rows($result);
-			
-			for($i = 0; $i < $numRows; $i++){
-				$row = mysql_fetch_assoc($result);
-				
-				$this->imagesToGet[] = $row['id'];
 			}
 		}
 	}
