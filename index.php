@@ -13,6 +13,8 @@
 
 require_once("load.php");
 
+include_once(ABSPATH . "includes/iconActions.php");
+
 if(isset($lncln->module) && $lncln->module != ""){
 	if(method_exists($lncln->modules[$lncln->module], "index")){
 		$lncln->modules[$lncln->module]->index();
@@ -23,10 +25,7 @@ if(isset($lncln->module) && $lncln->module != ""){
 	exit();
 }
 
-
 $lncln->index();
-
-include_once(ABSPATH . "includes/iconActions.php");
 
 $lncln->img();
 
