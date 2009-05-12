@@ -77,6 +77,12 @@ class lncln{
 		$q = $_GET['q'];
 		
 		$this->params = split("/", $q);
+		
+		//This second switches
+		foreach($this->params as &$param){
+			if(substr_count($param, "+") > 1)
+				$param = str_replace(" ", "+", $param);		
+		}
 	}
 	
 	function loadModules(){

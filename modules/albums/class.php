@@ -212,6 +212,8 @@ class Albums implements Module{
 	function album(){	
 		$album = prepareSQL($this->lncln->params[0]);
 		
+		$album = $this->getAlbumId($album);
+		
 		$this->lncln->scriptExtra = "album=" . $album;
 		
 		if($album != 0){
@@ -298,6 +300,29 @@ class Albums implements Module{
 		$row = mysql_fetch_assoc($result);
 		
 		return $row['name'];
+	}
+	
+	/**
+	 * Return the id of an album based off of it's name
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $name String Album name
+	 * 
+	 * @return int Album ID
+	 */
+	private function getAlbumID($name){
+		$sql = "SELECT id FROM albums WHERE name = '" . $name . "' LIMIT 1";
+		$result = mysql_query($sql);
+		
+		if(mysql_num_rows($result) > 1){
+			$row = mysql_fetch_assoc($result);
+			
+			return $row['id']; 
+		}
+		
+		return 0;
 	}
 	
 	/**
