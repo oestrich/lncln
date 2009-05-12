@@ -383,7 +383,7 @@ class lncln{
 		
 		$this->type = "index";
 		
-		if($_SESSION['thumb'] == true){
+		if($_SESSION['thumb'] == 1){
 			$this->type = "thumb";
 		}
 	}

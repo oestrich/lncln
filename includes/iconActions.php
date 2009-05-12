@@ -65,7 +65,7 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 }
 
 if($lncln->module == "thumbnail"){
-	$_SESSION['thumbnail'] = $lncln->params[0] == "off" ? false : true;
+	$_SESSION['thumbnail'] = $lncln->params[0] == "on" ? 1 : 0;
 	header("location:" . URL . $_SESSION['URL']);
 	exit();
 }
