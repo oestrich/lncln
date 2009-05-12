@@ -422,11 +422,11 @@ class lncln{
 	    	$output .= "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        $output .= "<a href='" . $script . "page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' class='prevNext'>Prev page</a>";
 	    }
 	    else{
-	        $output .= "<a href='" . $script . "page=" . ($this->page - 1) . $extra . "' class='prevNext'>Prev page</a>
-	        <a href='" . $script . "page=" . ($this->page + 1) . $extra . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' class='prevNext'>Prev page</a>
+	        <a href='" . $script . "page=" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
 	    }
 	    
 	    $output .= $bottom == true ? "</div>" : "";
