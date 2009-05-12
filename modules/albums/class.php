@@ -47,7 +47,7 @@ class Albums implements Module{
 		if(!isset($this->lncln->params[0]) || $this->lncln->params[0] == ""){
 			foreach($this->getAlbums(false) as $album){
 		?>
-					<a href="<?=$lncln->lncln->script;?>?module=albums&amp;album=<?=$album['id'];?>"><?=$album['name'];?></a><br />
+					<a href="<?=URL;?>albums/<?=$album['name'];?>/1"><?=$album['name'];?></a><br />
 		<?
 			}
 		}
@@ -291,7 +291,7 @@ class Albums implements Module{
 	 * 
 	 * @return String Name of album
 	 */
-	private function getAlbumName($id){
+	private function getAlbumName($id, $plus = false){
 		$sql = "SELECT name FROM albums WHERE id = " . $id;
 		$result = mysql_query($sql);
 		
@@ -300,6 +300,9 @@ class Albums implements Module{
 		}
 		
 		$row = mysql_fetch_assoc($result);
+		
+		if($plus == true)
+			$row['name'] = str_replace("+", " ", $row['name']);
 		
 		return $row['name'];
 	}
