@@ -13,9 +13,9 @@
 
 require_once("load.php");
 
-if(isset($_GET['module']) && $_GET['module'] != ""){
-	if(method_exists($lncln->modules[$_GET['module']], "index")){
-		$lncln->modules[$_GET['module']]->index();
+if(isset($lncln->module) && $lncln->module != ""){
+	if(method_exists($lncln->modules[$lncln->module], "index")){
+		$lncln->modules[$lncln->module]->index();
 	}
 	else{
 		$lncln->display->message("That module does not exist");
