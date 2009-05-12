@@ -73,7 +73,7 @@ class lncln{
 			elseif($_GET['module'] == "thumbnail"){
 				$this->module = "thumbnail";
 			}
-			elseif($_GET['module'] == ""){
+			elseif($_GET['module'] == "" || !isset($_GET['module'])){
 				header("location:" . URL . "index/");
 				exit();
 			}

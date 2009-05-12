@@ -32,7 +32,7 @@
 			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
 				<div class="headerRow">
-					<a href='<?echo URL;?>index.php'>Newest</a>
+					<a href='<?echo URL;?>index/'>Newest</a>
 <?
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
