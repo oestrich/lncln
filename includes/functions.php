@@ -60,11 +60,16 @@ class lncln{
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
 		
-		if(isset($_GET['module']) && $_GET['module'] != ""){
-			$this->module = $_GET['module'];
-		}
-		
 		$this->loadParams();
+		
+		if(isset($_GET['module']) && $_GET['module'] != ""){
+			if($_GET['module'] == "action"){
+				$this->module = $this->params[0];
+			}
+			else{			
+				$this->module = $_GET['module'];
+			}
+		}
 	}
 	
 	/**
@@ -83,6 +88,8 @@ class lncln{
 			if(substr_count($param, "+") > 1)
 				$param = str_replace(" ", "+", $param);		
 		}
+		
+		$_SESSION['URL'] = $this->module . join($this->params, "/");
 	}
 	
 	function loadModules(){

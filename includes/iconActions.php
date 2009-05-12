@@ -78,7 +78,7 @@ foreach($lncln->modules as $module){
 		if($lncln->scriptExtra != "")
 			$scriptLocation .= "&" . $lncln->scriptExtra;
 		
-		header("location:" . $scriptLocation . "#" . $_POST['id']);
+		header("location:" . $_SESSION['URL'] . "#" . $_POST['id']);
 		exit();
 	}
 }

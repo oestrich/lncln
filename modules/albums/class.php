@@ -171,7 +171,7 @@ class Albums implements Module{
 		
 		if($this->lncln->user->permissions['albums'] == 1):
 			$output .= "
-			<form id='a$id' style='display: none;' action='$action&amp;action=albums' method='post'>
+			<form id='a$id' style='display: none;' action='" . URL . "action/albums/$id' method='post'>
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					<select name='albums' id='formAlbums$id'>";
