@@ -34,7 +34,7 @@ class Tags implements Module{
 			exit();
 		}
 		
-		if($_GET['search'] == ""){
+		if($this->lncln->params[0] == ""){
 			header("location:" . URL . "index/");
 			exit();
 		}
@@ -137,7 +137,7 @@ class Tags implements Module{
 	 */
 	public function headerLink(){
 		return "
-					<form id='search' enctype='multipart/form-data' action='" . URL . "index.php?module=tags' method='post'>
+					<form id='search' enctype='multipart/form-data' action='" . URL . "tags/' method='post'>
 						<div>
 							Tag search:
 							<input type='text' name='search' />
