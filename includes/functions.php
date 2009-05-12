@@ -70,10 +70,6 @@ class lncln{
 				
 				$this->action = true;
 			}
-			elseif($_GET['module'] == "index"){
-				$this->module = "index";
-				$_SESSION['URL'] = "index/" . join($this->params, "/");
-			}
 			else{			
 				$this->module = $_GET['module'];
 				$_SESSION['URL'] = $this->module . "/" . join($this->params, "/");
