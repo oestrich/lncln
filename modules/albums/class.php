@@ -47,7 +47,7 @@ class Albums implements Module{
 		if(!isset($this->lncln->params[0]) || $this->lncln->params[0] == ""){
 			foreach($this->getAlbums(false) as $album){
 		?>
-					<a href="<?=URL;?>albums/<?=$album['name'];?>/1"><?=$album['name'];?></a><br />
+					<a href="<?=URL;?>albums/<?=$this->getAlbumName($album['id'], true);?>/1"><?=$album['name'];?></a><br />
 		<?
 			}
 		}
