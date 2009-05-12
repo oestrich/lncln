@@ -38,7 +38,9 @@ class Image implements Module{
 		
 		$this->lncln->img();
 		
-		if(isset($_GET['image']) && is_numeric($_GET['image'])){
+		$image = (int)$this->lncln->params[0];
+		
+		if(isset($image) && is_numeric($image)){
 			$this->lncln->display->includeFile("listing.php");	
 		}
 		else{
