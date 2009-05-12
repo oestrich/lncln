@@ -124,7 +124,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	public function headerLink(){
-		return "\t\t\t\t\t<a href='" . URL . "index.php?module=albums'>Albums</a>\n";
+		return "\t\t\t\t\t<a href='" . URL . "albums/'>Albums</a>\n";
 	}
 	
 	/**
