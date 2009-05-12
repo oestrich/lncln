@@ -141,7 +141,7 @@ class lncln{
 			$this->maxPage = $row['COUNT(id)'];
 			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
 			
-			$page = (int)end($this->lncln->params);
+			$page = (int)end($this->params);
 			
 			if(!isset($page)){
 				$this->page = 1;
