@@ -302,7 +302,7 @@ class Albums implements Module{
 		$row = mysql_fetch_assoc($result);
 		
 		if($plus == true)
-			$row['name'] = str_replace("+", " ", $row['name']);
+			$row['name'] = str_replace(" ", "+", $row['name']);
 		
 		return $row['name'];
 	}
