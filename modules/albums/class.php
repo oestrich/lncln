@@ -58,7 +58,7 @@ class Albums implements Module{
 			
 			$this->lncln->display->includeFile("listing.php");
 
-			echo $this->lncln->prevNext();
+			echo $this->lncln->prevNext(true);
 		}
 		
 		$this->lncln->display->includeFile("footer.php");
