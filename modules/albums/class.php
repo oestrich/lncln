@@ -233,7 +233,7 @@ class Albums implements Module{
 				
 				$this->lncln->maxPage = ceil($row['COUNT(id)'] / $this->lncln->display->settings['perpage']);
 
-				if(!isset($_GET['page'])){
+				if(!isset(end($this->lncln->params))){
 					$this->lncln->page = 1;
 				}
 				else{
