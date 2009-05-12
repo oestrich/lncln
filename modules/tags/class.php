@@ -228,7 +228,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	function search(){
-		$search = prepareSQL($this->removePluses($this->lncln->param[0]));
+		$search = prepareSQL($this->removePluses($this->lncln->params[0]));
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $search . "%'";
 		$result = mysql_query($sql);
