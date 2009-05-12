@@ -71,7 +71,7 @@ class lncln{
 				$this->action = true;
 			}
 			elseif($_GET['module'] == "thumbnail"){
-				
+				$this->module = "thumbnail";
 			}
 			else{			
 				$this->module = $_GET['module'];
