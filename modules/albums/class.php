@@ -52,7 +52,7 @@ class Albums implements Module{
 			}
 		}
 		else{
-			echo "You're viewing " . $this->getAlbumName($_GET['album']) . "\n <br />";
+			echo "You're viewing " . $this->getAlbumName($this->lncln->params[0]) . "\n <br />";
 			
 			echo $this->lncln->prevNext();
 			
@@ -210,7 +210,7 @@ class Albums implements Module{
 	 * @package lncln
 	 */
 	function album(){	
-		$album = prepareSQL($_GET['album']);
+		$album = prepareSQL($this->lncln->params[0]);
 		
 		$this->lncln->scriptExtra = "album=" . $album;
 		
@@ -235,8 +235,8 @@ class Albums implements Module{
 					$this->lncln->page = 1;
 				}
 				else{
-					if(is_numeric($_GET['page'])){
-						$this->lncln->page = $_GET['page'];	
+					if(is_numeric(end($this->lncln->params))){
+						$this->lncln->page = end($this->lncln->params);	
 					}
 					else{
 						$this->lncln->page = 1;

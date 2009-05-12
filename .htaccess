@@ -3,3 +3,5 @@
 RewriteEngine On 
 RewriteRule ^page/([0-9]+)$ index.php?page=$1
 RewriteRule ^rss(?:/)?([a-zA-Z]+)?$ rss.php?action=$1
+
+RewriteRule ^([a-z]*)(?:/)?([a-zA-Z0-9/]+)?$ index.php?module=$1&q=$2

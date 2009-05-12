@@ -41,6 +41,7 @@ class lncln{
 	
 	public $modules = array();
 	public $module;				//Currently used module ex. ?module=tags 
+	public $params = array();
 	
 	/**
 	 * Gets the class ready for action!
@@ -62,6 +63,14 @@ class lncln{
 		if(isset($_GET['module']) && $_GET['module'] != ""){
 			$this->module = $_GET['module'];
 		}
+		
+		
+	}
+	
+	function loadParams(){
+		$q = $_GET['q'];
+		
+		$this->params = split("/", $q);
 	}
 	
 	function loadModules(){
