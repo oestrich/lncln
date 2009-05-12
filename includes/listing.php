@@ -59,8 +59,8 @@ foreach ($lncln->images as $image){
 		foreach($lncln->modules as $module){
 			echo $module->underImage($image['id'], $action);
 		}
-		echo "\n\t\t\t<br />\n";
-	endif;?>
+	endif;
+	echo "\n\t\t\t<br />\n";?>
 <?	if($lncln->user->permissions['report'] == 1):?>
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?	endif;?>
