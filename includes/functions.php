@@ -70,6 +70,9 @@ class lncln{
 				
 				$this->action = true;
 			}
+			elseif($_GET['module'] == "thumbnail"){
+				
+			}
 			else{			
 				$this->module = $_GET['module'];
 				$_SESSION['URL'] = $this->module . "/" . join($this->params, "/");
