@@ -263,7 +263,7 @@ class Tags implements Module{
 			
 			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->search . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
+			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
 			$result = mysql_query($sql);
 	
 			while($row = mysql_fetch_assoc($result)){
