@@ -26,6 +26,7 @@
 	</script>
 </head>
 <body onload="init()">
+	<input type="hidden" name="URL" value="<?=URL;?>" />
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>

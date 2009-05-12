@@ -29,7 +29,7 @@ foreach ($lncln->images as $image){
 		$link = "javascript:badImage('" . $image['id'] . "');";
 	}
 	else{
-		$link = "image.php?img=" . $image['id'];
+		$link = URL . "image.php?img=" . $image['id'];
 	}
 	
 	$date = $_GET['thumb'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);

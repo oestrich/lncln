@@ -10,10 +10,12 @@
  * @package lncln
  */
 
-var formAction
+var formAction;
+var URL;
 
 function init(){
 	formAction = document.getElementById('form').action;
+	URL = document.getElementById('URL').value;
 }
 
 function toggleDiv(type){
@@ -59,7 +61,7 @@ function toggleDiv(type){
 
 function badImage(divid){
 	document.getElementById('b' + divid).style.display = 'block';
-	document.getElementById('l' + divid).href = "image.php?img=" + divid;
+	document.getElementById('l' + divid).href = URL + "image.php?img=" + divid;
 }
 
 function showModule(module, divid){
