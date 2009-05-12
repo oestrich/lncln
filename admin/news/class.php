@@ -11,7 +11,7 @@
  * @package lncln
  */ 
  
-class News extends lncln{
+class NewsAdmin extends lncln{
 	
 	/**
 	 * Adds a new news ticket type thing to the index

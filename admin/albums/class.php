@@ -11,7 +11,7 @@
  * @package lncln
  */ 
 
-class Albums extends lncln{
+class AlbumsAdmin extends lncln{
 	/**
 	 * Adds an album to the database
 	 * 

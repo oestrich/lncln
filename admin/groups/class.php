@@ -11,7 +11,7 @@
  * @package lncln
  */ 
  
-class Group extends lncln{
+class GroupAdmin extends lncln{
 
 	/**
 	 * Add a new group

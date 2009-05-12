@@ -11,7 +11,7 @@
  * @package lncln
  */ 
  
-class Users extends lncln{
+class UsersAdmin extends lncln{
 	/**
 	 * Adds a user to the site.
 	 * 

@@ -17,7 +17,7 @@ include_once("../admin.php");
 
 include_once("class.php");
 
-$lncln = new News();
+$lncln = new NewsAdmin();
 
 include_once(ABSPATH . "includes/header.php");
 
