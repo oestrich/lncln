@@ -30,12 +30,12 @@ class Tags implements Module{
 	
 	public function index(){
 		if(isset($_POST['search']) && !isset($_GET['search'])){
-			header("location:" . URL . "index.php?module=tags&search=" . $_POST['search']);
+			header("location:" . URL . "tags/" . $this->addPluses($_POST['search']));
 			exit();
 		}
 		
 		if($_GET['search'] == ""){
-			header("location:" . URL . "index.php");
+			header("location:" . URL . "index/");
 			exit();
 		}
 		
@@ -228,9 +228,7 @@ class Tags implements Module{
 	 * @package lncln
 	 */
 	function search(){
-		$this->search = prepareSQL($_GET['search']);
-		
-		$this->lncln->scriptExtra = "search=" . $_GET['search'];
+		$this->search = prepareSQL($this->removePluses($this->lncln->param[0]));
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->search . "%'";
 		$result = mysql_query($sql);
@@ -247,12 +245,14 @@ class Tags implements Module{
 			$this->lncln->maxPage = $row['COUNT(picId)'];
 			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
 			
-			if(!isset($_GET['page'])){
+			$page = (int)end($this->lncln->params);
+			
+			if(!isset($page)){
 				$this->lncln->page = 1;
 			}
 			else{
-				if(is_numeric($_GET['page'])){
-					$this->lncln->page = $_GET['page'];	
+				if(is_numeric($page) && $page != ""){
+					$this->lncln->page = $page;	
 				}
 				else{
 					$this->lncln->page = 1;
@@ -301,6 +301,27 @@ class Tags implements Module{
 		$tags = join(', ', $tags);
 		
 		return $tags;
+	}
+	
+	/**
+	 * Quick shortcut to replace spaces with plus signs
+	 * 
+	 * @since 0.13.0
+	 * @package lncln
+	 * 
+	 * @param $string String search string
+	 * 
+	 * @return string string with pluses
+	 */
+	private function addPluses($string){
+		return str_replace(" ", "+", $string);
+	}
+	
+	/**
+	 * Opposite of above
+	 */
+	private function removePluses($string){
+		return str_replace("+", " ", $string);
 	}
 }
 ?>
