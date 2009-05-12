@@ -147,7 +147,7 @@ class lncln{
 				$this->page = 1;
 			}
 			else{
-				if(is_numeric($page)){
+				if(is_numeric($page) && $page != ""){
 					$this->page = $page;	
 				}
 				else{
