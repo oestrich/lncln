@@ -408,7 +408,7 @@ class lncln{
 		array_pop($tempParams); // Remove page
 		$tempParams = join($tempParams, "/");
 		
-		if(substr($tempParams, -1) != "/")
+		if(substr($tempParams, -1) != "/" && $tempParams != "")
 			$tempParams .= "/";
 		
 		$script .= $tempParams;
