@@ -73,7 +73,7 @@ foreach($lncln->modules as $module){
 		
 		$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
 
-		header("location:" . $_SESSION['URL'] . "#" . $_POST['id']);
+		header("location:" . URL . $_SESSION['URL'] . "#" . $id);
 		exit();
 	}
 }
