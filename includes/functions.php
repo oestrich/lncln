@@ -189,6 +189,8 @@ class lncln{
 				
 		$this->page = $_GET['img'];
 		$this->maxPage = 1;
+		
+		$_SESSION['thumbnail'] = 0;
 	}
 	
 	/**
