@@ -69,6 +69,8 @@ class lncln{
 			else{			
 				$this->module = $_GET['module'];
 			}
+			
+			$_SESSION['URL'] = $this->module . join($this->params, "/");
 		}
 	}
 	
@@ -88,8 +90,6 @@ class lncln{
 			if(substr_count($param, "+") > 1)
 				$param = str_replace(" ", "+", $param);		
 		}
-		
-		$_SESSION['URL'] = $this->module . join($this->params, "/");
 	}
 	
 	function loadModules(){
