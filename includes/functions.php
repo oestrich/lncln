@@ -426,7 +426,7 @@ class lncln{
 	    }
 	    else{
 	        $output .= "<a href='" . $script . ($this->page - 1) . "' class='prevNext'>Prev page</a>
-	        <a href='" . $script . "page=" . ($this->page + 1) . "' class='prevNext'>Next page</a>";
+	        <a href='" . $script . ($this->page + 1) . "' class='prevNext'>Next page</a>";
 	    }
 	    
 	    $output .= $bottom == true ? "</div>" : "";
