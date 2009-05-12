@@ -61,7 +61,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <?
 	if($isLoggedIn){
 ?>
-	<meta http-equiv="refresh" content="2;url=index.php">
+	<meta http-equiv="refresh" content="2;url=<?=URL;?>index/">
 <?
 	}
 ?>

@@ -37,17 +37,6 @@ if(isset($_GET['obscene']) && $lncln->user->permissions['obscene'] == 1){
 	exit();
 }
 
-if($_GET['viewObscene']){
-	if($_COOKIE['obscene'] == false || !$_COOKIE['obscene']){
-		setcookie('obscene', true, time() + (60 * 60 * 24));
-	}
-	else{
-		setcookie('obscene', true, time() - (60 * 60 * 24));
-	}
-	header("location:". URL . "index.php");	
-	exit();
-}
-
 if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	$id = prepareSQL($_GET['refresh']);
 	
@@ -65,6 +54,17 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 if($lncln->module == "thumbnail"){
 	$_SESSION['thumbnail'] = $lncln->params[0] == "on" ? 1 : 0;
 	header("location:" . URL . $_SESSION['URL']);
+	exit();
+}
+
+if($lncln->module == "obscene"){
+	if($lncln->params[0] == "on"){
+		setcookie('obscene', true, time() + (60 * 60 * 24));
+	}
+	else{
+		setcookie('obscene', true, time() - (60 * 60 * 24));
+	}
+	header("location:" . URL . "index/");	
 	exit();
 }
 
