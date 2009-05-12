@@ -36,7 +36,7 @@
 <?
 	$thumb = $_GET['thumb'] ? "" : "&amp;thumb=true";
 ?>
-					<a href='<?echo URL;?>thumnail/<?=$_SESSION['thumbail'] == true ? "off" : "on";?>'>Thumbnail view</a>
+					<a href='<?echo URL;?>thumbnail/<?=$_SESSION['thumbail'] == true ? "off" : "on";?>'>Thumbnail view</a>
 <?
 foreach($lncln->display->rows[1] as $module){
 	echo $lncln->modules[$module]->headerLink();
