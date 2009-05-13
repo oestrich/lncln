@@ -167,8 +167,8 @@ class Index implements Module{
 			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
 			$row = mysql_fetch_assoc($result);
 
-			$this->maxPage = $row['COUNT(id)'];
-			$this->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
+			$this->lncln->maxPage = $row['COUNT(id)'];
+			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
 			
 			$page = (int)end($this->lncln->params);
 			
