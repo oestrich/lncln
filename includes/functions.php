@@ -608,7 +608,7 @@ class lncln{
 	 * @return bool True if image is small
 	 */
 	function checkSmall($obscene, $small){
-		$cookie = !$_COOKIE['obscene'] || !isset($_COOKIE['obscene']) || $_COOKIE['obscene'] == 0 ? true : false;
+		$cookie = !isset($_COOKIE['obscene']) || $_COOKIE['obscene'] == 0 ? true : false;
 				
 		if(($obscene == 1 && $cookie == true) || $small == 1){
 			return true;
