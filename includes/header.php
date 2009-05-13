@@ -45,7 +45,7 @@ else{?>
 					<?if($lncln->display->settings['register'] == 1):?>
 						<a href='<?echo URL;?>register.php'>Register</a>
 					<?endif;?>
-					<a href='<?echo URL;?>obscene/<?=$_COOKIE['obscene'] ? "off" : "on";?>'>View Obscene</a> (<?=$_COOKIE['obscene'] ? "On" : "Off";?>)
+					<a href='<?echo URL;?>obscene/<?=$_COOKIE['obscene'] == 1 ? "off" : "on";?>'>View Obscene</a> (<?=$_COOKIE['obscene'] == 1? "On" : "Off";?>)
 <?}?>
 				</div>
 				<div class="headerRow">
