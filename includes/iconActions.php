@@ -59,10 +59,10 @@ if($lncln->module == "thumbnail"){
 
 if($lncln->module == "obscene"){
 	if($lncln->params[0] == "on"){
-		setcookie('obscene', 1, time() + (60 * 60 * 24));
+		setcookie('obscene', 1, time() + (60 * 60 * 24), URL);
 	}
 	else{
-		setcookie('obscene', 0, time() + (60 * 60 * 24));
+		setcookie('obscene', 0, time() + (60 * 60 * 24), URL);
 	}
 	header("location:" . URL . "index/");	
 	exit();
