@@ -18,7 +18,7 @@ if($lncln->page == 0 && $lncln->maxPage == 0){
 $action = $lncln->script == "image.php" ? URL . $lncln->script . "?img=" . $lncln->page . $lncln->extra : URL . $lncln->script . "?page=" . $lncln->page . $lncln->extra;
 
 foreach ($lncln->images as $image){
-	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1){
+	if($lncln->checkSmall($image['obscene'], $image['small'])){
 		$link = "javascript:badImage('" . $image['id'] . "');";
 	}
 	else{
@@ -45,7 +45,7 @@ foreach ($lncln->images as $image){
 <?	if($image['postTime'] > time()):?>
 			This is not on the homepage yet.<br />
 <?	endif;?>
-<?	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']) || $_COOKIE['obscene'] == 0)) || $image['small'] == 1):?>
+<?	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
 			<div class="badImage" id="b<?echo $image['id'];?>">
 <?	endif;?>
 			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
@@ -75,7 +75,7 @@ foreach ($lncln->images as $image){
 <?	if($lncln->user->permissions['delete']):?>
 			<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?	endif;?>
-<?	if(($image['obscene'] == 1 && (!$_COOKIE['obscene'] || !isset($_COOKIE['obscene']))) || $image['small'] == 1):?>
+<?	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
 			</div>
 <?	endif;?>
 		</div>

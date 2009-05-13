@@ -597,6 +597,26 @@ class lncln{
 		
 		return "";
 	}
+	
+	/**
+	 * Check to see if image needs to be shrunk
+	 * @since 0.13.0
+	 * 
+	 * @param $obscene bool 
+	 * @param $small bool
+	 * 
+	 * @return bool True if image is small
+	 */
+	function checkSmall($obscene, $small){
+		$cookie = !$_COOKIE['obscene'] || !isset($_COOKIE['obscene']) || $_COOKIE['obscene'] == 0 ? true : false;
+				
+		if(($obscene == 1 && $cookie == true) || $small == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }
 
 /**
