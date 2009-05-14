@@ -88,7 +88,7 @@ class Captions implements Module{
 	 *
 	 * @return string Link or form
 	 */
-	public function headerLink(){
+	public function header_link(){
 		return "";
 	}
 	
@@ -114,7 +114,7 @@ class Captions implements Module{
 	 * 
 	 * @return string Text above the image
 	 */
-	public function aboveImage($id, $action){
+	public function above($id, $action){
 		return "";
 	}
 	
@@ -127,7 +127,7 @@ class Captions implements Module{
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function underImage($id, $action){
+	public function below($id, $action){
 		//caption stuff
 		if($this->lncln->user->permissions['captions'] == 1){
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";

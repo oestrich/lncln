@@ -134,7 +134,7 @@ class Tags implements Module{
 	 * 
 	 * @return string Contains the form to do a search
 	 */
-	public function headerLink(){
+	public function header_link(){
 		return "
 					<form id='search' enctype='multipart/form-data' action='" . URL . "tags/' method='post'>
 						<div>
@@ -167,7 +167,7 @@ class Tags implements Module{
 	 * 
 	 * @return string Text above the image
 	 */
-	public function aboveImage($id, $action){
+	public function above($id, $action){
 		return "";
 	}
 	
@@ -180,7 +180,7 @@ class Tags implements Module{
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function underImage($id, $action){
+	public function below($id, $action){
 		if($this->lncln->user->permissions['tags'] == 1){
 			$classTag = " class='underImage'";
 			$onClick = " onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";

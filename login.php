@@ -82,7 +82,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <body onload="document.getElementById('username').focus();">
 	<div id="container">
 		<div id="header">
-			<a href="<?echo URL;?>index.php" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
+			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="title"><?echo $lncln->display->settings['title'];?></div>
 		</div>
 		<div id="mainBody">

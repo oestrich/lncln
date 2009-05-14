@@ -31,7 +31,7 @@ foreach ($lncln->images as $image){
 	<div class="<?echo $lncln->type;?>">
 		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a>
 		<?foreach($lncln->modules as $module){
-			echo $module->aboveImage($image['id'], $action);
+			echo $module->above($image['id'], $action);
 		}?>
 		Posted: <?=$date;?> 
 
@@ -55,7 +55,7 @@ foreach ($lncln->images as $image){
 		 * Main part of the script right here 
 		 */
 		foreach($lncln->modules as $module){
-			echo $module->underImage($image['id'], $action);
+			echo $module->below($image['id'], $action);
 		}
 	else:
 		echo "\n\t\t\t<br />\n";

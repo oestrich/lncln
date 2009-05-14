@@ -78,7 +78,7 @@ class Index implements Module{
 		return "";
 	}
 	
-	public function headerLink(){
+	public function header_link(){
 		$thumbnail = $_SESSION['thumbnail'] == 1 ? "off" : "on";
 		
 		return "\t\t\t\t<a href='" . URL . "index/'>Newest</a>
@@ -89,11 +89,11 @@ class Index implements Module{
 		return "";
 	}
 	
-	public function aboveImage($id, $action){
+	public function above($id, $action){
 		return "";
 	}
 	
-	public function underImage($id, $action){
+	public function below($id, $action){
 		return "";
 	}
 

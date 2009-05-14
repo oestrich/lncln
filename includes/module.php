@@ -74,7 +74,7 @@ interface Module{
 	 *
 	 * @return string Link or form
 	 */
-	public function headerLink();
+	public function header_link();
 	
 	/**
 	 * Creates the icon underneath images
@@ -96,10 +96,10 @@ interface Module{
 	 * 
 	 * @return string Text above the image
 	 */
-	public function aboveImage($id, $action);
+	public function above($id, $action);
 	
 	/**
-	 * Creates text underneath the image.  May contain a form
+	 * Creates text below the image.  May contain a form
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
@@ -107,7 +107,7 @@ interface Module{
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function underImage($id, $action);
+	public function below($id, $action);
 	
 	/**
 	 * Pushes content out via the RSS feed

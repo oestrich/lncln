@@ -32,7 +32,7 @@
 				<div class="headerRow">
 <?
 foreach($lncln->display->rows[1] as $module){
-	echo $lncln->modules[$module]->headerLink();
+	echo $lncln->modules[$module]->header_link();
 }
 
 if($lncln->user->isUser == true){
@@ -106,7 +106,7 @@ if($lncln->user->permissions['isAdmin'] == 1){
 				<div class="headerRow">
 <?
 foreach($lncln->display->rows[2] as $module){
-	echo $lncln->modules[$module]->headerLink();
+	echo $lncln->modules[$module]->header_link();
 }
 ?>
 				</div>

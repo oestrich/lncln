@@ -113,7 +113,7 @@ class Albums implements Module{
 	 *
 	 * @return string Link or form
 	 */
-	public function headerLink(){
+	public function header_link(){
 		return "\t\t\t\t\t<a href='" . URL . "albums/'>Albums</a>\n";
 	}
 	
@@ -139,7 +139,7 @@ class Albums implements Module{
 	 * 
 	 * @return string Text above the image
 	 */
-	public function aboveImage($id, $action){
+	public function above($id, $action){
 		return "";
 	}
 	
@@ -152,7 +152,7 @@ class Albums implements Module{
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function underImage($id, $action){
+	public function below($id, $action){
 		if($this->lncln->user->permissions['albums'] == 1){
 			$class = "class='underImage'";
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";

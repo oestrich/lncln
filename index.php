@@ -22,4 +22,9 @@ if(isset($lncln->module) && $lncln->module != ""){
 	}
 	exit();
 }
+
+if(file_exists($lncln->module . ".php")){
+	include_once($lncln->module . ".php");
+	exit();
+}
 ?>
