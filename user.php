@@ -67,5 +67,8 @@ if($lncln->user->isUser){
 
 <?
 }
+else{
+	$lncln->display->message("Please sign in first.");
+}
 include_once(ABSPATH . "includes/footer.php");
 ?>

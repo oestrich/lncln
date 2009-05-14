@@ -26,13 +26,13 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 					);
 	include_once(ABSPATH . "admin/users/class.php");
 	
-	Users::addUser($user);
+	UsersAdmin::addUser($user);
 	
 	$lncln->display->message("Thank you for registering " . $user['username'] . ".");
 }
 ?>
 
-<form action="register.php" method="post">
+<form action="<?URL;?>register/" method="post">
 	<div id="adduser">
 		<table>
 			<tr>

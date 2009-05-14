@@ -11,15 +11,15 @@
  
 require_once("load.php");
 
-if($_GET['action'] == "finishUpload"){
+if($lncln->params[0] == "finishUpload"){
 	foreach($_POST['check'] as $key => $value){
 		$lncln->upload($key, $_POST['images'][$key]);
 	}
-	header("location:" . URL . "index.php");
+	header("location:" . URL . "index/");
 	exit();
 }
 
-if($_GET['action'] == "cancel"){
+if($lncln->params[0] == "cancel"){
 	foreach($_POST['images'] as $image){
 		@unlink(CURRENT_IMG_TEMP_DIRECTORY . $image);
 	}
@@ -29,7 +29,7 @@ if($_GET['action'] == "cancel"){
 	unset($_SESSION['uploadTime']);
 	unset($_SESSION['uploadKey']);
 	
-	header("location:" . URL . "index.php");
+	header("location:" . URL . "index/");
 	exit();
 }
 
@@ -45,7 +45,7 @@ include_once(ABSPATH . "includes/header.php");
 
 ?>
 	Tags are manditory.
-	<form action="upload.php?action=finishUpload<?=$img;?>" method="post">
+	<form action="<?=URL;?>upload/finishUpload/" method="post">
 <?
 foreach($lncln->uploaded as $image):
 
@@ -88,7 +88,7 @@ endforeach;
 ?>
 		<input type="submit" value="Submit" />
 	</form>
-	<form action="upload.php?action=cancel" method="post" />
+	<form action="<?=URL;?>upload/cancel" method="post" />
 		<div>
 			<?foreach($lncln->uploaded as $image){
 				echo "<input type='hidden' name='images[]' value='" . $image . "' />";

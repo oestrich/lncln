@@ -16,6 +16,13 @@ $lncln->queue();
 include_once("admin.php");
 
 if($_GET['action'] == "update"){
+	if(!is_array($_POST['check'])){
+		$_POST['check'] = array();
+	}
+	if(!is_array($_POST['approve'])){
+		$_POST['approve'] = array();
+	}
+	
 	foreach($_POST['check'] as $key => $value){
 		foreach($lncln->modules as $modKey => $module){
 			$module->edit($key, array($_POST['images'][$key][$modKey]));
@@ -25,19 +32,16 @@ if($_GET['action'] == "update"){
 	
 	foreach($_POST['approve'] as $key => $value){
 		$lncln->dequeue($key);
-	}
+	}	
+	
+	header("location:" . URL . "admin/" . $lncln->script);
+	exit();
 }
 
 if($_GET['action'] == "delete" && is_array($_POST['approve'])){
 	foreach($_POST['approve'] as $key => $value){
 		$lncln->delete($key);
 	}
-}
-
-if($_GET['action'] == "update"){
-	$lncln->dequeue($_POST);
-	header("location:" . URL . "admin/" . $lncln->script);
-	exit();
 }
 
 $lncln->img();

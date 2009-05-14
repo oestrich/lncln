@@ -13,7 +13,7 @@ require_once("load.php");
 
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
-		setcookie("username", "", time() - 30);
+		setcookie("username", "", time() - 30, URL);
 		header("location:login.php");
 	}
 	
@@ -42,9 +42,9 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 	if($numRows == 1){
 		$obscene = $row['obscene'] == 1 ? true : false;
 
-		setcookie("username", $username, time() + (60 * 60 * 24));
-		setcookie("password", $password, time() + (60 * 60 * 24));
-		setcookie("obscene", $obscene, time() + (60 * 60 * 24));
+		setcookie("username", $username, time() + (60 * 60 * 24), URL);
+		setcookie("password", $password, time() + (60 * 60 * 24), URL);
+		setcookie("obscene", $obscene, time() + (60 * 60 * 24), URL);
 		$isLoggedIn = true;
 	}
 }
@@ -89,7 +89,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 <?
 			if(!$numRows && !$_COOKIE['username']){
 ?>
-			<form enctype="multipart/form-data" action="login.php" method="post">
+			<form enctype="multipart/form-data" action="<?=URL;?>login" method="post">
 				<div>
 					Username: <input type='text' name='username' id='username'/><br />
 					Password: <input type='password' name='password' />

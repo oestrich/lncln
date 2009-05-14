@@ -50,6 +50,8 @@ class Index implements Module{
 			</div> 
 		<?
 		
+		echo $this->uploadStatus();
+		
 		echo $this->lncln->prevNext();
 
 		$this->lncln->display->includeFile("listing.php");
@@ -119,19 +121,19 @@ class Index implements Module{
 						break;
 					case 1:
 						$date = date('h:i:s A - m/d/Y', $_SESSION['uploadTime'][$i] + (3 * 60 * 60));
-						echo "Uploaded #$a correctly. It will appear at $date. To see it now <a href='images/full/" . $_SESSION['image'][$i] . "'>click here</a>.<br />";
+						$output = "Uploaded #$a correctly. It will appear at $date. To see it now <a href='images/full/" . $_SESSION['image'][$i] . "'>click here</a>.<br />";
 						break;
 					case 2:
-						echo "Uploaded #$a to the queue. <br />";
+						$output = "Uploaded #$a to the queue. <br />";
 						break;
 					case 3:
-						echo "#$a is missing tags. <br />";
+						$output = "#$a is missing tags. <br />";
 						break;
 					case 4:
-						echo "#$a is the wrong file type. <br />";
+						$output = "#$a is the wrong file type. <br />";
 						break;
 					case 5:
-						echo "#$a got a 404 error. <br />";
+						$output = "#$a got a 404 error. <br />";
 						break;
 				}
 			}
@@ -145,6 +147,8 @@ class Index implements Module{
 				unset($_SESSION['uploadKey']);
 			}
 		}
+		
+		return $output;
 	}
 	
 	

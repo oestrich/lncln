@@ -12,8 +12,8 @@
 require_once("load.php");
 
 if(isset($_COOKIE['username'])){
-	setcookie("username", "", time() - (60 * 60 * 24));
-	setcookie("password", "", time() - (60 * 60 * 24));
+	setcookie("username", "", time() - (60 * 60 * 24), URL);
+	setcookie("password", "", time() - (60 * 60 * 24), URL);
 }
 
 if(isset($_COOKIE['username'])){

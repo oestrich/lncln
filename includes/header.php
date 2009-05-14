@@ -37,13 +37,13 @@ foreach($lncln->display->rows[1] as $module){
 
 if($lncln->user->isUser == true){
 ?>
-					<a href='<?echo URL;?>logout.php'>Log out <?echo $lncln->user->username;?></a>
-					<a href='<?echo URL;?>user.php'>Change Settings</a>
+					<a href='<?echo URL;?>logout/'>Log out <?echo $lncln->user->username;?></a>
+					<a href='<?echo URL;?>user/'>Change Settings</a>
 <?}
 else{?>
-					<a href='<?echo URL;?>login.php'>Log in</a>
+					<a href='<?echo URL;?>login/'>Log in</a>
 					<?if($lncln->display->settings['register'] == 1):?>
-						<a href='<?echo URL;?>register.php'>Register</a>
+						<a href='<?echo URL;?>register/'>Register</a>
 					<?endif;?>
 					<a href='<?echo URL;?>obscene/<?=$_COOKIE['obscene'] == 1 ? "off" : "on";?>'>View Obscene</a> (<?=$_COOKIE['obscene'] == 1? "On" : "Off";?>)
 <?}?>
@@ -60,7 +60,7 @@ else{?>
 					We have <?echo $result['COUNT(*)'];?> images.
 	<?if($lncln->user->permissions['upload'] == 1):?>
 					<!-- upload form -->
-					<form enctype="multipart/form-data" action="<?=URL;?>upload.php" method="post"  id="form" style="display: none;">
+					<form enctype="multipart/form-data" action="<?=URL;?>upload/" method="post"  id="form" style="display: none;">
 						<div>
 							<input type="hidden" name="type" id="formType" value="regular" />
 							Uploaded files will be moderated<br />
