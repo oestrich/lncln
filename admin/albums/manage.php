@@ -17,7 +17,7 @@ if($_GET['subAction'] == "delete"){
 	Albums: <br />
 	<ul>
 <?
-	foreach($lncln->getAlbums() as $album){
+	foreach($lncln->getAlbums(false) as $album){
 		echo "\t\t\t<li>" . $album['name'] . " <a href='" . createLink("edit", array("album" => $album['id'])) . "'>Edit</a> " .
 				"<a href='" . createLink("manage", array("subAction" => "delete", "album" => $album['id'])) . "'>Delete</a></li>\n";
 	}	

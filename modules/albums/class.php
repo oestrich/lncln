@@ -39,7 +39,13 @@ class Albums implements Module{
 		$this->lncln->display->includeFile("header.php");
 		
 		if(!isset($this->lncln->params[0]) || $this->lncln->params[0] == ""){
-			foreach($this->getAlbums(false) as $album){
+			$albums = $this->getAlbums(false);
+			
+			if(count($albums) == 0){
+				echo "\t\t\tNo Albums";
+			}
+			
+			foreach($albums as $album){
 		?>
 					<a href="<?=URL;?>albums/<?=$this->getAlbumName($album['id'], true);?>/1"><?=$album['name'];?></a><br />
 		<?

@@ -83,6 +83,35 @@ class AlbumsAdmin extends lncln{
 		$sql = "UPDATE albums SET name = '" . $name ."' WHERE id = " . $id;
 		mysql_query($sql);
 	}
+	
+	/**
+	 * Returns all of the albums currently in the database
+	 * @since 0.9.0
+	 * 
+	 * @param $noAlbum bool Include "No Album" in list
+	 * 
+	 * @return array All of the albums in their own arrays, with 'id' and 'name'
+	 */
+	function getAlbums($noAlbum = true){
+		$sql = "SELECT id, name FROM albums WHERE 1";
+		$result = mysql_query($sql);
+		
+		$albums = array();
+		
+		if($noAlbum == true)
+			$albums[] = array("id" => 0, "name" => "No album");
+			
+		if(mysql_num_rows($result) < 1)
+			return $albums;
+		
+		while($row = mysql_fetch_assoc($result)){
+			$albums[] = array("id"	 => $row['id'],
+							  "name" => $row['name']
+							  );	
+		}
+		
+		return $albums;
+	}
 }
  
 ?> 
