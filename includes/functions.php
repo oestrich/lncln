@@ -60,12 +60,12 @@ class lncln{
 		$this->loadParams();
 		
 		if(isset($_GET['module']) && $_GET['module'] != ""){
-			if($_GET['module'] == "action"){				
+			if ($_GET['module'] == "action"){				
 				$this->module = array_shift($this->params);
 				
 				$this->action = true;
 			}
-			elseif($_GET['module'] == "thumbnail"){
+			elseif ($_GET['module'] == "thumbnail"){
 				$this->module = "thumbnail";
 			}
 			else{			
@@ -90,9 +90,9 @@ class lncln{
 		
 		$this->params = split("/", $q);
 		
-		//This second switches
-		foreach($this->params as &$param){
-			if(substr_count($param, "+") > 1)
+		//Switches spaces with +
+		foreach ($this->params as &$param){
+			if (substr_count($param, "+") > 1)
 				$param = str_replace(" ", "+", $param);		
 		}
 	}

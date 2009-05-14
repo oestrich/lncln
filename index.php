@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * index.php
  * 
@@ -13,18 +13,17 @@ require_once("load.php");
 
 include_once(ABSPATH . "includes/iconActions.php");
 
-if(isset($lncln->module) && $lncln->module != ""){
-	if(method_exists($lncln->modules[$lncln->module], "index")){
+
+if (isset($lncln->module) && $lncln->module != ""){
+	if (method_exists($lncln->modules[$lncln->module], "index")){
 		$lncln->modules[$lncln->module]->index();
 	}
 	else{
+		if (file_exists($lncln->module . ".php")){
+			include_once($lncln->module . ".php");
+			exit();
+		}
 		$lncln->display->message("That module does not exist");
 	}
 	exit();
 }
-
-if(file_exists($lncln->module . ".php")){
-	include_once($lncln->module . ".php");
-	exit();
-}
-?>

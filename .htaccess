@@ -1,5 +1,11 @@
 #$Id$
  
+#There is a problem with multiviews as lncln currently stands.
+Options -MultiViews
+
+#Make sure index.php is loaded right away
+DirectoryIndex index.php
+ 
 RewriteEngine On 
 RewriteRule ^page/([0-9]+)$ index.php?page=$1
 RewriteRule ^rss(?:/)?([a-zA-Z]+)?$ rss.php?action=$1
