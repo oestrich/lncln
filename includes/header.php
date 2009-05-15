@@ -20,6 +20,9 @@
 	<link rel="alternate" type="application/rss+xml" title="All Images" href="rss/all" />
 	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="rss/safe" />
 	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
+	<?
+		echo $lncln->display->include_css();
+	?>
 	<script type="text/javascript" src="<?echo URL;?>includes/javascript.js" >
 	</script>
 </head>

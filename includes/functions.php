@@ -104,12 +104,21 @@ class lncln{
 	 */
 	function loadModules(){
 		//Key is folder, value is class name
-		$this->modules = array("captions" => "Captions", "tags" => "Tags", "albums" => "Albums", "ratings" => "Ratings", "index" => "Index", "image" => "Image");
+		$this->modules = array(
+			"captions" => "Captions", 
+			"tags" => "Tags", 
+			"albums" => "Albums", 
+			"ratings" => "Ratings", 
+			"index" => "Index", 
+			"image" => "Image",
+			"admin" => "Admin",
+		);
 		
 		$this->display->rows = array(1 => array("index", "albums"),2 => array("tags"));
 		
 		foreach($this->modules as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
+			@include_once(ABSPATH . "modules/" . $folder . "/info.php");
 			$this->modules[$folder] = new $class($this);
 			
 			if(!($this->modules[$folder] instanceof Module)){
@@ -836,6 +845,25 @@ class Display{
 		$lncln = $this->lncln;
 		
 		include_once(ABSPATH . "includes/" . $includeFile);
+	}
+	
+	/**
+	 * Includes module related css
+	 * @since 0.13.0
+	 */
+	function include_css(){
+		$output = "";
+		
+		foreach($this->lncln->modules as $module){
+			$name = strtolower($module->name);
+			$file = "modules/" . $name . "/" . $name . ".css";
+			
+			if(file_exists(ABSPATH . $file)){
+				$output .= "<link type='text/css' rel='stylesheet' href='" . URL . $file . "' />\n";
+			}
+		}
+		
+		return $output;
 	}
 
 	

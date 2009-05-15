@@ -1,0 +1,22 @@
+/**
+ * admin.css
+ *
+ * @copyright (C) 2009 Eric Oestrich
+ * @version 0.12.0 $Id$
+ * @license license.txt GNU General Public License version 3
+ */
+ 
+.admin_link{
+	font-size: 1.5em;
+	font-weight: bold; 
+	text-decoration: underline; 
+}
+
+.admin_description{
+	font-style: italic;
+}
+
+p{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
