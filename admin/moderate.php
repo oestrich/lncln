@@ -21,7 +21,9 @@ if($_GET['action'] == "update"){
 	
 	foreach($_POST['check'] as $key => $value){
 		foreach($lncln->modules as $modKey => $module){
-			$module->edit($key, array($_POST['images'][$key][$modKey]));
+			if(method_exists($module, "edit")){
+				$module->edit($key, array($_POST['images'][$key][$modKey]));
+			}
 		}
 		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
 	}

@@ -9,7 +9,7 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Albums implements Module{
+class Albums{
 	public $name = "Albums";
 	public $displayName = "Album";
 	
@@ -358,6 +358,28 @@ class Albums implements Module{
 }
 
 class AlbumsAdmin extends Albums{
+	public function __construct(&$lncln){
+		parent::__construct($lncln);
+	}
+	
+	public function add(){
+		echo "Hello";
+	}
+	
+	/**
+	 * Registers actions that will be used in the admin panel
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: url 
+	 */
+	public function actions(){
+		$action = array(
+			'urls' => array('add'),
+		);
+		
+		return $action;
+	}
+	
 	/**
 	 * Adds an album to the database
 	 * @since 0.9.0
@@ -366,7 +388,7 @@ class AlbumsAdmin extends Albums{
 	 * 
 	 * @return string If it passed or not
 	 */
-	public function addAlbum($name){
+	protected function addAlbum($name){
 		$name = prepareSQL($name);
 		
 		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
@@ -386,7 +408,7 @@ class AlbumsAdmin extends Albums{
 	 * 
 	 * @param int $album The album id to be deleted
 	 */
-	public function deleteAlbum($album){
+	protected function deleteAlbum($album){
 		$album = prepareSQL($album);
 		
 		if(is_numeric($album)){
@@ -405,7 +427,7 @@ class AlbumsAdmin extends Albums{
 	 * @param $id int Album id
 	 * @param $name string New name
 	 */
-	function changeAlbumName($id, $name){
+	protected function changeAlbumName($id, $name){
 		$id = prepareSQL($id);
 		$name = prepareSQL($name);
 		

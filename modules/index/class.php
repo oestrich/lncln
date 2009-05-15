@@ -9,7 +9,7 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Index implements Module{
+class Index{
 	public $name = "Index"; //Name printed out in forms
 	public $displayName = "Index";
 	
@@ -30,7 +30,7 @@ class Index implements Module{
 	 * @since 0.13.0
 	 */
 	public function index(){
-		$this->prepareIndex();
+		$this->prepare_index();
 
 		$this->lncln->img();
 		
@@ -50,7 +50,7 @@ class Index implements Module{
 			</div> 
 		<?
 		
-		echo $this->uploadStatus();
+		echo $this->upload_status();
 		
 		echo $this->lncln->prevNext();
 
@@ -60,47 +60,18 @@ class Index implements Module{
 		
 		$this->lncln->display->includeFile("footer.php");
 	}
-
+	
 	/**
-	 * Not used, no need to comment them further
+	 * Creates the link in the header
+	 * @since 0.13.0
+	 *
+	 * @return string Link or form
 	 */
-	public function add($id, $data){
-		
-	}
-	
-	public function edit($id, $data){
-		
-	}
-	
-	public function upload(){
-		return "";
-	}
-	
-	public function moderate($id){
-		return "";
-	}
-	
 	public function header_link(){
 		$thumbnail = $_SESSION['thumbnail'] == 1 ? "off" : "on";
 		
 		return "\t\t\t\t<a href='" . URL . "index/'>Newest</a>
 					<a href='" . URL . "thumbnail/" . $thumbnail . "'>Thumbnail view</a>";
-	}
-	
-	public function icon($id, $action){
-		return "";
-	}
-	
-	public function above($id, $action){
-		return "";
-	}
-	
-	public function below($id, $action){
-		return "";
-	}
-
-	public function rss($id){
-		return "";
 	}
 	
 	/**
@@ -112,7 +83,7 @@ class Index implements Module{
 	 * Prints out upload status
 	 * @since 0.13.0
 	 */
-	private function uploadStatus(){
+	protected function upload_status(){
 		if($_SESSION['uploaded']){
 			for($i = 0; $i < 10; $i++){
 				$a = $i + 1;
@@ -156,7 +127,7 @@ class Index implements Module{
 	 * The function that makes the index go round
 	 * @since 0.9.0
 	 */
-	private function prepareIndex(){
+	protected function prepare_index(){
 		$this->lncln->moderationOn = true;
 		$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 		

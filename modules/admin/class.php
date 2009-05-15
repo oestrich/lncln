@@ -9,9 +9,12 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Admin implements Module{
+class Admin{
 	public $name = "Admin";
 	public $displayName = "Admin";
+	public $info = array();
+	protected $modules = array();
+	protected $actions = array();
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
@@ -30,56 +33,29 @@ class Admin implements Module{
 	 * @since 0.13.0
 	 */
 	public function index(){
+		$this->check_admin();
+		
+		$this->load_admin_modules();
+		
 		$this->lncln->display->includeFile("header.php");
 		
-		$this->load_info();
+		if($this->lncln->params[0] != ""){
+			
+			
+			foreach($this->actions[$this->lncln->params[0]]['urls'] as $url){
+				if($url == $this->lncln->params[1]){
+					$action = $this->lncln->params[1];
+					$this->modules[$this->lncln->params[0]]->$action();
+				}
+			}	
+		}
+		
+		if($this->lncln->params[0] == ""){
+			$this->load_info();
+			$this->show_info();
+		}
 		
 		$this->lncln->display->includeFile("footer.php");
-	}
-	
-	/**
-	 * Called after a successful upload
-	 * @since 0.13.0
-	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
-	 */
-	public function add($id, $data){
-		
-	}
-	
-	/**
-	 * Edits an image with the data provided
-	 * @since 0.13.0
-	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
-	 */	
-	public function edit($id, $data){
-		
-	}
-	
-	/**
-	 * Called during the upload screen. Contains the form information needed,
-	 * will be passed to add() after successful upload
-	 * @since 0.13.0
-	 *
-	 * @return array Keys: type, name, value, options
-	 */
-	public function upload(){
-		
-	}
-	
-	/**
-	 * Creates the form information needed during moderation
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image to gather information about and populate the input
-	 *
-	 * @return array Keys: type, name, value, options
-	 */
-	public function moderate($id){
-		
 	}
 	
 	/**
@@ -89,58 +65,12 @@ class Admin implements Module{
 	 * @return string Link or form
 	 */
 	public function header_link(){
+		if($this->lncln->user->permissions['isAdmin']){
+			return "Admin: <a href='" . URL . "admin/'>Admin Panel</a> " .
+				"<a href='" . URL . "admin/queue.php'>Check the Queue (" . $this->check_queue() . ")</a>";
+		}
 		
-	}
-	
-	/**
-	 * Creates the icon underneath images
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the icon
-	 * 
-	 * @return string Icon underneath the image
-	 */
-	public function icon($id, $action){
-		
-	}
-	
-	/**
-	 * Creates text above the image.  Text only
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the form
-	 * 
-	 * @return string Text above the image
-	 */
-	public function above($id, $action){
-		
-	}
-	
-	/**
-	 * Creates text below the image.  May contain a form
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the form
-	 * 
-	 * @return string Text underneath the image
-	 */
-	public function below($id, $action){
-		
-	}
-	
-	/**
-	 * Pushes content out via the RSS feed
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Output for the RSS feed
-	 */
-	public function rss($id){
-		
+		return "";
 	}
 	
 	/**
@@ -161,19 +91,27 @@ class Admin implements Module{
 			$name = strtolower($module) . "_info";
 			
 			if(function_exists($name)){
-				$info = $name();
+				$this->info[] = $name();
 			}
 			else{
 				continue;
 			}
-			
+		}
+	}
+	
+	/**
+	 * Prints out the info for modules
+	 * @since 0.13.0
+	 */
+	protected function show_info(){
+		foreach($this->info as $info){
 			$requires = join(" ", $info['requires']);
 			
 			if($requires == ""){
 				$requires = "No requirements";
 			}
 			
-			echo "<span class='admin_link'>" . $info['name'] . "</span>\n";
+			echo "<span class='admin_link'><a href='" . URL . "admin/" . $info['name']. "/'>" . $info['name'] . "</a></span>\n";
 			echo "<p class='admin_description'>" . $info['description'] . "</p>\n";
 			echo "<table>\n";
 			echo "<tr><td>Version:</td><td>" . $info['version'] . "</td></tr>\n";
@@ -181,6 +119,43 @@ class Admin implements Module{
 			echo "<tr><td>Requires:</td><td>" . $requires . "</td></tr>\n";
 			echo "</table>\n";
 			echo "<br />";
+		}
+	}
+	
+	/**
+	 * Will be moved to it's own module eventaully
+	 * @since 0.13.0
+	 */
+	protected function check_queue(){
+		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		return $row['COUNT(*)'];
+	}
+	
+	/**
+	 * Check admin status
+	 * @since 0.13.0
+	 */
+	protected function check_admin(){
+		if($this->lncln->user->permissions['isAdmin'] != 1){
+			$this->lncln->display->message("You must be an admin to be here");
+		}
+	}
+	
+	protected function load_admin_modules(){
+		foreach($this->lncln->modules_enabled as $module){
+			$name = $module . "Admin";
+			
+			if(class_exists($name)){
+				$this->modules[$module] = new $name($this->lncln);
+			}
+			else{
+				continue;
+			}
+			
+			$this->actions[$module] = $this->modules[$module]->actions();
 		}
 	}
 }

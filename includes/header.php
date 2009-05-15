@@ -35,7 +35,9 @@
 				<div class="headerRow">
 <?
 foreach($lncln->display->rows[1] as $module){
-	echo $lncln->modules[$module]->header_link();
+	if(method_exists($module, "header_link")){
+		echo $lncln->modules[$module]->header_link();
+	}
 }
 
 if($lncln->user->isUser == true){
@@ -67,26 +69,10 @@ else{?>
 						<div>
 							<input type="hidden" name="type" id="formType" value="regular" />
 							Uploaded files will be moderated<br />
-							<input name="upload0" id="upload0" type="file" />
-							<br />
-							<input name="upload1" id="upload1" type="file" />
-							<br />
-							<input name="upload2" id="upload2" type="file" />
-							<br />
-							<input name="upload3" id="upload3" type="file" />
-							<br />
-							<input name="upload4" id="upload4" type="file" />
-							<br />
-							<input name="upload5" id="upload5" type="file" />
-							<br />
-							<input name="upload6" id="upload6" type="file" />
-							<br />
-							<input name="upload7" id="upload7" type="file" />
-							<br />
-							<input name="upload8" id="upload8" type="file" />
-							<br />
-							<input name="upload9" id="upload9" type="file" />
-							<br />
+<?		for($a = 0; $a < 10; $a++){
+			echo "\t\t\t\t\t\t\t<input name='upload$a' id='upload$a' type='file' />\n";
+			echo "\t\t\t\t\t\t\t<br />\n";
+		}?>
 							<input type="submit" value="Upload File" />
 							<br />
 							Max total upload size: <?=ini_get("upload_max_filesize");?>
@@ -94,22 +80,21 @@ else{?>
 					</form>
 	<?endif;?>
 				</div>
-<?	
-if($lncln->user->permissions['isAdmin'] == 1){
-	$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-	$result = mysql_query($sql);
-	$row = mysql_fetch_assoc($result);
-?>
-				<div class="headerRow">
-					Admin: 
-					<a href="<?=URL;?>admin/">Admin Panel</a>
-					<a href='<?echo URL;?>admin/queue.php'>Check the Queue (<?echo $row['COUNT(*)'];?>)</a>
-				</div>
-<?}?>	
 				<div class="headerRow">
 <?
-foreach($lncln->display->rows[2] as $module){
-	echo $lncln->modules[$module]->header_link();
+foreach($lncln->display->rows[3] as $module){
+	if(method_exists($module, "header_link")){
+		echo $lncln->modules[$module]->header_link();
+	}
+}
+?>
+				</div>
+				<div class="headerRow">
+<?
+foreach($lncln->display->rows[4] as $module){
+	if(method_exists($module, "header_link")){
+		echo $lncln->modules[$module]->header_link();
+	}
 }
 ?>
 				</div>

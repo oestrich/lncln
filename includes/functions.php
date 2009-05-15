@@ -104,7 +104,7 @@ class lncln{
 	 */
 	function loadModules(){
 		//Key is folder, value is class name
-		$this->modules = array(
+		$this->modules_enabled = array(
 			"captions" => "Captions", 
 			"tags" => "Tags", 
 			"albums" => "Albums", 
@@ -114,16 +114,16 @@ class lncln{
 			"admin" => "Admin",
 		);
 		
-		$this->display->rows = array(1 => array("index", "albums"),2 => array("tags"));
+		$this->display->rows = array(
+			1 => array("index", "albums"),
+			3 => array("admin"),
+			4 => array("tags")
+		);
 		
-		foreach($this->modules as $folder => $class){
+		foreach($this->modules_enabled as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
 			@include_once(ABSPATH . "modules/" . $folder . "/info.php");
 			$this->modules[$folder] = new $class($this);
-			
-			if(!($this->modules[$folder] instanceof Module)){
-				unset($this->modules[$folder]);
-			}
 		}
 	}
 	
@@ -457,7 +457,9 @@ class lncln{
 		rename(CURRENT_IMG_TEMP_DIRECTORY . $name, CURRENT_IMG_DIRECTORY . $imgID . '.' . $type);
 		
 		foreach($this->modules as $key => $module){
-			$module->add($imgID, array($data[$key]));
+			if(method_exists($module, "add")){
+				$module->add($imgID, array($data[$key]));
+			}
 		}
 		
 		$this->thumbnail($imgID . '.' . $type);

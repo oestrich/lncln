@@ -11,7 +11,7 @@
  * @package lncln
  */
 
-class Tags implements Module{
+class Tags{
 	public $name = "Tags"; //Name printed out in forms
 	public $displayName = "Tags";
 	
@@ -143,32 +143,6 @@ class Tags implements Module{
 							<input type='submit' value='Search' />
 						</div>
 					</form> ";
-	}
-	
-	/**
-	 * Creates the icon underneath images
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the icon
-	 * 
-	 * @return string Icon underneath the image
-	 */
-	public function icon($id, $action){
-		return "";
-	}
-	
-	/**
-	 * Creates text above the image.  Text only
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the form
-	 * 
-	 * @return string Text above the image
-	 */
-	public function above($id, $action){
-		return "";
 	}
 	
 	/**

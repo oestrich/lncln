@@ -74,8 +74,9 @@ foreach($lncln->modules as $module){
 			$id = end($lncln->params);
 		else
 			$id = $_POST['id'];
-		
-		$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
+		if(method_exists($module, "edit")){
+			$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
+		}
 
 		header("location:" . URL . $_SESSION['URL'] . "#" . $id);
 		exit();

@@ -2,7 +2,7 @@
 /**
  * module.php
  * 
- * Contains the interface for modules
+ * Contains base classes for modules
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
@@ -10,11 +10,11 @@
  */
 
 /**
- * Module interface
- * 
+ * Module base class
+ * Contains everything that a module can do, aka the module API
  * @since 0.13.0
  */
-interface Module{	
+class Module{	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -22,14 +22,18 @@ interface Module{
 	 * 
 	 * @param $lncln lncln Main class variable
 	 */
-	public function __construct(&$lncln);
+	public function __construct(&$lncln){
+		
+	}
 	
 	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
 	 * @since 0.13.0
 	 */
-	public function index();
+	public function index(){
+		
+	}
 	
 	/**
 	 * Called after a successful upload
@@ -38,7 +42,9 @@ interface Module{
 	 * @param $id int ID of new image
 	 * @param $data array Extra material needed, tag information, etc
 	 */
-	public function add($id, $data);
+	public function add($id, $data){
+		
+	}
 	
 	/**
 	 * Edits an image with the data provided
@@ -47,7 +53,9 @@ interface Module{
 	 * @param $id int ID of image
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
-	public function edit($id, $data);
+	public function edit($id, $data){
+		
+	}
 	
 	/**
 	 * Called during the upload screen. Contains the form information needed,
@@ -56,7 +64,9 @@ interface Module{
 	 *
 	 * @return array Keys: type, name, value, options
 	 */
-	public function upload();
+	public function upload(){
+		
+	}
 	
 	/**
 	 * Creates the form information needed during moderation
@@ -66,7 +76,9 @@ interface Module{
 	 *
 	 * @return array Keys: type, name, value, options
 	 */
-	public function moderate($id);
+	public function moderate($id){
+		
+	}
 	
 	/**
 	 * Creates the link in the header
@@ -74,7 +86,9 @@ interface Module{
 	 *
 	 * @return string Link or form
 	 */
-	public function header_link();
+	public function header_link(){
+		
+	}
 	
 	/**
 	 * Creates the icon underneath images
@@ -85,7 +99,9 @@ interface Module{
 	 * 
 	 * @return string Icon underneath the image
 	 */
-	public function icon($id, $action);
+	public function icon($id, $action){
+		
+	}
 	
 	/**
 	 * Creates text above the image.  Text only
@@ -96,7 +112,9 @@ interface Module{
 	 * 
 	 * @return string Text above the image
 	 */
-	public function above($id, $action);
+	public function above($id, $action){
+		
+	}
 	
 	/**
 	 * Creates text below the image.  May contain a form
@@ -107,7 +125,9 @@ interface Module{
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function below($id, $action);
+	public function below($id, $action){
+		
+	}
 	
 	/**
 	 * Pushes content out via the RSS feed
@@ -117,6 +137,23 @@ interface Module{
 	 * 
 	 * @return string Output for the RSS feed
 	 */
-	public function rss($id);
+	public function rss($id){
+		
+	}
 }
-?>
+
+/**
+ * Admin module API
+ * @since 0.13.0
+ */
+class AdminModule{
+	/**
+	 * Registers actions that will be used in the admin panel
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: url 
+	 */
+	public function actions(){
+		
+	}
+}

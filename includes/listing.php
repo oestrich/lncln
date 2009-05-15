@@ -31,7 +31,9 @@ foreach ($lncln->images as $image){
 	<div class="<?echo $lncln->type;?>">
 		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a>
 		<?foreach($lncln->modules as $module){
-			echo $module->above($image['id'], $action);
+			if(method_exists($module, "above")){
+				echo $module->above($image['id'], $action);
+			}
 		}?>
 		Posted: <?=$date;?> 
 
@@ -55,7 +57,9 @@ foreach ($lncln->images as $image){
 		 * Main part of the script right here 
 		 */
 		foreach($lncln->modules as $module){
-			echo $module->below($image['id'], $action);
+			if(method_exists($module, "below")){
+				echo $module->below($image['id'], $action);
+			}
 		}
 	else:
 		echo "\n\t\t\t<br />\n";
@@ -63,9 +67,11 @@ foreach ($lncln->images as $image){
 <?	if($lncln->user->permissions['report'] == 1):?>
 			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?	endif;?>
-<?	foreach($lncln->modules as $module):
-		echo $module->icon($image['id'], $action);
-	endforeach;?>
+<?	foreach($lncln->modules as $module){
+		if(method_exists($module, "icon")){
+			echo $module->icon($image['id'], $action);
+		}
+	}?>
 <?	if($lncln->user->permissions['obscene'] == 1):?>
 			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
 <?	endif;?>

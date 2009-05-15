@@ -9,7 +9,7 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Ratings implements Module{
+class Ratings{
 	public $name = "Ratings";
 	public $displayName = "Rating";
 	
@@ -22,26 +22,6 @@ class Ratings implements Module{
 	 */
 	public function __construct(&$lncln){
 		$this->lncln = $lncln;
-	}
-	
-	/**
-	 * Called if the Module has it's own page
-	 * Such as albums or search
-	 * @since 0.13.0
-	 */
-	public function index(){
-		$this->lncln->display->message("This module does not have an associated page");
-	}
-	
-	/**
-	 * Called after a successful upload
-	 * @since 0.13.0
-	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
-	 */
-	public function add($id, $data){
-		
 	}
 	
 	/**
@@ -105,39 +85,6 @@ class Ratings implements Module{
 	}
 	
 	/**
-	 * Called during the upload screen. Contains the form information needed,
-	 * will be passed to add() after successful upload
-	 * @since 0.13.0
-	 *
-	 * @return array Keys: type, name, value, options
-	 */
-	public function upload(){
-		return "";
-	}
-	
-	/**
-	 * Creates the form information needed during moderation
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image to gather information about and populate the input
-	 *
-	 * @return array Keys: type, name, value, options
-	 */
-	public function moderate($id){
-		return "";
-	}
-	
-	/**
-	 * Creates the link in the header
-	 * @since 0.13.0
-	 *
-	 * @return string Link or form
-	 */
-	public function header_link(){
-		return "";
-	}
-	
-	/**
 	 * Creates the icon underneath images
 	 * @since 0.13.0
 	 * 
@@ -166,31 +113,6 @@ class Ratings implements Module{
 	 */
 	public function above($id, $action){
 		return "Rating: " . $this->getRating($id);
-	}
-	
-	/**
-	 * Creates text underneath the image.  May contain a form
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * @param $action array Action for the form
-	 * 
-	 * @return string Text underneath the image
-	 */
-	public function below($id, $action){
-		return "";
-	}
-	
-	/**
-	 * Pushes content out via the RSS feed
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Output for the RSS feed
-	 */
-	public function rss($id){
-		return "";
 	}
 	
 	/**

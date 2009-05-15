@@ -25,7 +25,9 @@ if($_GET['action'] == "update"){
 	
 	foreach($_POST['check'] as $key => $value){
 		foreach($lncln->modules as $modKey => $module){
-			$module->edit($key, array($_POST['images'][$key][$modKey]));
+			if(method_exists($module, "edit")){
+				$module->edit($key, array($_POST['images'][$key][$modKey]));
+			}
 		}
 		$lncln->obscene($key, $_POST['images'][$key]['obscene']);
 	}
@@ -77,7 +79,7 @@ echo $lncln->prevNext();
 			<input type="hidden" name="images[<?=$image['id'];?>][id]" value="<?=$image['id'];?>" /><br />
 			<table>
 				<?foreach($lncln->modules as $module):
-					if($module->moderate($image['id']) == "")
+					if(!method_exists($module, "moderate"))
 						continue;
 				?>
 				<tr>

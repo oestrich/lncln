@@ -9,7 +9,7 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Image implements Module{
+class Image{
 	public $name = "Image"; //Name printed out in forms
 	public $displayName = "Image";
 	
@@ -47,46 +47,6 @@ class Image implements Module{
 			echo "No such image.";
 		}
 		$this->lncln->display->includeFile("footer.php");
-	}
-	
-
-	/**
-	 * Not used, no need to comment them further
-	 */
-	public function add($id, $data){
-		
-	}
-	
-	public function edit($id, $data){
-		
-	}
-	
-	public function upload(){
-		return "";
-	}
-	
-	public function moderate($id){
-		return "";
-	}
-	
-	public function header_link(){
-		return "";
-	}
-	
-	public function icon($id, $action){
-		return "";
-	}
-	
-	public function above($id, $action){
-		return "";
-	}
-	
-	public function below($id, $action){
-		return "";
-	}
-
-	public function rss($id){
-		return "";
 	}
 	
 	/**

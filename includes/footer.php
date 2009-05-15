@@ -12,7 +12,6 @@
 
 		</div>
 		<div id="footer">
-			If you find something that belongs to you, and would like it taken down, please contact <a href="mailto:mazra[at]boomboxlincoln[dot]org">mazra</a><br />
 			Powered by <a href="http://lncln.com">lncln <?echo $lncln->display->settings['version'];?></a>
 		</div>
 	</div>

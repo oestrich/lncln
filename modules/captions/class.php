@@ -9,7 +9,7 @@
  * @license license.txt GNU General Public License version 3
  */
 
-class Captions implements Module{	
+class Captions{	
 	public $name = "Captions";
 	public $displayName = "Caption";
 	

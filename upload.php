@@ -33,7 +33,8 @@ if($lncln->params[0] == "cancel"){
 	exit();
 }
 
-//Makes sure users don't come to this page without being sent here.  Otherwise things might get messed up.
+//Makes sure users don't come to this page without being sent here.  
+//Otherwise things might get messed up.
 if(!isset($_POST['type'])){
 	$lncln->display->message("Please don't come to this page on your own.  If you didn't come here on your own, you may have uploaded more than " . ini_get("upload_max_filesize"));
 
