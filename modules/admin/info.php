@@ -11,7 +11,7 @@
 
 function admin_info(){
 	$admin = array(
-		'name' => 'Admin',
+		'name' => 'Settings',
 		'description' => 'Manage your site',
 		'version' => '0.13.0',
 		'package' => 'core',

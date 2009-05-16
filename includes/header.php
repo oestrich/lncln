@@ -27,7 +27,9 @@
 	</script>
 </head>
 <body onload="init()">
-	<input type="hidden" id="URL" value="<?=URL;?>" />
+	<form action="#" method="post">
+		<div><input type="hidden" id="URL" value="<?=URL;?>" /></div>
+	</form>
 	<div id="container">
 		<div id="header">
 			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
@@ -103,5 +105,5 @@ foreach($lncln->display->rows[4] as $module){
 		<div id="mainBody">
 			<br />
 			<?if($lncln->user->permissions['isAdmin'] == 1  && $lncln->moderationOn):?>
-				<div style="text-align: center; left: -50px; position: relative; z-index: 1; padding-bottom: 20px;"><a href="<?=URL;?>admin/moderate.php">Moderate Images</a></div>
+				<div style="text-align: center; position: relative; z-index: 1; padding-bottom: 20px;"><a href="<?=URL;?>admin/moderate.php">Moderate Images</a></div>
 			<?endif;?>	

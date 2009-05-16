@@ -34,7 +34,6 @@ class lncln{
 	public $imagesToGet = array();		//The images that data will be pulled for
 	public $images = array(); 	//Image data to be outputed in listImages.php
 	public $type;				//Normal or thumb
-	public $extra;				//If $type == "thumb" then it equals "&thumb=true"
 	
 	public $modules = array();
 	public $module;				//Currently used module ex. ?module=tags 
@@ -193,22 +192,6 @@ class lncln{
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
-	}
-	
-	/**
-	 * Limits the availability of certain variables
-	 * @since 0.6.0
-	 * 
-	 * @param mixed $variable The variable to be returned
-	 * 
-	 * @return mixed The variable in question
-	 */
-	function __get($variable){
-		return $this->$variable;
-	}
-	
-	function __set($variable, $value){
-		$this->$variable = $value;
 	}
 	
 	/**

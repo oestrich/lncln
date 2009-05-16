@@ -44,7 +44,8 @@ class Admin{
 			//If just the top module page, show actions
 			if($this->lncln->params[1] == ""){
 				if($this->check_module($this->lncln->params[0])){
-					echo "<span class='admin_link'>". $this->lncln->params[0] . "</span><br /><br />\n";
+					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>"
+							. "<span class='admin_link'>". $this->lncln->params[0] . "</span><br /><br />\n";
 					
 					foreach($this->actions[$this->lncln->params[0]]['urls'] as $url => $name){
 						if($name != ""){
@@ -58,12 +59,13 @@ class Admin{
 			}
 			else{
 				//Only do the correct action!
-				if($this->check_action($this->lncln->params[0], $this->lncln->params[1])){
-					echo "<span class='admin_link'><a href='" . URL . "admin/" .
+				$action = $this->lncln->params[1];
+				if($this->check_action($this->lncln->params[0], $action)){
+					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>" .
+							"<span class='admin_link'><a href='" . URL . "admin/" .
 							$this->lncln->params[0] . "'>". $this->lncln->params[0] .
-							"</a></span><span class='admin_action'> - " . ucwords($this->lncln->params[1]) . "</span><br />\n<br />\n";
-					
-					$action = $this->lncln->params[1];
+							"</a></span><span class='admin_action'> - " . ucwords($action) . "</span><br />\n<br />\n";
+
 					$this->modules[$this->lncln->params[0]]->$action();
 				}
 				else{
@@ -133,7 +135,14 @@ class Admin{
 				$requires = "No requirements";
 			}
 			
-			echo "<span class='admin_link'><a href='" . URL . "admin/" . $info['name']. "/'>" . $info['name'] . "</a></span>\n";
+			echo "<span class='admin_link'>";
+			if($this->check_module($info['name'])){
+				echo "<a href='" . URL . "admin/" . $info['name']. "/'>" . $info['name'] . "</a>";
+			}
+			else{
+				echo $info['name'];
+			}
+			echo "</span>\n";
 			echo "<p class='admin_description'>" . $info['description'] . "</p>\n";
 			echo "<table>\n";
 			echo "<tr><td>Version:</td><td>" . $info['version'] . "</td></tr>\n";

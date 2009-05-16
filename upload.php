@@ -73,8 +73,12 @@ foreach($lncln->uploaded as $image):
 				<input type="hidden" name="images[<?=$image;?>][id]" value="<?=$image;?>" /><br />
 				<table>
 					<?foreach($lncln->modules as $module):
-						if($module->upload() == "")
+						if(!method_exists($module, "upload")){
 							continue;
+						}
+						if($module->upload() == ""){
+							continue;
+						}
 					?>
 					<tr>
 						<td><?=$module->displayName;?>:</td>

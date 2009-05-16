@@ -29,13 +29,14 @@ foreach ($lncln->images as $image){
 ?>
 
 	<div class="<?echo $lncln->type;?>">
-		<a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a>
+		<span class='image_id'><a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a></span>
+		<br />
+		<?=$date;?> 
 		<?foreach($lncln->modules as $module){
 			if(method_exists($module, "above")){
 				echo $module->above($image['id'], $action);
 			}
 		}?>
-		Posted: <?=$date;?> 
 
 		<div class="imageLink" >
 <?	if($image['obscene'] == 1):?>

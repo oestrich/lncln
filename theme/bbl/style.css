@@ -10,14 +10,21 @@
 
 body{
 	background-color: #111111;
-	color: white;
-	width: 814px;
-	position: relative;
-	top: -10px;
-	left: 50%;
-	margin-left: -407px;
+}
+
+#container{
+	background-color: black;
 	border-style: solid;
 	border-color: black gray gray;
+	color: white;
+	left: 50%;
+	margin-left: -407px;
+	padding-left: 50px;
+	padding-bottom: 20px;
+	padding-right: 50px;
+	position: relative;
+	top: -10px;
+	width: 714px;
 }
 
 a{
@@ -30,12 +37,6 @@ a{
 
 #header{
 	padding-top: 10px;
-}
-
-#container{
-	background-color: black;
-	padding-left: 50px;
-	padding-bottom: 20px;
 }
 
 #form{
@@ -70,6 +71,16 @@ a{
 	height: 200px;
 }
 
+.index{
+	background-color: #222222;
+	color: white;
+	padding: 15px;
+}
+
+.image_id{
+	font-size: 1.5em;
+}
+
 .normal{
 	margin-top: 20px;
 }
@@ -99,9 +110,6 @@ a{
 	display: none;
 }
 
-.underImage{
-	width: 600px;
-}
 .underImage:hover{
 	background-color: white;
 	color: black;
