@@ -318,23 +318,23 @@ class lncln{
 		
 		$script .= $tempParams;
 		
-		$output = $bottom == true ? "<div id='bPrevNext'>" : "";
+		$output = $bottom == true ? "<div id='bPrevNext'>" : "<div class='prev_next'>";
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . $script . ($this->page + 1) . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page + 1) . "' >Next page</a>";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        $output .= "<a href='" . $script . ($this->page - 1) . "' class='prevNext'>Prev page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>";
 	    }
 	    else{
-	        $output .= "<a href='" . $script . ($this->page - 1) . "' class='prevNext'>Prev page</a>
-	        <a href='" . $script . ($this->page + 1) . "' class='prevNext'>Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>
+	        <a href='" . $script . ($this->page + 1) . "' >Next page</a>";
 	    }
 	    
-	    $output .= $bottom == true ? "</div>" : "";
+	    $output .= $bottom == true ? "</div>" : "</div>";
 	    
 	    return $output;
 	}
@@ -803,6 +803,7 @@ class Display{
 	public $lncln;
 	
 	public $rows;
+	public $title;
 	
 	/**
 	 * Sets up the settings array
@@ -819,6 +820,8 @@ class Display{
 		}
 		
 		define("THEME", $this->settings['theme']);
+		
+		$this->set_title();
 	}
 	
 	/**
@@ -849,6 +852,15 @@ class Display{
 		}
 		
 		return $output;
+	}
+	
+	function set_title($title = ""){
+		if($title == ""){
+			$this->title = $this->settings['title'];
+			return 1;
+		}
+		
+		$this->title = $this->settings['title'] . " - " . $title;
 	}
 
 	

@@ -34,6 +34,8 @@ class Index{
 
 		$this->lncln->img();
 		
+		$this->lncln->display->set_title("Index");
+		
 		$this->lncln->display->includeFile("header.php");
 		
 		$news = $this->lncln->getNews();

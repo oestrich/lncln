@@ -85,8 +85,9 @@ a{
 	margin-top: 20px;
 }
 
-.prevNext{
+.prev_next{
 	clear: both;
+	padding-bottom: 15px;
 }
 
 #bPrevNext{

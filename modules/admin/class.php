@@ -37,7 +37,7 @@ class Admin{
 		
 		$this->load_admin_modules();
 		
-		$this->lncln->display->includeFile("header.php");
+		ob_start();
 		
 		//If going to a module page, enter
 		if($this->lncln->params[0] != ""){
@@ -52,6 +52,8 @@ class Admin{
 							echo "<a href='" . URL . "admin/" . $this->lncln->params[0] . "/$url'>" . $name . "</a><br />\n";
 						}
 					}
+					
+					$this->lncln->display->set_title("Admin - " . $this->lncln->params[0]);
 				}
 				else{
 					echo "Not a module";
@@ -59,14 +61,20 @@ class Admin{
 			}
 			else{
 				//Only do the correct action!
+				$module = $this->lncln->params[0];
 				$action = $this->lncln->params[1];
+				
 				if($this->check_action($this->lncln->params[0], $action)){
 					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>" .
 							"<span class='admin_link'><a href='" . URL . "admin/" .
-							$this->lncln->params[0] . "'>". $this->lncln->params[0] .
+							$module . "'>". $module .
 							"</a></span><span class='admin_action'> - " . ucwords($action) . "</span><br />\n<br />\n";
 
-					$this->modules[$this->lncln->params[0]]->$action();
+					$this->modules[$module]->$action();
+					
+					$name = $this->actions[$module]['urls'][$action];
+					
+					$this->lncln->display->set_title($module . " - " . $name);
 				}
 				else{
 					echo "Not an action";
@@ -78,6 +86,14 @@ class Admin{
 			$this->load_info();
 			$this->show_info();
 		}
+		
+		//This allows for the title to change while in the admin panel
+		$content = ob_get_contents();
+		ob_end_clean();		
+		
+		$this->lncln->display->includeFile("header.php");
+		
+		echo $content;
 		
 		$this->lncln->display->includeFile("footer.php");
 	}

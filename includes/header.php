@@ -15,7 +15,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title><?echo $lncln->display->settings['title'];?></title>
+	<title><?echo $lncln->display->title;?></title>
 
 	<link rel="alternate" type="application/rss+xml" title="All Images" href="rss/all" />
 	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="rss/safe" />
