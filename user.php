@@ -11,14 +11,12 @@
 
 require_once("load.php");
 
-include_once(ABSPATH . "includes/header.php");
-
 if(isset($_POST['username'])){
-	echo $lncln->user->updateUser($_POST);
-	echo "<br />Click <a href='" . URL . "index.php'>here</a> to continue";
-	include_once(ABSPATH . "includes/footer.php");
-	exit();
+	$lncln->display->message($lncln->user->updateUser($_POST) . "<br />Click <a href='" . URL . "index.php'>here</a> to continue");
 }
+
+
+include_once(ABSPATH . "includes/header.php");
 
 if($lncln->user->isUser){
 	$sql = "SELECT obscene FROM users WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1";
@@ -32,7 +30,7 @@ if($lncln->user->isUser){
 		$checked = "";
 	}
 ?>
-	<form enctype="multipart/form-data" action="user.php" method="post">
+	<form enctype="multipart/form-data" action="<?=URL;?>user/" method="post">
 		<div id="user">
 			<input type="hidden" name="username" value="<?echo $_COOKIE['username'];?>" />
 			<table>

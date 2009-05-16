@@ -786,7 +786,7 @@ class User{
 		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
 		mysql_query($sql);
 		
-		setcookie('obscene', $obscene, time() + (60 * 60 * 24));
+		setcookie('obscene', $obscene, time() + (60 * 60 * 24), URL);
 	
 		
 		return "User " . $username . " updated.";

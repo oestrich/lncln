@@ -41,10 +41,10 @@ foreach ($lncln->images as $image){
 	if($image['obscene'] == 1):
 			echo "This has been voted obscene.<br />";
 	endif;
-	if(!$_GET['thumb'] && $image['type'] == 'gif'):
+	if($lncln->type != 'thumb' && $image['type'] == 'gif'):
 			echo "This is a gif.<br />";
 	endif;
-	if($image['postTime'] > time()){
+	if($lncln->type != 'thumb' && $image['postTime'] > time()){
 			echo "Not on the homepage yet.<br />\n";
 	}
 	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
