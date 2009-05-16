@@ -39,15 +39,37 @@ class Admin{
 		
 		$this->lncln->display->includeFile("header.php");
 		
+		//If going to a module page, enter
 		if($this->lncln->params[0] != ""){
-			
-			
-			foreach($this->actions[$this->lncln->params[0]]['urls'] as $url){
-				if($url == $this->lncln->params[1]){
+			//If just the top module page, show actions
+			if($this->lncln->params[1] == ""){
+				if($this->check_module($this->lncln->params[0])){
+					echo "<span class='admin_link'>". $this->lncln->params[0] . "</span><br /><br />\n";
+					
+					foreach($this->actions[$this->lncln->params[0]]['urls'] as $url => $name){
+						if($name != ""){
+							echo "<a href='" . URL . "admin/" . $this->lncln->params[0] . "/$url'>" . $name . "</a><br />\n";
+						}
+					}
+				}
+				else{
+					echo "Not a module";
+				}
+			}
+			else{
+				//Only do the correct action!
+				if($this->check_action($this->lncln->params[0], $this->lncln->params[1])){
+					echo "<span class='admin_link'><a href='" . URL . "admin/" .
+							$this->lncln->params[0] . "'>". $this->lncln->params[0] .
+							"</a></span><span class='admin_action'> - " . ucwords($this->lncln->params[1]) . "</span><br />\n<br />\n";
+					
 					$action = $this->lncln->params[1];
 					$this->modules[$this->lncln->params[0]]->$action();
 				}
-			}	
+				else{
+					echo "Not an action";
+				}
+			}
 		}
 		
 		if($this->lncln->params[0] == ""){
@@ -144,6 +166,10 @@ class Admin{
 		}
 	}
 	
+	/**
+	 * Load the admin modules
+	 * @since 0.13.0
+	 */
 	protected function load_admin_modules(){
 		foreach($this->lncln->modules_enabled as $module){
 			$name = $module . "Admin";
@@ -157,5 +183,33 @@ class Admin{
 			
 			$this->actions[$module] = $this->modules[$module]->actions();
 		}
+	}
+	
+	/**
+	 * Check to see if requested module is indeed a loaded module
+	 * @since 0.13.0
+	 */
+	protected function check_module($module_check){
+		foreach($this->modules as $module){
+			if($module->name == $module_check){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Check to see if a module has the action requested
+	 * @since 0.13.0
+	 */
+	protected function check_action($module, $action){
+		foreach($this->actions[$module]['urls'] as $url => $name){
+			if($url == $action){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

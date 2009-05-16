@@ -362,8 +362,87 @@ class AlbumsAdmin extends Albums{
 		parent::__construct($lncln);
 	}
 	
+	/**
+	 * Add an album
+	 * @since 0.13.0
+	 */
 	public function add(){
-		echo "Hello";
+		if(isset($_POST['name'])){
+			echo $this->addAlbum($_POST['name']);
+		}
+		
+		$form = array(
+			'action' => 'admin/Albums/add',
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Add Album',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Add new Album',
+			'type' => 'text',
+			'name' => 'name',
+			);
+		
+		echo create_form($form);
+	}
+	
+	/**
+	 * Manage your albums
+	 * @since 0.13.0
+	 */
+	public function manage(){
+		if($this->lncln->params[2] == "delete"){
+			$this->deleteAlbum($this->lncln->params[3]);
+			$this->lncln->display->message("Album deleted<br />Please click <a href='" . URL . "admin/Albums/manage'>here</a> to continue.");
+		}
+
+		echo "Albums: <br />\n<ul>";
+		foreach($this->getAlbums(false) as $album){
+			echo "\t\t\t<li>" . $album['name'] . " <a href='" . URL . "admin/Albums/edit/" . $album['id'] . "'>Edit</a> " .
+					"<a href='" . URL . "admin/Albums/manage/delete/" . $album['id'] . "'>Delete</a></li>\n";
+		}	
+		echo "</ul>";
+			
+	}
+	
+	public function edit(){
+		if(!isset($this->lncln->params[2])){
+			$this->lncln->display->message("Please don't come here on your own.");
+		}
+		
+		if(isset($_POST['name'])){
+			$this->lncln->display->message($this->changeAlbumName($_POST['id'], $_POST['name']) .
+				"  Click <a href='" . URL . "admin/Albums/manage'>here</a> to continue");
+		}
+		
+		$id = $this->lncln->params[2];
+		$album = $this->getAlbumName($id);
+		
+		$form = array(
+			'action' => 'admin/Albums/edit/' . $id,
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Edit Album',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => '',
+			'type' => 'hidden',
+			'name' => 'id',
+			'value' => $id,
+			);
+			
+		$form['inputs'][] = array(
+			'title' => 'Album Name:',
+			'type' => 'text',
+			'name' => 'name',
+			'value' => $album,
+			);
+		
+		echo create_form($form);
 	}
 	
 	/**
@@ -374,8 +453,12 @@ class AlbumsAdmin extends Albums{
 	 */
 	public function actions(){
 		$action = array(
-			'urls' => array('add'),
-		);
+			'urls' => array(
+				'add' => 'Add album',
+				'manage' => 'Manage albums',
+				'edit' => '',
+				),
+			);
 		
 		return $action;
 	}
@@ -390,6 +473,14 @@ class AlbumsAdmin extends Albums{
 	 */
 	protected function addAlbum($name){
 		$name = prepareSQL($name);
+		
+		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['name'] > 0){
+			return "Album already exists";
+		}
 		
 		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
 		mysql_query($sql);
@@ -431,7 +522,17 @@ class AlbumsAdmin extends Albums{
 		$id = prepareSQL($id);
 		$name = prepareSQL($name);
 		
+		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		if($row['name'] > 0){
+			return "Album already exists.";
+		}
+		
 		$sql = "UPDATE albums SET name = '" . $name ."' WHERE id = " . $id;
 		mysql_query($sql);
+		
+		return "Album updated successfully.";
 	}
 }

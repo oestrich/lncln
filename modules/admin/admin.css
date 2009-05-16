@@ -12,6 +12,11 @@
 	text-decoration: underline; 
 }
 
+.admin_action{
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
 .admin_description{
 	font-style: italic;
 	margin-top: 5px;

@@ -974,4 +974,41 @@ function createInput($input, $id, $extra = ""){
 			return $output;
 	}
 }
-?>
+
+function create_form($form){
+	$output = "";
+	
+	if($form['file'] == true){
+		$file = " enctype='multipart/form-data' ";
+	}
+	
+	$output .= "<form action='" . URL . $form['action'] . "' method='" . $form['method'] ."' $file>\n";
+	$output .= "\t<div>\n";
+	$output .= "\t\t<table>\n";
+	
+	foreach($form['inputs'] as $input){
+		$output .= "\t\t\t<tr>\n";
+		
+		if($input['title'] != ""){
+			$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";	
+		}
+		
+		switch($input['type']){
+			case 'text':
+				$output .= "\t\t\t\t<td><input type='text' name='" . $input['name'] . "' value='" . $input['value'] . "'/></td>\n";
+				break;
+			case 'hidden':
+				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . $input['name'] ."' value='" . $input['value'] . "'></td>\n";
+				break;
+		}
+		
+		$output .= "\t\t\t</tr>\n";
+	}
+	
+	$output .= "\t\t</table>\n";
+	$output .= "\t\t<input type='submit' value='" . $form['submit'] . "'/>\n";
+	$output .= "\t</div>\n";
+	$output .= "</form>\n";
+	
+	return $output;
+}
