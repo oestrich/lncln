@@ -150,11 +150,10 @@ class Tags{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function below($id, $action){
+	public function below($id){
 		if($this->lncln->user->permissions['tags'] == 1){
 			$classTag = " class='underImage'";
 			$onClick = " onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";

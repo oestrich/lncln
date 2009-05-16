@@ -128,11 +128,10 @@ class Albums{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the icon
 	 * 
 	 * @return string Icon underneath the image
 	 */
-	public function icon($id, $action){
+	public function icon($id){
 		return "";
 	}
 	
@@ -141,11 +140,10 @@ class Albums{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text above the image
 	 */
-	public function above($id, $action){
+	public function above($id){
 		return "";
 	}
 	
@@ -154,11 +152,10 @@ class Albums{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function below($id, $action){
+	public function below($id){
 		if($this->lncln->user->permissions['albums'] == 1){
 			$class = "class='underImage'";
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";
@@ -174,22 +171,23 @@ class Albums{
 			</div>";
 		
 		
-		if($this->lncln->user->permissions['albums'] == 1):
+		if($this->lncln->user->permissions['albums'] == 1){
 			$output .= "
 			<form id='a$id' style='display: none;' action='" . URL . "action/albums/$id' method='post'>
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					<select name='albums' id='formAlbums$id'>";
-			foreach($this->getAlbums() as $album):
+			foreach($this->getAlbums() as $album){
 				$selected = $album['name'] == $this->getImageAlbum($id) ? "selected" : "";
 				$output .= "<option value='" . $album['id'] ."' $selected>" . $album['name'] . "</option>";
-			endforeach;
+			}
 			$output .= "
 					</select>
 					<input type='submit' value='Change album' />
 				</div>
 			</form>";
-		endif;
+		}
+		
 		return $output;
 	}
 	

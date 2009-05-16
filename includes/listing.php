@@ -15,8 +15,6 @@ if($lncln->page == 0 && $lncln->maxPage == 0){
 	echo "<br /><br />No images.<br />";
 }
 
-$action = $lncln->script == "image.php" ? URL . $lncln->script . "?img=" . $lncln->page . $lncln->extra : URL . $lncln->script . "?page=" . $lncln->page . $lncln->extra;
-
 foreach ($lncln->images as $image){
 	if($lncln->checkSmall($image['obscene'], $image['small'])){
 		$link = "javascript:badImage('" . $image['id'] . "');";
@@ -28,30 +26,35 @@ foreach ($lncln->images as $image){
 	$date = $_SESSION['thumbnail'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
 ?>
 
-	<div class="<?echo $lncln->type;?>">
+	<div class="<?= $lncln->type;?> content">
 		<span class='image_id'><a href="<?echo $link;?>" id="l<?echo $image['id'];?>" name="<?echo $image['id'];?>"><?echo $image['id'];?></a></span>
 		<br />
 		<?=$date;?> 
 		<?foreach($lncln->modules as $module){
 			if(method_exists($module, "above")){
-				echo $module->above($image['id'], $action);
+				echo $module->above($image['id']);
 			}
-		}?>
+		}
+		
+		echo "<br />";
 
-		<div class="imageLink" >
-<?	if($image['obscene'] == 1):?>
-			This has been voted obscene.<br />
+	if($image['obscene'] == 1):
+			echo "This has been voted obscene.<br />";
+	endif;
+	if(!$_GET['thumb'] && $image['type'] == 'gif'):
+			echo "This is a gif.<br />";
+	endif;
+	if($image['postTime'] > time()){
+			echo "Not on the homepage yet.<br />\n";
+	}
+	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
+		<div class="badImage" id="b<?echo $image['id'];?>">
 <?	endif;?>
-<?	if(!$_GET['thumb'] && $image['type'] == 'gif'):?>
-			This is a gif.<br />
-<?	endif;?>
-<?	if($image['postTime'] > time()):?>
-			This is not on the homepage yet.<br />
-<?	endif;?>
-<?	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
-			<div class="badImage" id="b<?echo $image['id'];?>">
-<?	endif;?>
-			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank"><img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" /></a>
+		<div class='<?=$lncln->type;?>_image'>
+			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank" >
+				<img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" />
+			</a>
+		</div>
 <?	//don't show underImage() if in thumbnails
 	if(!$_SESSION['thumbnail']):
 		/**
@@ -59,33 +62,32 @@ foreach ($lncln->images as $image){
 		 */
 		foreach($lncln->modules as $module){
 			if(method_exists($module, "below")){
-				echo $module->below($image['id'], $action);
+				echo $module->below($image['id']);
 			}
 		}
 	else:
-		echo "\n\t\t\t<br />\n";
+		echo "\t\t<br />\n";
 	endif;?>
 <?	if($lncln->user->permissions['report'] == 1):?>
-			<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
+		<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
 <?	endif;?>
 <?	foreach($lncln->modules as $module){
 		if(method_exists($module, "icon")){
-			echo $module->icon($image['id'], $action);
+			echo $module->icon($image['id']);
 		}
 	}?>
 <?	if($lncln->user->permissions['obscene'] == 1):?>
-			<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
+		<a href="<?=$action;?>&amp;obscene=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/obscene.png" alt="Obscene" title="Obscene" style='border: none;'/></a>
 <?	endif;?>
 <?	if($lncln->user->permissions['refresh'] == 1):?>
-			<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+		<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
 <?	endif;?>
 <?	if($lncln->user->permissions['delete']):?>
-			<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+		<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?	endif;?>
 <?	if($lncln->checkSmall($image['obscene'], $image['small'])):?>
-			</div>
-<?	endif;?>
 		</div>
-	</div>
-	<br />
-<?}?>
+<?	endif;
+	echo "\t</div>";
+
+}

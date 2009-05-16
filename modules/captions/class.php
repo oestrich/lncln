@@ -97,11 +97,10 @@ class Captions{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the icon
 	 * 
 	 * @return string Icon underneath the image
 	 */
-	public function icon($id, $action){
+	public function icon($id){
 		return "";
 	}
 	
@@ -110,11 +109,10 @@ class Captions{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text above the image
 	 */
-	public function above($id, $action){
+	public function above($id){
 		return "";
 	}
 	
@@ -123,11 +121,10 @@ class Captions{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function below($id, $action){
+	public function below($id){
 		//caption stuff
 		if($this->lncln->user->permissions['captions'] == 1){
 			$onClick = "onclick=\"showModule('" . $this->name . "', '" . $id . "');\"";

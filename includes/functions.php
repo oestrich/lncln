@@ -860,7 +860,7 @@ class Display{
 			return 1;
 		}
 		
-		$this->title = $this->settings['title'] . " - " . $title;
+		$this->title = $title . " - " . $this->settings['title'];
 	}
 
 	

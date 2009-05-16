@@ -89,14 +89,13 @@ class Ratings{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the icon
 	 * 
 	 * @return string Icon underneath the image
 	 */
-	public function icon($id, $action){
+	public function icon($id){
 		if($this->lncln->user->permissions['ratings'] == 1):
-			$output = "\t\t\t<a href='" .URL . "action/ratings/up/$id'><img src='" .URL . "theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
-			<a href='" .URL . "action/ratings/down/$id'><img src='" .URL . "theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>\n";
+			$output = "\t\t<a href='" .URL . "action/ratings/up/$id'><img src='" .URL . "theme/" .THEME ."/images/up.png' alt='Up' title='Up' style='border: none;'/></a>
+		<a href='" .URL . "action/ratings/down/$id'><img src='" .URL . "theme/" .THEME ."/images/down.png' alt='Down' title='Down' style='border: none;'/></a>\n";
 		endif;
 		
 		return $output;
@@ -107,11 +106,10 @@ class Ratings{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text above the image
 	 */
-	public function above($id, $action){
+	public function above($id){
 		return "Rating: " . $this->getRating($id);
 	}
 	

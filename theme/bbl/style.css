@@ -68,13 +68,19 @@ a{
 .thumb{
 	float: left;
 	margin: 0 15px 15px 0;
-	height: 200px;
+	min-height: 230px;
+	width: 155px;
 }
 
-.index{
+.thumb_image{
+	height: 150px;
+}
+
+.content{
 	background-color: #222222;
 	color: white;
 	padding: 15px;
+	margin-bottom: 20px;
 }
 
 .image_id{

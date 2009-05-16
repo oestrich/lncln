@@ -74,7 +74,7 @@ class Admin{
 					
 					$name = $this->actions[$module]['urls'][$action];
 					
-					$this->lncln->display->set_title($module . " - " . $name);
+					$this->lncln->display->set_title($name . " - " . $module);
 				}
 				else{
 					echo "Not an action";

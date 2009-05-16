@@ -95,11 +95,10 @@ class Module{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the icon
 	 * 
 	 * @return string Icon underneath the image
 	 */
-	public function icon($id, $action){
+	public function icon($id){
 		
 	}
 	
@@ -108,11 +107,10 @@ class Module{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text above the image
 	 */
-	public function above($id, $action){
+	public function above($id){
 		
 	}
 	
@@ -121,11 +119,10 @@ class Module{
 	 * @since 0.13.0
 	 * 
 	 * @param $id int Image ID
-	 * @param $action array Action for the form
 	 * 
 	 * @return string Text underneath the image
 	 */
-	public function below($id, $action){
+	public function below($id){
 		
 	}
 	
