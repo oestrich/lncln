@@ -33,6 +33,20 @@ class Obscene{
 			exit();
 		}
 	}
+	
+	public function above($id){
+		if($this->lncln->type == "thumb"){
+			return "";
+		}
+		
+		$sql = "SELECT obscene FROM images WHERE id = " . $id;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$obscene = $row['obscene'] == 1 ? "<div id='vob" . $id . "'>This image is obscene</div>" : "";
+				
+		return $obscene;
+	}
 		
 	public function header_link(){
 		if($this->lncln->user->isUser == false){
