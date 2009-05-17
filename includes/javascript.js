@@ -59,9 +59,10 @@ function toggleDiv(type){
 	}
 }
 
-function badImage(divid){
+function show_image(divid){
 	document.getElementById('b' + divid).style.display = 'block';
 	document.getElementById('l' + divid).href = URL + "image/" + divid;
+	document.getElementById('vob' + divid).style.display = 'none';
 }
 
 function showModule(module, divid){

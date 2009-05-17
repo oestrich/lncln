@@ -2,7 +2,7 @@
 /**
  * info.php
  * 
- * 
+ * Contains information about the image module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$

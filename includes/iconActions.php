@@ -56,7 +56,7 @@ if($lncln->module == "thumbnail"){
 	header("location:" . URL . $_SESSION['URL']);
 	exit();
 }
-
+/*
 if($lncln->module == "obscene"){
 	if($lncln->params[0] == "on"){
 		setcookie('obscene', 1, time() + (60 * 60 * 24), URL);
@@ -67,6 +67,7 @@ if($lncln->module == "obscene"){
 	header("location:" . URL . "index/");	
 	exit();
 }
+*/
 
 foreach($lncln->modules as $module){
 	if($lncln->action == true && $lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
@@ -75,6 +76,8 @@ foreach($lncln->modules as $module){
 		else
 			$id = $_POST['id'];
 		if(method_exists($module, "edit")){
+			//$_POST[$lncln->module] is the POST field that corresponds to the module in question
+			//$lncln->params[0] is a sub_action
 			$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
 		}
 

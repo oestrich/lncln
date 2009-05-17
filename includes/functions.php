@@ -111,17 +111,18 @@ class lncln{
 			"index" => "Index", 
 			"image" => "Image",
 			"admin" => "Admin",
+			"obscene" => "Obscene",
 		);
 		
 		$this->display->rows = array(
-			1 => array("index", "albums"),
+			1 => array("index", "albums", "obscene"),
 			3 => array("admin"),
 			4 => array("tags")
 		);
 		
 		foreach($this->modules_enabled as $folder => $class){
 			include_once(ABSPATH . "modules/" . $folder . "/class.php");
-			@include_once(ABSPATH . "modules/" . $folder . "/info.php");
+			include_once(ABSPATH . "modules/" . $folder . "/info.php");
 			$this->modules[$folder] = new $class($this);
 		}
 	}
@@ -261,7 +262,7 @@ class lncln{
 	function img(){		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
-		$sql = "SELECT id, caption, postTime, type, obscene, small FROM images WHERE ";
+		$sql = "SELECT id, caption, postTime, type FROM images WHERE ";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
@@ -285,7 +286,6 @@ class lncln{
 				'obscene' 	=> $image['obscene'],
 				'postTime'	=> $image['postTime'],
 				'caption'	=> $image['caption'],
-				'small'		=> $image['small'],
 				);
 		}
 		
@@ -446,9 +446,6 @@ class lncln{
 		}
 		
 		$this->thumbnail($imgID . '.' . $type);
-		if($data['obscene']){
-			$this->obscene($imgID);
-		}
 	}
 	
 	/**
@@ -492,37 +489,6 @@ class lncln{
 		@unlink(ABSPATH . "images/index/" . $image . "." . $type['type']);
 		
 		return "Successfully deleted.";
-	}
-	
-	/**
-	 * Obscenes images.  Just flips the images obscene number
-	 * @since 0.5.0
-	 * 
-	 * @param int $image The image to be changed
-	 * 
-	 * @return string If it change the image or not.
-	 */
-	function obscene($image, $flip = -1){
-		$sql = "SELECT type, obscene FROM images WHERE id = " . $image;
-		
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result) == 1){
-			$row = mysql_fetch_assoc($result);
-			if($flip == -1)
-				$num = $row['obscene'] == 0 ? 1 : 0;
-			else
-				$num = $flip;
-		}
-		else{
-			return "No such image.";
-		}
-		
-		$sql = "UPDATE images SET obscene = " . $num . " WHERE id = " . $image;
-		//This is line #666, watch out
-		
-		mysql_query($sql);
-		
-		return "Updated image";
 	}
 
 	/**
@@ -596,20 +562,18 @@ class lncln{
 	 * Check to see if image needs to be shrunk
 	 * @since 0.13.0
 	 * 
-	 * @param $obscene bool 
-	 * @param $small bool
-	 * 
 	 * @return bool True if image is small
 	 */
-	function checkSmall($obscene, $small){
-		$cookie = !isset($_COOKIE['obscene']) || $_COOKIE['obscene'] == 0 ? true : false;
-				
-		if(($obscene == 1 && $cookie == true) || $small == 1){
-			return true;
+	function checkSmall($id){
+		foreach($this->modules as $module){
+			if(method_exists($module, "small")){
+				if($module->small($id) == true){
+					return true;
+				}
+			}
 		}
-		else{
-			return false;
-		}
+		
+		return false;
 	}
 }
 

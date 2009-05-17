@@ -22,6 +22,4 @@ SQL commands:
  ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
 	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
 
- ALTER TABLE `images` ADD `small` INT( 1 ) NOT NULL ;
-
 If you have any other problems, please visit the forums.

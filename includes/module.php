@@ -137,6 +137,18 @@ class Module{
 	public function rss($id){
 		
 	}
+	
+	/**
+	 * Checks to see if an image needs to be shrunk
+	 * @since 0.13.0
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return bool True: small
+	 */
+	public function small($id){
+		
+	}
 }
 
 /**

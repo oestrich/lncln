@@ -63,18 +63,8 @@ class Ratings{
 			}
 			
 			mysql_query($sql);
-			
-			$sql = "SELECT SUM(rating) FROM ratings WHERE picId = " . $id;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			
-			if($row['SUM(rating)'] == null){
-				$row['SUM(rating)'] = 0;
-			}
-			
-			$small = $row['SUM(rating)'] < -10 ? 1 : 0;
 						
-			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . ", small = " . $small . " WHERE id = " . $id . " LIMIT 1";
+			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id . " LIMIT 1";
 			mysql_query($sql);
 			
 			return "Rated successfully";
@@ -111,6 +101,24 @@ class Ratings{
 	 */
 	public function above($id){
 		return "Rating: " . $this->getRating($id);
+	}
+	
+	/**
+	 * Checks to see if an image needs to be shrunk
+	 * @since 0.13.0
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return bool True: small
+	 */
+	public function small($id){
+		$sql = "SELECT rating FROM images WHERE id = " . $id;
+		$result = mysql_query($sql);
+		$row = mysql_fetch_assoc($result);
+		
+		$small = $row['rating'] < -10 ? 1 : 0;
+		
+		return $small;
 	}
 	
 	/**
