@@ -20,7 +20,7 @@ if($action == "")
 $lncln->rss(array($action));
 $lncln->img();
 
-$server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss/all.rss", "", $_SERVER['SCRIPT_NAME']);
+$server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss.php", "", $_SERVER['SCRIPT_NAME']);
 
 ?>
 <rss version="2.0">
@@ -37,8 +37,8 @@ foreach($lncln->images as $image){
 ?>
 	<item>
 		<title><?echo $image['id'];?></title>
-		<link><?echo $server;?>image.php?img=<?echo $image['id'];?></link>
-		<guid><?echo $server;?>image.php?img=<?echo $image['id'];?></guid>
+		<link><?echo $server;?>image/<?echo $image['id'];?></link>
+		<guid><?echo $server;?>image/<?echo $image['id'];?></guid>
 		<pubDate><?echo date('r', $image['postTime']);?></pubDate>
 		<description>
 			<![CDATA[ <img src="<?=$lncln->getImagePath($image['id'], "index");?>" alt="<?echo $image['id'];?>"/> <br />

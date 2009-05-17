@@ -17,8 +17,8 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title><?echo $lncln->display->title;?></title>
 
-	<link rel="alternate" type="application/rss+xml" title="All Images" href="rss/all" />
-	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="rss/safe" />
+	<link rel="alternate" type="application/rss+xml" title="All Images" href="<?=URL;?>rss/all" />
+	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="<?=URL;?>rss/safe" />
 	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
 	<?
 		echo $lncln->display->include_css();
