@@ -38,9 +38,6 @@ foreach ($lncln->images as $image){
 		
 		echo "<br />";
 
-	if($image['obscene'] == 1):
-			echo "<div id='vob" . $image['id'] . "'>This has been voted obscene.</div>";
-	endif;
 	if($lncln->type != 'thumb' && $image['type'] == 'gif'):
 			echo "This is a gif.<br />";
 	endif;

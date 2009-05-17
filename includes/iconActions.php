@@ -56,18 +56,6 @@ if($lncln->module == "thumbnail"){
 	header("location:" . URL . $_SESSION['URL']);
 	exit();
 }
-/*
-if($lncln->module == "obscene"){
-	if($lncln->params[0] == "on"){
-		setcookie('obscene', 1, time() + (60 * 60 * 24), URL);
-	}
-	else{
-		setcookie('obscene', 0, time() + (60 * 60 * 24), URL);
-	}
-	header("location:" . URL . "index/");	
-	exit();
-}
-*/
 
 foreach($lncln->modules as $module){
 	if($lncln->action == true && $lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){

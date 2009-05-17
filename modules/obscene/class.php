@@ -17,11 +17,28 @@ class Obscene{
 		$this->lncln = $lncln;
 	}
 	
+	public function index(){
+		if($this->lncln->params[0] == "view"){
+			if($this->lncln->params[1] == "on"){
+				setcookie('obscene', 1, time() + (60 * 60 * 24), URL);
+			}
+			else{
+				setcookie('obscene', 0, time() + (60 * 60 * 24), URL);
+			}
+			header("location:" . URL . "index/");	
+			exit();
+		}
+		else{
+			header("location:" . URL . "index/");
+			exit();
+		}
+	}
+		
 	public function header_link(){
 		if($this->lncln->user->isUser == false){
 			$url = $_COOKIE['obscene'] == 1 ? 'off' : 'on';
 			$status = $_COOKIE['obscene'] == 1 ? "On" : "Off";
-			echo "<a href='" . URL . "obscene/" . $url . "'>View Obscene</a> (" . $status . ")";
+			echo "<a href='" . URL . "obscene/view/" . $url . "'>View Obscene</a> (" . $status . ")";
 		}	
 	}
 	
