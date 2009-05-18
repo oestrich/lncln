@@ -67,8 +67,6 @@ class Database{
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
 		}
-		
-		echo $sql;
 	
 		$this->last_query = $sql;
 		$this->num_queries += 1;
