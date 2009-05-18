@@ -20,6 +20,8 @@
  */
  
 class lncln{
+	public $db;
+	
 	public $user;
 	public $moderationOn = false;
 	
@@ -49,6 +51,10 @@ class lncln{
 	 * @param array $params any extra parameters that will be passed onto the action
 	 */
 	function __construct($action = "none", $params = array()){	
+		//Pull in the database class that was already started.
+		global $db;
+		$this->db = $db;
+		
 		$this->user = new User();
 		$this->display = new Display($this);
 		$this->loadModules();
@@ -584,6 +590,8 @@ class lncln{
  * @since 0.10.0
  */
 class User{
+	public $db = null;
+	
 	public $username;  //String, username
 	public $userID;  //Int, the user's id
 	public $group;
@@ -598,6 +606,9 @@ class User{
 	 * @since 0.10.0
 	 */
 	function __construct(){
+		global $db;
+		$this->db = $db;
+		
 		$this->loggedIn();
 		
 		$this->permissions = array(
@@ -606,8 +617,8 @@ class User{
 				);
 		
 		$sql = "SELECT * FROM users WHERE id = " . $this->userID . " LIMIT 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		$this->permissions['isAdmin'] = $row['admin'];
 		$this->group = $row['group'];
@@ -623,8 +634,8 @@ class User{
 	 */
 	function loadPermissions(){
 		$sql = "SELECT * FROM groups WHERE id = " . $this->group . " LIMIT 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		foreach($row as $key => $permission){
 			if($key == "id" || $key == "name")
@@ -640,36 +651,36 @@ class User{
 	 * @since 0.10.0
 	 * 
 	 * @todo Move to a session based system as well, not just relying on cookies
-	 */
-	function loggedIn(){
-		if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
-			$username = prepareSQL($_COOKIE['username']);
-			$password = prepareSQL($_COOKIE['password']);
-			
-			$this->isUser = true;
-		}
-		else{
-			$username = "Anonymous";
-			$password = "";
-			
-			$this->isUser = false;
-		}
-	
-		$sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
-		$result = mysql_query($sql);
+     */
+    function loggedIn(){
+        if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
+            $username = prepareSQL($_COOKIE['username']);
+            $password = prepareSQL($_COOKIE['password']);
+            
+            $this->isUser = true;
+        }
+        else{
+            $username = "Anonymous";
+            $password = "";
+            
+            $this->isUser = false;
+        }
+    
+        $sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
+        $this->db->query($sql);
 
-		$row = mysql_fetch_assoc($result);
-		
-		$this->userID = $row['id'];
-		$this->username = $row['name'];
+        $row = $this->db->fetch_one();
+        
+        $this->userID = $row['id'];
+        $this->username = $row['name'];
 
-		//removes any cookies that may have been set.
-		if(!isset($_COOKIE['password']) && $_COOKIE['username']){
-			setcookie("username", "", time() - (60 * 60 * 24));
-			setcookie("password", "", time() - (60 * 60 * 24));
-			header("location:". URL . "index.php");
-		}
-	}
+        //removes any cookies that may have been set.
+        if(!isset($_COOKIE['password']) && $_COOKIE['username']){
+            setcookie("username", "", time() - (60 * 60 * 24));
+            setcookie("password", "", time() - (60 * 60 * 24));
+            header("location:". URL . "index.php");
+        }
+    }
 	
 	/**
 	 * Checks if a user can upload straight to the homepage
@@ -683,7 +694,7 @@ class User{
 					"SET postTime = " . time() . ", numImages = numImages + 1, uploadCount = uploadCount + 1 " .
 					"WHERE id = '" . $this->userID . "' " .
 					"LIMIT 1"; 
-			mysql_query($sql);
+			$this->db->query($sql);
 	 	}
 	 	
 	 	$sql = "SELECT postTime, numImages FROM users WHERE id = " . $this->userID;
@@ -701,7 +712,7 @@ class User{
 	 	//If over 24 hrs later, reset number images
 	 	if(date('d', $row['postTime']) != date('d', time())){
 	 		$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . $new . " WHERE id = '" . $this->userID . "' LIMIT 1"; 
-			mysql_query($sql);
+			$this->db->query($sql);
 			
 			$this->permissions['toQueue'] = 0;
 	 	}
@@ -730,9 +741,9 @@ class User{
 			$newPasswordConfirm = prepareSQL($user['newPasswordConfirm']);
 			
 			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
-			$result = mysql_query($sql);
+			$this->db->query($sql);
 			
-			$row = mysql_fetch_assoc($result);
+			$row = $this->db->fetch_one();
 			
 			$oldPassword = sha1($oldPassword);
 			$newPassword = sha1($newPassword);
@@ -748,7 +759,7 @@ class User{
 		}
 		
 		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
-		mysql_query($sql);
+		$this->db->query($sql);
 		
 		setcookie('obscene', $obscene, time() + (60 * 60 * 24), URL);
 	
@@ -763,6 +774,8 @@ class User{
  * @since 0.11.0
  */
 class Display{
+	public $db = null;
+	
 	public $settings = array();
 	public $lncln;
 	
@@ -774,12 +787,16 @@ class Display{
 	 * @since 0.11.0
 	 */
 	function __construct(&$lncln){
+		global $db;
+		$this->db = $db;
+		
 		$this->lncln = $lncln;
 		
 		$sql = "SELECT * FROM settings";
-		$result = mysql_query($sql);
+		$this->db->query($sql);
+		$results = $this->db->fetch_all();
 				
-		while($row = mysql_fetch_assoc($result)){
+		foreach($results as $row){
 			$this->settings[$row['name']] = $row['value'];
 		}
 		
@@ -846,19 +863,6 @@ class Display{
 		include_once(ABSPATH . "includes/footer.php");
 		exit();
 	}
-}
-
-/**
- * Connects to the database
- * @since 0.5.0
- * 
- * @param array $config Contains the information needed to connect to the database
- */
-function connect(){
-	if(!@mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD)){
-		die("Error with MySQL: " . mysql_error());
-	}
-	mysql_select_db(DB_DATABASE);
 }
 
 /**

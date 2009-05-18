@@ -16,7 +16,7 @@ class Database{
 	public $last_query;
 	public $num_queries = 0;
 	
-	public $result;
+	public $result = null;
 	public $fetched_results = null; //Cached results
 	
 	public $total_time = 0;
@@ -89,6 +89,18 @@ class Database{
 	}
 	
 	/**
+	 * Return one row from the previous query
+	 * @since 0.13.0
+	 * 
+	 * @return array Next row
+	 */
+	public function fetch_one(){
+		$row = mysql_fetch_assoc($this->result);
+		
+		return $row;
+	}
+	
+	/**
 	 * Fetchs all of the rows related to the previous query
 	 * @since 0.13.0
 	 * 
@@ -96,7 +108,7 @@ class Database{
 	 * 
 	 * @return array All rows
 	 */
-	public function fetch($limit = 0){
+	public function fetch_all($limit = 0){
 		if($this->fetched_results != null){
 			return $this->fetched_results;
 		}
@@ -116,6 +128,22 @@ class Database{
 		$this->fetched_results = $rows;
 		
 		return $rows;
+	}
+	
+	/**
+	 * Returns number of rows effected
+	 * @since 0.13.0
+	 * 
+	 * @return int Number of rows, false if no query
+	 */
+	public function num_rows(){
+		$num_rows = @mysql_num_rows($this->result);
+		
+		if(!$num_rows){
+			return false;
+		}
+		
+		return $num_rows;
 	}
 	
 	/**
@@ -215,5 +243,17 @@ class Database{
 	 */
 	public function stop_timer(){
 		$this->total_time += microtime(true) - $this->time_start;
+	}
+	
+	/**
+	 * Prepares SQL for querying
+	 * @since 0.13.0
+	 * 
+	 * @param $sql String SQL
+	 * 
+	 * @return "clean" SQL
+	 */
+	public function prep_sql($sql){
+		return mysql_real_escape_string($sql);
 	}
 }

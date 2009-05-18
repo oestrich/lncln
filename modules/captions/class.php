@@ -13,6 +13,8 @@ class Captions{
 	public $name = "Captions";
 	public $displayName = "Caption";
 	
+	public $db = null;
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -21,6 +23,9 @@ class Captions{
 	 * @param $lncln lncln Main class variable
 	 */
 	public function __construct(&$lncln){
+		global $db;
+		$this->db = $db;
+		
 		$this->lncln = $lncln;
 	}
 	
@@ -56,7 +61,7 @@ class Captions{
 		$caption = prepareSQL($data[0]);
 		
 		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
-		mysql_query($sql);
+		$this->db->query($sql);
 	}
 	
 	/**
@@ -183,12 +188,12 @@ class Captions{
 			return "Bad id";
 		
 		$sql = "SELECT caption FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
+		$this->db->query($sql);
 		
-		if(mysql_num_rows($result) < 1)
+		if($this->db->num_rows() < 1)
 			return "No such image";
 			
-		$row = mysql_fetch_assoc($result);
+		$row = $this->db->fetch_one();
 		
 		if($row['caption'] == "" && $noCaption == true)
 			return "No caption.";

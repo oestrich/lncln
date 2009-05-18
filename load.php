@@ -22,13 +22,12 @@ else{
 
 include_once(ABSPATH . "includes/functions.php");
 include_once(ABSPATH . "includes/db.php");
-include_once(ABSPATH . "includes/module.php");
 
-connect();
+$db = new Database(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SHOW TABLES LIKE \"images\"";
-$result = mysql_query($sql);
-if(mysql_num_rows($result) < 1){
+$sql = "SHOW TABLES LIKE 'images'";
+$result = $db->query($sql);
+if($db->num_rows() < 1){
 	echo "Please install the database.  It's located in <a href=\"mysql.sql\">mysql.sql</a>";
 	die();
 }
