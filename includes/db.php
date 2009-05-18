@@ -13,8 +13,11 @@
 class Database{
 	private $conn;
 	
+	private $queries = array();
+	private $results = array();
+	
 	public $last_query;
-	public $num_queries = 0;
+	private $num_queries = 0;
 	
 	public $result = null;
 	public $fetched_results = null; //Cached results
@@ -60,6 +63,17 @@ class Database{
 	 * @param $sql string|array SQL
 	 */
 	public function query($sql){
+		//only worry about SELECT caching
+		if(substr_count($sql, "SELECT")){
+			//This block sees if the query has been done previously
+			$old_query = array_search($sql, $this->queries);
+			//If its set, then set result to old query
+			if($old_query){
+				$this->result = $this->results[$old_query];
+				return true;
+			}
+		}
+		
 		$this->start_timer();
 		
 		$this->clear_cache();
@@ -67,11 +81,14 @@ class Database{
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
 		}
-	
+		
+		$this->queries[] = $sql;
 		$this->last_query = $sql;
+		
 		$this->num_queries += 1;
 		
 		$this->result = @mysql_query($sql, $this->conn);
+		$this->results[] = $this->result;
 		
 		if(mysql_error($this->conn)){
 			echo mysql_error($this->conn);
@@ -112,6 +129,10 @@ class Database{
 		if($this->fetched_results != null){
 			return $this->fetched_results;
 		}
+		
+		if(!$this->result){
+			return array();
+		}
 	
 		$rows = array();
 		
@@ -144,6 +165,16 @@ class Database{
 		}
 		
 		return $num_rows;
+	}
+	
+	/**
+	 * Return the insert ID of previous query
+	 * @since 0.13.0
+	 * 
+	 * @return int Insert ID
+	 */
+	public function insert_id(){
+		return mysql_insert_id($this->result);
 	}
 	
 	/**
@@ -255,5 +286,15 @@ class Database{
 	 */
 	public function prep_sql($sql){
 		return mysql_real_escape_string($sql);
+	}
+	
+	/**
+	 * Print out total number of queries from a page
+	 * @since 0.13.0
+	 * 
+	 * @return int Number of queries
+	 */
+	public function get_queries(){
+		return $this->num_queries;
 	}
 }

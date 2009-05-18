@@ -139,12 +139,12 @@ class lncln{
 	 */
 	function queue(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['COUNT(*)'] > 0){
-			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 1");
-			$row = mysql_fetch_assoc($result);
+			$this->db->query("SELECT COUNT(id) FROM images WHERE queue = 1");
+			$row = $this->db->fetch_one();
 
 			$this->maxPage = $row['COUNT(id)'];
 			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
@@ -164,9 +164,9 @@ class lncln{
 			$offset = ($this->page - 1) * $this->display->settings['perpage'];
 			
 			$sql = "SELECT id FROM `images` WHERE queue = 1 ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
-			$result = mysql_query($sql);
+			$this->db->query($sql);
 			
-			while($row = mysql_fetch_assoc($result)){				
+			foreach($this->db->fetch_all() as $row){				
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
@@ -188,14 +188,14 @@ class lncln{
 		$safe = $rss[0] != "all" ? " AND obscene = 0" : "";
 		
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['COUNT(*)'] > 0){
 			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT " . $this->display->settings['perpage'];
-			$result = mysql_query($sql);
+			$this->db->query($sql);
 			
-			while($row = mysql_fetch_assoc($result)){
+			foreach($this->db->fetch_all() as $row){
 				$this->imagesToGet[] = $row['id'];
 			}
 		}
@@ -266,6 +266,11 @@ class lncln{
 	 * @since 0.5.0
 	 */
 	function img(){		
+		if(count($this->imagesToGet) == 0){
+			$this->images = array();
+			return;
+		}
+		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
 		$sql = "SELECT id, caption, postTime, type FROM images WHERE ";
@@ -276,16 +281,14 @@ class lncln{
 		
 		if(count($this->imagesToGet) > 0)
 			$sql = substr_replace($sql, "", -4);
+			
 		$sql .= $time;
 		$sql .= " ORDER BY `id` DESC";
 		
-		$result = mysql_query($sql);
-		$numRows = @mysql_num_rows($result);
+		$this->db->query($sql);
 		
-		for($i = 0; $i < $numRows; $i++){
-			$image = mysql_fetch_assoc($result);
-						
-			$this->images[$i] = array(
+		foreach($this->db->fetch_all() as $image){						
+			$this->images[] = array(
 				'id' 		=> $image['id'],
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
@@ -416,8 +419,8 @@ class lncln{
 		}
 		
 		$sql = "SELECT MAX(postTime) FROM images";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 					
 		$postTime = time() >= ($row['MAX(postTime)'] + (60 * $this->display->settings['tbp'])) ? time() : $row['MAX(postTime)'] + (60 * $this->display->settings['tbp']);
 
@@ -437,9 +440,9 @@ class lncln{
 		
 		$_SESSION['uploadTime'][$_SESSION['uploadKey'][$name]] = $postTime;
 		
-		mysql_query($sql);
+		$this->db->query($sql);
 		
-		$imgID = str_pad(mysql_insert_id(), 6, 0, STR_PAD_LEFT);
+		$imgID = str_pad($this->db->insert_id(), 6, 0, STR_PAD_LEFT);
 				
 		$_SESSION['image'][$_SESSION['uploadKey'][$name]] = $imgID . '.' . $type;
 		
@@ -464,7 +467,7 @@ class lncln{
 		$id = prepareSQL($image);
 		
 		$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $id . " LIMIT 1";
-		mysql_query($sql);
+		$this->db->query($sql);
 	}
 		
 	/**
@@ -478,9 +481,9 @@ class lncln{
 	 */
 	function delete($image){
 		$sql = "SELECT type FROM images WHERE id = " . $image . " LIMIT 1";
-		$result = mysql_query($sql);
-		if(mysql_num_rows($result) == 1){
-			$type = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		if($this->db->num_rows() == 1){
+			$type = $this->db->fetch_one();
 		}
 		else{
 			return "No such image.";

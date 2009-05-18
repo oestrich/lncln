@@ -44,8 +44,8 @@ class Obscene{
 		}
 		
 		$sql = "SELECT obscene FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		$obscene = $row['obscene'] == 1 ? "<div id='vob" . $id . "'>This image is obscene</div>" : "";
 				
@@ -103,14 +103,14 @@ class Obscene{
 		}
 		
 		$sql = "UPDATE images SET obscene = " . $num . " WHERE id = " . $id;
-		mysql_query($sql);
+		$this->db->query($sql);
 	}
 	
 	public function icon($id){
 		if($this->lncln->user->permissions['obscene'] == 1){
 			$sql = "SELECT obscene FROM images WHERE id = " . $id;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
+			$this->db->query($sql);
+			$row = $this->db->fetch_one();
 			
 			$obscene = $row['obscene'] == 1 ? "false" : "true";
 			
@@ -129,8 +129,8 @@ class Obscene{
 	 */
 	public function small($id){
 		$sql = "SELECT obscene FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['obscene'] == 1 && ($_COOKIE['obscene'] == 0 || !isset($_COOKIE['obscene']))){
 			return true;
