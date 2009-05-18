@@ -525,7 +525,7 @@ class lncln{
 	function increaseView($image){
 		if(is_numeric($image)){
 			$sql = "UPDATE images SET view = view + 1 WHERE id = " . $image;
-			mysql_query($sql);
+			$this->db->query($sql);
 		}
 	}
 		
@@ -537,8 +537,8 @@ class lncln{
 	 */
 	function getNews(){
 		$sql = "SELECT news, postTime, title FROM `news` ORDER BY id DESC LIMIT 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		return $row;
 	}
@@ -552,10 +552,10 @@ class lncln{
 			return "";
 		
 		$sql = "SELECT type FROM images WHERE id = " . $id . " LIMIT 1";
-		$result = mysql_query($sql);
+		$this->db->query($sql);
 		
-		if(mysql_num_rows($result) == 1){
-			$row = mysql_fetch_assoc($result);
+		if($this->db->num_rows() == 1){
+			$row = $this->db->fetch_one();
 			$type = $row['type'];
 			
 			return "http://" . SERVER . URL ."images/$size/$id.$type";
@@ -938,6 +938,10 @@ function createInput($input, $id, $extra = ""){
 	}
 }
 
+/**
+ * Creates a form based on the array given
+ * @since 0.13.0
+ */
 function create_form($form){
 	$output = "";
 	
@@ -974,4 +978,14 @@ function create_form($form){
 	$output .= "</form>\n";
 	
 	return $output;
+}
+
+/**
+ * Easy access to the $db object
+ * @since 0.13.0
+ */
+function get_db(){
+	global $db;
+	
+	return $db;
 }

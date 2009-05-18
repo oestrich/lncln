@@ -23,8 +23,7 @@ class Captions{
 	 * @param $lncln lncln Main class variable
 	 */
 	public function __construct(&$lncln){
-		global $db;
-		$this->db = $db;
+		$this->db = get_db();
 		
 		$this->lncln = $lncln;
 	}

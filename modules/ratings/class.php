@@ -13,6 +13,8 @@ class Ratings{
 	public $name = "Ratings";
 	public $displayName = "Rating";
 	
+	public $db = null;
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -21,6 +23,8 @@ class Ratings{
 	 * @param $lncln lncln Main class variable
 	 */
 	public function __construct(&$lncln){
+		$this->db = get_db();
+		
 		$this->lncln = $lncln;
 	}
 	

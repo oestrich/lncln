@@ -13,6 +13,8 @@ class Index{
 	public $name = "Index"; //Name printed out in forms
 	public $displayName = "Index";
 	
+	public $db = null;
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -21,6 +23,8 @@ class Index{
 	 * @param $lncln lncln Main class variable
 	 */
 	public function __construct(&$lncln){
+		$this->db = get_db();
+		
 		$this->lncln = $lncln;
 	}
 	

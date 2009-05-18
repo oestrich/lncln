@@ -13,7 +13,11 @@ class Obscene{
 	public $name = "Obscene";
 	public $displayName = "Obscene";
 	
+	public $db = null;
+	
 	public function __construct(&$lncln){
+		$this->db = get_db();
+		
 		$this->lncln = $lncln;
 	}
 	
