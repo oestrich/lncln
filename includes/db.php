@@ -14,7 +14,7 @@ class Database{
 	private $conn;
 	
 	public $last_query;
-	public $num_queries;
+	public $num_queries = 0;
 	
 	public $result;
 	public $fetched_results = null; //Cached results
@@ -80,6 +80,10 @@ class Database{
 		$this->stop_timer();
 	}
 	
+	/**
+	 * Clears the previous queries
+	 * @since 0.13.0
+	 */
 	public function clear_cache(){
 		$this->fetched_results = null;
 	}
@@ -173,7 +177,7 @@ class Database{
 	 * Creates the WHERE section of SQL
 	 * @since 0.13.0
 	 *
-	 * @param $where array Keys: 'key', 'compare', 'value'
+	 * @param $where array Keys: 'field', 'compare', 'value'
 	 *
 	 * @return string Complete WHERE seciont
 	 */
@@ -182,7 +186,7 @@ class Database{
 		
 		$i = 0;
 		foreach($where as $value){
-			$sql[$i] = "`" . $value['key'] . "` " . $value['compare'] . " ";
+			$sql[$i] = "`" . $value['field'] . "` " . $value['compare'] . " ";
 			if(is_numeric($value['value'])){
 				$sql[$i] .= $value['value'];
 			}
