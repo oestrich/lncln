@@ -17,7 +17,9 @@ class Database{
 	public $num_queries;
 	
 	public $result;
-	public $fetched_results; //Cached results
+	public $fetched_results = null; //Cached results
+	
+	public $total_time = 0;
 
 	/**
 	 * Connects to the database
@@ -58,6 +60,10 @@ class Database{
 	 * @param $sql string|array SQL
 	 */
 	public function query($sql){
+		$this->start_timer();
+		
+		$this->clear_cache();
+		
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
 		}
@@ -72,6 +78,8 @@ class Database{
 		if(mysql_error($this->conn)){
 			echo mysql_error($this->conn);
 		}
+		
+		$this->stop_timer();
 	}
 	
 	public function clear_cache(){
@@ -189,5 +197,21 @@ class Database{
 		$sql = " WHERE " . implode(" AND ", $sql);
 		
 		return $sql;
+	}
+	
+	/**
+	 * Starts the timer
+	 * @since 0.13.0
+	 */
+	public function start_timer(){
+		$this->time_start = microtime(true);
+	}
+	
+	/**
+	 * Stops the timer and adds to the total
+	 * @since 0.13.0
+	 */
+	public function stop_timer(){
+		$this->total_time += microtime(true) - $this->time_start;
 	}
 }
