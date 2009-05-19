@@ -15,8 +15,6 @@ class Ratings{
 	
 	public $db = null;
 	
-	public $values = array();
-	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -69,8 +67,16 @@ class Ratings{
 			}
 			
 			$this->db->query($sql);
-						
-			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id . " LIMIT 1";
+			
+            $sql = "SELECT SUM(rating) FROM ratings WHERE picId = " . $id;
+            $this->db->query($sql);
+            $row = $this->db->fetch_one();
+            
+            if($row['SUM(rating)'] == null){
+                $row['SUM(rating)'] = 0;
+            }
+			
+			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id ;
 			$this->db->query($sql);
 			
 			return "Rated successfully";
@@ -140,28 +146,12 @@ class Ratings{
 		if(!is_numeric($id))
 			return 0;
 		
-		if(array_key_exists($id, $this->values)){
-			$row = $this->values[$id];
-		}
-		else{
-			$query = array(
-				'type' => 'SELECT',
-				'fields' => array('rating'),
-				'table' => 'images',
-				'where' => array(
-					array(
-						'field' => 'id',
-						'compare' => '=',
-						'value' => $id,
-						),
-					),
-				);
-			$this->db->query($query);
-			
-			$row = $this->db->fetch_one();
-			$this->values[$id] = $row;
+		foreach($this->lncln->images as $image){
+			if($image['id'] == $id){
+				return $image['rating'];
+			}
 		}
 		
-		return $row['rating'];
+		return 0;
 	}
 }

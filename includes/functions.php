@@ -273,7 +273,7 @@ class lncln{
 		
 		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
 		
-		$sql = "SELECT id, caption, postTime, type FROM images WHERE ";
+		$sql = "SELECT * FROM images WHERE ";
 		
 		foreach($this->imagesToGet as $image){
 			$sql .= " id = " . $image . " OR ";
@@ -287,15 +287,21 @@ class lncln{
 		
 		$this->db->query($sql);
 		
+		$i = 0;
 		foreach($this->db->fetch_all() as $image){						
-			$this->images[] = array(
+			$this->images[$i] = array(
 				'id' 		=> $image['id'],
 				'file' 		=> $image['id'] . "." . $image['type'],
 				'type'		=> $image['type'],
-				'obscene' 	=> $image['obscene'],
 				'postTime'	=> $image['postTime'],
 				'caption'	=> $image['caption'],
 				);
+			foreach($image as $key => $field){
+				if(!array_key_exists($key, $this->images[$i])){
+					$this->images[$i][$key] = $field; 
+				}
+			}
+			$i++;
 		}
 		
 		$this->type = "index";

@@ -42,7 +42,7 @@ class Database{
 		
 		$this->select(DB_DATABASE);
 	}
-	
+
 	/**
 	 * Selects a database
 	 * @since 0.13.0
@@ -84,6 +84,9 @@ class Database{
 		
 		if(mysql_error($this->conn)){
 			echo mysql_error($this->conn);
+			echo "<br />";
+			echo $sql;
+			exit();
 		}
 		
 		$this->stop_timer();
