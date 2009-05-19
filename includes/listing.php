@@ -16,7 +16,9 @@ if($lncln->page == 0 && $lncln->maxPage == 0){
 }
 
 foreach ($lncln->images as $image){
-	if($lncln->checkSmall($image['id'])){
+	$small = $lncln->check_small($image['id']);
+	
+	if($small){
 		$link = "javascript:show_image('" . $image['id'] . "');";
 	}
 	else{
@@ -24,6 +26,7 @@ foreach ($lncln->images as $image){
 	}
 	
 	$date = $_SESSION['thumbnail'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
+
 ?>
 
 	<div class="<?= $lncln->type;?> content">
@@ -44,7 +47,7 @@ foreach ($lncln->images as $image){
 	if($lncln->type != 'thumb' && $image['postTime'] > time()){
 			echo "Not on the homepage yet.<br />\n";
 	}
-	if($lncln->checkSmall($image['id'])):?>
+	if($small):?>
 		<div class="badImage" id="b<?echo $image['id'];?>">
 <?	endif;?>
 		<div class='<?=$lncln->type;?>_image'>
@@ -79,7 +82,7 @@ foreach ($lncln->images as $image){
 <?	if($lncln->user->permissions['delete']):?>
 		<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
 <?	endif;?>
-<?	if($lncln->checkSmall($image['id'])):?>
+<?	if($small):?>
 		</div>
 <?	endif;
 	echo "\t</div>";

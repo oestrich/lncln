@@ -573,7 +573,7 @@ class lncln{
 	 * 
 	 * @return bool True if image is small
 	 */
-	function checkSmall($id){
+	function check_small($id){
 		foreach($this->modules as $module){
 			if(method_exists($module, "small")){
 				if($module->small($id) == true){
