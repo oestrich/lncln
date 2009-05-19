@@ -19,6 +19,8 @@ class Tags{
 	
 	public $db = null;
 	
+	public $values = array();
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -93,7 +95,7 @@ class Tags{
 		$tags = array_map('prepareSQL', $tags);
 		
 		$sql = "DELETE FROM tags WHERE picId = " . $id;
-		mysql_query($sql);
+		$this->db->query($sql);
 		
 		$sql = "INSERT INTO tags (picId, tag) VALUES ";
 		
@@ -106,7 +108,7 @@ class Tags{
 	
 		$sql = substr_replace($sql ,"",-2);
 		
-		mysql_query($sql);
+		$this->db->query($sql);
 	}
 	
 	/**
@@ -129,7 +131,7 @@ class Tags{
 	 * @return array Keys: type, name, value, options
 	 */
 	public function moderate($id){
-		return array("type" => "text", "name" => "tags", "value" => $this->getTags($id, true));
+		return array("type" => "text", "name" => "tags", "value" => $this->get_tags($id, true));
 	}
 	
 	/**
@@ -169,11 +171,11 @@ class Tags{
 		
 		$output = "
 			<div id='tags$id'" . $classTag . $onClick . ">
-				Tags: " . $this->getTags($id, true) . "
+				Tags: " . $this->get_tags($id, true) . "
 			</div>\n";
 		
 		if($this->lncln->user->permissions['tags'] == 1):
-			$tags = $this->getTags($id, true);
+			$tags = $this->get_tags($id, true);
 			
 			if($tags == "None.")
 				$tags = "";
@@ -200,7 +202,7 @@ class Tags{
 	 * @return string Output for the RSS feed
 	 */
 	public function rss($id){
-		return "Tags: " . $this->getTags($id, true);
+		return "Tags: " . $this->get_tags($id, true);
 	}
 	
 	/**
@@ -216,16 +218,16 @@ class Tags{
 		$this->searchTerm = prepareSQL($this->removePluses($this->lncln->params[0]));
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 		}
 		else{		
 			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
+			$this->db->query($sql);
+			$row = $this->db->fetch_one();
 			
 			$this->lncln->maxPage = $row['COUNT(picId)'];
 			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
@@ -247,9 +249,9 @@ class Tags{
 			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
 			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-			$result = mysql_query($sql);
+			$this->db->query($sql);
 	
-			while($row = mysql_fetch_assoc($result)){
+			foreach($this->db->fetch_all() as $row){
 				$this->lncln->imagesToGet[] = $row['picId'];
 			}
 		}
@@ -264,18 +266,25 @@ class Tags{
 	 * 
 	 * @return mixed Array of tags or string joined by ','
 	 */
-	private function getTags($id, $string = false){
-		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
-		$result = mysql_query($sql);
-		
-		$tags = array();
-		
-		if(mysql_num_rows($result) < 1){
-			return $string ? "None." : array("None");
+	private function get_tags($id, $string = false){
+		if(array_key_exists($id, $this->values)){
+			$tags = $this->values[$id];
 		}
-		
-		while($row = mysql_fetch_assoc($result)){
-			$tags[] = $row['tag'];
+		else{		
+			$sql = "SELECT tag FROM tags WHERE picId = " . $id;
+			$this->db->query($sql);
+			
+			$tags = array();
+			
+			if($this->db->num_rows() < 1){
+				return $string ? "None." : array("None");
+			}
+			
+			foreach($this->db->fetch_all() as $row){
+				$tags[] = $row['tag'];
+			}
+			
+			$this->value[$id] = $tags;
 		}
 		
 		if($string == false)

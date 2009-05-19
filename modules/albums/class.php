@@ -15,6 +15,11 @@ class Albums{
 	
 	public $db = null;
 	
+	public $values = array(
+		'image_album' => array(),
+		'album_name' => array(),
+		);
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -91,7 +96,7 @@ class Albums{
 		$album = prepareSQL($data[0]);
 		
 		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $id;
-		mysql_query($sql);
+		$this->db->query($sql);
 	}
 	
 	/**
@@ -128,30 +133,6 @@ class Albums{
 	}
 	
 	/**
-	 * Creates the icon underneath images
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Icon underneath the image
-	 */
-	public function icon($id){
-		return "";
-	}
-	
-	/**
-	 * Creates text above the image.  Text only
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Text above the image
-	 */
-	public function above($id){
-		return "";
-	}
-	
-	/**
 	 * Creates text underneath the image.  May contain a form
 	 * @since 0.13.0
 	 * 
@@ -181,6 +162,7 @@ class Albums{
 				<div>
 					<input type='hidden' name='id' value='$id' />
 					<select name='albums' id='formAlbums$id'>";
+								
 			foreach($this->getAlbums() as $album){
 				$selected = $album['name'] == $this->getImageAlbum($id) ? "selected" : "";
 				$output .= "<option value='" . $album['id'] ."' $selected>" . $album['name'] . "</option>";
@@ -193,18 +175,6 @@ class Albums{
 		}
 		
 		return $output;
-	}
-	
-	/**
-	 * Pushes content out via the RSS feed
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Output for the RSS feed
-	 */
-	public function rss($id){
-		return "";
 	}
 	
 	/**
@@ -225,16 +195,16 @@ class Albums{
 			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 			
 			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $album . $time;
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
+			$$this->db->query($sql);
+			$row = $this->db->fetch_one();
 			
 			if($row['COUNT(*)'] == 0){
 				$this->lncln->page = 0;
 			}
 			else{				
 				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $album . $time;
-				$result = mysql_query($sql);
-				$row = mysql_fetch_assoc($result);
+				$this->db->query($sql);
+				$row = $this->db->fetch_one();
 				
 				$this->lncln->maxPage = ceil($row['COUNT(id)'] / $this->lncln->display->settings['perpage']);
 				
@@ -255,9 +225,9 @@ class Albums{
 				$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 				
 				$sql = "SELECT id FROM images WHERE album = " . $album . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-				$result = mysql_query($sql);
+				$this->db->query($sql);
 		
-				while($row = mysql_fetch_assoc($result)){
+				foreach($this->db->fetch_all() as $row){
 					$this->lncln->imagesToGet[] = $row['id'];
 				}
 			}
@@ -273,14 +243,22 @@ class Albums{
 	 * @return String Album name
 	 */
 	protected function getImageAlbum($id){
-		$sql = "SELECT album FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		if(array_key_exists($id, $this->values['image_album'])){
+			echo "cahced";
+			$row = $this->values['image_album'][$id];
+		}
+		else{
+			$sql = "SELECT album FROM images WHERE id = " . $id;
+			$this->db->query($sql);
+			$row = $this->db->fetch_one();
+			
+			$this->values['image_album'][$id] = $row;
+		}
 		
 		if($row['album'] == 0){
 			return "No Album";
 		}
-		
+				
 		return $this->getAlbumName($row['album']);
 	}
 	
@@ -293,14 +271,18 @@ class Albums{
 	 * @return String Name of album
 	 */
 	protected function getAlbumName($id, $plus = false){
-		$sql = "SELECT name FROM albums WHERE id = " . $id;
-		$result = mysql_query($sql);
 		
-		if(mysql_num_rows($result) < 1){
-			return "No Album";
+		if(array_key_exists($id, $this->values['album_name'])){
+			echo "cached name";
+			$row = $this->values['album_name'][$id];
 		}
-		
-		$row = mysql_fetch_assoc($result);
+		else{
+			$sql = "SELECT name FROM albums WHERE id = " . $id;
+			$this->db->query($sql);
+			
+			$row = $this->db->fetch_one();
+			$this->values['album_name'][$id] = $row;
+		}
 		
 		if($plus == true)
 			$row['name'] = str_replace(" ", "+", $row['name']);
@@ -318,10 +300,10 @@ class Albums{
 	 */
 	protected function getAlbumID($name){
 		$sql = "SELECT id FROM albums WHERE name = '" . $name . "' LIMIT 1";
-		$result = mysql_query($sql);
+		$this->db->query($sql);
 		
-		if(mysql_num_rows($result) == 1){
-			$row = mysql_fetch_assoc($result);
+		if($this->db->num_rows() == 1){
+			$row = $this->db->fetch_one();
 			
 			return $row['id']; 
 		}
@@ -338,23 +320,30 @@ class Albums{
 	 * @return array All of the albums in their own arrays, with 'id' and 'name'
 	 */
 	protected function getAlbums($noAlbum = true){
-		$sql = "SELECT id, name FROM albums WHERE 1";
-		$result = mysql_query($sql);
+		echo "Pulling albums";
 		
-		$albums = array();
-		
-		if($noAlbum == true)
-			$albums[] = array("id" => 0, "name" => "No album");
-			
-		if(mysql_num_rows($result) < 1)
-			return $albums;
-		
-		while($row = mysql_fetch_assoc($result)){
-			$albums[] = array("id"	 => $row['id'],
-							  "name" => $row['name']
-							  );	
+		if(array_key_exists("albums", $this->values)){
+			$albums = $this->values['albums'];
 		}
-		
+		else{
+			$sql = "SELECT id, name FROM albums WHERE 1";
+			$this->db->query($sql);
+			
+			$albums = array();
+			
+			if($noAlbum == true)
+				$albums[] = array("id" => 0, "name" => "No album");
+				
+			if($this->db->num_rows() < 1)
+				return $albums;
+			
+			foreach($this->db->fetch_all() as $row){
+				$albums[] = array("id"	 => $row['id'],
+								  "name" => $row['name']
+								  );	
+			}
+			$this->values['albums'] = $albums;
+		}
 		return $albums;
 	}
 }
@@ -477,17 +466,17 @@ class AlbumsAdmin extends Albums{
 		$name = prepareSQL($name);
 		
 		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['name'] > 0){
 			return "Album already exists";
 		}
 		
 		$sql = "INSERT INTO albums (name) VALUES (\"" . $name . "\")";
-		mysql_query($sql);
+		$this->db->query($sql);
 		
-		if(mysql_affected_rows() > 0){
+		if($this->db->affected_rows() > 0){
 			return "Add album " . $name . " successfully.";
 		}
 		else{
@@ -506,10 +495,10 @@ class AlbumsAdmin extends Albums{
 		
 		if(is_numeric($album)){
 			$sql = "UPDATE images SET album = 0 WHERE album = " . $album;
-			mysql_query($sql);
+			$this->db->query($sql);
 			
 			$sql = "DELETE FROM albums WHERE id = " . $album;
-			mysql_query($sql);
+			$this->db->query($sql);
 		}		
 	}
 	
@@ -525,15 +514,15 @@ class AlbumsAdmin extends Albums{
 		$name = prepareSQL($name);
 		
 		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		if($row['name'] > 0){
 			return "Album already exists.";
 		}
 		
 		$sql = "UPDATE albums SET name = '" . $name ."' WHERE id = " . $id;
-		mysql_query($sql);
+		$this->db->query($sql);
 		
 		return "Album updated successfully.";
 	}

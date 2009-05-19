@@ -170,6 +170,16 @@ class Database{
 	}
 	
 	/**
+	 * Affected rows
+	 * @since 0.13.0
+	 * 
+	 * @return int Number of rows affected
+	 */
+	public function affected_rows(){
+		return mysql_affected_rows();
+	}
+	
+	/**
 	 * Creates SQL from provided array
 	 * @since 0.13.0
 	 *
