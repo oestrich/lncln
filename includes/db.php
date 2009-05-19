@@ -63,24 +63,13 @@ class Database{
 	 * @param $sql string|array SQL
 	 */
 	public function query($sql){
-		//only worry about SELECT caching
-		if(substr_count($sql, "SELECT")){
-			//This block sees if the query has been done previously
-			$old_query = array_search($sql, $this->queries);
-			//If its set, then set result to old query
-			if($old_query){
-				$this->result = $this->results[$old_query];
-				return true;
-			}
-		}
-		
-		$this->start_timer();
-		
-		$this->clear_cache();
-		
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
 		}
+
+		$this->start_timer();
+		
+		$this->clear_cache();
 		
 		$this->queries[] = $sql;
 		$this->last_query = $sql;
@@ -88,7 +77,6 @@ class Database{
 		$this->num_queries += 1;
 		
 		$this->result = @mysql_query($sql, $this->conn);
-		$this->results[] = $this->result;
 		
 		if(mysql_error($this->conn)){
 			echo mysql_error($this->conn);
@@ -111,7 +99,7 @@ class Database{
 	 * 
 	 * @return array Next row
 	 */
-	public function fetch_one(){
+	public function fetch_one(){		
 		$row = mysql_fetch_assoc($this->result);
 		
 		return $row;
@@ -210,7 +198,6 @@ class Database{
 				}
 				
 				return $sql;
-				break;
 		}
 	}
 	
@@ -226,6 +213,10 @@ class Database{
 		foreach($fields as &$field){
 			if($field == '*')
 				continue;
+			if(substr($field, 0, 1) == "!"){
+				$field = substr($field, 1);
+				continue;
+			}
 			$field = "`" . $field . "`";
 		}
 		
@@ -245,14 +236,16 @@ class Database{
 		
 		$i = 0;
 		foreach($where as $value){
-			$sql[$i] = "`" . $value['field'] . "` " . $value['compare'] . " ";
-			if(is_numeric($value['value'])){
-				$sql[$i] .= $value['value'];
+			if(count($value) == 3){
+				$sql[$i] = "`" . $value['field'] . "` " . $value['compare'] . " ";
+				if(is_numeric($value['value'])){
+					$sql[$i] .= $value['value'];
+				}
+				else{
+					$sql[$i] .= "'" . $value['value'] ."'";
+				}
+				$i++;
 			}
-			else{
-				$sql[$i] .= "'" . $value['value'] ."'";
-			}
-			$i++;
 		}
 		
 		$sql = " WHERE " . implode(" AND ", $sql);

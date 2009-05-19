@@ -43,8 +43,19 @@ class Obscene{
 			return "";
 		}
 		
-		$sql = "SELECT obscene FROM images WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('obscene'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
 		$obscene = $row['obscene'] == 1 ? "<div id='vob" . $id . "'>This image is obscene</div>" : "";
@@ -108,8 +119,20 @@ class Obscene{
 	
 	public function icon($id){
 		if($this->lncln->user->permissions['obscene'] == 1){
-			$sql = "SELECT obscene FROM images WHERE id = " . $id;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('obscene'),
+				'table' => 'images',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			$row = $this->db->fetch_one();
 			
 			$obscene = $row['obscene'] == 1 ? "false" : "true";
@@ -128,8 +151,20 @@ class Obscene{
 	 * @return bool True: small
 	 */
 	public function small($id){
-		$sql = "SELECT obscene FROM images WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('obscene'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
 		if($row['obscene'] == 1 && ($_COOKIE['obscene'] == 0 || !isset($_COOKIE['obscene']))){

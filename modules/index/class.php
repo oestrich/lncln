@@ -135,18 +135,33 @@ class Index{
 	 */
 	protected function prepare_index(){
 		$this->lncln->moderationOn = true;
-		$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
+		$time = !$this->lncln->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
 		
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $time;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array("!COUNT(*)"),
+			'table' => 'images',
+			'where' => array(
+					array(
+						'field' => 'queue',
+						'compare' => '=',
+						'value' => 0,
+						),
+					$time,
+				),
+			);
+		
+		$this->db->query($query);
+		$row = $this->db->fetch_one();
 		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 		}
 		else{
-			$result = mysql_query("SELECT COUNT(id) FROM images WHERE queue = 0 " . $time);
-			$row = mysql_fetch_assoc($result);
+			$query['fields'] = array("!COUNT(id)");
+			
+			$this->db->query($query);
+			$row = $this->db->fetch_one();
 
 			$this->lncln->maxPage = $row['COUNT(id)'];
 			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
@@ -167,14 +182,30 @@ class Index{
 			
 			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
-			$sql = "SELECT id FROM `images` WHERE queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-			$result = mysql_query($sql);
-			
-			$numRows = mysql_num_rows($result);
-			
-			for($i = 0; $i < $numRows; $i++){
-				$row = mysql_fetch_assoc($result);
+			$query = array(
+					'type' => 'SELECT',
+					'fields' => array('id'),
+					'table' => 'images',
+					'where' => array(
+							array(
+								'field' => 'queue',
+								'compare' => '=',
+								'value' => 0,
+								),
+							$time,
+						),
+					'order' => array(
+							'DESC',
+							array('id'),
+						),
+					'limit' => array(
+							$offset,
+							$this->lncln->display->settings['perpage'],
+						),
+				);
 				
+			$this->db->query($query);
+			foreach($this->db->fetch_all() as $row){
 				$this->lncln->imagesToGet[] = $row['id'];
 			}
 		}
