@@ -23,7 +23,7 @@ else{
 include_once(ABSPATH . "includes/functions.php");
 include_once(ABSPATH . "includes/db.php");
 
-$db = new Database(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+$db = new Database();
 
 $sql = "SHOW TABLES LIKE 'images'";
 $result = $db->query($sql);

@@ -33,14 +33,14 @@ class Database{
 	 * @param $password string Password
 	 * @param $db string Database
 	 */
-	public function __construct($host, $user, $password, $db){
-		$this->conn = @mysql_connect($host, $user, $password);
+	public function connect(){
+		$this->conn = @mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 		
 		if(!$this->conn){
 			echo mysql_error();
 		}
 		
-		$this->select($db);
+		$this->select(DB_DATABASE);
 	}
 	
 	/**
@@ -63,6 +63,10 @@ class Database{
 	 * @param $sql string|array SQL
 	 */
 	public function query($sql){
+		if(!$this->conn){
+			$this->connect();
+		}
+		
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
 		}
