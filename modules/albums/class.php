@@ -195,7 +195,7 @@ class Albums{
 			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
 			
 			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $album . $time;
-			$$this->db->query($sql);
+			$this->db->query($sql);
 			$row = $this->db->fetch_one();
 			
 			if($row['COUNT(*)'] == 0){

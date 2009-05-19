@@ -179,8 +179,8 @@ class Admin{
 	 */
 	protected function check_queue(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$this->db->query($sql);
+		$row = $this->db->fetch_one();
 		
 		return $row['COUNT(*)'];
 	}
