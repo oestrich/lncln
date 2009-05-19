@@ -244,7 +244,6 @@ class Albums{
 	 */
 	protected function getImageAlbum($id){
 		if(array_key_exists($id, $this->values['image_album'])){
-			echo "cahced";
 			$row = $this->values['image_album'][$id];
 		}
 		else{
@@ -320,7 +319,6 @@ class Albums{
 	 * @return array All of the albums in their own arrays, with 'id' and 'name'
 	 */
 	protected function getAlbums($noAlbum = true){
-		echo "Pulling albums";
 		
 		if(array_key_exists("albums", $this->values)){
 			$albums = $this->values['albums'];

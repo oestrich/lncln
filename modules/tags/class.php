@@ -276,15 +276,11 @@ class Tags{
 			
 			$tags = array();
 			
-			if($this->db->num_rows() < 1){
-				return $string ? "None." : array("None");
-			}
-			
 			foreach($this->db->fetch_all() as $row){
 				$tags[] = $row['tag'];
 			}
 			
-			$this->value[$id] = $tags;
+			$this->values[$id] = $tags;
 		}
 		
 		if($string == false)
