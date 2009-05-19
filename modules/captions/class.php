@@ -15,6 +15,8 @@ class Captions{
 	
 	public $db = null;
 	
+	public $values = array();
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -186,13 +188,31 @@ class Captions{
 		if(!is_numeric($id))
 			return "Bad id";
 		
-		$sql = "SELECT caption FROM images WHERE id = " . $id;
-		$this->db->query($sql);
-		
-		if($this->db->num_rows() < 1)
-			return "No such image";
+		if(array_key_exists($id, $this->values)){
+			$row = $this->values[$id];
+		}
+		else{
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('caption'),
+				'table' => 'images',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
 			
-		$row = $this->db->fetch_one();
+			$this->db->query($query);
+			
+			if($this->db->num_rows() < 1)
+				return "No such image";
+				
+			$row = $this->db->fetch_one();
+			$this->values[$id] = $row;
+		}
 		
 		if($row['caption'] == "" && $noCaption == true)
 			return "No caption.";

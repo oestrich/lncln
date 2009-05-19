@@ -45,26 +45,7 @@ class Obscene{
 			return "";
 		}
 		
-		if(array_key_exists($id, $this->values)){
-			$row = $this->values[$id];
-		}
-		else{
-			$query = array(
-				'type' => 'SELECT',
-				'fields' => array('obscene'),
-				'table' => 'images',
-				'where' => array(
-					array(
-						'field' => 'id',
-						'compare' => '=',
-						'value' => $id,
-						),
-					),
-				);
-			$this->db->query($query);
-			$row = $this->db->fetch_one();
-			$this->values[$id] = $row;
-		}
+		$row = $this->get_obscene($id);
 		
 		$obscene = $row['obscene'] == 1 ? "<div id='vob" . $id . "'>This image is obscene</div>" : "";
 				
@@ -127,26 +108,7 @@ class Obscene{
 	
 	public function icon($id){
 		if($this->lncln->user->permissions['obscene'] == 1){
-			if(array_key_exists($id, $this->values)){
-				$row = $this->values[$id];
-			}
-			else{
-				$query = array(
-					'type' => 'SELECT',
-					'fields' => array('obscene'),
-					'table' => 'images',
-					'where' => array(
-						array(
-							'field' => 'id',
-							'compare' => '=',
-							'value' => $id,
-							),
-						),
-					);
-				$this->db->query($query);
-				$row = $this->db->fetch_one();
-				$this->values[$id] = $row;
-			}
+			$row = $this->get_obscene($id);
 			
 			$obscene = $row['obscene'] == 1 ? "false" : "true";
 			
@@ -164,8 +126,25 @@ class Obscene{
 	 * @return bool True: small
 	 */
 	public function small($id){
-		echo "obscene call";
+		$row = $this->get_obscene($id);
 		
+		if($row['obscene'] == 1 && ($_COOKIE['obscene'] == 0 || !isset($_COOKIE['obscene']))){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns the obscene status of an image
+	 * @since 0.13.0
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @param array Database row, Keys: 'obscene'
+	 */
+	private function get_obscene($id){
 		if(array_key_exists($id, $this->values)){
 			$row = $this->values[$id];
 		}
@@ -187,11 +166,6 @@ class Obscene{
 			$this->values[$id] = $row;
 		}
 		
-		if($row['obscene'] == 1 && ($_COOKIE['obscene'] == 0 || !isset($_COOKIE['obscene']))){
-			return true;
-		}
-		else{
-			return false;
-		}
+		return $row;
 	}
 }

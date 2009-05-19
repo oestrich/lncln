@@ -15,6 +15,8 @@ class Ratings{
 	
 	public $db = null;
 	
+	public $values = array();
+	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -48,11 +50,11 @@ class Ratings{
 			$rating = $rating * -1;
 		
 		$sql = "SELECT rating FROM ratings WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
-		$result = mysql_query($sql);
-		$numRows = mysql_num_rows($result);
+		$this->db->query($sql);
+		$numRows = $this->db->num_rows();
 		
 		if($numRows > 0){
-			$row = mysql_fetch_assoc($result);
+			$row = $this->db->fetch_one();
 		}
 		
 		if($numRows == 1 && $row['rating'] == $rating){
@@ -66,10 +68,10 @@ class Ratings{
 				$sql = "INSERT INTO ratings (picID, userId, rating) VALUES (" . $id . ", " . $this->lncln->user->userID . ", " . $rating . ")";
 			}
 			
-			mysql_query($sql);
+			$this->db->query($sql);
 						
 			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id . " LIMIT 1";
-			mysql_query($sql);
+			$this->db->query($sql);
 			
 			return "Rated successfully";
 		}
@@ -104,7 +106,7 @@ class Ratings{
 	 * @return string Text above the image
 	 */
 	public function above($id){
-		return "Rating: " . $this->getRating($id);
+		return "Rating: " . $this->get_rating($id);
 	}
 	
 	/**
@@ -116,9 +118,7 @@ class Ratings{
 	 * @return bool True: small
 	 */
 	public function small($id){
-		$sql = "SELECT rating FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$row = $this->get_rating($id);
 		
 		$small = $row['rating'] < -10 ? 1 : 0;
 		
@@ -136,20 +136,32 @@ class Ratings{
 	 * 
 	 * @param $id int Image id
 	 */
-	private function getRating($id){
+	private function get_rating($id){
 		if(!is_numeric($id))
 			return 0;
 		
-		$sql = "SELECT rating FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
-		
-		if(mysql_num_rows($result) < 1){
-			return 0;
+		if(array_key_exists($id, $this->values)){
+			$row = $this->values[$id];
 		}
-		
-		$row = mysql_fetch_assoc($result);
+		else{
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('rating'),
+				'table' => 'images',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
+			$this->db->query($query);
+			
+			$row = $this->db->fetch_one();
+			$this->values[$id] = $row;
+		}
 		
 		return $row['rating'];
 	}
 }
-?>
