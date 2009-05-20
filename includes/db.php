@@ -23,10 +23,6 @@ class Database{
 	public $fetched_results = null; //Cached results
 	
 	public $total_time = 0;
-	
-	public function __destruct(){
-		print_r($this->queries);
-	}
 
 	/**
 	 * Connects to the database
