@@ -243,22 +243,17 @@ class Albums{
 	 * @return String Album name
 	 */
 	protected function getImageAlbum($id){
-		if(array_key_exists($id, $this->values['image_album'])){
-			$row = $this->values['image_album'][$id];
-		}
-		else{
-			$sql = "SELECT album FROM images WHERE id = " . $id;
-			$this->db->query($sql);
-			$row = $this->db->fetch_one();
-			
-			$this->values['image_album'][$id] = $row;
+		foreach($this->lncln->images as $image){
+			if($image['id'] == $id){
+				$album = $image['album'];
+			}
 		}
 		
-		if($row['album'] == 0){
+		if($album == 0){
 			return "No Album";
 		}
 				
-		return $this->getAlbumName($row['album']);
+		return $this->getAlbumName($album);
 	}
 	
 	/**

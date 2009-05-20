@@ -145,27 +145,12 @@ class Obscene{
 	 * @param array Database row, Keys: 'obscene'
 	 */
 	private function get_obscene($id){
-		if(array_key_exists($id, $this->values)){
-			$row = $this->values[$id];
-		}
-		else{
-			$query = array(
-				'type' => 'SELECT',
-				'fields' => array('obscene'),
-				'table' => 'images',
-				'where' => array(
-					array(
-						'field' => 'id',
-						'compare' => '=',
-						'value' => $id,
-						),
-					),
-				);
-			$this->db->query($query);
-			$row = $this->db->fetch_one();
-			$this->values[$id] = $row;
+		foreach($this->lncln->images as $image){
+			if($image['id'] == $id){
+				return $image['obscene'];
+			}
 		}
 		
-		return $row;
+		return 0;
 	}
 }

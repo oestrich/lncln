@@ -188,36 +188,16 @@ class Captions{
 		if(!is_numeric($id))
 			return "Bad id";
 		
-		if(array_key_exists($id, $this->values)){
-			$row = $this->values[$id];
-		}
-		else{
-			$query = array(
-				'type' => 'SELECT',
-				'fields' => array('caption'),
-				'table' => 'images',
-				'where' => array(
-					array(
-						'field' => 'id',
-						'compare' => '=',
-						'value' => $id,
-						),
-					),
-				);
-			
-			$this->db->query($query);
-			
-			if($this->db->num_rows() < 1)
-				return "No such image";
-				
-			$row = $this->db->fetch_one();
-			$this->values[$id] = $row;
+		foreach($this->lncln->images as $image){
+			if($image['id'] == $id){
+				$caption = $image['caption'];
+			}
 		}
 		
-		if($row['caption'] == "" && $noCaption == true)
+		if($caption == "" && $noCaption == true)
 			return "No caption.";
 		
-		return $row['caption'];
+		return $caption;
 	}
 }
 
