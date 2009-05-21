@@ -12,6 +12,7 @@
 function albums_info(){
 	$albums = array(
 		'name' => 'Albums',
+		'class' => 'Albums',
 		'description' => 'Create albums to seperate pictures',
 		'version' => '0.13.0',
 		'package' => 'core',

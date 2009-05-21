@@ -975,6 +975,17 @@ function create_form($form){
 			case 'hidden':
 				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . $input['name'] ."' value='" . $input['value'] . "'></td>\n";
 				break;
+			case 'select':
+				$output .= "\t\t\t\t<td><select name='" . $input['name'] . "'>\n";
+				foreach($input['options'] as $option){
+					if(isset($option['selected']) && $option['selected'] == true){
+						$selected = " selected";
+					}
+					
+					$output .= "\t\t\t\t\t<option value='" . $option['value'] . "'$selected>" . $option['name'] . "</option>\n";
+				}
+				$output .= "\t\t\t\t</select></td>\n";
+				break;
 		}
 		
 		$output .= "\t\t\t</tr>\n";

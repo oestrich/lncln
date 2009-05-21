@@ -12,6 +12,7 @@
 function tags_info(){
 	$tags = array(
 		'name' => 'Tags',
+		'class' => 'Tags',
 		'description' => 'Add tags to images',
 		'version' => '0.13.0',
 		'package' => 'core',

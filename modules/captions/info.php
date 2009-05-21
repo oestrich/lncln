@@ -12,6 +12,7 @@
 function captions_info(){
 	$captions = array(
 		'name' => 'Captions',
+		'class' => 'Captions',
 		'description' => 'Add captions to pictures',
 		'version' => '0.13.0',
 		'package' => 'core',

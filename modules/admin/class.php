@@ -38,7 +38,7 @@ class Admin{
 	 */
 	public function index(){
 		$this->check_admin();
-		
+		$this->load_info();
 		$this->load_admin_modules();
 		
 		ob_start();
@@ -74,7 +74,7 @@ class Admin{
 							$module . "'>". $module .
 							"</a></span><span class='admin_action'> - " . ucwords($action) . "</span><br />\n<br />\n";
 
-					$this->modules[$module]->$action();
+					$this->modules[$this->get_module_class($module)]->$action();
 					
 					$name = $this->actions[$module]['urls'][$action];
 					
@@ -135,7 +135,8 @@ class Admin{
 			$name = strtolower($module) . "_info";
 			
 			if(function_exists($name)){
-				$this->info[] = $name();
+				$info = $name();
+				$this->info[$info['name']] = $info;
 			}
 			else{
 				continue;
@@ -214,7 +215,11 @@ class Admin{
 				continue;
 			}
 			
-			$this->actions[$module] = $this->modules[$module]->actions();
+			foreach($this->info as $info){
+				if($info['class'] = $module){
+					$this->actions[$info['name']] = $this->modules[$module]->actions();	
+				}	
+			}
 		}
 	}
 	
@@ -223,12 +228,11 @@ class Admin{
 	 * @since 0.13.0
 	 */
 	protected function check_module($module_check){
-		foreach($this->modules as $module){
-			if($module->name == $module_check){
+		foreach($this->info as $info){
+			if($info['name'] == $module_check && isset($this->modules[$info['class']])){
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -237,12 +241,24 @@ class Admin{
 	 * @since 0.13.0
 	 */
 	protected function check_action($module, $action){
+		$class = $this->get_module_class($module);
+		
 		foreach($this->actions[$module]['urls'] as $url => $name){
-			if($url == $action){
+			if($url == $action && method_exists($this->modules[$class], $action)){
 				return true;
 			}
 		}
 		
 		return false;
+	}
+	
+	protected function get_module_class($module){
+		foreach($this->info as $info){
+			if($info['name'] == $module){
+				return $info['class'];
+			}
+		}
+		
+		return "";
 	}
 }

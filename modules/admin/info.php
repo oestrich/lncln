@@ -8,15 +8,3 @@
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
  */
-
-function admin_info(){
-	$admin = array(
-		'name' => 'Settings',
-		'description' => 'Manage your site',
-		'version' => '0.13.0',
-		'package' => 'core',
-		'requires' => array(),
-	);
-	
-	return $admin;
-}

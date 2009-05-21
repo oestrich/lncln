@@ -12,6 +12,7 @@
 function obscene_info(){
 	$obscene = array(
 		'name' => 'Obsene',
+		'class' => 'Obscene',
 		'description' => 'Allows you to make images obscene and shrink',
 		'version' => '0.13.0',
 		'package' => 'optional',

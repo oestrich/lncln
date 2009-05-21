@@ -12,6 +12,7 @@
 function ratings_info(){
 	$ratings = array(
 		'name' => 'Ratings',
+		'class' => 'Ratings',
 		'description' => 'Have images be rated by your users',
 		'version' => '0.13.0',
 		'package' => 'core',

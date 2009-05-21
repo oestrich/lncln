@@ -11,8 +11,9 @@
 
 function index_info(){
 	$index = array(
-		'name' => 'Index',
-		'description' => 'Your front page',
+		'name' => 'Settings',
+		'class' => 'Index',
+		'description' => 'Manage settings for lncln',
 		'version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),

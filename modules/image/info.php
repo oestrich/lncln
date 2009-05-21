@@ -12,6 +12,7 @@
 function image_info(){
 	$image = array(
 		'name' => 'Image',
+		'class' => 'Image',
 		'description' => 'Display only a single image',
 		'version' => '0.13.0',
 		'package' => 'core',
