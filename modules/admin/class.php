@@ -40,6 +40,9 @@ class Admin{
 		$this->check_admin();
 		$this->load_info();
 		$this->load_admin_modules();
+
+		$module = $this->lncln->params[0];
+		$action = $this->lncln->params[1];
 		
 		ob_start();
 		
@@ -47,17 +50,17 @@ class Admin{
 		if($this->lncln->params[0] != ""){
 			//If just the top module page, show actions
 			if($this->lncln->params[1] == ""){
-				if($this->check_module($this->lncln->params[0])){
+				if($this->check_module($module)){
 					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>"
-							. "<span class='admin_link'>". $this->lncln->params[0] . "</span><br /><br />\n";
+							. "<span class='admin_link'>". $module . "</span><br /><br />\n";
 					
-					foreach($this->actions[$this->lncln->params[0]]['urls'] as $url => $name){
+					foreach($this->actions[$module]['urls'] as $url => $name){
 						if($name != ""){
-							echo "<a href='" . URL . "admin/" . $this->lncln->params[0] . "/$url'>" . $name . "</a><br />\n";
+							echo "<a href='" . URL . "admin/" . $module . "/$url'>" . $name . "</a><br />\n";
 						}
 					}
 					
-					$this->lncln->display->set_title("Admin - " . $this->lncln->params[0]);
+					$this->lncln->display->set_title("Admin - " . $module);
 				}
 				else{
 					echo "Not a module";
@@ -65,15 +68,14 @@ class Admin{
 			}
 			else{
 				//Only do the correct action!
-				$module = $this->lncln->params[0];
-				$action = $this->lncln->params[1];
 				
-				if($this->check_action($this->lncln->params[0], $action)){
+				if($this->check_action($module, $action)){
 					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>" .
 							"<span class='admin_link'><a href='" . URL . "admin/" .
 							$module . "'>". $module .
 							"</a></span><span class='admin_action'> - " . ucwords($action) . "</span><br />\n<br />\n";
 
+					//This is because modules are loaded under the class name
 					$this->modules[$this->get_module_class($module)]->$action();
 					
 					$name = $this->actions[$module]['urls'][$action];
@@ -87,7 +89,6 @@ class Admin{
 		}
 		
 		if($this->lncln->params[0] == ""){
-			$this->load_info();
 			$this->show_info();
 		}
 		
@@ -215,11 +216,8 @@ class Admin{
 				continue;
 			}
 			
-			foreach($this->info as $info){
-				if($info['class'] = $module){
-					$this->actions[$info['name']] = $this->modules[$module]->actions();	
-				}	
-			}
+			$name = $this->get_module_name($module);
+			$this->actions[$name] = $this->modules[$module]->actions();
 		}
 	}
 	
@@ -256,6 +254,16 @@ class Admin{
 		foreach($this->info as $info){
 			if($info['name'] == $module){
 				return $info['class'];
+			}
+		}
+		
+		return "";
+	}
+	
+	protected function get_module_name($module){
+		foreach($this->info as $info){
+			if($info['class'] == $module){
+				return $info['name'];
 			}
 		}
 		

@@ -19,10 +19,10 @@ class UsersAdmin extends lncln{
 	 * @return string If bad password, or if they were added successfully
 	 */
 	function adduser($user){
-		$username = prepareSQL($user['username']);
-		$password = prepareSQL($user['password']);
-		$passwordConfirm = prepareSQL($user['passwordconfirm']);
-		$admin = prepareSQL($user['admin']);
+		$username = $this->db->prep_sql($user['username']);
+		$password = $this->db->prep_sql($user['password']);
+		$passwordConfirm = $this->db->prep_sql($user['passwordconfirm']);
+		$admin = $this->db->prep_sql($user['admin']);
 		
 		if(!is_numeric($user['group']))
 			return "Bad group id";
@@ -66,8 +66,8 @@ class UsersAdmin extends lncln{
 		}
 		
 		if($info['password'] != "" && $info['confirm'] != ""){
-			$password = prepareSQL($info['password']);
-			$confirm = prepareSQL($info['confirm']);
+			$password = $this->db->prep_sql($info['password']);
+			$confirm = $this->db->prep_sql($info['confirm']);
 			
 			$password = sha1($password);
 			$confirm = sha1($confirm);
@@ -129,7 +129,7 @@ class UsersAdmin extends lncln{
 	 * @return array Information on user. Keys: id, name
 	 */
 	function getUser($id){
-		$id = prepareSQL($id);
+		$id = $this->db->prep_sql($id);
 		
 		$sql = "SELECT * FROM users WHERE id = " . $id;
 		$result = mysql_query($sql);

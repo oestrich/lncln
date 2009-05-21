@@ -15,7 +15,7 @@ if($lncln->user->permissions['report'] == 0){
 	$lncln->display->message("You can't report images");
 }
 
-$image = prepareSQL($_GET['img']);
+$image = $this->db->prep_sql($_GET['img']);
 
 $sql = "UPDATE images SET report = report + " . $lncln->user->permissions['reportValue'] . " WHERE id = " . $image . " LIMIT 1";
 mysql_query($sql);

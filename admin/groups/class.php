@@ -20,7 +20,9 @@ class GroupAdmin extends lncln{
 	 * @return string Message
 	 */
 	function addGroup($data){
-		$data = array_map("prepareSQL", $data);
+		foreach($data as $key => $value){
+			$data[$key] = $this->db->prep_sql($value);
+		}
 		
 		$name = $data['name'];
 		$upload = $data['upload'];
@@ -59,7 +61,7 @@ class GroupAdmin extends lncln{
 	 * @return string Message
 	 */
 	function editGroup($id, $data){
-		$data = array_map("prepareSQL", $data);
+		$data = array_map("$this->db->prep_sql", $data);
 		
 		$name = $data['name'];
 		$upload = $data['upload'];

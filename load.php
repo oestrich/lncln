@@ -16,7 +16,8 @@ if(file_exists(ABSPATH . "config.php")){
 	include_once(ABSPATH . "config.php");	
 }
 else{
-	echo "Please configure your config.php file.  You can use config-sample.php as a base.";
+	echo "Please configure your config.php file.  Use config-sample.php as a base.<br />\n" .
+			"Also don't forget to install the database, located at <a href=\"mysql.sql\">mysql.sql</a>";
 	die();
 }
 
@@ -25,12 +26,6 @@ include_once(ABSPATH . "includes/db.php");
 
 $db = new Database();
 
-$sql = "SHOW TABLES LIKE 'images'";
-$result = $db->query($sql);
-if($db->num_rows() < 1){
-	echo "Please install the database.  It's located in <a href=\"mysql.sql\">mysql.sql</a>";
-	die();
-}
 
 $lncln = new lncln();
 

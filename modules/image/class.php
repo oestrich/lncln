@@ -66,7 +66,7 @@ class Image{
 		$image = (int)$this->lncln->params[0];
 		
 		if(isset($image) && is_numeric($image)){
-			$image = prepareSQL($image);
+			$image = $this->db->prep_sql($image);
 		}
 		else{
 			return;

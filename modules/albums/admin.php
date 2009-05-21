@@ -125,7 +125,7 @@ class AlbumsAdmin extends Albums{
 	 * @return string If it passed or not
 	 */
 	protected function addAlbum($name){
-		$name = prepareSQL($name);
+		$name = $this->db->prep_sql($name);
 		
 		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
 		$this->db->query($sql);
@@ -153,7 +153,7 @@ class AlbumsAdmin extends Albums{
 	 * @param int $album The album id to be deleted
 	 */
 	protected function deleteAlbum($album){
-		$album = prepareSQL($album);
+		$album = $this->db->prep_sql($album);
 		
 		if(is_numeric($album)){
 			$sql = "UPDATE images SET album = 0 WHERE album = " . $album;
@@ -172,8 +172,8 @@ class AlbumsAdmin extends Albums{
 	 * @param $name string New name
 	 */
 	protected function changeAlbumName($id, $name){
-		$id = prepareSQL($id);
-		$name = prepareSQL($name);
+		$id = $this->db->prep_sql($id);
+		$name = $this->db->prep_sql($name);
 		
 		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
 		$this->db->query($sql);

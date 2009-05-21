@@ -92,8 +92,8 @@ class Albums{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
-		$img = prepareSQL($id);
-		$album = prepareSQL($data[0]);
+		$img = $this->db->prep_sql($id);
+		$album = $this->db->prep_sql($data[0]);
 		
 		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $id;
 		$this->db->query($sql);
@@ -187,7 +187,7 @@ class Albums{
 	 * @since 0.9.0
 	 */
 	protected function album(){	
-		$album = prepareSQL($this->lncln->params[0]);
+		$album = $this->db->prep_sql($this->lncln->params[0]);
 		
 		$album = $this->getAlbumId($album);
 		

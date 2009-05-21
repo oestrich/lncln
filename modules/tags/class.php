@@ -92,7 +92,7 @@ class Tags{
 		
 		$tags = split(',', $data[0]);
 		$tags = array_map('trim', $tags);
-		$tags = array_map('prepareSQL', $tags);
+		$tags = array_map('$this->db->prep_sql', $tags);
 		
 		$sql = "DELETE FROM tags WHERE picId = " . $id;
 		$this->db->query($sql);
@@ -217,7 +217,7 @@ class Tags{
 	 * @since 0.13.0
 	 */
 	private function search(){
-		$this->searchTerm = prepareSQL($this->removePluses($this->lncln->params[0]));
+		$this->searchTerm = $this->db->prep_sql($this->removePluses($this->lncln->params[0]));
 		
 		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
 		$this->db->query($sql);

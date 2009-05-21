@@ -295,6 +295,10 @@ class Database{
 	 * @return "clean" SQL
 	 */
 	public function prep_sql($sql){
+		if(!$this->conn){
+			$this->connect();
+		}
+		
 		return mysql_real_escape_string($sql);
 	}
 	

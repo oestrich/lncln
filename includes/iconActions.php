@@ -38,7 +38,7 @@ if(isset($_GET['obscene']) && $lncln->user->permissions['obscene'] == 1){
 }
 
 if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
-	$id = prepareSQL($_GET['refresh']);
+	$id = $this->db->prep_sql($_GET['refresh']);
 	
 	$sql = "SELECT type FROM images WHERE id = " . $id;
 	$result = mysql_query($sql);

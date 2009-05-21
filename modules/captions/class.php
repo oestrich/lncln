@@ -58,8 +58,8 @@ class Captions{
 	 * @param $data array Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
-		$image = prepareSQL($id);
-		$caption = prepareSQL($data[0]);
+		$image = $this->db->prep_sql($id);
+		$caption = $this->db->prep_sql($data[0]);
 		
 		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
 		$this->db->query($sql);

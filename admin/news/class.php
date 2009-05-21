@@ -18,8 +18,8 @@ class NewsAdmin extends lncln{
 	 * @param $news array Keys - title, body
 	 */
 	function addNews($news){
-		$body = prepareSQL($news['body']);
-		$title = prepareSQL($news['title']);
+		$body = $this->db->prep_sql($news['body']);
+		$title = $this->db->prep_sql($news['title']);
 		
 		$sql = "INSERT INTO news (postTime, title, news) VALUES (" . time() . ", '" . $title . "', '" . $body . "')";
 		mysql_query($sql);
@@ -84,8 +84,8 @@ class NewsAdmin extends lncln{
 	 * @param $data array Keys: title, news, postTime
 	 */
 	function changeNews($data){
-		$title = prepareSQL($data['title']);
-		$news = prepareSQL($data['news']);
+		$title = $this->db->prep_sql($data['title']);
+		$news = $this->db->prep_sql($data['news']);
 		
 		if(is_numeric($data['postTime']) && is_numeric($data['id'])){
 			$postTime = $data['postTime'];

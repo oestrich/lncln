@@ -469,7 +469,7 @@ class lncln{
 	 * @param int $image The image that is to be removed
 	 */
 	function dequeue($image){
-		$id = prepareSQL($image);
+		$id = $this->db->prep_sql($image);
 		
 		$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $id . " LIMIT 1";
 		$this->db->query($sql);
@@ -662,8 +662,8 @@ class User{
      */
     function loggedIn(){
         if(isset($_COOKIE['password']) && isset($_COOKIE['username'])){
-            $username = prepareSQL($_COOKIE['username']);
-            $password = prepareSQL($_COOKIE['password']);
+            $username = $this->db->prep_sql($_COOKIE['username']);
+            $password = $this->db->prep_sql($_COOKIE['password']);
             
             $this->isUser = true;
         }
@@ -740,13 +740,13 @@ class User{
 	 * @return string Whether it updated or not
 	 */
 	function updateUser($user){
-		$username = prepareSQL($user['username']);
-		$obscene = prepareSQL($user['obscene']);
+		$username = $this->db->prep_sql($user['username']);
+		$obscene = $this->db->prep_sql($user['obscene']);
 		
 		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
-			$oldPassword = prepareSQL($user['password']);
-			$newPassword = prepareSQL($user['newPassword']);
-			$newPasswordConfirm = prepareSQL($user['newPasswordConfirm']);
+			$oldPassword = $this->db->prep_sql($user['password']);
+			$newPassword = $this->db->prep_sql($user['newPassword']);
+			$newPasswordConfirm = $this->db->prep_sql($user['newPasswordConfirm']);
 			
 			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
 			$this->db->query($sql);
@@ -871,20 +871,6 @@ class Display{
 		include_once(ABSPATH . "includes/footer.php");
 		exit();
 	}
-}
-
-/**
- * Prepares a variable for SQL
- * @since 0.9.0
- * 
- * @param string $var the variable that is being prepared
- * 
- * @return string Variable that's ready for SQL
- */
-function prepareSQL($var){
-	$var = mysql_real_escape_string($var);
-	
-	return $var;
 }
 
 /**
