@@ -201,6 +201,10 @@ class Admin{
 	 */
 	protected function load_admin_modules(){
 		foreach($this->lncln->modules_enabled as $module){
+			if(file_exists(ABSPATH . "modules/" . strtolower($module) . "/admin.php")){
+				include_once(ABSPATH . "modules/" . strtolower($module) . "/admin.php");
+			}
+			
 			$name = $module . "Admin";
 			
 			if(class_exists($name)){
