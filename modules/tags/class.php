@@ -109,6 +109,8 @@ class Tags{
 		$sql = substr_replace($sql ,"",-2);
 		
 		$this->db->query($sql);
+		
+		$this->set_tags($id);
 	}
 	
 	/**
@@ -267,27 +269,42 @@ class Tags{
 	 * @return mixed Array of tags or string joined by ','
 	 */
 	private function get_tags($id, $string = false){
-		if(array_key_exists($id, $this->values)){
-			$tags = $this->values[$id];
-		}
-		else{		
-			$sql = "SELECT tag FROM tags WHERE picId = " . $id;
-			$this->db->query($sql);
-			
-			$tags = array();
-			
-			foreach($this->db->fetch_all() as $row){
-				$tags[] = $row['tag'];
+		foreach($this->lncln->images as $image){
+			if($image['id'] == $id){
+				if($image['tags'] == ""){
+					$image['tags'] = $this->set_tags($id);
+				}
+
+				return $image['tags'];
 			}
-			
-			$this->values[$id] = $tags;
 		}
 		
-		if($string == false)
-			return $tags;
+		return "";
+	}
+	
+	/**
+	 * Sets the tags field in the image table with current tags from tags table
+	 * @since 0.13.0
+	 * 
+	 * @param $id int Image ID
+	 * 
+	 * @return string Current tags
+	 */
+	private function set_tags($id){
+		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
+		$this->db->query($sql);
+		
+		$tags = array();
+		
+		foreach($this->db->fetch_all() as $row){
+			$tags[] = $row['tag'];
+		}
 		
 		$tags = join(', ', $tags);
 		
+		$sql = "UPDATE images SET tags = '" . $tags . "' WHERE id = " . $id;
+		$this->db->query($sql);
+
 		return $tags;
 	}
 	

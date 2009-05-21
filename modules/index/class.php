@@ -139,7 +139,7 @@ class Index{
 		
 		$query = array(
 			'type' => 'SELECT',
-			'fields' => array("!COUNT(*)"),
+			'fields' => array("!COUNT(id)"),
 			'table' => 'images',
 			'where' => array(
 					array(
@@ -154,15 +154,10 @@ class Index{
 		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
-		if($row['COUNT(*)'] == 0){
+		if($row['COUNT(id)'] == 0){
 			$this->page = 0;
 		}
 		else{
-			$query['fields'] = array("!COUNT(id)");
-			
-			$this->db->query($query);
-			$row = $this->db->fetch_one();
-
 			$this->lncln->maxPage = $row['COUNT(id)'];
 			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
 			

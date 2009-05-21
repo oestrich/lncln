@@ -52,8 +52,7 @@ class lncln{
 	 */
 	function __construct($action = "none", $params = array()){	
 		//Pull in the database class that was already started.
-		global $db;
-		$this->db = $db;
+		$this->db = get_db();
 		
 		$this->user = new User();
 		$this->display = new Display($this);

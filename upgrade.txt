@@ -22,4 +22,8 @@ SQL commands:
  ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
 	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
 
+ALTER TABLE `images` DROP `numComments`;
+  
+ALTER TABLE `images` ADD `tags` TEXT NOT NULL;
+
 If you have any other problems, please visit the forums.
