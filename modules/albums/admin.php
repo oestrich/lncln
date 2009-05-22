@@ -107,9 +107,14 @@ class AlbumsAdmin extends Albums{
 	public function actions(){
 		$action = array(
 			'urls' => array(
-				'add' => 'Add album',
-				'manage' => 'Manage albums',
-				'edit' => '',
+				'Main' => array(
+					'add' => 'Add album',
+					'manage' => 'Manage albums',
+					'edit' => '',
+					),
+				),
+			'quick' => array(
+				'add', 'manage',
 				),
 			);
 		

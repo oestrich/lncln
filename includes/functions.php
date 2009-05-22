@@ -109,13 +109,13 @@ class lncln{
 	function loadModules(){
 		//Key is folder, value is class name
 		$this->modules_enabled = array(
+			"admin" => "Admin",
 			"captions" => "Captions", 
 			"tags" => "Tags", 
 			"albums" => "Albums", 
 			"ratings" => "Ratings", 
 			"index" => "Index", 
 			"image" => "Image",
-			"admin" => "Admin",
 			"obscene" => "Obscene",
 		);
 		
@@ -971,6 +971,9 @@ function create_form($form){
 					$output .= "\t\t\t\t\t<option value='" . $option['value'] . "'$selected>" . $option['name'] . "</option>\n";
 				}
 				$output .= "\t\t\t\t</select></td>\n";
+				break;
+			case 'textarea':
+				$output .= "\t\t\t\t<td><textarea name='" . $input['name'] . "'  rows='10' cols='50'>" . $input['value'] . "</textarea>";
 				break;
 		}
 		

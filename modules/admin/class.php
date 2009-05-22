@@ -47,16 +47,19 @@ class Admin{
 		ob_start();
 		
 		//If going to a module page, enter
-		if($this->lncln->params[0] != ""){
+		if($this->lncln->params[0] != ""){			
 			//If just the top module page, show actions
 			if($this->lncln->params[1] == ""){
 				if($this->check_module($module)){
 					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>"
 							. "<span class='admin_link'>". $module . "</span><br /><br />\n";
 					
-					foreach($this->actions[$module]['urls'] as $url => $name){
-						if($name != ""){
-							echo "<a href='" . URL . "admin/" . $module . "/$url'>" . $name . "</a><br />\n";
+					foreach($this->actions[$module]['urls'] as $name => $group){
+						echo "<span style='font-size: 1.5em;'>" . $name . "</span><br />";
+						foreach($group as $url => $name){
+							if($name != ""){
+								echo "<a href='" . URL . "admin/" . $module . "/$url'>" . $name . "</a><br />\n";
+							}
 						}
 					}
 					
@@ -68,17 +71,15 @@ class Admin{
 			}
 			else{
 				//Only do the correct action!
-				
 				if($this->check_action($module, $action)){
 					echo "<span class='admin_link'><a href='" . URL . "admin/'>Admin</a></span><span class='admin_action'> - </span>" .
-							"<span class='admin_link'><a href='" . URL . "admin/" .
-							$module . "'>". $module .
+							"<span class='admin_link'><a href='" . URL . "admin/" . $module . "'>". $module .
 							"</a></span><span class='admin_action'> - " . ucwords($action) . "</span><br />\n<br />\n";
 
 					//This is because modules are loaded under the class name
 					$this->modules[$this->get_module_class($module)]->$action();
 					
-					$name = $this->actions[$module]['urls'][$action];
+					$name = ucwords($action);
 					
 					$this->lncln->display->set_title($name . " - " . $module);
 				}
@@ -87,10 +88,10 @@ class Admin{
 				}
 			}
 		}
-		
-		if($this->lncln->params[0] == ""){
-			$this->show_info();
+		else{
+			$this->show_index();
 		}
+		
 		
 		//This allows for the title to change while in the admin panel
 		$content = ob_get_contents();
@@ -142,36 +143,6 @@ class Admin{
 			else{
 				continue;
 			}
-		}
-	}
-	
-	/**
-	 * Prints out the info for modules
-	 * @since 0.13.0
-	 */
-	protected function show_info(){
-		foreach($this->info as $info){
-			$requires = join(" ", $info['requires']);
-			
-			if($requires == ""){
-				$requires = "No requirements";
-			}
-			
-			echo "<span class='admin_link'>";
-			if($this->check_module($info['name'])){
-				echo "<a href='" . URL . "admin/" . $info['name']. "/'>" . $info['name'] . "</a>";
-			}
-			else{
-				echo $info['name'];
-			}
-			echo "</span>\n";
-			echo "<p class='admin_description'>" . $info['description'] . "</p>\n";
-			echo "<table>\n";
-			echo "<tr><td>Version:</td><td>" . $info['version'] . "</td></tr>\n";
-			echo "<tr><td>Package:</td><td>" . $info['package'] . "</td></tr>\n";
-			echo "<tr><td>Requires:</td><td>" . $requires . "</td></tr>\n";
-			echo "</table>\n";
-			echo "<br />";
 		}
 	}
 	
@@ -241,9 +212,11 @@ class Admin{
 	protected function check_action($module, $action){
 		$class = $this->get_module_class($module);
 		
-		foreach($this->actions[$module]['urls'] as $url => $name){
-			if($url == $action && method_exists($this->modules[$class], $action)){
-				return true;
+		foreach($this->actions[$module]['urls'] as $group){
+			foreach($group as $url => $name){
+				if($url == $action && method_exists($this->modules[$class], $action)){
+					return true;
+				}
 			}
 		}
 		
@@ -268,5 +241,32 @@ class Admin{
 		}
 		
 		return "";
+	}
+	
+	protected function show_index(){
+		echo "Welcome to the Admin panel<br />";
+		
+		ksort($this->actions);
+		
+		//Scan through the actions
+		foreach($this->actions as $key => $module){		
+			echo "<div class='admin_quick_links'>";
+			echo "<span class='admin_link'>" . $key . "</span> (<a href='" . URL ."admin/" . $key . "'>More actions</a>)<br />";	
+			//Look through the 'urls' section for the different ones
+			foreach($module['urls'] as $group){
+				//Split the groups up
+				foreach($group as $url => $name){
+					//See if they match one of the quick links
+					foreach($module['quick'] as $quick){
+						if($quick == $url){
+							echo "<a href='" . URL . "admin/" . $key . "/" . $url ."'>" . $name . "</a><br />";
+						}
+					}
+				}
+			}
+			echo "</div>";
+		}
+		
+		echo "<div style='clear: both;'></div>";
 	}
 }

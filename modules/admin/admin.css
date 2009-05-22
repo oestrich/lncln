@@ -22,3 +22,20 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
+
+.admin_quick_links{
+	background-color: #222222;
+	float: left;
+	height: 120px;
+	margin-bottom: 5px;
+	margin-left: 15px;
+	margin-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-top: 5px;
+	width: 300px;
+}
+
+.admin_content{
+	background-color: #222222;
+}
