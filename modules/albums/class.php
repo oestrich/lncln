@@ -41,8 +41,6 @@ class Albums{
 	public function index(){
 		$this->album();
 		
-		$this->lncln->display->includeFile("iconActions.php");
-		
 		$this->lncln->img();
 		
 		$this->lncln->display->includeFile("header.php");

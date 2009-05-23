@@ -52,8 +52,6 @@ class Tags{
 		
 		$this->search();
 		
-		$this->lncln->display->includeFile("iconActions.php");
-		
 		$this->lncln->img();
 		
 		$this->lncln->display->includeFile("header.php");

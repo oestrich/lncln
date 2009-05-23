@@ -35,8 +35,6 @@ class Image{
 	 */
 	public function index(){
 		$this->prepareImage();
-
-		$this->lncln->display->includeFile("iconActions.php");
 		
 		$this->lncln->display->includeFile("header.php");
 		

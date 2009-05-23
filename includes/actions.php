@@ -1,6 +1,6 @@
 <?
 /**
- * iconActions.php
+ * actions.php
  * 
  * This file adds actions to a page that handles the icons underneath images
  * 

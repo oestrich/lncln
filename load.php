@@ -22,7 +22,10 @@ else{
 }
 
 include_once(ABSPATH . "includes/functions.php");
-include_once(ABSPATH . "includes/db.php");
+include_once(ABSPATH . "includes/class.lncln.php");
+include_once(ABSPATH . "includes/class.display.php");
+include_once(ABSPATH . "includes/class.user.php");
+include_once(ABSPATH . "includes/class.db.php");
 
 $db = new Database();
 
