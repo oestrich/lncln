@@ -17,6 +17,5 @@ global $db;
 			<br /><? echo $db->get_queries();?>
 		</div>
 	</div>
-<?include_once(ABSPATH . "includes/googleAnalytics.html");?> 
 </body>
 </html>
