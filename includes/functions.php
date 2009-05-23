@@ -113,6 +113,7 @@ class lncln{
 			"captions" => "Captions", 
 			"tags" => "Tags", 
 			"albums" => "Albums", 
+			"report" => "Report",
 			"ratings" => "Ratings", 
 			"index" => "Index", 
 			"image" => "Image",

@@ -92,7 +92,8 @@ class Tags{
 		
 		$tags = split(',', $data[0]);
 		$tags = array_map('trim', $tags);
-		$tags = array_map('$this->db->prep_sql', $tags);
+		$prep_sql = $this->db->prep_sql;
+		$tags = array_map($prep_sql, $tags);
 		
 		$sql = "DELETE FROM tags WHERE picId = " . $id;
 		$this->db->query($sql);

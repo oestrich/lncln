@@ -68,12 +68,9 @@ foreach ($lncln->images as $image){
 	else:
 		echo "\t\t<br />\n";
 	endif;?>
-<?	if($lncln->user->permissions['report'] == 1):?>
-		<a href="<?echo URL;?>report.php?img=<?echo $image['id'];?>"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/report.png" alt="Report Image" title="Report Image" style='border: none;'/></a>
-<?	endif;?>
 <?	foreach($lncln->modules as $module){
 		if(method_exists($module, "icon")){
-			echo $module->icon($image['id']);
+			echo $module->icon($image['id']) . "\n";
 		}
 	}?>
 <?	if($lncln->user->permissions['refresh'] == 1):?>
