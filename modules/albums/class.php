@@ -43,8 +43,6 @@ class Albums{
 		
 		$this->lncln->img();
 		
-		$this->lncln->display->includeFile("header.php");
-		
 		if(!isset($this->lncln->params[0]) || $this->lncln->params[0] == ""){
 			$albums = $this->getAlbums(false);
 			
@@ -61,14 +59,8 @@ class Albums{
 		else{
 			echo "You're viewing " . $this->lncln->params[0] . "\n <br />";
 			
-			echo $this->lncln->prevNext();
-			
-			$this->lncln->display->includeFile("listing.php");
-
-			echo $this->lncln->prevNext(true);
+			$this->lncln->display->show_posts();
 		}
-		
-		$this->lncln->display->includeFile("footer.php");
 	}
 	
 	/**
@@ -265,7 +257,6 @@ class Albums{
 	protected function getAlbumName($id, $plus = false){
 		
 		if(array_key_exists($id, $this->values['album_name'])){
-			echo "cached name";
 			$row = $this->values['album_name'][$id];
 		}
 		else{

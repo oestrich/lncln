@@ -8,8 +8,6 @@
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
  */
- 
-require_once("load.php");
 
 if($lncln->params[0] == "finishUpload"){
 	foreach($_POST['check'] as $key => $value){
@@ -41,8 +39,6 @@ if(!isset($_POST['type'])){
 }
 
 $lncln->tempUpload();
-
-include_once(ABSPATH . "includes/header.php");
 
 ?>
 	Tags are manditory.
@@ -100,8 +96,3 @@ endforeach;
 			<input type="submit" value="Cancel" />
 		</div>
 	</form>
-<?
-
-include_once(ABSPATH . "includes/footer.php");
-
-?>

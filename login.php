@@ -9,8 +9,6 @@
  * @license license.txt GNU General Public License version 3
  */
 
-require_once("load.php");
-
 if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE['username']))){
 	if(!isset($_COOKIE['password']) && !isset($_POST['username'])){
 		setcookie("username", "", time() - 30, URL);
@@ -50,43 +48,6 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 }
 
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xml:lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title><?echo $lncln->display->settings['title'];?> Login</title>
-	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
-<?
-	if($isLoggedIn){
-?>
-	<meta http-equiv="refresh" content="2;url=<?=URL;?>index/">
-<?
-	}
-?>
-	<style type='text/css'>
-		form{
-			margin: auto;
-			margin-top: 50px;
-		}
-		#title{
-			text-align: center;
-			font-size: 40px;
-			font-weight: bold;
-			position: relative;
-			left: -40px;
-		}
-	</style>
-</head>
-<body onload="document.getElementById('username').focus();">
-	<div id="container">
-		<div id="header">
-			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
-			<div id="title"><?echo $lncln->display->settings['title'];?></div>
-		</div>
-		<div id="mainBody">
-<?
 			if(!$numRows && !$_COOKIE['username']){
 ?>
 			<form enctype="multipart/form-data" action="<?=URL;?>login" method="post">
@@ -102,12 +63,7 @@ if(isset($_POST['username']) || (!isset($_COOKIE['password']) && isset($_COOKIE[
 ?>
 			<div id='loggedIn'>
 				Welcome <?if(isset($_COOKIE['username'])){echo $_COOKIE['username'];}else{echo $_POST['username'];}?>!<br />
-				Go back to the <a href="index.php">main page</a>
+				Go back to the <a href="<?=URL;?>index/">main page</a>
 			</div>
 <?
 			}
-?>
-		</div>
-	</div>
-</body>
-</html>

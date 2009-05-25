@@ -13,6 +13,7 @@ require_once("load.php");
 
 include_once(ABSPATH . "includes/actions.php");
 
+ob_start();
 
 if (isset($lncln->module) && $lncln->module != ""){
 	if (method_exists($lncln->modules[$lncln->module], "index")){
@@ -20,10 +21,16 @@ if (isset($lncln->module) && $lncln->module != ""){
 	}
 	else{
 		if (file_exists($lncln->module . ".php")){
-			include_once($lncln->module . ".php");
-			exit();
+			include_once($lncln->module . ".php");}
+		else{
+			$lncln->display->message("That module does not exist");
 		}
-		$lncln->display->message("That module does not exist");
 	}
-	exit();
 }
+
+$contents = ob_get_contents();
+ob_end_clean();
+
+$lncln->display->show_header();
+echo $contents;
+$lncln->display->show_footer();

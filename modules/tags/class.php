@@ -40,13 +40,13 @@ class Tags{
 	 * @since 0.13.0
 	 */
 	public function index(){
-		if(isset($_POST['search']) && !isset($this->lncln->params[0])){
+		if(isset($_POST['search']) && $this->lncln->params[0] == ""){
 			header("location:" . URL . "tags/" . $this->addPluses($_POST['search']));
 			exit();
 		}
 		
 		if($this->lncln->params[0] == ""){
-			header("location:" . URL . "index/");
+			//header("location:" . URL . "index/");
 			exit();
 		}
 		
@@ -54,17 +54,9 @@ class Tags{
 		
 		$this->lncln->img();
 		
-		$this->lncln->display->includeFile("header.php");
-		
 		echo "You searched for: " . $this->searchTerm . "<br />";
 		
-		echo $this->lncln->prevNext();
-		
-		$this->lncln->display->includeFile("listing.php");
-		
-		echo $this->lncln->prevNext(true);
-		
-		$this->lncln->display->includeFile("footer.php");		
+		$this->lncln->display->show_posts();
 	}
 	
 	/**

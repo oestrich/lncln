@@ -9,14 +9,9 @@
  * @license license.txt GNU General Public License version 3
  */
 
-require_once("load.php");
-
 if(isset($_POST['username'])){
 	$lncln->display->message($lncln->user->updateUser($_POST) . "<br />Click <a href='" . URL . "index.php'>here</a> to continue");
 }
-
-
-include_once(ABSPATH . "includes/header.php");
 
 if($lncln->user->isUser){
 	$sql = "SELECT obscene FROM users WHERE name = '" . $_COOKIE['username'] . "' LIMIT 1";
@@ -68,5 +63,3 @@ if($lncln->user->isUser){
 else{
 	$lncln->display->message("Please sign in first.");
 }
-include_once(ABSPATH . "includes/footer.php");
-?>

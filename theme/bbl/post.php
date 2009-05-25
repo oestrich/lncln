@@ -1,6 +1,6 @@
 <?
 /**
- * listing.php
+ * post.php
  * 
  * The page that actually displays the images.  This includes the icons.
  * Runs through $lncln-images for all image data and prints it
@@ -11,21 +11,16 @@
  * @license license.txt GNU General Public License version 3
  */
 
-if($lncln->page == 0 && $lncln->maxPage == 0){
-	echo "No images.<br />";
+$small = $lncln->check_small($image['id']);
+
+if($small){
+	$link = "javascript:show_image('" . $image['id'] . "');";
+}
+else{
+	$link = URL . "image/" . $image['id'];
 }
 
-foreach ($lncln->images as $image){
-	$small = $lncln->check_small($image['id']);
-	
-	if($small){
-		$link = "javascript:show_image('" . $image['id'] . "');";
-	}
-	else{
-		$link = URL . "image/" . $image['id'];
-	}
-	
-	$date = $_SESSION['thumbnail'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
+$date = $_SESSION['thumbnail'] == true ? date('m/d/Y', $image['postTime'] + 3 * 60 * 60) : date('m/d/Y - h:i:s A', $image['postTime'] + 3 * 60 * 60);
 
 ?>
 
@@ -41,47 +36,46 @@ foreach ($lncln->images as $image){
 		
 		echo "<br />";
 
-	if($lncln->type != 'thumb' && $image['type'] == 'gif'):
-			echo "This is a gif.<br />";
-	endif;
-	if($lncln->type != 'thumb' && $image['postTime'] > time()){
-			echo "Not on the homepage yet.<br />\n";
-	}
-	if($small):?>
+if($lncln->type != 'thumb' && $image['type'] == 'gif'):
+		echo "This is a gif.<br />";
+endif;
+if($lncln->type != 'thumb' && $image['postTime'] > time()){
+		echo "Not on the homepage yet.<br />\n";
+}
+if($small):?>
 		<div class="badImage" id="b<?echo $image['id'];?>">
-<?	endif;?>
+<?endif;?>
 		<div class='<?=$lncln->type;?>_image'>
 			<a name="<?echo $image['id'];?>" href="<?=URL;?>images/full/<?echo $image['file'];?>" target="_blank" >
 				<img src="<?=URL;?>images/<?echo $lncln->type;?>/<?echo $image['file'];?>" alt="<?echo $image['id'];?>" />
 			</a>
 		</div>
 <?	//don't show underImage() if in thumbnails
-	if(!$_SESSION['thumbnail']):
-		/**
-		 * Main part of the script right here 
-		 */
-		foreach($lncln->modules as $module){
-			if(method_exists($module, "below")){
-				echo $module->below($image['id']);
-			}
+if(!$_SESSION['thumbnail']):
+	/**
+	 * Main part of the script right here 
+	 */
+	foreach($lncln->modules as $module){
+		if(method_exists($module, "below")){
+			echo $module->below($image['id']);
 		}
-	else:
-		echo "\t\t<br />\n";
-	endif;?>
-<?	foreach($lncln->modules as $module){
-		if(method_exists($module, "icon")){
-			echo $module->icon($image['id']) . "\n";
-		}
-	}?>
-<?	if($lncln->user->permissions['refresh'] == 1):?>
-		<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
-<?	endif;?>
-<?	if($lncln->user->permissions['delete']):?>
-		<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
-<?	endif;?>
-<?	if($small):?>
-		</div>
-<?	endif;
-	echo "\t</div>";
-
+	}
+else:
+	echo "\t\t<br />\n";
+endif;
+foreach($lncln->modules as $module){
+	if(method_exists($module, "icon")){
+		echo $module->icon($image['id']) . "\n";
+	}
 }
+
+if($lncln->user->permissions['refresh'] == 1):?>
+		<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/></a>
+<?endif;
+if($lncln->user->permissions['delete']):?>
+		<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');"><img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/></a>
+<?endif;
+if($small):?>
+		</div>
+<?endif;
+	echo "\t</div>";

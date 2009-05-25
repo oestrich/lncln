@@ -40,8 +40,6 @@ class Index{
 		
 		$this->lncln->display->set_title("Index");
 		
-		$this->lncln->display->includeFile("header.php");
-		
 		$news = $this->lncln->getNews();
 		?>	
 			<div id="news"> 
@@ -57,14 +55,8 @@ class Index{
 		<?
 		
 		echo $this->upload_status();
-		
-		echo $this->lncln->prevNext();
 
-		$this->lncln->display->includeFile("listing.php");
-		
-		echo $this->lncln->prevNext(true);
-		
-		$this->lncln->display->includeFile("footer.php");
+		$this->lncln->display->show_posts();
 	}
 	
 	/**

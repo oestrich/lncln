@@ -97,11 +97,51 @@ class Display{
 	function message($msg){
 		$lncln = $this->lncln;
 		
-		include_once(ABSPATH . "includes/header.php");
+		$this->show_header();
 		
 		echo $msg;
 		
-		include_once(ABSPATH . "includes/footer.php");
+		$this->show_footer();
 		exit();
+	}
+	
+	/**
+	 * Shows the header for the current theme.
+	 * @since 0.13.0
+	 */
+	function show_header(){
+		$lncln = $this->lncln;
+		
+		include_once(ABSPATH . "theme/" . THEME . "/header.php");
+	}
+	
+	/**
+	 * Shows the footer for current theme
+	 * @since 0.13.0
+	 */
+	function show_footer(){
+		$lncln = $this->lncln;
+		
+		include_once(ABSPATH . "theme/" . THEME . "/footer.php");
+	}
+	
+	/**
+	 * Prints out posts
+	 * @since 0.13.0
+	 */
+	function show_posts(){
+		$lncln = $this->lncln;
+		
+		echo $this->lncln->prevNext();
+		
+		if($lncln->page == 0 && $lncln->maxPage == 0){
+			echo "No images.<br />";
+		}
+		
+		foreach($lncln->images as $image){
+			include(ABSPATH . "theme/" . THEME . "/post.php");
+		}
+		
+		echo $this->lncln->prevNext(true);
 	}
 }

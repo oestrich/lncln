@@ -9,10 +9,6 @@
  * @license license.txt GNU General Public License version 3
  */
 
-require_once("load.php");
-
-include_once(ABSPATH . "includes/header.php");
-
 if($lncln->display->settings['register'] == 0){
 	$lncln->display->message("This site has not allowed registrations.  Thank you for wanting to register though.");
 }
@@ -51,7 +47,3 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 		<input type="submit" value="Submit" />
 	</div>
 </form>
-
-<?
-include_once(ABSPATH . "includes/footer.php");
-?>

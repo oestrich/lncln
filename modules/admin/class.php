@@ -92,16 +92,8 @@ class Admin{
 			$this->show_index();
 		}
 		
-		
 		//This allows for the title to change while in the admin panel
-		$content = ob_get_contents();
-		ob_end_clean();		
-		
-		$this->lncln->display->includeFile("header.php");
-		
-		echo $content;
-		
-		$this->lncln->display->includeFile("footer.php");
+		ob_end_flush();
 	}
 	
 	/**

@@ -9,8 +9,6 @@
  * @license license.txt GNU General Public License version 3
  */
 
-require_once("load.php");
-
 if(isset($_COOKIE['username'])){
 	setcookie("username", "", time() - (60 * 60 * 24), URL);
 	setcookie("password", "", time() - (60 * 60 * 24), URL);
