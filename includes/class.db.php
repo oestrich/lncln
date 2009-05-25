@@ -26,6 +26,15 @@ class Database{
 	
 	public $total_time = 0;
 	
+	/**
+	 * Construct for database class, takes settings or uses config.php's ones
+	 * @since 0.13.0
+	 * 
+	 * @param $server string Hose
+	 * @param $username string Username
+	 * @param $password string Password
+	 * @param $database string Database
+	 */
 	public function __construct($server = "", $username = "", $password = "", $database = ""){
 		$this->config['server'] = $server == "" ? DB_SERVER : $server;
 		
@@ -39,11 +48,6 @@ class Database{
 	/**
 	 * Connects to the database
 	 * @since 0.13.0
-	 * 
-	 * @param $host string Hose
-	 * @param $user string Username
-	 * @param $password string Password
-	 * @param $db string Database
 	 */
 	public function connect(){
 		$this->conn = @mysql_connect($this->config['server'], $this->config['username'], $this->config['password']);
@@ -209,9 +213,6 @@ class Database{
 				$sql .= implode(", ", $this->grave_fields($query['fields']));
 				$sql .= " FROM `" . $query['table'] . "`";
 				
-				if(!is_array($query['where']))
-					$query['where'] = array();
-				
 				$sql .= $this->create_where($query['where']);
 				
 				if(is_array($query['order'])){
@@ -261,6 +262,10 @@ class Database{
 	 * @return string Complete WHERE seciont
 	 */
 	public function create_where($where){
+		if(!is_array($where)){
+			return "";
+		}
+	
 		$sql = $this->_where($where);
 		return " WHERE " . $sql[0];
 	}
@@ -268,6 +273,10 @@ class Database{
 	/**
 	 * This is what does the dirty work for the where section
 	 * @since 0.13.0
+	 * 
+	 * @param $query array Pieces of the where statement
+	 * 
+	 * @return array Final return is the final where string key 0
 	 */
 	private function _where($query){
 		$sql = array();
@@ -275,8 +284,9 @@ class Database{
 		if(is_array($query)){
 			foreach(array_keys($query) as $key){
 				if(is_string($key)){
-					switch($key){
-						case 'AND':
+					$type = substr($key, 0, 2);
+					switch($type){
+						case 'AN':
 							$sql[] = " ( " . implode(" AND ", $this->_where($query[$key])) . " ) ";
 							break;
 						case 'OR':
