@@ -35,4 +35,15 @@ define("URL", "/");
 //Include your domain name, no slashes
 define("SERVER", "");
 
-?>
+//Key is folder, value is class name
+$modules_enabled = array(
+	"admin" => "Admin",
+	"captions" => "Captions", 
+	"tags" => "Tags", 
+	"albums" => "Albums", 
+	"report" => "Report",
+	"ratings" => "Ratings", 
+	"index" => "Index", 
+	"image" => "Image",
+	"obscene" => "Obscene",
+	);

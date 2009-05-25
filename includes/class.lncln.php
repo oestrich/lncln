@@ -106,18 +106,9 @@ class lncln{
 	 * @since 0.13.0
 	 */
 	function loadModules(){
-		//Key is folder, value is class name
-		$this->modules_enabled = array(
-			"admin" => "Admin",
-			"captions" => "Captions", 
-			"tags" => "Tags", 
-			"albums" => "Albums", 
-			"report" => "Report",
-			"ratings" => "Ratings", 
-			"index" => "Index", 
-			"image" => "Image",
-			"obscene" => "Obscene",
-		);
+		global $modules_enabled;
+		
+		$this->modules_enabled = $modules_enabled;
 		
 		$this->display->rows = array(
 			1 => array("index", "albums", "obscene"),

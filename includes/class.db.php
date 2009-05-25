@@ -169,7 +169,7 @@ class Database{
 	 * @return int Insert ID
 	 */
 	public function insert_id(){
-		return mysql_insert_id($this->result);
+		return mysql_insert_id($this->conn);
 	}
 	
 	/**

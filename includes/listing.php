@@ -12,7 +12,7 @@
  */
 
 if($lncln->page == 0 && $lncln->maxPage == 0){
-	echo "<br /><br />No images.<br />";
+	echo "No images.<br />";
 }
 
 foreach ($lncln->images as $image){
