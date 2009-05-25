@@ -76,6 +76,12 @@ class Display{
 		return $output;
 	}
 	
+	/**
+	 * Sets the title for current page
+	 * @since 0.13.0
+	 * 
+	 * @param $title String title for current page
+	 */
 	function set_title($title = ""){
 		if($title == ""){
 			$this->title = $this->settings['title'];
