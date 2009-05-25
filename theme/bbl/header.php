@@ -23,7 +23,7 @@
 	<?
 		echo $lncln->display->include_css();
 	?>
-	<script type="text/javascript" src="<?echo URL;?>includes/javascript.js" >
+	<script type="text/javascript" src="<?echo URL;?>includes/lncln.js" >
 	</script>
 </head>
 <body onload="init()">

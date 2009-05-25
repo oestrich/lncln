@@ -1,5 +1,5 @@
 /**
- * javascript.js
+ * lncln.js
  *
  * Main javascript file, included by the header
  * 
