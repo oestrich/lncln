@@ -252,30 +252,54 @@ class lncln{
 
 	/**
 	 * Creates the data required for listImages.php
-	 * @todo possibly rename to getData()
 	 * @since 0.5.0
 	 */
-	function img(){		
+	function get_data(){		
 		if(count($this->imagesToGet) == 0){
 			$this->images = array();
 			return;
 		}
 		
-		$time = $this->user->permissions['isAdmin'] == 0 ? " AND postTime <= " . time() : "";
+		$cond = array();
 		
-		$sql = "SELECT * FROM images WHERE ";
-		
-		foreach($this->imagesToGet as $image){
-			$sql .= " id = " . $image . " OR ";
+		foreach($this->modules as $module){
+			if(method_exists($module, "sql_condition")){
+				$cond[] = $module->sql_condition();
+			}
 		}
 		
-		if(count($this->imagesToGet) > 0)
-			$sql = substr_replace($sql, "", -4);
-			
-		$sql .= $time;
-		$sql .= " ORDER BY `id` DESC";
+		$time = !$this->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
 		
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('*'),
+			'table' => 'images',
+			'where' => array(
+				'AND' => array(
+					'OR' => array(),
+					array(
+						'field' => 'queue',
+						'compare' => '=',
+						'value' => 0,
+						),
+					$time,
+					),
+				),
+			'order' => array(
+					'DESC',
+					array('id'),
+				),
+			);
+		
+		foreach($this->imagesToGet as $image){
+			$query['where']['AND']['OR'][] = array(
+				'field' => 'id',
+				'compare' => '=',
+				'value' => $image,
+				); 
+		}
+		
+		$this->db->query($query);
 		
 		$i = 0;
 		foreach($this->db->fetch_all() as $image){						

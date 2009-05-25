@@ -11,6 +11,8 @@
 
 
 class Database{
+	private $config = array();
+	
 	private $conn;
 	
 	private $queries = array();
@@ -23,6 +25,16 @@ class Database{
 	public $fetched_results = null; //Cached results
 	
 	public $total_time = 0;
+	
+	public function __construct($server = "", $username = "", $password = "", $database = ""){
+		$this->config['server'] = $server == "" ? DB_SERVER : $server;
+		
+		$this->config['username'] = $username == "" ? DB_USERNAME : $username;
+		
+		$this->config['password'] = $password == "" ? DB_PASSWORD : $password;
+		
+		$this->config['database'] = $database == "" ? DB_DATABASE : $database;
+	}
 
 	/**
 	 * Connects to the database
@@ -34,13 +46,13 @@ class Database{
 	 * @param $db string Database
 	 */
 	public function connect(){
-		$this->conn = @mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+		$this->conn = @mysql_connect($this->config['server'], $this->config['username'], $this->config['password']);
 		
 		if(!$this->conn){
 			echo mysql_error();
 		}
 		
-		$this->select(DB_DATABASE);
+		$this->select($this->config['database']);
 	}
 
 	/**
@@ -244,28 +256,44 @@ class Database{
 	 * Creates the WHERE section of SQL
 	 * @since 0.13.0
 	 *
-	 * @param $where array Keys: 'field', 'compare', 'value'
+	 * @param $where array Whole array section
 	 *
 	 * @return string Complete WHERE seciont
 	 */
 	public function create_where($where){
+		$sql = $this->_where($where);
+		return " WHERE " . $sql[0];
+	}
+	
+	/**
+	 * This is what does the dirty work for the where section
+	 * @since 0.13.0
+	 */
+	private function _where($query){
 		$sql = array();
 		
-		$i = 0;
-		foreach($where as $value){
-			if(count($value) == 3){
-				$sql[$i] = "`" . $value['field'] . "` " . $value['compare'] . " ";
-				if(is_numeric($value['value'])){
-					$sql[$i] .= $value['value'];
+		if(is_array($query)){
+			foreach(array_keys($query) as $key){
+				if(is_string($key)){
+					switch($key){
+						case 'AND':
+							$sql[] = " ( " . implode(" AND ", $this->_where($query[$key])) . " ) ";
+							break;
+						case 'OR':
+							$sql[] = " ( " . implode(" OR ", $this->_where($query[$key])) . " ) ";
+							break;
+						default:
+							break;
+					}
 				}
-				else{
-					$sql[$i] .= "'" . $value['value'] ."'";
+				if(array_key_exists("field", $query[$key])){
+					$string = "`" . $query[$key]['field'] . "` " . $query[$key]['compare'] . " ";
+					$string .= is_numeric($query[$key]['value']) ? $query[$key]['value'] : "'" . $query[$key]['value'] . "'";
+					
+					$sql[] = $string;
 				}
-				$i++;
 			}
 		}
-		
-		$sql = " WHERE " . implode(" AND ", $sql);
 		
 		return $sql;
 	}

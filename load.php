@@ -31,5 +31,3 @@ $db = new Database();
 
 
 $lncln = new lncln();
-
-?>

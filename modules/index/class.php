@@ -36,7 +36,7 @@ class Index{
 	public function index(){
 		$this->prepare_index();
 
-		$this->lncln->img();
+		$this->lncln->get_data();
 		
 		$this->lncln->display->set_title("Index");
 		
@@ -134,12 +134,14 @@ class Index{
 			'fields' => array("!COUNT(id)"),
 			'table' => 'images',
 			'where' => array(
-					array(
-						'field' => 'queue',
-						'compare' => '=',
-						'value' => 0,
-						),
-					$time,
+				'AND' => array(
+						array(
+							'field' => 'queue',
+							'compare' => '=',
+							'value' => 0,
+							),
+						$time,
+					),
 				),
 			);
 		
@@ -174,12 +176,14 @@ class Index{
 					'fields' => array('id'),
 					'table' => 'images',
 					'where' => array(
-							array(
-								'field' => 'queue',
-								'compare' => '=',
-								'value' => 0,
-								),
-							$time,
+						'AND' => array(
+								array(
+									'field' => 'queue',
+									'compare' => '=',
+									'value' => 0,
+									),
+								$time,
+							),
 						),
 					'order' => array(
 							'DESC',
