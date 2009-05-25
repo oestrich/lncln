@@ -46,4 +46,5 @@ $modules_enabled = array(
 	"index" => "Index", 
 	"image" => "Image",
 	"obscene" => "Obscene",
+	"queue" => "Queue",
 	);

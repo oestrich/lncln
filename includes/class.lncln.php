@@ -112,7 +112,7 @@ class lncln{
 		
 		$this->display->rows = array(
 			1 => array("index", "albums", "obscene"),
-			3 => array("admin"),
+			3 => array("admin", "queue"),
 			4 => array("tags")
 		);
 		

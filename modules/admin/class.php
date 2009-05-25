@@ -104,8 +104,7 @@ class Admin{
 	 */
 	public function header_link(){
 		if($this->lncln->user->permissions['isAdmin']){
-			return "Admin: <a href='" . URL . "admin/'>Admin Panel</a> " .
-				"<a href='" . URL . "admin/queue.php'>Check the Queue (" . $this->check_queue() . ")</a>";
+			return "Admin: <a href='" . URL . "admin/'>Admin Panel</a> ";
 		}
 		
 		return "";
@@ -136,18 +135,6 @@ class Admin{
 				continue;
 			}
 		}
-	}
-	
-	/**
-	 * Will be moved to it's own module eventaully
-	 * @since 0.13.0
-	 */
-	protected function check_queue(){
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$this->db->query($sql);
-		$row = $this->db->fetch_one();
-		
-		return $row['COUNT(*)'];
 	}
 	
 	/**
