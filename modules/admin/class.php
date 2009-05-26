@@ -115,6 +115,11 @@ class Admin{
 	 * related to only this class
 	 */
 	
+	/**
+	 * Loads currently enabled modules info
+	 * @todo make this load all modules in the modules/ folder
+	 * @since 0.13.0
+	 */
 	protected function load_info(){
 		foreach($this->lncln->modules as $module){
 			$modules[$module->name] = $module->name;
@@ -202,6 +207,14 @@ class Admin{
 		return false;
 	}
 	
+	/**
+	 * Get the class of module based on its name
+	 * @since 0.13.0
+	 * 
+	 * @param $module String Module's name
+	 * 
+	 * @return String Module's class
+	 */
 	protected function get_module_class($module){
 		foreach($this->info as $info){
 			if($info['name'] == $module){
@@ -212,6 +225,14 @@ class Admin{
 		return "";
 	}
 	
+	/**
+	 * Get the name of module based on its class
+	 * @since 0.13.0
+	 * 
+	 * @param $module String Module's class
+	 * 
+	 * @return String Module's name
+	 */
 	protected function get_module_name($module){
 		foreach($this->info as $info){
 			if($info['class'] == $module){
@@ -222,6 +243,11 @@ class Admin{
 		return "";
 	}
 	
+	/**
+	 * Landing page for the admin panel
+	 * Shows all of the quick links for modules
+	 * @since 0.13.0
+	 */
 	protected function show_index(){
 		echo "Welcome to the Admin panel<br />";
 		
