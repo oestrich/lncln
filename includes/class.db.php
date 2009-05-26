@@ -267,7 +267,16 @@ class Database{
 		}
 	
 		$sql = $this->_where($where);
-		return " WHERE " . $sql[0];
+		$sql = $sql[0];
+		
+		if($sql == ""){
+			return "";
+		}
+		if($sql == " (  ) "){
+			return "";
+		}
+		
+		return " WHERE " . $sql;
 	}
 	
 	/**

@@ -177,11 +177,6 @@ class Index{
 					'table' => 'images',
 					'where' => array(
 						'AND' => array(
-								array(
-									'field' => 'queue',
-									'compare' => '=',
-									'value' => 0,
-									),
 								$time,
 							),
 						),
@@ -194,6 +189,12 @@ class Index{
 							$this->lncln->display->settings['perpage'],
 						),
 				);
+				
+			foreach($this->lncln->modules as $module){
+				if(method_exists($module, "data_sql")){
+					$query['where']['AND'][] = $module->data_sql();
+				}
+			}
 				
 			$this->db->query($query);
 			foreach($this->db->fetch_all() as $row){

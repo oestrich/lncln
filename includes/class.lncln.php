@@ -260,14 +260,6 @@ class lncln{
 			return;
 		}
 		
-		$cond = array();
-		
-		foreach($this->modules as $module){
-			if(method_exists($module, "sql_condition")){
-				$cond[] = $module->sql_condition();
-			}
-		}
-		
 		$time = !$this->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
 		
 		$query = array(
@@ -277,11 +269,6 @@ class lncln{
 			'where' => array(
 				'AND' => array(
 					'OR' => array(),
-					array(
-						'field' => 'queue',
-						'compare' => '=',
-						'value' => 0,
-						),
 					$time,
 					),
 				),
@@ -290,6 +277,12 @@ class lncln{
 					array('id'),
 				),
 			);
+
+		foreach($this->modules as $module){
+			if(method_exists($module, "get_data_sql")){
+				$query['where']['AND'][] = $module->get_data_sql();
+			}
+		}
 		
 		foreach($this->imagesToGet as $image){
 			$query['where']['AND']['OR'][] = array(

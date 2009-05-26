@@ -40,6 +40,14 @@ class Queue{
 		return "";
 	}
 	
+	public function get_data_sql(){
+		return array(
+			'field' => 'queue',
+			'compare' => '=',
+			'value' => 0,
+			);
+	}
+	
 	/**
 	 * Required functions above, Below are other useful ones 
 	 * related to only this class
