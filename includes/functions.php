@@ -86,22 +86,23 @@ function create_form($form){
 	foreach($form['inputs'] as $input){
 		$output .= "\t\t\t<tr>\n";
 		
-		if($input['title'] != ""){
-			$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";	
-		}
-		
 		switch($input['type']){
 			case 'text':
+				$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";
 				$output .= "\t\t\t\t<td><input type='text' name='" . $input['name'] . "' value='" . $input['value'] . "'/></td>\n";
 				break;
 			case 'hidden':
 				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . $input['name'] ."' value='" . $input['value'] . "'></td>\n";
 				break;
 			case 'select':
+				$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";
 				$output .= "\t\t\t\t<td><select name='" . $input['name'] . "'>\n";
 				foreach($input['options'] as $option){
 					if(isset($option['selected']) && $option['selected'] == true){
 						$selected = " selected";
+					}
+					else{
+						$selected = "";
 					}
 					
 					$output .= "\t\t\t\t\t<option value='" . $option['value'] . "'$selected>" . $option['name'] . "</option>\n";
@@ -109,7 +110,11 @@ function create_form($form){
 				$output .= "\t\t\t\t</select></td>\n";
 				break;
 			case 'textarea':
+				$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";
 				$output .= "\t\t\t\t<td><textarea name='" . $input['name'] . "'  rows='10' cols='50'>" . $input['value'] . "</textarea>";
+				break;
+			case 'description':
+				$output .= "\t\t\t\t<td colspan='2'>" . $input['title'] . "</td>\n";
 				break;
 		}
 		
@@ -121,6 +126,7 @@ function create_form($form){
 	$output .= "\t</div>\n";
 	$output .= "</form>\n";
 	
+	echo $output;
 	return $output;
 }
 

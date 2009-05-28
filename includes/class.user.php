@@ -15,7 +15,7 @@
  * 
  * @since 0.10.0
  */
-class User{
+class MainUser{
 	public $db = null;
 	
 	public $username;  //String, username

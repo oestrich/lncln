@@ -53,7 +53,7 @@ class lncln{
 		//Pull in the database class that was already started.
 		$this->db = get_db();
 		
-		$this->user = new User();
+		$this->user = new MainUser();
 		$this->display = new Display($this);
 		$this->loadModules();
 		
