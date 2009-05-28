@@ -10,13 +10,23 @@
  */
 
 class User{
+	public $name = "User";
+	public $displayName = "User";
 	
+	/**
+	 * Construct, sets up lncln and db
+	 * @since 0.13.0
+	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
 		
 		$this->lncln = $lncln;
 	}
 	
+	/**
+	 * Manages the different pages for User module
+	 * @since 0.13.0
+	 */
 	public function index(){
 		if($this->lncln->user->isUser){
 			$this->settings();
@@ -26,6 +36,10 @@ class User{
 		}
 	}
 	
+	/**
+	 * Lets users change their settings
+	 * @since 0.13.0
+	 */
 	public function settings(){
 		if(isset($_POST['username'])){
 			$this->lncln->display->message($this->lncln->user->updateUser($_POST) . "<br />Click <a href='" . URL . "index.php'>here</a> to continue");
