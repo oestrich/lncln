@@ -157,9 +157,9 @@ class Admin{
 	 * @since 0.13.0
 	 */
 	protected function load_admin_modules(){
-		foreach($this->lncln->modules_enabled as $module){
-			if(file_exists(ABSPATH . "modules/" . strtolower($module) . "/admin.php")){
-				include_once(ABSPATH . "modules/" . strtolower($module) . "/admin.php");
+		foreach($this->lncln->modules_enabled as $folder => $module){
+			if(file_exists(ABSPATH . "modules/" . $folder . "/" . $folder . ".admin.php")){
+				include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".admin.php");
 			}
 			
 			$name = $module . "Admin";

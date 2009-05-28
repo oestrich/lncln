@@ -117,8 +117,8 @@ class lncln{
 		);
 		
 		foreach($this->modules_enabled as $folder => $class){
-			include_once(ABSPATH . "modules/" . $folder . "/class.php");
-			include_once(ABSPATH . "modules/" . $folder . "/info.php");
+			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
+			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".info.php");
 			$this->modules[$folder] = new $class($this);
 		}
 	}
