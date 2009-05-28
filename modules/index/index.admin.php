@@ -2,13 +2,21 @@
 /**
  * admin.php
  * 
- * 
+ * Admin file for index module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
+/**
+ * Admin class for the Index Module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class IndexAdmin extends Index{
 	public function __construct(&$lncln){
 		parent::__construct($lncln);

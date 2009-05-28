@@ -7,8 +7,13 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */ 
 
+/**
+ * Includes load.php, which starts off lncln
+ */
 require_once("load.php");
 
 include_once(ABSPATH . "includes/actions.php");

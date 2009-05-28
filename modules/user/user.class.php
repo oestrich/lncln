@@ -7,8 +7,16 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
+/**
+ * Main class for the User module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class User{
 	public $name = "User";
 	public $displayName = "User";

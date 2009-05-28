@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Main class for the Tags module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class Tags{
 	public $name = "Tags"; //Name printed out in forms
 	public $displayName = "Tags";

@@ -8,8 +8,14 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */ 
 
+/**
+ * Defines ABSPATH which is the absolute directory for lncln
+ * Use to include other files
+ */
 define("ABSPATH", dirname(__FILE__) . "/");
 
 if(file_exists(ABSPATH . "config.php")){

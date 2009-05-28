@@ -7,10 +7,15 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
 header('Content-type: text/xml'); 
 
+/**
+ * Getting the page started
+ */
 require_once("load.php");
 
 $action = $_GET['action'];

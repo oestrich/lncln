@@ -7,6 +7,8 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
 if($lncln->display->settings['register'] == 0){
@@ -20,6 +22,10 @@ if(isset($_POST['username']) && $lncln->display->settings['register'] == 1){
 					"group" => $lncln->display->settings['defaultGroup'],
 					"admin" => 0
 					);
+	/**
+	 * This is for the addUser() function
+	 * Currently does not work
+	 */
 	include_once(ABSPATH . "admin/users/class.php");
 	
 	UsersAdmin::addUser($user);

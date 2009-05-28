@@ -7,8 +7,16 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
+/**
+ * Admin's Admin class
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class AdminAdmin extends Admin{
 	public $set = false;
 	

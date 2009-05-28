@@ -7,8 +7,16 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
+/**
+ * Main class for the image module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class Image{
 	public $name = "Image"; //Name printed out in forms
 	public $displayName = "Image";

@@ -7,13 +7,16 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
 /**
- * User class
+ * Main User class, not the module
  * Contains all the information regarding a user
- * 
  * @since 0.10.0
+ * 
+ * @package lncln
  */
 class MainUser{
 	public $db = null;

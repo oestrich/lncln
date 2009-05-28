@@ -1,15 +1,22 @@
 <?php
 /**
- * db.php
+ * class.db.php
  * 
- * database class
+ * File containing the database class
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
-
+/**
+ * Database abstraction class
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class Database{
 	private $config = array();
 	

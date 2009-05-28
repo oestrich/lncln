@@ -7,15 +7,15 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
 /**
- * The main class for lncln.  Shall handle most features.  
- * 
+ * The main class for lncln.  Shall handle most features.
  * @since 0.6.0
  * 
- * @param string $action The action you wish to perform
- * @param array $params The parameters to be sent to the action
+ * @package lncln
  */
  
 class lncln{

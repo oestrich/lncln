@@ -7,12 +7,16 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package
  */
 
 /**
  * Module base class
  * Contains everything that a module can do, aka the module API
  * @since 0.13.0
+ * 
+ * @package lncln
  */
 class Module{	
 	/**
@@ -154,6 +158,8 @@ class Module{
 /**
  * Admin module API
  * @since 0.13.0
+ * 
+ * @package lncln
  */
 class AdminModule{
 	/**
