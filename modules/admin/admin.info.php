@@ -7,8 +7,14 @@
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
+ * 
+ * @package lncln
  */
 
+/**
+ * Pulls information for the Admin module
+ * @since 0.13.0
+ */
 function admin_info(){
 	$admin = array(
 		'name' => 'Admin',
