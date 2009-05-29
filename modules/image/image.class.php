@@ -18,9 +18,19 @@
  * @package lncln
  */
 class Image{
-	public $name = "Image"; //Name printed out in forms
+	/**
+	 * @var string Name of module
+	 */
+	public $name = "Image";
+	
+	/**
+	 * @var string Display name for module
+	 */
 	public $displayName = "Image";
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
 	/**
@@ -28,7 +38,7 @@ class Image{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -88,4 +98,3 @@ class Image{
 		$_SESSION['thumbnail'] = 0;
 	}
 }
-?>

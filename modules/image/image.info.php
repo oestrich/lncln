@@ -12,8 +12,10 @@
  */
 
 /**
- * Pulls information for the image moudle
+ * Pulls information for the Image moudle
  * @since 0.13.0
+ * 
+ * @return array Information for Image module
  */
 function image_info(){
 	$image = array(

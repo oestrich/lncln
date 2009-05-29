@@ -11,11 +11,10 @@
  * @package lncln
  */ 
 
-/**
- * Includes load.php, which starts off lncln
- */
+/** Starts off lncln */
 require_once("load.php");
 
+/** Loads the actions for calls to edit() */
 include_once(ABSPATH . "includes/actions.php");
 
 ob_start();
@@ -26,7 +25,9 @@ if (isset($lncln->module) && $lncln->module != ""){
 	}
 	else{
 		if (file_exists($lncln->module . ".php")){
-			include_once($lncln->module . ".php");}
+			/** If no module exists, try looking for a regular php file */
+			include_once($lncln->module . ".php");
+		}
 		else{
 			$lncln->display->message("That module does not exist");
 		}

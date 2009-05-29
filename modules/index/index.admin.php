@@ -18,10 +18,12 @@
  * @package lncln
  */
 class IndexAdmin extends Index{
-	public function __construct(&$lncln){
-		parent::__construct($lncln);
-	}
-	
+	/**
+	 * Registers actions that will be used in the admin panel
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: url 
+	 */
 	public function actions(){
 		$actions = array(
 			'urls' => array(
@@ -42,6 +44,10 @@ class IndexAdmin extends Index{
 		return $actions;
 	}
 	
+	/**
+	 * Manage settings
+	 * @since 0.13.0
+	 */
 	public function manage(){
 		$form = array(
 			'action' => 'admin/Index/manage',
@@ -82,13 +88,13 @@ class IndexAdmin extends Index{
 			'name' => 'theme',
 			);
 		
-		echo create_form($form);
+		create_form($form);
 	}
 	
 	/**
 	 * News functions
+	 * @since 0.13.0
 	 */
-	
 	public function news(){
 		if($_GET['subAction'] == "delete"){
 			$lncln->deleteNews($_GET['news']);
@@ -101,6 +107,10 @@ class IndexAdmin extends Index{
 		echo "</ul>";
 	}
 	
+	/**
+	 * Add action, adds a news post
+	 * @since 0.13.0
+	 */
 	public function add(){
 		if(isset($_POST['body'])){
 			echo $this->add_news($_POST);
@@ -126,14 +136,14 @@ class IndexAdmin extends Index{
 			'name' => 'body',
 			);
 		
-		echo create_form($form);
+		create_form($form);
 	}
 	
 	/**
 	 * Adds a new news ticket type thing to the index
 	 * @since 0.11.0
 	 * 
-	 * @param $news array Keys - title, body
+	 * @param array $news Keys - title, body
 	 */
 	function add_news($news){
 		$body = $this->db->prep_sql($news['body']);
@@ -168,7 +178,7 @@ class IndexAdmin extends Index{
 	 * Delete a news item
 	 * @since 0.11.0
 	 * 
-	 * @param $id int Item to be deleted
+	 * @param int $id Item to be deleted
 	 */
 	function delete_news($id){
 		if(is_numeric($id)){
@@ -181,7 +191,7 @@ class IndexAdmin extends Index{
 	 * Fetch one news story
 	 * @since 0.11.0
 	 * 
-	 * @param $id int Item to be found
+	 * @param int $id Item to be found
 	 * 
 	 * @return array Keys- id, postTime, title, news
 	 */
@@ -199,7 +209,7 @@ class IndexAdmin extends Index{
 	 * Edit's news items
 	 * @since 0.12.0
 	 * 
-	 * @param $data array Keys: title, news, postTime
+	 * @param array $data Keys: title, news, postTime
 	 */
 	function change_news($data){
 		$title = $this->db->prep_sql($data['title']);

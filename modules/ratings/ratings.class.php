@@ -18,9 +18,19 @@
  * @package lncln
  */
 class Ratings{
+	/**
+	 * @var string Name of Module
+	 */
 	public $name = "Ratings";
+	
+	/**
+	 * @var string Display name of Module
+	 */
 	public $displayName = "Rating";
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
 	/**
@@ -28,7 +38,7 @@ class Ratings{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -40,8 +50,10 @@ class Ratings{
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
+	 * 
+	 * @return string Completion message
 	 */	
 	public function edit($id, $data){
 		if($this->lncln->user->permissions['ratings'] == 0)
@@ -98,7 +110,7 @@ class Ratings{
 	 * Creates the icon underneath images
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Icon underneath the image
 	 */
@@ -115,7 +127,7 @@ class Ratings{
 	 * Creates text above the image.  Text only
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text above the image
 	 */
@@ -127,7 +139,7 @@ class Ratings{
 	 * Checks to see if an image needs to be shrunk
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return bool True: small
 	 */
@@ -148,7 +160,9 @@ class Ratings{
 	 * Get the rating for an image
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image id
+	 * @param int $id Image id
+	 * 
+	 * @return int Rating for Image
 	 */
 	private function get_rating($id){
 		if(!is_numeric($id))

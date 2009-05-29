@@ -19,14 +19,34 @@
  * @package lncln
  */
 class MainUser{
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
-	public $username;  //String, username
-	public $userID;  //Int, the user's id
+	/**
+	 * @var string Username of currently logged in user
+	 */
+	public $username;
+	
+	/**
+	 * @var int ID of currently logged in user
+	 */
+	public $userID;
+	
+	/**
+	 * @var int Group ID of currently logged in user
+	 */
 	public $group;
 	
+	/**
+	 * @var bool If a user is logged in
+	 */
 	public $isUser = false; //registered user or just anonymous
 	
+	/**
+	 * @var array Permissions for currently logged in user
+	 */
 	public $permissions = array(); //Array(bool), contains user permissions
 	
 	/**
@@ -35,8 +55,7 @@ class MainUser{
 	 * @since 0.10.0
 	 */
 	function __construct(){
-		global $db;
-		$this->db = $db;
+		$this->db = get_db();
 		
 		$this->loggedIn();
 		

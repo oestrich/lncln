@@ -19,28 +19,80 @@
  */
  
 class lncln{
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db;
 	
+	/**
+	 * @var MainUser Reference to the MainUser instance
+	 */
 	public $user;
+	
+	/**
+	 * @var bool If the moderation link will show
+	 */
 	public $moderationOn = false;
 	
-	public $script;				//what page is being loaded
-	public $display;			//The Display class, controlls settings
-
-	public $page;				//The page you are on
-	public $maxPage;			//Total number of pages
+	/**
+	 * @var string Accessed page
+	 */
+	public $script;
 	
+	/**
+	 * @var Display Reference to the Display instance
+	 */
+	public $display;
+
+	/**
+	 * @var int Current page
+	 */
+	public $page;
+	
+	/**
+	 * @var int Total number of pages
+	 */
+	public $maxPage;
+	
+	/**
+	 * @var array
+	 */
 	public $uploaded = array();
 	
-	public $imagesToGet = array();		//The images that data will be pulled for
-	public $images = array(); 	//Image data to be outputed in listImages.php
-	public $type;				//Normal or thumb
+	/**
+	 * @var array IDs of images for get_data() to pull
+	 */
+	public $imagesToGet = array();
 	
+	/**
+	 * @var array Data for the images
+	 */
+	public $images = array();
+	
+	/**
+	 * @var string Type of page: normal, thumb
+	 */
+	public $type;
+	
+	/**
+	 * @var array Array of instances of modules
+	 */
 	public $modules = array();
-	public $module;				//Currently used module ex. ?module=tags 
+	
+	/**
+	 * @var string Currently accessed module
+	 */
+	public $module;
+	
+	/**
+	 * @var array Anything that comes after the module in the URL
+	 */ 
 	public $params = array();
 	
-	public $action = false; //bool
+	/**
+	 * @var bool If an action is to be called
+	 */
+	public $action = false;
 	
 	/**
 	 * Gets the class ready for action!
@@ -117,7 +169,9 @@ class lncln{
 		);
 		
 		foreach($this->modules_enabled as $folder => $class){
+			/** Include the main class file for modules */
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
+			/** Include the info file for modules */
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".info.php");
 			$this->modules[$folder] = new $class($this);
 		}
@@ -125,6 +179,7 @@ class lncln{
 	
 	/**
 	 * Function for loading the queue
+	 * @todo move into the Queue module
 	 * @since 0.9.0
 	 */
 	function queue(){
@@ -170,6 +225,7 @@ class lncln{
 	
 	/**
 	 * Gets data ready for the rss feed
+	 * @todo move into the RSS module
 	 * @since 0.9.0
 	 * 
 	 * @param array $rss First term is the type of rss feed (all/safe)
@@ -197,6 +253,7 @@ class lncln{
 	 * 
 	 * Should really make it so that if ImageMagick isn't installed
 	 * it doesn't die.
+	 * @todo move into the Upload module
 	 * @since 0.5.0
 	 * 
 	 * @param string $img String containing the filename of the image
@@ -320,6 +377,7 @@ class lncln{
 
 	/**
 	 * Creates the Prev Next links on the page
+	 * @todo Rename to prev_next()
 	 * @since 0.5.0
 	 * 
 	 * @param $bottom bool If it's a bottom link
@@ -364,6 +422,7 @@ class lncln{
 	/**
 	 * The first part of uploading, moves the image to a temporary spot
 	 * This allows for taging, captions, etc
+	 * @todo Move to Upload module
 	 * @since 0.10.0
 	 */
 	function tempUpload(){
@@ -422,6 +481,7 @@ class lncln{
 	/**
 	 * Uploads the pictures that the user fills in.  Whether it be from a URL or 
 	 * direct input.
+	 * @todo Move to Upload module
 	 * @since 0.5.0
 	 */
 	function upload($name, $data){
@@ -472,6 +532,7 @@ class lncln{
 	
 	/**
 	 * Removes an image from the queue
+	 * @todo Move to Queue module
 	 * @since 0.5.0
 	 * 
 	 * @param int $image The image that is to be removed
@@ -547,6 +608,8 @@ class lncln{
 		
 	/**
 	 * Returns the latest news
+	 * @todo Move to News module
+	 * @todo Rename to get_news()
 	 * @since 0.12.0
 	 * 
 	 * @return string The Latest news
@@ -561,7 +624,13 @@ class lncln{
 	
 	/**
 	 * Return the full path of an image
+	 * @todo Rename to get_image_path()
 	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
+	 * @param string $size Size of image requested
+	 * 
+	 * @return string URL to image requested
 	 */
 	function getImagePath($id, $size = "full"){
 		if(!is_numeric((int)$id))
@@ -583,6 +652,8 @@ class lncln{
 	/**
 	 * Check to see if image needs to be shrunk
 	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
 	 * 
 	 * @return bool True if image is small
 	 */

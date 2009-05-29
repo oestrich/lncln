@@ -18,10 +18,6 @@
  * @package lncln
  */
 class AlbumsAdmin extends Albums{
-	public function __construct(&$lncln){
-		parent::__construct($lncln);
-	}
-	
 	/**
 	 * Add an album
 	 * @since 0.13.0
@@ -45,7 +41,7 @@ class AlbumsAdmin extends Albums{
 			'name' => 'name',
 			);
 		
-		echo create_form($form);
+		create_form($form);
 	}
 	
 	/**
@@ -67,6 +63,10 @@ class AlbumsAdmin extends Albums{
 			
 	}
 	
+	/**
+	 * Edit an album
+	 * @since 0.13.0
+	 */
 	public function edit(){
 		if(!isset($this->lncln->params[2])){
 			$this->lncln->display->message("Please don't come here on your own.");
@@ -180,8 +180,10 @@ class AlbumsAdmin extends Albums{
 	 * Changes the album's name
 	 * @since 0.11.0
 	 * 
-	 * @param $id int Album id
-	 * @param $name string New name
+	 * @param int $id Album id
+	 * @param string $name New name
+	 * 
+	 * @return string Message of completion
 	 */
 	protected function changeAlbumName($id, $name){
 		$id = $this->db->prep_sql($id);

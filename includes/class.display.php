@@ -9,6 +9,7 @@
  * @license license.txt GNU General Public License version 3
  * 
  * @package lncln
+ * @filesource
  */
 
 /**
@@ -18,21 +19,39 @@
  * @package lncln
  */
 class Display{
+	/**
+	 * @var Database Database instance
+	 */
 	public $db = null;
 	
+	/**
+	 * @var array An array of all of lncln's settings
+	 */
 	public $settings = array();
+	
+	/**
+	 * @var lncln A reference to the main instance of lncln
+	 */
 	public $lncln;
 	
+	/**
+	 * @var array Header rows for displaying links
+	 */
 	public $rows;
+	
+	/**
+	 * @var string Page title
+	 */
 	public $title;
 	
 	/**
 	 * Sets up the settings array
 	 * @since 0.11.0
+	 * 
+	 * @param lncln &$lncln A reference to the main instance of lncln
 	 */
 	function __construct(&$lncln){
-		global $db;
-		$this->db = $db;
+		$this->db = get_db();
 		
 		$this->lncln = $lncln;
 		
@@ -50,9 +69,10 @@ class Display{
 	}
 	
 	/**
-	 * includes a file from include folder
-	 * So that you can include files that require a $lncln variable from a module
+	 * Includes a file, allows use of $lncln in included files
 	 * @since 0.13.0
+	 * 
+	 * @param string $file File to be included
 	 */
 	function includeFile($includeFile){
 		$lncln = $this->lncln;
@@ -63,6 +83,8 @@ class Display{
 	/**
 	 * Includes module related css
 	 * @since 0.13.0
+	 * 
+	 * @return string Links to css
 	 */
 	function include_css(){
 		$output = "";
@@ -83,7 +105,7 @@ class Display{
 	 * Sets the title for current page
 	 * @since 0.13.0
 	 * 
-	 * @param $title String title for current page
+	 * @param String $title title for current page
 	 */
 	function set_title($title = ""){
 		if($title == ""){
@@ -101,7 +123,7 @@ class Display{
 	 * Exits upon completion
 	 * @since 0.12.0
 	 * 
-	 * @param $msg String Message to be shown
+	 * @param String $msg Message to be shown
 	 */
 	function message($msg){
 		$lncln = $this->lncln;

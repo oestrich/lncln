@@ -18,14 +18,27 @@
  * @package lncln
  */
 class AdminAdmin extends Admin{
-	public $set = false;
+	/**
+	 * @var bool If the variables are set: false call set_vars() 
+	 */	
+	public $variables_set = false;
 	
+	/**
+	 * Sets things that the parent class has
+	 * @since 0.13.0
+	 */
 	public function set_vars(){
 		$this->actions = $this->lncln->modules['admin']->actions;
 		$this->info = $this->lncln->modules['admin']->info;
 		$this->modules = $this->lncln->modules['admin']->modules;
 	}
 	
+	/**
+	 * Registers actions that will be used in the admin panel
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: url 
+	 */
 	public function actions(){
 		$actions = array(
 			'urls' => array(

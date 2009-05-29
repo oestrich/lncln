@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Queue module
  * @since 0.13.0
+ * 
+ * @return array Information for the Queue module
  */
 function queue_info(){
 	$info = array(

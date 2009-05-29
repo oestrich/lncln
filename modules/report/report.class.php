@@ -20,8 +20,11 @@
 class Report {
 	
 	/**
-	 * Construct
+	 * Construct to pass the reference of lncln so that modules 
+	 * can access permissions and settings
 	 * @since 0.13.0
+	 * 
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -66,7 +69,7 @@ class Report {
 	 * Creates the icon underneath images
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Icon underneath the image
 	 */

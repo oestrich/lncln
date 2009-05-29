@@ -18,9 +18,19 @@
  * @package lncln
  */
 class Index{
-	public $name = "Index"; //Name printed out in forms
+	/**
+	 * @var string Module name
+	 */
+	public $name = "Index";
+	
+	/**
+	 * @var string Display name for module
+	 */
 	public $displayName = "Index";
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
 	/**
@@ -28,7 +38,7 @@ class Index{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -88,6 +98,8 @@ class Index{
 	/**
 	 * Prints out upload status
 	 * @since 0.13.0
+	 * 
+	 * @return string Output from upload completion
 	 */
 	protected function upload_status(){
 		if($_SESSION['uploaded']){
@@ -211,4 +223,3 @@ class Index{
 		}
 	}
 }
-?>

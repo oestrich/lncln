@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Report module
  * @since 0.13.0
+ * 
+ * @return array Information for the Report module
  */
 function report_info(){
 	$info = array(

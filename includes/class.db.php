@@ -18,29 +18,49 @@
  * @package lncln
  */
 class Database{
+	/**
+	 * Contains database connection information
+	 */
 	private $config = array();
 	
+	/**
+	 * The database connection
+	 */
 	private $conn;
 	
-	private $queries = array();
-	private $results = array();
+	/**
+	 * Stored queries
+	 */
+	public $queries = array();
 	
+	/**
+	 * The last query performed
+	 */
 	public $last_query;
-	private $num_queries = 0;
 	
+	/**
+	 * Total number of queries performed on this page
+	 */
+	public $num_queries = 0;
+	
+	/**
+	 * The MySQL result object
+	 */
 	public $result = null;
-	public $fetched_results = null; //Cached results
 	
+	/**
+	 * Total length of queries on the page
+	 */
 	public $total_time = 0;
 	
 	/**
 	 * Construct for database class, takes settings or uses config.php's ones
 	 * @since 0.13.0
 	 * 
-	 * @param $server string Hose
-	 * @param $username string Username
-	 * @param $password string Password
-	 * @param $database string Database
+	 * @param string $server Server
+	 * @param string $username Username
+	 * @param string $password Password
+	 * @param string $database Database
 	 */
 	public function __construct($server = "", $username = "", $password = "", $database = ""){
 		$this->config['server'] = $server == "" ? DB_SERVER : $server;
@@ -70,7 +90,7 @@ class Database{
 	 * Selects a database
 	 * @since 0.13.0
 	 * 
-	 * @param $db string Database
+	 * @param string $db Database
 	 */
 	public function select($db){
 		if(!@mysql_select_db($db, $this->conn)){
@@ -83,7 +103,7 @@ class Database{
 	 * Queries the data base, if $sql is an array it calls create_sql
 	 * @since 0.13.0
 	 * 
-	 * @param $sql string|array SQL
+	 * @param string|array $sql SQL
 	 */
 	public function query($sql){
 		if(!$this->conn){
@@ -139,7 +159,7 @@ class Database{
 	 * Fetchs all of the rows related to the previous query
 	 * @since 0.13.0
 	 * 
-	 * @param $limit int Number of rows to pull, 0 for all
+	 * @param int $limit Number of rows to pull, 0 for all
 	 * 
 	 * @return array All rows
 	 */
@@ -209,7 +229,7 @@ class Database{
 	 * Creates SQL from provided array
 	 * @since 0.13.0
 	 *
-	 * @param $query array Keys: 'type', 'where', 'order', 'fields', 'limit', 'table'
+	 * @param array $query Keys: 'type', 'where', 'order', 'fields', 'limit', 'table'
 	 *
 	 * @return string SQL
 	 */
@@ -242,7 +262,7 @@ class Database{
 	 * Adds '`' around fields
 	 * @since 0.13.0
 	 *
-	 * @param $fields array
+	 * @param array $fields 
 	 *
 	 * @return array
 	 */
@@ -264,7 +284,7 @@ class Database{
 	 * Creates the WHERE section of SQL
 	 * @since 0.13.0
 	 *
-	 * @param $where array Whole array section
+	 * @param array $where Whole array section
 	 *
 	 * @return string Complete WHERE seciont
 	 */
@@ -290,7 +310,7 @@ class Database{
 	 * This is what does the dirty work for the where section
 	 * @since 0.13.0
 	 * 
-	 * @param $query array Pieces of the where statement
+	 * @param array $query Pieces of the where statement
 	 * 
 	 * @return array Final return is the final where string key 0
 	 */
@@ -344,7 +364,7 @@ class Database{
 	 * Prepares SQL for querying
 	 * @since 0.13.0
 	 * 
-	 * @param $sql String SQL
+	 * @param string $sql SQL
 	 * 
 	 * @return "clean" SQL
 	 */

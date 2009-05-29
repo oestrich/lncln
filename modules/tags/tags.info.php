@@ -13,6 +13,9 @@
 
 /**
  * Pulls information for the Tags module
+ * @since 0.13.0
+ * 
+ * @return Information for the Tags module
  */
 function tags_info(){
 	$tags = array(

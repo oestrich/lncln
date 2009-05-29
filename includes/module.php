@@ -24,7 +24,7 @@ class Module{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		
@@ -151,6 +151,16 @@ class Module{
 	 * @return bool True: small
 	 */
 	public function small($id){
+		
+	}
+	
+	/**
+	 * Alters the query called by get_data()
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: 'field', 'compare', 'value'
+	 */
+	public function get_data_sql(){
 		
 	}
 }

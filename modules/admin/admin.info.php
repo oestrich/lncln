@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Admin module
  * @since 0.13.0
+ * 
+ * @return array
  */
 function admin_info(){
 	$admin = array(

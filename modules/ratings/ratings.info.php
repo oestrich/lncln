@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Ratings module
  * @since 0.13.0
+ * 
+ * @return array Information for the Ratings module
  */
 function ratings_info(){
 	$ratings = array(

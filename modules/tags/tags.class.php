@@ -18,21 +18,32 @@
  * @package lncln
  */
 class Tags{
-	public $name = "Tags"; //Name printed out in forms
+	/**
+	 * @var string Name of module
+	 */
+	public $name = "Tags";
+	
+	/**
+	 * @var string Display name for module
+	 */
 	public $displayName = "Tags";
 	
+	/**
+	 * @var string Search term
+	 */
 	public $searchTerm;
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
-	
-	public $values = array();
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -69,8 +80,8 @@ class Tags{
 	 * Called after a successful upload
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of new image
+	 * @param array $data Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
 		$this->edit($id, $data);
@@ -80,8 +91,8 @@ class Tags{
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
 		$id = mysql_real_escape_string($id);
@@ -154,7 +165,7 @@ class Tags{
 	 * Creates text underneath the image.  May contain a form
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text underneath the image
 	 */
@@ -196,7 +207,7 @@ class Tags{
 	 * Pushes content out via the RSS feed
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Output for the RSS feed
 	 */
@@ -260,8 +271,8 @@ class Tags{
 	 * Gathers tags from an image together, string or array form
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image id
-	 * @param $string bool String if true, array if false
+	 * @param int $id Image id
+	 * @param bool $string String if true, array if false
 	 * 
 	 * @return mixed Array of tags or string joined by ','
 	 */
@@ -283,7 +294,7 @@ class Tags{
 	 * Sets the tags field in the image table with current tags from tags table
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Current tags
 	 */
@@ -309,16 +320,21 @@ class Tags{
 	 * Quick shortcut to replace spaces with plus signs
 	 * @since 0.13.0
 	 * 
-	 * @param $string String search string
+	 * @param string $string search string
 	 * 
-	 * @return string string with pluses
+	 * @return string String with pluses
 	 */
 	private function addPluses($string){
 		return str_replace(" ", "+", $string);
 	}
 	
 	/**
-	 * Opposite of above
+	 * Quick shortcut to replace pluses with spaces
+	 * @since 0.13.0
+	 * 
+	 * @param string $string search string
+	 * 
+	 * @return string String with spaces
 	 */
 	private function removePluses($string){
 		return str_replace("+", " ", $string);

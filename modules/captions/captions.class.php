@@ -19,11 +19,24 @@
  * @package lncln
  */
 class Captions{	
+	/**
+	 * @var string Name of module
+	 */
 	public $name = "Captions";
+	
+	/**
+	 * @var string Display name of module
+	 */
 	public $displayName = "Caption";
 	
+	/**
+	 * @var Database Reference of Database instance
+	 */
 	public $db = null;
 	
+	/**
+	 * @var array Cache of captions
+	 */
 	public $values = array();
 	
 	/**
@@ -31,7 +44,7 @@ class Captions{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -52,8 +65,8 @@ class Captions{
 	 * Called after a successful upload
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of new image
+	 * @param array $data Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
 		$this->edit($id, $data);
@@ -63,8 +76,8 @@ class Captions{
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
 		$image = $this->db->prep_sql($id);
@@ -89,53 +102,19 @@ class Captions{
 	 * Creates the form information needed during moderation
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image to gather information about and populate the input
+	 * @param int $id Image to gather information about and populate the input
 	 *
 	 * @return array Keys: type, name, value, options
 	 */
 	public function moderate($id){
 		return array("type" => "textarea", "name" => "captions", "value" => $this->getCaption($id, false));
 	}
-	
-	/**
-	 * Creates the link in the header
-	 * @since 0.13.0
-	 *
-	 * @return string Link or form
-	 */
-	public function header_link(){
-		return "";
-	}
-	
-	/**
-	 * Creates the icon underneath images
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Icon underneath the image
-	 */
-	public function icon($id){
-		return "";
-	}
-	
-	/**
-	 * Creates text above the image.  Text only
-	 * @since 0.13.0
-	 * 
-	 * @param $id int Image ID
-	 * 
-	 * @return string Text above the image
-	 */
-	public function above($id){
-		return "";
-	}
-	
+
 	/**
 	 * Creates text underneath the image.  May contain a form
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text underneath the image
 	 */
@@ -171,7 +150,7 @@ class Captions{
 	 * Pushes content out via the RSS feed
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Output for the RSS feed
 	 */
@@ -188,8 +167,8 @@ class Captions{
 	 * Get an image's caption
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image id
-	 * @param $noCaption bool If true it will not return "No Caption."
+	 * @param int $id Image id
+	 * @param bool $noCaption If true it will not return "No Caption."
 	 * 
 	 * @return string Caption for image
 	 */
@@ -209,5 +188,3 @@ class Captions{
 		return $caption;
 	}
 }
-
-?>

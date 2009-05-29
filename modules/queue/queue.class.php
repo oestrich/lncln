@@ -18,8 +18,23 @@
  * @package lncln
  */
 class Queue{
+	/**
+	 * @var string Name of module
+	 */
 	public $name = "Queue";
 	
+	/**
+	 * @var string Display name of module
+	 */
+	public $displayName = "Queue";
+	
+	/**
+	 * Construct to pass the reference of lncln so that modules 
+	 * can access permissions and settings
+	 * @since 0.13.0
+	 * 
+	 * @param lncln &$lncln Main class variable
+	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
 		
@@ -38,7 +53,7 @@ class Queue{
 	 * Creates the link in the header
 	 * @since 0.13.0
 	 *
-	 * @return string Link or form
+	 * @return string Link
 	 */
 	public function header_link(){
 		if($this->lncln->user->permissions['isAdmin']){
@@ -48,6 +63,12 @@ class Queue{
 		return "";
 	}
 	
+	/**
+	 * Alters the query called by get_data()
+	 * @since 0.13.0
+	 * 
+	 * @return array Keys: 'field', 'compare', 'value'
+	 */
 	public function get_data_sql(){
 		return array(
 			'field' => 'queue',
@@ -62,8 +83,10 @@ class Queue{
 	 */
 	
 	/**
-	 * In it's own module
+	 * Number of images in the queue
 	 * @since 0.13.0
+	 * 
+	 * @return int Total number of images in the queue
 	 */
 	protected function check_queue(){
 		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";

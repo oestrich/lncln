@@ -18,11 +18,24 @@
  * @package lncln
  */
 class Albums{
+	/**
+	 * @var string Module name
+	 */
 	public $name = "Albums";
+	
+	/**
+	 * @var string Display name for module
+	 */
 	public $displayName = "Album";
 	
+	/**
+	 * @var Database Reference to Database instance
+	 */
 	public $db = null;
 	
+	/**
+	 * @var array Storing values from database
+	 */
 	public $values = array(
 		'image_album' => array(),
 		'album_name' => array(),
@@ -33,7 +46,7 @@ class Albums{
 	 * can access permissions and settings
 	 * @since 0.13.0
 	 * 
-	 * @param $lncln lncln Main class variable
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
@@ -75,8 +88,8 @@ class Albums{
 	 * Called after a successful upload
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of new image
+	 * @param array $data Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
 		$this->edit($id, $data);
@@ -86,8 +99,8 @@ class Albums{
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
 		$img = $this->db->prep_sql($id);
@@ -112,7 +125,7 @@ class Albums{
 	 * Creates the form information needed during moderation
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image to gather information about and populate the input
+	 * @param int $id Image to gather information about and populate the input
 	 *
 	 * @return array Keys: type, name, value, options
 	 */
@@ -134,7 +147,7 @@ class Albums{
 	 * Creates text underneath the image.  May contain a form
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text underneath the image
 	 */
@@ -236,9 +249,9 @@ class Albums{
 	 * Get an album name based on an image
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
-	 * @return String Album name
+	 * @return string Album name
 	 */
 	protected function getImageAlbum($id){
 		foreach($this->lncln->images as $image){
@@ -258,9 +271,9 @@ class Albums{
 	 * Returns the name of an album
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Album id
+	 * @param int $id Album id
 	 * 
-	 * @return String Name of album
+	 * @return string Name of album
 	 */
 	protected function getAlbumName($id, $plus = false){
 		
@@ -285,7 +298,7 @@ class Albums{
 	 * Return the id of an album based off of it's name
 	 * @since 0.13.0
 	 * 
-	 * @param $name String Album name
+	 * @param string $name Album name
 	 * 
 	 * @return int Album ID
 	 */
@@ -306,7 +319,7 @@ class Albums{
 	 * Returns all of the albums currently in the database
 	 * @since 0.9.0
 	 * 
-	 * @param $noAlbum bool Include "No Album" in list
+	 * @param bool $noAlbum Include "No Album" in list
 	 * 
 	 * @return array All of the albums in their own arrays, with 'id' and 'name'
 	 */

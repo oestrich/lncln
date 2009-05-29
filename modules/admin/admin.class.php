@@ -18,12 +18,34 @@
  * @package lncln
  */
 class Admin{
+	/**
+	 * @var string Name of module
+	 */
 	public $name = "Admin";
+	
+	/**
+	 * @var string Name that is displayed to users
+	 */
 	public $displayName = "Admin";
+	
+	/**
+	 * @var string Contains information relating to modules
+	 */
 	public $info = array();
+	
+	/**
+	 * @var array Instances of admin modules
+	 */
 	protected $modules = array();
+	
+	/**
+	 * @var array Actions that modules have
+	 */
 	protected $actions = array();
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
 	/**

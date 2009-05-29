@@ -135,6 +135,8 @@ function create_form($form){
 /**
  * Easy access to the $db object
  * @since 0.13.0
+ * 
+ * @global Database Instance of Database
  */
 function get_db(){
 	global $db;

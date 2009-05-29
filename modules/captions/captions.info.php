@@ -12,8 +12,10 @@
  */
 
 /**
- * Pulls information for the captions module
+ * Pulls information for the Captions module
  * @since 0.13.0
+ * 
+ * @return array Information for Captions module
  */
 function captions_info(){
 	$captions = array(

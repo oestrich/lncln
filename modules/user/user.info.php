@@ -14,6 +14,8 @@
 /**
  * Pulls information for the User module
  * @since 0.13.0
+ * 
+ * @return array Information for the User module
  */
 function user_info(){
 	$info = array(

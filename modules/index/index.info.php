@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Index module
  * @since 0.13.0
+ * 
+ * @return array Information for Index module
  */
 function index_info(){
 	$index = array(

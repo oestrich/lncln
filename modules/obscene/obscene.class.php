@@ -18,19 +18,42 @@
  * @package lncln
  */
 class Obscene{
+	/**
+	 * @var string Name for module
+	 */
 	public $name = "Obscene";
+	
+	/**
+	 * @var string Display name for module
+	 */
 	public $displayName = "Obscene";
 	
+	/**
+	 * @var Database Reference to the Database instance
+	 */
 	public $db = null;
 	
+	/**
+	 * @var array Cache of values from database
+	 */
 	public $values = array();
 	
+	/**
+	 * Construct for Obscene module
+	 * @since 0.13.0
+	 * 
+	 * @param lncln &$lncln Main lncln instance
+	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
 		
 		$this->lncln = $lncln;
 	}
 	
+	/**
+	 * Changes the obscene cookie, flips it
+	 * @since 0.13.0
+	 */
 	public function index(){
 		if($this->lncln->params[0] == "view"){
 			if($this->lncln->params[1] == "on"){
@@ -48,6 +71,14 @@ class Obscene{
 		}
 	}
 	
+	/**
+	 * Message above the image
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
+	 * 
+	 * @return string Message if obscene
+	 */
 	public function above($id){
 		if($this->lncln->type == "thumb"){
 			return "";
@@ -59,7 +90,11 @@ class Obscene{
 				
 		return $obscene;
 	}
-		
+	
+	/**
+	 * Header link to change obscene
+	 * @since 0.13.0
+	 */
 	public function header_link(){
 		if($this->lncln->user->isUser == false){
 			$url = $_COOKIE['obscene'] == 1 ? 'off' : 'on';
@@ -68,6 +103,13 @@ class Obscene{
 		}	
 	}
 	
+	/**
+	 * Called during the upload screen. Contains the form information needed,
+	 * will be passed to add() after successful upload
+	 * @since 0.13.0
+	 *
+	 * @return array Keys: type, name, value, options
+	 */
 	public function upload(){
 		return array(
 			"type" => "select", 
@@ -79,6 +121,13 @@ class Obscene{
 			);
 	}
 	
+	/**
+	 * Called after a successful upload
+	 * @since 0.13.0
+	 * 
+	 * @param int $id ID of new image
+	 * @param array $data Extra material needed, tag information, etc
+	 */
 	public function add($id, $data){
 		$this->edit($id, $data);
 	}
@@ -87,8 +136,8 @@ class Obscene{
 	 * Obscenes images.  Just flips the images obscene number
 	 * @since 0.5.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){		
 		$sql = "SELECT type, obscene FROM images WHERE id = " . $id;
@@ -114,6 +163,14 @@ class Obscene{
 		$this->db->query($sql);
 	}
 	
+	/**
+	 * Creates the icon underneath images
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
+	 * 
+	 * @return string Icon underneath the image
+	 */
 	public function icon($id){
 		if($this->lncln->user->permissions['obscene'] == 1){
 			$row = $this->get_obscene($id);
@@ -129,7 +186,7 @@ class Obscene{
 	 * Checks to see if an image needs to be shrunk
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return bool True: small
 	 */
@@ -148,9 +205,9 @@ class Obscene{
 	 * Returns the obscene status of an image
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
-	 * @param array Database row, Keys: 'obscene'
+	 * @return bool True if obscene
 	 */
 	private function get_obscene($id){
 		foreach($this->lncln->images as $image){

@@ -12,8 +12,10 @@
  */
 
 /**
- * Pulls information for the albums module
+ * Pulls information for the Albums module
  * @since 0.13.0
+ * 
+ * @return array Information for Albums
  */
 function albums_info(){
 	$albums = array(

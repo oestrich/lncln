@@ -14,6 +14,8 @@
 /**
  * Pulls information for the Obscene module
  * @since 0.13.0
+ * 
+ * @return array Information for the Obscene module
  */
 function obscene_info(){
 	$obscene = array(

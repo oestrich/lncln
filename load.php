@@ -13,12 +13,12 @@
  */ 
 
 /**
- * Defines ABSPATH which is the absolute directory for lncln
- * Use to include other files
+ * @var string Defines ABSPATH which is the absolute directory for lncln
  */
 define("ABSPATH", dirname(__FILE__) . "/");
 
 if(file_exists(ABSPATH . "config.php")){
+	/** Configuration settings */
 	include_once(ABSPATH . "config.php");	
 }
 else{
@@ -27,13 +27,27 @@ else{
 	die();
 }
 
+/** Main functions */
 include_once(ABSPATH . "includes/functions.php");
+/** lncln class */
 include_once(ABSPATH . "includes/class.lncln.php");
+/** Display class */
 include_once(ABSPATH . "includes/class.display.php");
+/** User class */
 include_once(ABSPATH . "includes/class.user.php");
+/** Database class */
 include_once(ABSPATH . "includes/class.db.php");
 
-$db = new Database();
+/**
+ * @global Database $GLOBALS['db']
+ * @name $db
+ * @var Database Instance of the Database class
+ */
+$GLOBALS['db'] = new Database();
 
-
-$lncln = new lncln();
+/**
+ * @global lncln $GLOBALS['lncln']
+ * @name $lncln
+ * @var lncln Main instance of lncln
+ */
+$GLOBALS['lncln'] = new lncln();

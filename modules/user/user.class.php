@@ -18,12 +18,27 @@
  * @package lncln
  */
 class User{
+	/**
+	 * @var string Name of module
+	 */
 	public $name = "User";
+	
+	/**
+	 * @var string Display name of module
+	 */
 	public $displayName = "User";
 	
 	/**
-	 * Construct, sets up lncln and db
+	 * @var Database Reference to the Database instance
+	 */
+	public $db = null;
+	
+	/**
+	 * Construct to pass the reference of lncln so that modules 
+	 * can access permissions and settings
 	 * @since 0.13.0
+	 * 
+	 * @param lncln &$lncln Main class variable
 	 */
 	public function __construct(&$lncln){
 		$this->db = get_db();
