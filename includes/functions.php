@@ -93,6 +93,10 @@ function create_form($form){
 				$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";
 				$output .= "\t\t\t\t<td><input type='text' name='" . $input['name'] . "' value='" . $input['value'] . "'/></td>\n";
 				break;
+			case 'password':
+				$output .= "\t\t\t\t<td>" . $input['title'] . "</td>\n";
+				$output .= "\t\t\t\t<td><input type='password' name='" . $input['name'] . "'/></td>\n";
+				break;
 			case 'hidden':
 				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . $input['name'] ."' value='" . $input['value'] . "'></td>\n";
 				break;

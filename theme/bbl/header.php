@@ -40,21 +40,10 @@
 <?
 foreach($lncln->display->rows[1] as $module){
 	if(method_exists($module, "header_link")){
-		echo $lncln->modules[$module]->header_link();
+		echo $lncln->modules[$module]->header_link() . " ";
 	}
 }
-
-if($lncln->user->isUser == true){
 ?>
-					<a href='<?echo URL;?>logout/'>Log out <?echo $lncln->user->username;?></a>
-					<a href='<?echo URL;?>user/'>Change Settings</a>
-<?}
-else{?>
-					<a href='<?echo URL;?>login/'>Log in</a>
-					<?if($lncln->display->settings['register'] == 1):?>
-						<a href='<?echo URL;?>register/'>Register</a>
-					<?endif;?>
-<?}?>
 				</div>
 				<div class="headerRow">
 	<?if($lncln->user->permissions['upload'] == 1):?>
