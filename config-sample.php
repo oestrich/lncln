@@ -49,4 +49,5 @@ $modules_enabled = array(
 	"image" => "Image",
 	"obscene" => "Obscene",
 	"queue" => "Queue",
+	"user" => "User",
 	);
