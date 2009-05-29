@@ -43,8 +43,8 @@ class Module{
 	 * Called after a successful upload
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of new image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of new image
+	 * @param array $data Extra material needed, tag information, etc
 	 */
 	public function add($id, $data){
 		
@@ -54,8 +54,8 @@ class Module{
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 
-	 * @param $id int ID of image
-	 * @param $data array Extra material needed, tag information, etc
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){
 		
@@ -76,7 +76,7 @@ class Module{
 	 * Creates the form information needed during moderation
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image to gather information about and populate the input
+	 * @param int $id Image to gather information about and populate the input
 	 *
 	 * @return array Keys: type, name, value, options
 	 */
@@ -98,7 +98,7 @@ class Module{
 	 * Creates the icon underneath images
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Icon underneath the image
 	 */
@@ -110,7 +110,7 @@ class Module{
 	 * Creates text above the image.  Text only
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text above the image
 	 */
@@ -122,7 +122,7 @@ class Module{
 	 * Creates text below the image.  May contain a form
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Text underneath the image
 	 */
@@ -134,7 +134,7 @@ class Module{
 	 * Pushes content out via the RSS feed
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return string Output for the RSS feed
 	 */
@@ -146,7 +146,7 @@ class Module{
 	 * Checks to see if an image needs to be shrunk
 	 * @since 0.13.0
 	 * 
-	 * @param $id int Image ID
+	 * @param int $id Image ID
 	 * 
 	 * @return bool True: small
 	 */
