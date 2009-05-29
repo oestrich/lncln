@@ -57,6 +57,9 @@ class User{
 		elseif($this->lncln->params[0] == "logout"){
 			$this->logout();
 		}
+		elseif($this->lncln->params[0] == "register"){
+			$this->register();
+		}
 		else{
 			if($this->lncln->user->isUser){
 				$this->settings();
@@ -159,6 +162,8 @@ class User{
 	/**
 	 * Log in page
 	 * @since 0.13.0
+	 * 
+	 * @uses _login() Handles the actual logging in
 	 */
 	protected function login(){
 		if($this->lncln->user->isUser == true){
@@ -244,5 +249,73 @@ class User{
 		
 		header("location:" . URL . "index/");
 		exit();
+	}
+	
+	/**
+	 * Registration page
+	 * @since 0.13.0
+	 * 
+	 * @uses _register() Function that handles 
+	 */
+	protected function register(){
+		if($this->lncln->display->settings['register'] == true){
+			if($_POST['username'] != ""){
+				$this->_register($_POST);
+			}
+			
+			$form = array(
+				'action' => 'user/register/',
+				'method' => 'post',
+				'inputs' => array(),
+				'file' => false,
+				'submit' => 'Login',
+				);
+				
+			$form['inputs'][] = array(
+				'title' => 'Username',
+				'type' => 'text',
+				'name' => 'username',
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Password',
+				'type' => 'password',
+				'name' => 'password',
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Password',
+				'type' => 'password',
+				'name' => 'password_confirm',
+				);
+			
+			echo "Please fill out all fields.";
+			create_form($form);
+		}
+		else{
+			$this->lncln->display->message("This site does not currently allow registerations.");
+		}
+	}
+	
+	/**
+	 * Sets up settings required for a regular user to be created
+	 * @since 0.13.0
+	 * 
+	 * @param array $user User data passed from $_POST
+	 * 
+	 * @uses UserAdmin::add_user() Actually handles registration
+	 */
+	protected function _register($user){
+		/** Include the admin file if it hasn't alread */
+		include_once("user.admin.php");
+		
+		$user['admin'] = 0;
+		$user['group'] = $this->lncln->display->settings['default_group'];
+		
+		$message = UserAdmin::add_user($user);
+		
+		$this->lncln->display->message("You have been successfully registered " 
+			. $user['username'] . ". Please click <a href='" . URL . "user/login/'>" .
+					"here</a> to login.");
 	}
 }

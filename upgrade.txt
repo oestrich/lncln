@@ -22,8 +22,10 @@ SQL commands:
  ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
 	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
 
-ALTER TABLE `images` DROP `numComments`;
+ALTER TABLE `images` DROP `numComments` ;
   
-ALTER TABLE `images` ADD `tags` TEXT NOT NULL;
+ALTER TABLE `images` ADD `tags` TEXT NOT NULL ;
+
+UPDATE `lncln`.`settings` SET `name` = 'default_group' WHERE `settings`.`id` =6 LIMIT 1 ;
 
 If you have any other problems, please visit the forums.
