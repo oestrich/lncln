@@ -14,6 +14,29 @@
 class UserAdmin extends User{
 	
 	/**
+	 * Actions that User module requires
+	 * @since 0.13.0
+	 * 
+	 * @return array Actions array
+	 */
+	public function actions(){
+		$action = array(
+			'urls' => array(
+				'Main' => array(
+					'add' => 'Add user',
+					'manage' => 'Manage users',
+					'edit' => '',
+					),
+				),
+			'quick' => array(
+				'add', 'manage',
+				),
+			);
+		
+		return $action;
+	}
+	
+	/**
 	 * Adds a user to the system
 	 * @since 0.13.0
 	 * 
