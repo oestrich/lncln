@@ -137,9 +137,25 @@ function create_form($form){
  * @since 0.13.0
  * 
  * @global Database Instance of Database
+ * 
+ * @return Database Reference to the Database instance
  */
 function get_db(){
 	global $db;
 	
 	return $db;
+}
+
+/**
+ * Easy access to $lncln
+ * @since 0.13.0
+ * 
+ * @global lncln Main lncln instance
+ * 
+ * @return lncln Main lncln instance
+ */
+function get_lncln(){
+	global $lncln;
+	
+	return $lncln;
 }
