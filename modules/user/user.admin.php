@@ -113,6 +113,26 @@ class UserAdmin extends User{
 	}
 	
 	/**
+	 * Manage users, links to edit and delete
+	 * @since 0.13.0
+	 * 
+	 * @uses get_users() Pulls user list
+	 */
+	public function manage(){
+		echo "\t\t<ul>\n";
+		
+		foreach($this->get_users() as $user){
+			if($user['name'] == "Anonymous")
+				continue;
+		
+			echo "\t\t\t<li>" . $user['name'] . " <a href='" . URL . "User/manage/edit/" . $user['id'] . "'>Edit</a> ";
+			echo "<a href='" . URL . "User/manage/delete/" . $user['id'] . "'>Delete</a></li>\n";
+		}
+		
+		echo "\t\t</ul>\n";
+	}
+	
+	/**
 	 * Adds a user to the system
 	 * @since 0.13.0
 	 * 
@@ -149,6 +169,30 @@ class UserAdmin extends User{
 		$this->db->query($sql);
 		
 		return "User " . $username . " added";
+	}
+	
+	/**
+	 * Return a list of users
+	 * @since 0.13.0
+	 * 
+	 * @param int $first ID to start at
+	 * @param int $limit How man IDs to pull, default 30
+	 * 
+	 * @return array Keys: name, id
+	 */
+	protected function get_users($first = 0, $limit = 30){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'name'),
+			'table' => 'users',
+			'limit' => array(
+				$first, $limit
+				),
+			);
+		
+		$this->db->query($query);
+		
+		return $this->db->fetch_all();
 	}
 	
 	/**
