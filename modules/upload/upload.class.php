@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Main class for Upload module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class Upload{
 	/**
 	 * @var string Name of module, Used in forms
