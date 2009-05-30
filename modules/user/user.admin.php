@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Admin panel for User module
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class UserAdmin extends User{
 	
 	/**
@@ -37,6 +43,76 @@ class UserAdmin extends User{
 	}
 	
 	/**
+	 * Page to add a user
+	 * @since 0.13.0
+	 * 
+	 * @uses add_user() Create the user
+	 */
+	public function add(){
+		if($_POST['username'] != ""){
+			$this->lncln->display->message($this->add_user($_POST));
+		}
+		
+		$form = array(
+			'action' => 'admin/User/add/',
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Create user',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Username',
+			'type' => 'text',
+			'name' => 'username',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Password',
+			'type' => 'password',
+			'name' => 'password',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Password',
+			'type' => 'password',
+			'name' => 'password_confirm',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Admin',
+			'type' => 'select',
+			'name' => 'admin',
+			'options' => array(
+				array(
+					'value' => 0,
+					'name' => 'No',
+					),
+				array(
+					'value' => 1,
+					'name' => 'Yes',
+					),
+				),
+			);
+		
+		foreach($this->get_groups() as $group){
+			$groups[] = array(
+				'value' => $group['id'],
+				'name' => $group['name'],
+				);
+		}
+
+		$form['inputs'][] = array(
+			'title' => 'Group',
+			'type' => 'select',
+			'name' => 'group',
+			'options' => $groups,
+			);
+		
+		create_form($form);
+	}
+	
+	/**
 	 * Adds a user to the system
 	 * @since 0.13.0
 	 * 
@@ -49,12 +125,11 @@ class UserAdmin extends User{
 		$password = $this->db->prep_sql($user['password']);
 		$password_confirm = $this->db->prep_sql($user['password_confirm']);
 		$admin = $this->db->prep_sql($user['admin']);
+		$group = $this->db->prep_sql($user['group']);
 		
 		if(!is_numeric($user['group'])){
 			return "Bad group id";
 		}
-			
-		$group = $user['group'];
 		
 		$password = sha1($password);
 		$password_confirm = sha1($password_confirm);
@@ -74,5 +149,23 @@ class UserAdmin extends User{
 		$this->db->query($sql);
 		
 		return "User " . $username . " added";
+	}
+	
+	/**
+	 * Pull groups from groups table
+	 * @since 0.13.0
+	 * 
+	 * @return array List of groups
+	 */
+	protected function get_groups(){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'name'),
+			'table' => 'groups',
+			);
+		
+		$this->db->query($query);
+		
+		return $this->db->fetch_all();
 	}
 }

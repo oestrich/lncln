@@ -126,6 +126,9 @@ class Display{
 	 * @param String $msg Message to be shown
 	 */
 	function message($msg){
+		/** Just in case there is a buffer */
+		ob_end_clean();
+		
 		$lncln = $this->lncln;
 		
 		$this->show_header();
