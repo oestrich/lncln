@@ -50,7 +50,8 @@ class UserAdmin extends User{
 	 */
 	public function add(){
 		if($_POST['username'] != ""){
-			$this->lncln->display->message($this->add_user($_POST));
+			$this->lncln->display->message($this->add_user($_POST) . ". " .
+					"Click <a href='" . URL . "admin/User/manage'>here</a> to continue.");
 		}
 		
 		$form = array(
@@ -117,19 +118,106 @@ class UserAdmin extends User{
 	 * @since 0.13.0
 	 * 
 	 * @uses get_users() Pulls user list
+	 * @uses delete_user() Delete a user
 	 */
 	public function manage(){
+		if($this->lncln->params[2] == "delete"){
+			$this->delete_user($this->lncln->params[3]);
+		}
+		
 		echo "\t\t<ul>\n";
 		
 		foreach($this->get_users() as $user){
 			if($user['name'] == "Anonymous")
 				continue;
 		
-			echo "\t\t\t<li>" . $user['name'] . " <a href='" . URL . "User/manage/edit/" . $user['id'] . "'>Edit</a> ";
-			echo "<a href='" . URL . "User/manage/delete/" . $user['id'] . "'>Delete</a></li>\n";
+			echo "\t\t\t<li>" . $user['name'] . " <a href='" . URL . "admin/User/edit/" . $user['id'] . "'>Edit</a> ";
+			echo "<a href='" . URL . "admin/User/manage/delete/" . $user['id'] . "'>Delete</a></li>\n";
 		}
 		
 		echo "\t\t</ul>\n";
+	}
+	
+	/**
+	 * Edit users
+	 * @since 0.13.0
+	 * 
+	 * @uses get_user() Pull a users information
+	 */
+	public function edit(){
+		$id = $this->lncln->params[2];
+		
+		if(is_numeric($id)){
+			$user = $this->get_user($id);
+			
+			$form = array(
+				'action' => 'admin/User/manage/edit/' . $id,
+				'method' => 'post',
+				'inputs' => array(),
+				'file' => false,
+				'submit' => 'Edit user',
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Username',
+				'type' => 'text',
+				'name' => 'username',
+				'value' => $user['name'],
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Password',
+				'type' => 'password',
+				'name' => 'password',
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Password',
+				'type' => 'password',
+				'name' => 'password_confirm',
+				);
+			
+			$groups = $this->get_groups();
+			
+			foreach($groups as $group){
+				$options[] = array(
+					'name' => $group['name'],
+					'value' => $group['id'],
+					'selected' => $group['id'] == $user['group'] ? true : false,
+					);
+			}
+			
+			$form['inputs'][] = array(
+				'title' => 'Group',
+				'type' => 'select',
+				'name' => 'group',
+				'options' => $options,
+				);
+				
+			$form['inputs'][] = array(
+				'title' => 'Admin',
+				'type' => 'select',
+				'name' => 'admin',
+				'options' => array(
+					array(
+						'name' => 'No',
+						'value' => 0,
+						'selected' => $user['admin'] == 0 ? true : false,
+						),
+					array(
+						'name' => 'Yes',
+						'value' => 1,
+						'selected' => $user['admin'] == 1 ? true : false,
+						),
+					),
+				);
+			
+			create_form($form);
+		}
+		else{
+			header("location:" . URL . "admin/User/manage/");
+			exit;
+		}
 	}
 	
 	/**
@@ -172,6 +260,28 @@ class UserAdmin extends User{
 	}
 	
 	/**
+	 * Deletes a user
+	 * @since 0.13.0
+	 * 
+	 * @param int $id User ID
+	 */
+	protected function delete_user($id){
+		if($id == $this->user->userID)
+			return "";
+			
+		if(is_numeric($id)){
+			$sql = "DELETE FROM users WHERE id = " . $id;
+			$this->db->query($sql);
+			
+			$sql = "DELETE FROM ratings WHERE userID = " . $id;
+			$this->db->query($sql);
+		
+			$this->lncln->display->message("User deleted.  " .
+					"Click <a href='" . URL . "admin/User/manage/'>here</a> to continue managing.");
+		}
+	}
+	
+	/**
 	 * Return a list of users
 	 * @since 0.13.0
 	 * 
@@ -196,6 +306,42 @@ class UserAdmin extends User{
 	}
 	
 	/**
+	 * Get a user information
+	 * @since 0.13.0
+	 * 
+	 * @param int $id User ID
+	 * 
+	 * @return array User information
+	 */
+	protected function get_user($id){
+		if(is_numeric($id)){
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array(
+					'id',
+					'name',
+					'admin',
+					'group'
+					),
+				'table' => 'users',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
+			
+			$this->db->query($query);
+			
+			return $this->db->fetch_one();
+		}
+		
+		return array();
+	}
+	
+	/**
 	 * Pull groups from groups table
 	 * @since 0.13.0
 	 * 
@@ -213,3 +359,4 @@ class UserAdmin extends User{
 		return $this->db->fetch_all();
 	}
 }
+ 
