@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Report {
+class Report extends Module{
 	
 	/**
 	 * Construct to pass the reference of lncln so that modules 

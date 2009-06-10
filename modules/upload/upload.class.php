@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Upload{
+class Upload extends Module{
 	/**
 	 * @var string Name of module, Used in forms
 	 */

@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Image{
+class Image extends Module{
 	/**
 	 * @var string Name of module
 	 */

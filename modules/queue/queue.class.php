@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Queue{
+class Queue extends Module{
 	/**
 	 * @var string Name of module
 	 */

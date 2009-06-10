@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Admin{
+class Admin extends Module{
 	/**
 	 * @var string Name of module
 	 */

@@ -18,7 +18,7 @@
  * 
  * @package lncln
  */
-class Captions{	
+class Captions extends Module{	
 	/**
 	 * @var string Name of module
 	 */

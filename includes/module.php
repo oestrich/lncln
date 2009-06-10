@@ -18,7 +18,7 @@
  * 
  * @package lncln
  */
-class Module{	
+class ModuleModel extends Module{	
 	/**
 	 * Construct to pass the reference of lncln so that modules 
 	 * can access permissions and settings
@@ -171,7 +171,7 @@ class Module{
  * 
  * @package lncln
  */
-class AdminModule{
+class AdminModel extends ModuleModel{
 	/**
 	 * Registers actions that will be used in the admin panel
 	 * @since 0.13.0

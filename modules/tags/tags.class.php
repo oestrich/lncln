@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Tags{
+class Tags extends Module{
 	/**
 	 * @var string Name of module
 	 */

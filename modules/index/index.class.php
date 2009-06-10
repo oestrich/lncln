@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Index{
+class Index extends Module{
 	/**
 	 * @var string Module name
 	 */

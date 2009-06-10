@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class User{
+class User extends Module{
 	/**
 	 * @var string Name of module
 	 */

@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Ratings{
+class Ratings extends Module{
 	/**
 	 * @var string Name of Module
 	 */

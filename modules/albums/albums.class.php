@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Albums{
+class Albums extends Module{
 	/**
 	 * @var string Module name
 	 */

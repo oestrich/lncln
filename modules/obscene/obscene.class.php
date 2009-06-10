@@ -17,7 +17,7 @@
  * 
  * @package lncln
  */
-class Obscene{
+class Obscene extends Module{
 	/**
 	 * @var string Name for module
 	 */
