@@ -255,6 +255,35 @@ class Database{
 				}
 				
 				return $sql;
+			case "UPDATE":
+				$sql = $query['type'] . " ";
+				$sql .= $query['table'] . " ";
+				$sql .= "SET ";
+				
+				foreach($query['set'] as $key => $value){
+					$sql .= "`" . $key . "` = ";
+					
+					if(is_numeric($value)){
+						$sql .= $value;
+					}
+					else{
+						$sql .= "'" . $value . "'";
+					}
+					$sql .= ", ";
+				}
+				
+				$sql = substr($sql, 0, -2);
+				
+				$sql .= $this->create_where($query['where']);
+				
+				if(is_array($query['limit'])){
+					$sql .= " LIMIT " . $query['limit'][0];
+
+					if(isset($query['limit'][1]))
+						$sql .= ", " . $query['limit'][1];
+				}
+				
+				return $sql;
 		}
 	}
 	

@@ -250,10 +250,12 @@ class UserAdmin extends User{
 				return "Passwords do not match";
 			}
 			
-			$pass_sql = ", password  = '" . $password . "'";
+			$pass_sql = array(
+				'password' => $password,
+				);
 		}
 		else{
-			$pass_sql = "";
+			$pass_sql = array();
 		}
 		
 		$sql = "SELECT id FROM users WHERE name = '" . $username . "'";
@@ -264,8 +266,26 @@ class UserAdmin extends User{
 		
 		$user = $this->db->fetch_one();
 		
-		$sql = "UPDATE users SET `name` = '" . $username . "'" . $pass_sql . ", `admin` = " . $admin . ", `group` = " . $group . " WHERE `id` = " . $user['id'];
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'users',
+			'set' => array(
+				'name' => $username,
+				'admin' => $admin,
+				'group' => $group,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $user['id'],
+					),
+				),
+			);
+		
+		$query['set'] = array_merge($query['set'], $pass_sql);
+		
+		$this->db->query($query);
 		
 		return "User " . $username . " added";
 	}
