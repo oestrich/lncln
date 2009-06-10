@@ -143,15 +143,20 @@ class UserAdmin extends User{
 	 * @since 0.13.0
 	 * 
 	 * @uses get_user() Pull a users information
+	 * @uses edit_user() Change user information
 	 */
 	public function edit(){
 		$id = $this->lncln->params[2];
 		
 		if(is_numeric($id)){
+			if($_POST['username'] != ""){
+				$this->edit_user($_POST);
+			}
+			
 			$user = $this->get_user($id);
 			
 			$form = array(
-				'action' => 'admin/User/manage/edit/' . $id,
+				'action' => 'admin/User/edit/' . $id,
 				'method' => 'post',
 				'inputs' => array(),
 				'file' => false,
@@ -218,6 +223,51 @@ class UserAdmin extends User{
 			header("location:" . URL . "admin/User/manage/");
 			exit;
 		}
+	}
+	
+	/**
+	 * Edits a user's information
+	 * @since 0.13.0
+	 * 
+	 * @param array $user User information
+	 */
+	public function edit_user($user){
+		$username = $this->db->prep_sql($user['username']);
+		$password = $this->db->prep_sql($user['password']);
+		$password_confirm = $this->db->prep_sql($user['password_confirm']);
+		$admin = $this->db->prep_sql($user['admin']);
+		$group = $this->db->prep_sql($user['group']);
+		
+		if(!is_numeric($user['group'])){
+			return "Bad group id";
+		}
+		
+		if($password != ""){
+			$password = sha1($password);
+			$password_confirm = sha1($password_confirm);
+			
+			if($password != $password_confirm){
+				return "Passwords do not match";
+			}
+			
+			$pass_sql = ", password  = '" . $password . "'";
+		}
+		else{
+			$pass_sql = "";
+		}
+		
+		$sql = "SELECT id FROM users WHERE name = '" . $username . "'";
+		$this->db->query($sql);
+		if($this->db->num_rows() != 1){
+			return "User already exists";
+		}
+		
+		$user = $this->db->fetch_one();
+		
+		$sql = "UPDATE users SET `name` = '" . $username . "'" . $pass_sql . ", `admin` = " . $admin . ", `group` = " . $group . " WHERE `id` = " . $user['id'];
+		$this->db->query($sql);
+		
+		return "User " . $username . " added";
 	}
 	
 	/**
