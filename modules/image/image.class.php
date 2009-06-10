@@ -29,24 +29,6 @@ class Image extends Module{
 	public $displayName = "Image";
 	
 	/**
-	 * @var Database Reference to the Database instance
-	 */
-	public $db = null;
-	
-	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
-	}
-	
-	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
 	 * @since 0.13.0
@@ -54,19 +36,16 @@ class Image extends Module{
 	public function index(){
 		$this->prepareImage();
 		
-		$this->lncln->display->includeFile("header.php");
-		
-		$this->lncln->img();
+		$this->lncln->get_data();
 		
 		$image = (int)$this->lncln->params[0];
 		
 		if(isset($image) && is_numeric($image)){
-			$this->lncln->display->includeFile("listing.php");	
+			$this->lncln->display->show_posts();	
 		}
 		else{
 			echo "No such image.";
 		}
-		$this->lncln->display->includeFile("footer.php");
 	}
 	
 	/**
@@ -92,7 +71,7 @@ class Image extends Module{
 
 		$this->lncln->imagesToGet[] = $image;
 				
-		$this->lncln->page = $image;
+		$this->lncln->page = 1;
 		$this->lncln->maxPage = 1;
 		
 		$_SESSION['thumbnail'] = 0;

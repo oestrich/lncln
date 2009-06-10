@@ -107,7 +107,6 @@ class lncln{
 		
 		$this->user = new MainUser();
 		$this->display = new Display($this);
-		$this->loadModules();
 		
 		$this->script = split("/", $_SERVER['SCRIPT_NAME']);
 		$this->script = $this->script[count($this->script) - 1];
@@ -173,7 +172,7 @@ class lncln{
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
 			/** Include the info file for modules */
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".info.php");
-			$this->modules[$folder] = new $class($this);
+			$this->modules[$folder] = new $class();
 		}
 	}
 	

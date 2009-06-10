@@ -29,19 +29,6 @@ class Queue extends Module{
 	public $displayName = "Queue";
 	
 	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
-	}
-	
-	/**
 	 * Called if the Module has it's own page
 	 * @since 0.13.0
 	 */

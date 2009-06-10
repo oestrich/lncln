@@ -27,24 +27,5 @@ class Upload extends Module{
 	 * @var string Display name of module
 	 */
 	public $displayName = "Upload";
-	
-	/**
-	 * @var Database Reference to the Database instance
-	 */
-	public $db = null;
-	
-	/**
-	 * @var lncln Reference to the lncln instance
-	 */
-	public $lncln = null;
-	
-	/**
-	 * Sets db and lncln class variables
-	 * @since 0.13.0
-	 */
-	public function __construct(){
-		$this->db = get_db();
-		
-		$this->lncln = get_lncln();
-	}
+
 }

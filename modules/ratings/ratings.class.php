@@ -29,24 +29,6 @@ class Ratings extends Module{
 	public $displayName = "Rating";
 	
 	/**
-	 * @var Database Reference to the Database instance
-	 */
-	public $db = null;
-	
-	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
-	}
-	
-	/**
 	 * Edits an image with the data provided
 	 * @since 0.13.0
 	 * 

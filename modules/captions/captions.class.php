@@ -28,29 +28,11 @@ class Captions extends Module{
 	 * @var string Display name of module
 	 */
 	public $displayName = "Caption";
-	
-	/**
-	 * @var Database Reference of Database instance
-	 */
-	public $db = null;
-	
+
 	/**
 	 * @var array Cache of captions
 	 */
 	public $values = array();
-	
-	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
-	}
 	
 	/**
 	 * Called if the Module has it's own page

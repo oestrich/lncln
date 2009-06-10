@@ -27,12 +27,7 @@ class Albums extends Module{
 	 * @var string Display name for module
 	 */
 	public $displayName = "Album";
-	
-	/**
-	 * @var Database Reference to Database instance
-	 */
-	public $db = null;
-	
+
 	/**
 	 * @var array Storing values from database
 	 */
@@ -42,19 +37,6 @@ class Albums extends Module{
 		);
 	
 	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-
-		$this->lncln = $lncln;
-	}
-	
-	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
 	 * @since 0.13.0
@@ -62,7 +44,7 @@ class Albums extends Module{
 	public function index(){
 		$this->album();
 		
-		$this->lncln->img();
+		$this->lncln->get_data();
 		
 		if(!isset($this->lncln->params[0]) || $this->lncln->params[0] == ""){
 			$albums = $this->getAlbums(false);

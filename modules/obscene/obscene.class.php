@@ -27,29 +27,12 @@ class Obscene extends Module{
 	 * @var string Display name for module
 	 */
 	public $displayName = "Obscene";
-	
-	/**
-	 * @var Database Reference to the Database instance
-	 */
-	public $db = null;
-	
+
 	/**
 	 * @var array Cache of values from database
 	 */
 	public $values = array();
-	
-	/**
-	 * Construct for Obscene module
-	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main lncln instance
-	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
-	}
-	
+
 	/**
 	 * Changes the obscene cookie, flips it
 	 * @since 0.13.0

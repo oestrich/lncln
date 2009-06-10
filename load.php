@@ -37,6 +37,8 @@ include_once(ABSPATH . "includes/class.display.php");
 include_once(ABSPATH . "includes/class.user.php");
 /** Database class */
 include_once(ABSPATH . "includes/class.db.php");
+/** Module Class */
+include_once(ABSPATH . "includes/class.module.php");
 
 /**
  * @global Database $GLOBALS['db']
@@ -51,3 +53,8 @@ $GLOBALS['db'] = new Database();
  * @var lncln Main instance of lncln
  */
 $GLOBALS['lncln'] = new lncln();
+
+/**
+ * This little thing caused a lot of problems before it was moved out.
+ */
+$lncln->loadModules();

@@ -29,23 +29,13 @@ class Index extends Module{
 	public $displayName = "Index";
 	
 	/**
-	 * @var Database Reference to the Database instance
-	 */
-	public $db = null;
-	
-	/**
-	 * Construct to pass the reference of lncln so that modules 
-	 * can access permissions and settings
+	 * This is required because PHP tries to call index() as it's constructor otherwise
 	 * @since 0.13.0
-	 * 
-	 * @param lncln &$lncln Main class variable
 	 */
-	public function __construct(&$lncln){
-		$this->db = get_db();
-		
-		$this->lncln = $lncln;
+	public function __construct(){
+		parent::__construct();
 	}
-	
+
 	/**
 	 * Called if the Module has it's own page
 	 * Such as albums or search
