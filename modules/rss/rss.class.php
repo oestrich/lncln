@@ -29,7 +29,7 @@ class RSS extends Module{
 	public function index(){
 		header('Content-type: text/xml'); 
 		
-		$server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss.php", "", $_SERVER['SCRIPT_NAME']);
+		$server = "http://" . SERVER . URL;
 		
 		$this->prepare_rss();
 		$this->lncln->get_data();		
