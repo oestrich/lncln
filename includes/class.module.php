@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Class which all modules are descended from
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class Module{
 	/**
 	 * @var Database Reference to the Database instance
