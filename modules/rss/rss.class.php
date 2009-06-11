@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Main RSS class
+ * @since 0.13.0
+ * 
+ * @package lncln
+ */
 class RSS extends Module{
 	/**
 	 * @var string Name of module
@@ -77,10 +83,25 @@ class RSS extends Module{
 	 * @param array $rss First term is the type of rss feed (all/safe)
 	 */
 	function prepare_rss(){
-		$safe = $this->lncln->params[0] != "all" ? array('field' => 'obscene', 'compare' => '=', 'value' => 0) : array();
+		$safe = array();
 		
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
+		foreach($this->lncln->modules as $module){
+			if(method_exists($module, "rss_keyword")){
+				$keywords[] = $module->rss_keyword();
+			}
+		}
 		
+		foreach($keywords as $set){
+			foreach($set as $keyword){
+				if($this->lncln->params[0] == $keyword[0]){
+					$safe = $keyword[1];
+				}
+				elseif($this->lncln->params[0] == "" && $this->lncln->display->settings['default_rss_keyword'] == $keyword[0]){
+					$safe = $keyword[1];
+				}
+			}
+		}
+
 		$query = array(
 			'type' => 'SELECT',
 			'fields' => array('!COUNT(*)'),

@@ -11,6 +11,12 @@
  * @package lncln
  */
 
+/**
+ * Pulls information from the RSS Module
+ * @since 0.13.0
+ * 
+ * @return array Information from the RSS Module
+ */
 function rss_info(){
 	$info = array(
 		'name' => 'RSS',

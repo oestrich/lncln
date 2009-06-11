@@ -24,7 +24,7 @@ function obscene_info(){
 		'description' => 'Allows you to make images obscene and shrink',
 		'version' => '0.13.0',
 		'package' => 'optional',
-		'requires' => array('index'),
+		'requires' => array('index', 'rss'),
 	);
 	
 	return $obscene;

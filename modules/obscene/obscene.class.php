@@ -184,6 +184,21 @@ class Obscene extends Module{
 		}
 	}
 	
+	public function rss_keyword(){
+		$keyword = array(
+			array(
+				'safe',
+				array(
+					'field' => 'obscene',
+					'compare' => '=',
+					'value' => 0,
+					),
+				),
+			);
+		
+		return $keyword;
+	}
+	
 	/**
 	 * Returns the obscene status of an image
 	 * @since 0.13.0
