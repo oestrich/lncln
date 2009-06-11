@@ -29,5 +29,7 @@ SQL commands:
  UPDATE `settings` SET `name` = 'default_group' WHERE `settings`.`id` =6 LIMIT 1 ;
 
  ALTER TABLE `images` CHANGE `small` `view` INT( 12 ) NOT NULL ;
+ 
+ INSERT INTO `settings` ( `id` , `name` , `value` ) VALUES ( NULL , 'default_rss_keyword', 'safe');
 
 If you have any other problems, please visit the forums.
