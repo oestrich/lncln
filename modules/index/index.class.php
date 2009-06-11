@@ -201,8 +201,8 @@ class Index extends Module{
 				);
 				
 			foreach($this->lncln->modules as $module){
-				if(method_exists($module, "data_sql")){
-					$query['where']['AND'][] = $module->data_sql();
+				if(method_exists($module, "get_data_sql")){
+					$query['where']['AND'][] = $module->get_data_sql();
 				}
 			}
 				

@@ -223,30 +223,6 @@ class lncln{
 	 */
 	
 	/**
-	 * Gets data ready for the rss feed
-	 * @todo move into the RSS module
-	 * @since 0.9.0
-	 * 
-	 * @param array $rss First term is the type of rss feed (all/safe)
-	 */
-	function rss($rss){
-		$safe = $rss[0] != "all" ? " AND obscene = 0" : "";
-		
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 " . $safe;
-		$this->db->query($sql);
-		$row = $this->db->fetch_one();
-		
-		if($row['COUNT(*)'] > 0){
-			$sql = "SELECT id FROM images WHERE queue = 0 AND postTime <= " . time() . " " . $safe . " ORDER BY `id` DESC LIMIT " . $this->display->settings['perpage'];
-			$this->db->query($sql);
-			
-			foreach($this->db->fetch_all() as $row){
-				$this->imagesToGet[] = $row['id'];
-			}
-		}
-	}
-	
-	/**
 	 * Creates thumbnails for the site.  Uses ImageMagick.  For gifs
 	 * it has to do a temporary jpeg and then back to gif.
 	 * 

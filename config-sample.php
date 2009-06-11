@@ -50,4 +50,5 @@ $modules_enabled = array(
 	"obscene" => "Obscene",
 	"queue" => "Queue",
 	"user" => "User",
+	"rss" => "RSS",
 	);

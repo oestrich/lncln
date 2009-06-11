@@ -23,7 +23,7 @@ if($action == "")
 	$action = "safe";
 
 $lncln->rss(array($action));
-$lncln->img();
+$lncln->get_data();
 
 $server = "http://" . $_SERVER['SERVER_NAME'] . str_replace("rss.php", "", $_SERVER['SCRIPT_NAME']);
 
