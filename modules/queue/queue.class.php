@@ -76,10 +76,22 @@ class Queue extends Module{
 	 * @return int Total number of images in the queue
 	 */
 	protected function check_queue(){
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(id)'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'queue',
+					'compare' => '=',
+					'value' => 1,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
-		return $row['COUNT(*)'];
+		return $row['COUNT(id)'];
 	}
 }
