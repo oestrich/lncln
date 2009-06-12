@@ -266,6 +266,9 @@ class Database{
 					if(is_numeric($value)){
 						$sql .= $value;
 					}
+					elseif($value[0] == "!"){
+						$sql .= substr($value, 1);
+					}
 					else{
 						$sql .= "'" . $value . "'";
 					}
