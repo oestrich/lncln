@@ -257,11 +257,23 @@ class UserAdmin extends User{
 		else{
 			$pass_sql = array();
 		}
+
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id'),
+			'table' => 'users',
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $username,
+					),
+				),
+			);
 		
-		$sql = "SELECT id FROM users WHERE name = '" . $username . "'";
-		$this->db->query($sql);
+		$this->db->query($query);
 		if($this->db->num_rows() != 1){
-			return "User already exists";
+			return "User does not exist";
 		}
 		
 		$user = $this->db->fetch_one();

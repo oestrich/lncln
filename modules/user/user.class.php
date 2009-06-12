@@ -185,6 +185,9 @@ class User extends Module{
 	 * Actually does the logging in
 	 * @since 0.13.0
 	 * 
+	 * @todo Let modules decide what is pulled for fields logging in, obscene should not be hard coded in
+	 * @todo Let modules decide what cookies need to be stored outside of user/pass
+	 * 
 	 * @return bool True if logged in
 	 */
 	protected function _login(){
@@ -201,8 +204,27 @@ class User extends Module{
 			$password = sha1($password);
 		}
 		
-		$sql = "SELECT obscene FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('obscene'),
+			'table' => 'users',
+			'where' => array(
+				'AND' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => $username,
+						),
+					array(
+						'field' => 'password',
+						'compare' => '=',
+						'value' => $password,
+						),
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$numRows = $this->db->num_rows();
 		
 		$row = $this->db->fetch_one();
