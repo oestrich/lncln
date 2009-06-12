@@ -87,14 +87,14 @@ class Display{
 	 * @return string Links to css
 	 */
 	function include_css(){
-		$output = "";
+		$output = "\t<link type='text/css' rel='stylesheet' href='" . URL . "theme/" . THEME . "/style.css' />\n";
 		
 		foreach($this->lncln->modules as $module){
 			$name = strtolower($module->name);
 			$file = "modules/" . $name . "/" . $name . ".css";
 			
 			if(file_exists(ABSPATH . $file)){
-				$output .= "<link type='text/css' rel='stylesheet' href='" . URL . $file . "' />\n";
+				$output .= "\t<link type='text/css' rel='stylesheet' href='" . URL . $file . "' />\n";
 			}
 		}
 		

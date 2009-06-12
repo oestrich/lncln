@@ -76,13 +76,49 @@ class RSS extends Module{
 	}
 	
 	/**
+	 * Outputs RSS links based on module keywords
+	 * @since 0.13.0
+	 */
+	public function html_head(){
+		'<link rel="alternate" type="application/rss+xml" title="All Images" href="<?=URL;?>rss/all" />
+	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="<?=URL;?>rss/safe" />';
+		echo "\t<link rel='alternate' type='application/rss+xml' title='All Images' href='" . URL . "rss/all' />\n";
+		
+		foreach($this->get_keywords() as $keyword){
+			echo "\t<link rel='alternate' type='application/rss+xml' title='" . ucwords($keyword) . " Images' href='" . URL . "rss/" . $keyword . "' />\n";
+		}
+	}
+
+	/**
+	 * Gets keywords that modules have registered
+	 * @since 0.13.0
+	 * 
+	 * @return array Keywords
+	 */
+	protected function get_keywords(){
+		foreach($this->lncln->modules as $module){
+			if(method_exists($module, "rss_keyword")){
+				$keywords[] = $module->rss_keyword();
+			}
+		}
+		
+		foreach($keywords as $set){
+			foreach($set as $keyword){
+				$words[] = $keyword[0];
+			}
+		}
+		
+		return $words;
+	}
+	
+	/**
 	 * Gets data ready for the rss feed
 	 * @todo move into the RSS module
 	 * @since 0.9.0
 	 * 
 	 * @param array $rss First term is the type of rss feed (all/safe)
 	 */
-	function prepare_rss(){
+	protected function prepare_rss(){
 		$safe = array();
 		
 		foreach($this->lncln->modules as $module){

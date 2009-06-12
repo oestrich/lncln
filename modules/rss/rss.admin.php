@@ -83,7 +83,12 @@ class RSSAdmin extends RSS{
 		create_form($form);
 	}
 	
-	
+	/**
+	 * Returns keywords in a select input type for create_form
+	 * @since 0.13.0
+	 * 
+	 * @return array Select array
+	 */
 	public function get_keywords(){
 		$keywords = array(
 			array(

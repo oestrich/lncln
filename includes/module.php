@@ -152,6 +152,16 @@ class ModuleModel extends Module{
 	public function get_data_sql(){
 		
 	}
+	
+	/**
+	 * Output during the <head> section of html
+	 * @since 0.13.0
+	 * 
+	 * @return string html output
+	 */
+	public function html_head(){
+		
+	}
 }
 
 /**

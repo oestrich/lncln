@@ -18,11 +18,12 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title><?echo $lncln->display->title;?></title>
-
-	<link rel="alternate" type="application/rss+xml" title="All Images" href="<?=URL;?>rss/all" />
-	<link rel="alternate" type="application/rss+xml" title="Safe Images" href="<?=URL;?>rss/safe" />
-	<link type="text/css" rel="stylesheet" href="<?echo URL;?>theme/<?echo THEME;?>/style.css" />
-	<?
+<?
+	foreach($lncln->modules as $module){
+		if(method_exists($module, "html_head")){
+			$module->html_head();
+		}
+	}
 		echo $lncln->display->include_css();
 	?>
 	<script type="text/javascript" src="<?echo URL;?>includes/lncln.js" >
