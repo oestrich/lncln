@@ -164,8 +164,13 @@ class IndexAdmin extends Index{
 	function get_news(){
 		$news = array();
 		
-		$sql = "SELECT id, postTime, title, news FROM news WHERE 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'postTime', 'title', 'news'),
+			'table' => 'news',
+			);
+		
+		$this->db->query($query);
 		
 		foreach($this->db->fetch_all() as $row){
 			$news[] = $row;
@@ -197,8 +202,20 @@ class IndexAdmin extends Index{
 	 */
 	function get_news_one($id){
 		if(is_numeric($id)){
-			$sql = "SELECT id, postTime, title, news FROM news WHERE id = " . $id;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('id', 'postTime', 'title', 'news'),
+				'table' => 'news',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			
 			if($this->db->num_rows() == 1)
 				return $this->db->fetch_one();
@@ -223,7 +240,23 @@ class IndexAdmin extends Index{
 			return "";
 		}
 		
-		$sql = "UPDATE news SET title = '" . $title . "', news = '" . $news ."', postTime = " . $postTime . " WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'news',
+			'set' => array(
+				'title' => $title,
+				'news' => $news,
+				'postTime' => $postTime,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 	}
 } 
