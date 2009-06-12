@@ -123,14 +123,26 @@ class Obscene extends Module{
 	 * @param array $data Extra material needed, tag information, etc
 	 */	
 	public function edit($id, $data){		
-		$sql = "SELECT type, obscene FROM images WHERE id = " . $id;
-		$result = mysql_query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('type', 'obscene'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		
 		if($data[0] == ""){
 			$data[0] = $data[1];
 		}
 		
-		if(mysql_num_rows($result) == 1){
+		if($this->db->num_rows() == 1){
 			if(!is_numeric($data[0])){
 				$num = $data[0] == "true" ? 1 : 0;
 			}
@@ -142,8 +154,22 @@ class Obscene extends Module{
 			return "";
 		}
 		
-		$sql = "UPDATE images SET obscene = " . $num . " WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'obscene' => $num,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+			
+		$this->db->query($query);
 	}
 	
 	/**
