@@ -65,8 +65,23 @@ class Captions extends Module{
 		$image = $this->db->prep_sql($id);
 		$caption = $this->db->prep_sql($data[0]);
 		
-		$sql = "UPDATE images SET caption = '" . $caption . "' WHERE id = " . $id . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'caption' => $caption,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
 	}
 	
 	/**
