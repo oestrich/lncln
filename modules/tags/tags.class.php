@@ -51,7 +51,7 @@ class Tags extends Module{
 		
 		$this->search();
 		
-		$this->lncln->img();
+		$this->lncln->get_data();
 		
 		echo "You searched for: " . $this->searchTerm . "<br />";
 		
@@ -208,17 +208,41 @@ class Tags extends Module{
 	 */
 	private function search(){
 		$this->searchTerm = $this->db->prep_sql($this->removePluses($this->lncln->params[0]));
+
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(*)'),
+			'table' => 'tags',
+			'where' => array(
+				array(
+					'field' => 'tag',
+					'compare' => 'LIKE',
+					'value' => "%" . $this->searchTerm . "%",
+					),
+				),
+			);
 		
-		$sql = "SELECT COUNT(*) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
-		$this->db->query($sql);
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
 		if($row['COUNT(*)'] == 0){
 			$this->page = 0;
 		}
-		else{		
-			$sql = "SELECT COUNT(picId) FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%'";
-			$this->db->query($sql);
+		else{
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('!COUNT(picId)'),
+				'table' => 'tags',
+				'where' => array(
+					array(
+						'field' => 'tag',
+						'compare' => 'LIKE',
+						'value' => '%' . $this->searchTerm . '%',
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			$row = $this->db->fetch_one();
 			
 			$this->lncln->maxPage = $row['COUNT(picId)'];
@@ -240,8 +264,25 @@ class Tags extends Module{
 			
 			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
-			$sql = "SELECT picId FROM tags WHERE tag LIKE '%" . $this->searchTerm . "%' ORDER BY picId DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('picId'),
+				'table' => 'tags',
+				'where' => array(
+					array(
+						'field' => 'tag',
+						'compare' => 'LIKE',
+						'value' => '%' . $this->searchTerm . '%',
+						),
+					),
+				'order' => array('DESC', array('picId')),
+				'limit' => array(
+					$offset,
+					$this->lncln->display->settings['perpage'],
+					),
+				);
+			
+			$this->db->query($query);
 	
 			foreach($this->db->fetch_all() as $row){
 				$this->lncln->imagesToGet[] = $row['picId'];
@@ -281,8 +322,20 @@ class Tags extends Module{
 	 * @return string Current tags
 	 */
 	private function set_tags($id){
-		$sql = "SELECT tag FROM tags WHERE picId = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('tag'),
+			'table' => 'tags',
+			'where' => array(
+				array(
+					'field' => 'picId',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		
 		$tags = array();
 		
@@ -292,8 +345,21 @@ class Tags extends Module{
 		
 		$tags = join(', ', $tags);
 		
-		$sql = "UPDATE images SET tags = '" . $tags . "' WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'tags' => $tags,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		$this->db->query($query);
 
 		return $tags;
 	}
