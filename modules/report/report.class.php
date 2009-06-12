@@ -34,18 +34,60 @@ class Report extends Module{
 		
 		$image = $this->db->prep_sql($this->lncln->params[0]);
 		
-		$sql = "UPDATE images SET report = report + " . $this->lncln->user->permissions['reportValue'] . " WHERE id = " . $image . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'report' => '!`report` + ' . $this->lncln->user->permissions['reportValue'],
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $image,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
 		
 		if($this->db->affected_rows() == 1){
-			$sql = "SELECT report FROM images WHERE id = " . $image;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('report'),
+				'table' => 'images',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $image,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			
 			$row = $this->db->fetch_one();
 			
 			if($row['report'] >= 5){
-				$sql = "UPDATE images SET queue = 1 WHERE id = " . $image . " LIMIT 1";
-				$this->db->query($sql);
+				$query = array(
+					'type' => 'UPDATE',
+					'table' => 'images',
+					'set' => array(
+						'queue' => 1,
+						),
+					'where' => array(
+						array(
+							'field' => 'id',
+							'compare' => '=',
+							'value' => $image, 
+							),
+						),
+					'limit' => array(1),
+					);
+				
+				$this->db->query($query);
 			}
 		}
 		
