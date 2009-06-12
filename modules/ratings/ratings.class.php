@@ -49,8 +49,27 @@ class Ratings extends Module{
 		if($data[1] == "down")
 			$rating = $rating * -1;
 		
-		$sql = "SELECT rating FROM ratings WHERE picId = " . $id . " AND userId = " . $this->lncln->user->userID;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('rating'),
+			'table' => 'ratings',
+			'where' => array(
+				'AND' => array(	
+					array(
+						'field' => 'picId',
+						'compare' => '=',
+						'value' => $id,
+						),
+					array(
+						'field' => 'userId',
+						'compare' => '=',
+						'value' => $this->lncln->user->userID,
+						),
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$numRows = $this->db->num_rows();
 		
 		if($numRows > 0){
@@ -60,7 +79,7 @@ class Ratings extends Module{
 		if($numRows == 1 && $row['rating'] == $rating){
 			return "You already rated it";
 		}
-		elseif(($numRows == 1 && $row['upDown'] != $rating) || $numRows == 0){
+		elseif(($numRows == 1 && $row['rating'] != $rating) || $numRows == 0){
 			if(isset($row['rating']) && $row['rating'] != $rating){
 				$sql = "DELETE FROM ratings WHERE picID = " . $id . " AND userID = " . $this->lncln->user->userID;
 			}
@@ -70,16 +89,42 @@ class Ratings extends Module{
 			
 			$this->db->query($sql);
 			
-            $sql = "SELECT SUM(rating) FROM ratings WHERE picId = " . $id;
-            $this->db->query($sql);
+            $query = array(
+            	'type' => 'SELECT',
+            	'fields' => array('!SUM(rating)'),
+            	'table' => 'ratings',
+            	'where' => array(
+            		array(
+            			'field' => 'picId',
+            			'compare' => '=',
+            			'value' => $id,
+            			),
+            		),
+            	);
+            
+            $this->db->query($query);
             $row = $this->db->fetch_one();
             
             if($row['SUM(rating)'] == null){
                 $row['SUM(rating)'] = 0;
             }
 			
-			$sql = "UPDATE images SET rating = " . $row['SUM(rating)'] . " WHERE id = " . $id ;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'images',
+				'set' => array(
+					'rating' => $row['SUM(rating)'],
+					),
+            	'where' => array(
+            		array(
+            			'field' => 'id',
+            			'compare' => '=',
+            			'value' => $id,
+            			),
+            		),
+				);
+			
+			$this->db->query($query);
 			
 			return "Rated successfully";
 		}
