@@ -96,13 +96,13 @@ class AlbumsAdmin extends Albums{
 			);
 			
 		$form['inputs'][] = array(
-			'title' => 'Album Name:',
+			'title' => 'Album Name',
 			'type' => 'text',
 			'name' => 'name',
 			'value' => $album,
 			);
 		
-		echo create_form($form);
+		create_form($form);
 	}
 	
 	/**
@@ -139,8 +139,20 @@ class AlbumsAdmin extends Albums{
 	protected function addAlbum($name){
 		$name = $this->db->prep_sql($name);
 		
-		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(name) as name'),
+			'table' => 'albums',
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $name,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
 		if($row['name'] > 0){
@@ -168,8 +180,22 @@ class AlbumsAdmin extends Albums{
 		$album = $this->db->prep_sql($album);
 		
 		if(is_numeric($album)){
-			$sql = "UPDATE images SET album = 0 WHERE album = " . $album;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'images',
+				'set' => array(
+					'album' => 0,
+					),
+				'where' => array(
+					array(
+						'field' => 'album',
+						'compare' => '=',
+						'value' => $album,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			
 			$sql = "DELETE FROM albums WHERE id = " . $album;
 			$this->db->query($sql);
@@ -189,16 +215,42 @@ class AlbumsAdmin extends Albums{
 		$id = $this->db->prep_sql($id);
 		$name = $this->db->prep_sql($name);
 		
-		$sql = "SELECT COUNT(name) as name FROM albums WHERE name = '" . $name ."'";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(name) as name'),
+			'table' => 'albums',
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $name,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
 		if($row['name'] > 0){
 			return "Album already exists.";
 		}
 		
-		$sql = "UPDATE albums SET name = '" . $name ."' WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'albums',
+			'set' => array(
+				'name' => $name,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		
 		return "Album updated successfully.";
 	}

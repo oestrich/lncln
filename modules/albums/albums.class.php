@@ -88,8 +88,22 @@ class Albums extends Module{
 		$img = $this->db->prep_sql($id);
 		$album = $this->db->prep_sql($data[0]);
 		
-		$sql = "UPDATE images SET album = " . $album . " WHERE id = " . $id;
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'album' => $album,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 	}
 	
 	/**
@@ -185,20 +199,36 @@ class Albums extends Module{
 		$album = $this->getAlbumId($album);
 		
 		if($album != 0){
-			$time = !$this->lncln->user->permissions['isAdmin'] ? " AND postTime <= " . time() . " " : "";
+			$time = !$this->lncln->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' => time()): array();
 			
-			$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND album = " . $album . $time;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('!COUNT(id)'),
+				'table' => 'images',
+				'where' => array(
+					'AND' => array(
+						array(
+							'field' => 'queue',
+							'compare' => '=',
+							'value' => 0,
+							),
+						array(
+							'field' => 'album',
+							'compare' => '=',
+							'value' => $album,
+							),
+						$time,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			$row = $this->db->fetch_one();
 			
-			if($row['COUNT(*)'] == 0){
+			if($row['COUNT(id)'] == 0){
 				$this->lncln->page = 0;
 			}
-			else{				
-				$sql = "SELECT COUNT(id) FROM images WHERE album = " . $album . $time;
-				$this->db->query($sql);
-				$row = $this->db->fetch_one();
-				
+			else{
 				$this->lncln->maxPage = ceil($row['COUNT(id)'] / $this->lncln->display->settings['perpage']);
 				
 				$page = (int)end($this->lncln->params);
@@ -217,8 +247,33 @@ class Albums extends Module{
 				
 				$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 				
-				$sql = "SELECT id FROM images WHERE album = " . $album . " AND queue = 0 " . $time. " ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-				$this->db->query($sql);
+				$query = array(
+					'type' => 'SELECT',
+					'fields' => array('id'),
+					'table' => 'images',
+					'where' => array(
+						'AND' => array(
+							array(
+								'field' => 'queue',
+								'compare' => '=',
+								'value' => 0,
+								),
+							array(
+								'field' => 'album',
+								'compare' => '=',
+								'value' => $album,
+								),
+							$time,
+							),
+						),
+					'order' => array(
+						'DESC', 
+						array('id'),
+						),
+					'limit' => array($offset, $this->lncln->display->settings['perpage']),
+					);
+				
+				$this->db->query($query);
 		
 				foreach($this->db->fetch_all() as $row){
 					$this->lncln->imagesToGet[] = $row['id'];
@@ -263,8 +318,20 @@ class Albums extends Module{
 			$row = $this->values['album_name'][$id];
 		}
 		else{
-			$sql = "SELECT name FROM albums WHERE id = " . $id;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('name'),
+				'table' => 'albums',
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $id,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 			
 			$row = $this->db->fetch_one();
 			$this->values['album_name'][$id] = $row;
@@ -285,8 +352,21 @@ class Albums extends Module{
 	 * @return int Album ID
 	 */
 	protected function getAlbumID($name){
-		$sql = "SELECT id FROM albums WHERE name = '" . $name . "' LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id'),
+			'table' => 'albums',
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $name,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
 		
 		if($this->db->num_rows() == 1){
 			$row = $this->db->fetch_one();
@@ -311,8 +391,13 @@ class Albums extends Module{
 			$albums = $this->values['albums'];
 		}
 		else{
-			$sql = "SELECT id, name FROM albums WHERE 1";
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('id', 'name'),
+				'table' => 'albums',
+				);
+			
+			$this->db->query($query);
 			
 			$albums = array();
 			
