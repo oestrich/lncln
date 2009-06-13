@@ -50,7 +50,7 @@ class IndexAdmin extends Index{
 	 */
 	public function manage(){
 		$form = array(
-			'action' => 'admin/Index/manage',
+			'action' => 'admin/Settings/manage',
 			'method' => 'post',
 			'inputs' => array(),
 			'file' => false,
@@ -61,34 +61,57 @@ class IndexAdmin extends Index{
 			'title' => 'Title',
 			'type' => 'text',
 			'name' => 'title',
+			'value' => $this->lncln->display->settings['title'],
 			);
 		
 		$form['inputs'][] = array(
 			'title' => 'Images/Page',
 			'type' => 'text',
 			'name' => 'perpage',
+			'value' => $this->lncln->display->settings['perpage'],
 			);
 		
 		$form['inputs'][] = array(
 			'title' => 'Time between posts',
 			'type' => 'text',
 			'name' => 'tbp',
+			'value' => $this->lncln->display->settings['tbp'],
 			);
 		
 		$form['inputs'][] = array(
 			'title' => 'Theme',
 			'type' => 'select',
-			'options' => array(
-				array(
-					'name' => 'bbl',
-					'value' => 'bbl',
-					'selected' => true,
-					),
-				),
+			'options' => $this->get_themes(),
 			'name' => 'theme',
 			);
 		
 		create_form($form);
+	}
+	
+	protected function get_themes(){
+		$temp_themes = scandir(ABSPATH . "theme");
+		
+		foreach($temp_themes as $theme){
+			if($theme == "." || $theme == ".." || $theme == "index.html")
+				continue;
+			
+			if($theme == THEME){
+				$selected = array('selected' => true);
+			}
+			else{
+				$selected = array();
+			}
+			
+			$themes[] = array_merge(
+				array(
+					'name' => $theme,
+					'value' => $theme,
+					), 
+				$selected
+				);
+		}
+		
+		return $themes;
 	}
 	
 	/**
