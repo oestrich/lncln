@@ -47,6 +47,8 @@ class IndexAdmin extends Index{
 	/**
 	 * Manage settings
 	 * @since 0.13.0
+	 * 
+	 * @uses get_themes() Pulls themes for the select box
 	 */
 	public function manage(){
 		$form = array(
@@ -88,6 +90,12 @@ class IndexAdmin extends Index{
 		create_form($form);
 	}
 	
+	/**
+	 * Returns a select array for managing themes
+	 * @since 0.13.0
+	 * 
+	 * @return array Select array
+	 */
 	protected function get_themes(){
 		$temp_themes = scandir(ABSPATH . "theme");
 		
