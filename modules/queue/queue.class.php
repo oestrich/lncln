@@ -29,11 +29,21 @@ class Queue extends Module{
 	public $displayName = "Queue";
 	
 	/**
+	 * @var bool If the queue is being accessed
+	 */
+	public $in_queue = false;
+	
+	/**
 	 * Called if the Module has it's own page
 	 * @since 0.13.0
 	 */
 	public function index(){
-		echo "Welcome to the queue";
+		if($this->lncln->user->permissions['isAdmin'] == 1){
+			echo "Welcome to the queue.  Please view the queue from the <a href='" . URL . "admin/Queue/manage'>admin panel</a>.";
+		}
+		else{
+			echo "You must be an admin to view this area.";
+		}
 	}
 	
 	/**
@@ -57,11 +67,15 @@ class Queue extends Module{
 	 * @return array Keys: 'field', 'compare', 'value'
 	 */
 	public function get_data_sql(){
-		return array(
-			'field' => 'queue',
-			'compare' => '=',
-			'value' => 0,
-			);
+		if($this->in_queue == false){
+			return array(
+				'field' => 'queue',
+				'compare' => '=',
+				'value' => 0,
+				);
+		}
+		
+		return array();
 	}
 	
 	/**

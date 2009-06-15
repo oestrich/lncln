@@ -105,6 +105,26 @@ class Obscene extends Module{
 	}
 	
 	/**
+	 * Creates the form information needed during moderation
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Image to gather information about and populate the input
+	 *
+	 * @return array Keys: type, name, value, options
+	 */
+	public function moderate($id){
+		return array(
+			"type" => "select", 
+			"name" => "obscene", 
+			"options" => array(
+				array("id" => 0, "name" => "No"),
+				array("id" => 1, "name" => "Yes"),
+				),
+			'value' => $this->small($id) ? "Yes" : "No",
+			);
+	}
+	
+	/**
 	 * Called after a successful upload
 	 * @since 0.13.0
 	 * 

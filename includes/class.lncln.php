@@ -177,46 +177,6 @@ class lncln{
 	}
 	
 	/**
-	 * Function for loading the queue
-	 * @todo move into the Queue module
-	 * @since 0.9.0
-	 */
-	function queue(){
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$this->db->query($sql);
-		$row = $this->db->fetch_one();
-		
-		if($row['COUNT(*)'] > 0){
-			$this->db->query("SELECT COUNT(id) FROM images WHERE queue = 1");
-			$row = $this->db->fetch_one();
-
-			$this->maxPage = $row['COUNT(id)'];
-			$this->maxPage = ceil($this->maxPage / $this->display->settings['perpage']);
-			
-			if(!isset($_GET['page'])){
-				$this->page = 1;
-			}
-			else{
-				if(is_numeric($_GET['page'])){
-					$this->page = $_GET['page'];	
-				}
-				else{
-					$this->page = 1;
-				}
-			}
-			
-			$offset = ($this->page - 1) * $this->display->settings['perpage'];
-			
-			$sql = "SELECT id FROM `images` WHERE queue = 1 ORDER BY id DESC LIMIT " . $offset . ", " . $this->display->settings['perpage'];
-			$this->db->query($sql);
-			
-			foreach($this->db->fetch_all() as $row){				
-				$this->imagesToGet[] = $row['id'];
-			}
-		}
-	}
-	
-	/**
 	 * First person to send an email to codecomments@lncln.com gets the
 	 * chance to maybe win $1 million.  Ok, that's a lie.  But I will post you
 	 * on the homepage.
