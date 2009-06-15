@@ -270,7 +270,7 @@ class Database{
 						$sql .= substr($value, 1);
 					}
 					else{
-						$sql .= "'" . $value . "'";
+						$sql .= "'" . $this->prep_sql($value) . "'";
 					}
 					$sql .= ", ";
 				}
@@ -366,7 +366,7 @@ class Database{
 				}
 				if(array_key_exists("field", $query[$key])){
 					$string = "`" . $query[$key]['field'] . "` " . $query[$key]['compare'] . " ";
-					$string .= is_numeric($query[$key]['value']) ? $query[$key]['value'] : "'" . $query[$key]['value'] . "'";
+					$string .= is_numeric($query[$key]['value']) ? $query[$key]['value'] : "'" . $this->prep_sql($query[$key]['value'] . "'");
 					
 					$sql[] = $string;
 				}
