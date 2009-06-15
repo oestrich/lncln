@@ -86,7 +86,32 @@ class IndexAdmin extends Index{
 			'options' => $this->get_themes(),
 			'name' => 'theme',
 			);
-		
+
+		if($_POST['title'] != ""){
+			foreach($form['inputs'] as $setting){
+				$setting = $setting['name'];
+				
+				$query = array(
+					'type' => 'UPDATE',
+					'table' => 'settings',
+					'set' => array(
+						'value' => $_POST[$setting],
+						),
+					'where' => array(
+						array(
+							'field' => 'name',
+							'compare' => '=',
+							'value' => $setting,
+							),
+						),
+					'limit' => array(1),
+					);
+				
+				$this->db->query($query);
+			}
+			$this->lncln->display->message("Settings updated successfully. Click <a href='" . URL . "admin/Settings/manage'>here</a> to continue.");
+		}
+
 		create_form($form);
 	}
 	
