@@ -45,6 +45,36 @@ class QueueAdmin extends Queue{
 	 * @since 0.13.0
 	 */
 	public function manage(){
+		if($this->lncln->params[2] == "delete" && is_array($_POST['approve'])){
+			foreach($_POST['approve'] as $key => $value){
+				$this->lncln->delete($key);
+			}
+			$this->lncln->display->message("Queue updated.");
+		}
+		
+		if($_POST['approve'] != "" || $_POST['check'] != ""){
+			if(!is_array($_POST['check'])){
+				$_POST['check'] = array();
+			}
+			if(!is_array($_POST['approve'])){
+				$_POST['approve'] = array();
+			}
+			
+			foreach($_POST['check'] as $key => $value){
+				foreach($this->lncln->modules as $modKey => $module){
+					if(method_exists($module, "edit")){
+						$module->edit($key, array($_POST['images'][$key][$modKey]));
+					}
+				}
+			}
+			
+			foreach($_POST['approve'] as $key => $value){
+				$this->lncln->dequeue($key);
+			}	
+			
+			$this->lncln->display->message("Queue updated");
+		}
+		
 		$this->lncln->modules['queue']->in_queue = true;
 		
 		$this->prepare_queue();
@@ -60,7 +90,7 @@ class QueueAdmin extends Queue{
 		foreach($this->lncln->images as $image){
 			echo "\t<div id='" . $image['id'] . "' class='modDiv'>\n";
 			echo "\t\t<input type='hidden' name='check[" . $image['id'] . "]' id='check" . $image['id'] . "' value='0' />\n";
-			echo "\t\tApprove: <input type='checkbox' name='approve[" . $image['id'] . "' id='approve" . $image['id'] . "' style='height: 35px; width: 35px;' /><br />\n";
+			echo "\t\tApprove: <input type='checkbox' name='approve[" . $image['id'] . "]' id='approve" . $image['id'] . "' style='height: 35px; width: 35px;' /><br />\n";
 			echo "\t\t<a href='" . URL . "images/full/" . $image['file'] . "' target='_blank' class='modImage''><img src='" . URL . "images/thumb/" . $image['file'] . "' /></a>\n";
 			echo "\t\t<div class='modForms'>\n";
 			echo "\t\t\t<input type='hidden' name='images[" . $image['id'] . "][id]' value='" . $image['id'] . "' /><br />\n";
@@ -71,7 +101,7 @@ class QueueAdmin extends Queue{
 				
 				echo "\t\t\t<tr>\n";
 				echo "\t\t\t\t<td>" . $module->displayName . ":</td>\n";
-				echo "\t\t\t\t<td>" . createInput($module->moderate($image['id']), $image['id'], " onfocus=\"modCheck('" . $image['id'] . "')\" ") . "</td>\n";
+				echo "\t\t\t\t<td>" . createInput($module->moderate($image['id']), $image['id'], " onfocus=\"queueCheck('" . $image['id'] . "')\" ") . "</td>\n";
 				echo "\t\t\t</tr>\n";
 
 			}
@@ -82,13 +112,13 @@ class QueueAdmin extends Queue{
 		}
 			
 		echo "\t<input type='submit' value='Submit' />\n";
-		echo "\t<input type='submit' value='Delete Selected' onclick='document.getElementById(\"queue\").action = \"queue.php?action=delete\";' />\n";
+		echo "\t<input type='submit' value='Delete Selected' onclick='document.getElementById(\"queue\").action = \"" . URL . "admin/Queue/manage/delete\";' />\n";
 		echo "</form>\n\n";
 		
 		echo "<form action='" . URL . "admin/Queue/manage/' method='post'>\n";
 		echo "\t<div>\n";
 	    foreach($this->lncln->images as $image){
-		echo "\t\t<input type='hidden' name='approve[" . $image['id'] . "]' value='1' />\n";
+			echo "\t\t<input type='hidden' name='approve[" . $image['id'] . "]' value='1' />\n";
 	    }
 		echo "\t\t<input type='submit' value='Approve All' />\n";
 		echo "\t</div>\n";
