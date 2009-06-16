@@ -43,6 +43,8 @@ class QueueAdmin extends Queue{
 	/**
 	 * Manage queue page
 	 * @since 0.13.0
+	 * 
+	 * @uses prepare_queue()
 	 */
 	public function manage(){
 		if($this->lncln->params[2] == "delete" && is_array($_POST['approve'])){
@@ -127,16 +129,28 @@ class QueueAdmin extends Queue{
 		echo $this->lncln->prevNext();
 	}
 	
-	
+	/**
+	 * Gets the queue up and running
+	 * @since 0.13.0
+	 */
 	protected function prepare_queue(){
-		$sql = "SELECT COUNT(*) FROM images WHERE queue = 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(id)'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'queue',
+					'compare' => '=',
+					'value' => 1,
+					),
+				),
+			);
+		
+		$this->db->query($query);
 		$row = $this->db->fetch_one();
 		
-		if($row['COUNT(*)'] > 0){
-			$this->db->query("SELECT COUNT(id) FROM images WHERE queue = 1");
-			$row = $this->db->fetch_one();
-
+		if($row['COUNT(id)'] > 0){
 			$this->lncln->maxPage = $row['COUNT(id)'];
 			$this->lncln->maxPage = ceil($this->lncln->maxPage / $this->lncln->display->settings['perpage']);
 			
@@ -154,8 +168,25 @@ class QueueAdmin extends Queue{
 			
 			$offset = ($this->lncln->page - 1) * $this->lncln->display->settings['perpage'];
 			
-			$sql = "SELECT id FROM `images` WHERE queue = 1 ORDER BY id DESC LIMIT " . $offset . ", " . $this->lncln->display->settings['perpage'];
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('id'),
+				'table' => 'images',
+				'where' => array(
+					array(
+						'field' => 'queue',
+						'compare' => '=',
+						'value' => 1,
+						),
+					),
+				'order' => array('DESC', array('id')),
+				'limit' => array(
+					$offset,
+					$this->lncln->display->settings['perpage'],
+					),
+				);
+			
+			$this->db->query($query);
 			
 			foreach($this->db->fetch_all() as $row){				
 				$this->lncln->imagesToGet[] = $row['id'];

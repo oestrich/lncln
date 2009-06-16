@@ -54,7 +54,7 @@ class Queue extends Module{
 	 */
 	public function header_link(){
 		if($this->lncln->user->permissions['isAdmin']){
-			return "<a href='" . URL . "queue/'>Check the Queue (" . $this->check_queue() . ")</a>";
+			return "<a href='" . URL . "admin/Queue/manage'>Check the Queue (" . $this->check_queue() . ")</a>";
 		}
 		
 		return "";
