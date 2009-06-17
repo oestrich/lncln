@@ -37,64 +37,13 @@
 		<div id="header">
 			<a href="<?echo URL;?>index/" ><img src="<?echo URL;?>theme/<?echo THEME;?>/images/abe.png" alt="Abe" id="abeLink" /></a>
 			<div id="navBar">
-				<div class="headerRow">
+			
 <?
-foreach($lncln->display->rows[1] as $module){
-	if(method_exists($module, "header_link")){
-		echo $lncln->modules[$module]->header_link() . " ";
-	}
-}
+
+$lncln->display->show_header_links();
+
 ?>
-				</div>
-				<div class="headerRow">
-	<?if($lncln->user->permissions['upload'] == 1):?>
-					Upload: <a href="javascript:;" onmousedown="toggleDiv('regular')">File</a> <a href="javascript:;" onmousedown="toggleDiv('url')">URL</a>
-	<?endif;?> 
-<?
-	$sql = "SELECT COUNT(*) FROM images WHERE queue = 0 AND postTime <= " . time();
-	$result = mysql_query($sql);
-	$result = mysql_fetch_assoc($result);
-?>
-					We have <?echo $result['COUNT(*)'];?> images.
-	<?if($lncln->user->permissions['upload'] == 1):?>
-					<!-- upload form -->
-					<form enctype="multipart/form-data" action="<?=URL;?>upload/" method="post"  id="form" style="display: none;">
-						<div>
-							<input type="hidden" name="type" id="formType" value="regular" />
-							Uploaded files will be moderated<br />
-<?		for($a = 0; $a < 10; $a++){
-			echo "\t\t\t\t\t\t\t<input name='upload$a' id='upload$a' type='file' />\n";
-			echo "\t\t\t\t\t\t\t<br />\n";
-		}?>
-							<input type="submit" value="Upload File" />
-							<br />
-							Max total upload size: <?=ini_get("upload_max_filesize");?>
-						</div>
-					</form>
-	<?endif;?>
-				</div>
-				<div class="headerRow">
-<?
-foreach($lncln->display->rows[3] as $module){
-	if(method_exists($module, "header_link")){
-		echo $lncln->modules[$module]->header_link();
-	}
-}
-?>
-				</div>
-				<div class="headerRow">
-<?
-foreach($lncln->display->rows[4] as $module){
-	if(method_exists($module, "header_link")){
-		echo $lncln->modules[$module]->header_link();
-	}
-}
-?>
-				</div>
 			</div>
 		</div>
 		<div id="mainBody">
 			<br />
-			<?if($lncln->user->permissions['isAdmin'] == 1  && $lncln->moderationOn):?>
-				<div style="text-align: center; position: relative; z-index: 1; padding-bottom: 20px;"><a href="<?=URL;?>admin/moderate.php">Moderate Images</a></div>
-			<?endif;?>	

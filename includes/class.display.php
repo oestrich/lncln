@@ -150,6 +150,22 @@ class Display{
 	}
 	
 	/**
+	 * Display the header links
+	 * @since 0.13.0
+	 */
+	public function show_header_links(){
+		foreach($this->rows as $row){
+			echo "<div class='headerRow'>\n";
+			foreach($row as $module){
+				if(method_exists($module, "header_link")){
+					echo $this->lncln->modules[$module]->header_link() . "\n";
+				}
+			}
+			echo "</div>\n";
+		}
+	}
+	
+	/**
 	 * Shows the footer for current theme
 	 * @since 0.13.0
 	 */
