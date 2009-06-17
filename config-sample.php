@@ -51,4 +51,5 @@ $modules_enabled = array(
 	"queue" => "Queue",
 	"user" => "User",
 	"rss" => "RSS",
+	"upload" => "Upload",
 	);

@@ -163,8 +163,9 @@ class lncln{
 		
 		$this->display->rows = array(
 			1 => array("index", "albums", "obscene", "user"),
+			2 => array("upload"),
 			3 => array("admin", "queue"),
-			4 => array("tags")
+			4 => array("tags"),
 		);
 		
 		foreach($this->modules_enabled as $folder => $class){
@@ -308,6 +309,38 @@ class lncln{
 		if($_SESSION['thumbnail'] == 1){
 			$this->type = "thumb";
 		}
+	}
+	
+	/**
+	 * Returns current number of images
+	 * @since 0.13.0
+	 */
+	public function get_num_images(){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('!COUNT(id) as total'),
+			'table' => 'images',
+			'where' => array(
+				'AND' => array(
+					array(
+						'field' => 'postTime',
+						'compare' => '<=',
+						'value' => time(),
+						),
+					),
+				),
+			);
+		
+		foreach($this->modules as $module){
+			if(method_exists($module, "get_data_sql")){
+				$query['where']['AND'][] = $module->get_data_sql();
+			}
+		}
+		
+		$this->db->query($query);
+		$result = $this->db->fetch_one();
+		
+		return $result['total'];
 	}
 
 	/**
