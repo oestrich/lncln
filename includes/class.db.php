@@ -229,65 +229,89 @@ class Database{
 	 * Creates SQL from provided array
 	 * @since 0.13.0
 	 *
-	 * @param array $query Keys: 'type', 'where', 'order', 'fields', 'limit', 'table'
+	 * @param array $query 
 	 *
 	 * @return string SQL
 	 */
 	public function create_sql($query){
 		switch($query['type']){
 			case "SELECT":
-				$sql = $query['type'] . " ";
-				$sql .= implode(", ", $this->grave_fields($query['fields']));
-				$sql .= " FROM `" . $query['table'] . "`";
-				
-				$sql .= $this->create_where($query['where']);
-				
-				if(is_array($query['order'])){
-					$sql .= " ORDER BY " . implode(", ", $this->grave_fields($query['order'][1])) .
-						" " . $query['order'][0];
-				}
-				
-				if(is_array($query['limit'])){
-					$sql .= " LIMIT " . $query['limit'][0];
-
-					if(isset($query['limit'][1]))
-						$sql .= ", " . $query['limit'][1];
-				}
-				
-				return $sql;
+				return $this->create_sql_select($query);
 			case "UPDATE":
-				$sql = $query['type'] . " ";
-				$sql .= $query['table'] . " ";
-				$sql .= "SET ";
-				
-				foreach($query['set'] as $key => $value){
-					$sql .= "`" . $key . "` = ";
-					
-					if(is_numeric($value)){
-						$sql .= $value;
-					}
-					elseif($value[0] == "!"){
-						$sql .= substr($value, 1);
-					}
-					else{
-						$sql .= "'" . $this->prep_sql($value) . "'";
-					}
-					$sql .= ", ";
-				}
-				
-				$sql = substr($sql, 0, -2);
-				
-				$sql .= $this->create_where($query['where']);
-				
-				if(is_array($query['limit'])){
-					$sql .= " LIMIT " . $query['limit'][0];
-
-					if(isset($query['limit'][1]))
-						$sql .= ", " . $query['limit'][1];
-				}
-				
-				return $sql;
+				return $this->create_sql_update($query);
 		}
+	}
+	
+	/**
+	 * Creates the SELECT SQL
+	 * @since 0.13.0
+	 * 
+	 * @param array $query Select style query array
+	 * 
+	 * @return string Complete query
+	 */
+	public function create_sql_select($query){
+		$sql = $query['type'] . " ";
+		$sql .= implode(", ", $this->grave_fields($query['fields']));
+		$sql .= " FROM `" . $query['table'] . "`";
+		
+		$sql .= $this->create_where($query['where']);
+		
+		if(is_array($query['order'])){
+			$sql .= " ORDER BY " . implode(", ", $this->grave_fields($query['order'][1])) .
+				" " . $query['order'][0];
+		}
+		
+		if(is_array($query['limit'])){
+			$sql .= " LIMIT " . $query['limit'][0];
+	
+			if(isset($query['limit'][1]))
+				$sql .= ", " . $query['limit'][1];
+		}
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create the UPDATE SQL
+	 * @since 0.13.0
+	 * 
+	 * @param array $query Update style query array
+	 * 
+	 * @return string Complete query
+	 */
+	public function create_sql_update($query){
+		$sql = $query['type'] . " ";
+		$sql .= $query['table'] . " ";
+		$sql .= "SET ";
+		
+		foreach($query['set'] as $key => $value){
+			$sql .= "`" . $key . "` = ";
+			
+			if(is_numeric($value)){
+				$sql .= $value;
+			}
+			elseif($value[0] == "!"){
+				$sql .= substr($value, 1);
+			}
+			else{
+				$sql .= "'" . $this->prep_sql($value) . "'";
+			}
+			$sql .= ", ";
+		}
+		
+		$sql = substr($sql, 0, -2);
+		
+		$sql .= $this->create_where($query['where']);
+		
+		if(is_array($query['limit'])){
+			$sql .= " LIMIT " . $query['limit'][0];
+
+			if(isset($query['limit'][1]))
+				$sql .= ", " . $query['limit'][1];
+		}
+		
+		return $sql;
 	}
 	
 	/**
