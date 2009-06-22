@@ -64,8 +64,22 @@ class MainUser{
 				"toQueue" => 1
 				);
 		
-		$sql = "SELECT * FROM users WHERE id = " . $this->userID . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('*'),
+			'table' => 'users',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $this->userID
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+		
 		$row = $this->db->fetch_one();
 		
 		$this->permissions['isAdmin'] = $row['admin'];
@@ -81,8 +95,22 @@ class MainUser{
 	 * @since 0.12.0
 	 */
 	function loadPermissions(){
-		$sql = "SELECT * FROM groups WHERE id = " . $this->group . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('*'),
+			'table' => 'groups',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $this->group,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+		
 		$row = $this->db->fetch_one();
 		
 		foreach($row as $key => $permission){
@@ -114,8 +142,27 @@ class MainUser{
             $this->isUser = false;
         }
     
-        $sql = "SELECT id, name FROM users WHERE name = '" . $username . "' AND password = '" . $password . "'";
-        $this->db->query($sql);
+        $query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'name'),
+			'table' => 'users',
+			'where' => array(
+				'AND' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => $username,
+						),
+					array(
+						'field' => 'password',
+						'compare' => '=',
+						'value' => $password,
+						),
+					),
+				),
+			);
+		
+        $this->db->query($query);
 
         $row = $this->db->fetch_one();
         
@@ -138,19 +185,47 @@ class MainUser{
 	 */
 	 function checkUploadLimit($new = 0){
 	 	if($new == 1){
-			$sql = "UPDATE users " .
-					"SET postTime = " . time() . ", numImages = numImages + 1, uploadCount = uploadCount + 1 " .
-					"WHERE id = '" . $this->userID . "' " .
-					"LIMIT 1"; 
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'users',
+				'set' => array(
+					'postTime' => time(),
+					'numImages' => '!`numImages` + 1',
+					'uploadCount' => '!`uploadCount` + 1',
+					),
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $this->userID
+						),
+					),
+				'limit' => array(1),
+				);
+			
+			$this->db->query($query);
 	 	}
 	 	
-	 	$sql = "SELECT postTime, numImages FROM users WHERE id = " . $this->userID;
-	 	$result = mysql_query($sql);
-	 	$row = mysql_fetch_assoc($result);
+	 	$query = array(
+	 		'type' => 'SELECT',
+	 		'fields' => array('postTime', 'numImages'),
+	 		'table' => 'users',
+	 		'where' => array(
+	 			array(
+	 				'field' => 'id',
+	 				'compare' => '=',
+	 				'value' => $this->userID,
+	 				),
+	 			),
+	 		);
+	 	
+		$this->db->query($query);
+	 	$row = $this->db->fetch_one();
 	 	
 	 	//Number images <= group limit goto homepage, if 0 unlimited
-	 	if($row['numImages'] <= $this->permissions['numIndex'] || ($this->permissions['index'] == 1 && $this->permissions['numIndex'] == 0)){
+	 	if($row['numImages'] <= $this->permissions['numIndex'] || 
+	 		($this->permissions['index'] == 1 && $this->permissions['numIndex'] == 0)){
+	 		
 	 		$this->permissions['toQueue'] = 0;
 	 	}
 	 	else{
@@ -159,8 +234,24 @@ class MainUser{
 	 	
 	 	//If over 24 hrs later, reset number images
 	 	if(date('d', $row['postTime']) != date('d', time())){
-	 		$sql = "UPDATE users SET postTime = " . time() . ", numImages = " . $new . " WHERE id = '" . $this->userID . "' LIMIT 1"; 
-			$this->db->query($sql);
+	 		$query = array(
+	 			'type' => 'UPDATE',
+	 			'table' => 'users',
+	 			'set' => array(
+	 				'postTime' => time(),
+	 				'numImages' => 1,
+	 				),
+	 			'where' => array(
+	 				array(
+	 					'field' => 'id',
+	 					'compare' => '=',
+	 					'value' => $this->userID,
+	 					),
+	 				),
+	 			'limit' => array(1),
+	 			);
+	 		
+			$this->db->query($query);
 			
 			$this->permissions['toQueue'] = 0;
 	 	}
@@ -182,14 +273,30 @@ class MainUser{
 	function updateUser($user){
 		$username = $this->db->prep_sql($user['username']);
 		$obscene = $this->db->prep_sql($user['obscene']);
+		$password = array();		
 		
-		if($user['password'] != "" && $user['newPassword'] != "" && $user['newPasswordConfirm'] != ""){
+		if($user['password'] != "" && $user['newPassword'] != "" && 
+			$user['newPasswordConfirm'] != ""){
+			
 			$oldPassword = $this->db->prep_sql($user['password']);
 			$newPassword = $this->db->prep_sql($user['newPassword']);
 			$newPasswordConfirm = $this->db->prep_sql($user['newPasswordConfirm']);
 			
-			$sql = "SELECT password FROM users WHERE name = '" . $username . "' LIMIT 1";
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'SELECT',
+				'fields' => array('password'),
+				'table' => 'users',
+				'where' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => $username,
+						),
+					),
+				'limit' => array(1),
+				);
+			
+			$this->db->query($query);
 			
 			$row = $this->db->fetch_one();
 			
@@ -201,13 +308,31 @@ class MainUser{
 				return "Passwords do not match";
 			}
 			
-			$password = "password = '" . $newPassword . "',";
+			$password = array(
+				'password' => $newPassword,
+				);
 			
 			setcookie("password", $newPassword, time() + (60 * 60 * 24));
 		}
 		
-		$sql = "UPDATE users SET " . $password . " obscene = " . $obscene . " WHERE name = '" . $username . "' LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'users',
+			'set' => array(
+				'obscene' => $obscene,
+				),
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $username,
+					),
+				),
+			'limit' => array(1),
+			);
+		$query['set'] = array_merge($query['set'], $password);
+			
+		$this->db->query($query);
 		
 		setcookie('obscene', $obscene, time() + (60 * 60 * 24), URL);
 	
