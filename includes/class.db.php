@@ -286,7 +286,7 @@ class Database{
 	 */
 	public function create_sql_update($query){
 		$sql = $query['type'] . " ";
-		$sql .= $query['table'] . " ";
+		$sql .= '`' . $query['table'] . '` ';
 		$sql .= "SET ";
 		
 		foreach($query['set'] as $key => $value){
