@@ -18,6 +18,9 @@
  * @return array An array of queries that need to be run
  */
 function index_install(){
+	/**
+	 * @todo Remove parts not required by the index module and seperate them into their own modules
+	 */
 	$schema[] = array(
 		'type' => 'CREATE TABLE',
 		'table' => 'images',
