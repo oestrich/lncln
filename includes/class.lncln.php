@@ -216,24 +216,30 @@ class lncln{
 		}
 	
 		if($type == "gif"){
-			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "images/full/" . $img . "[0] " . ABSPATH . "images/thumb/" . $img . ".jpg";
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . 
+						"images/full/" . $img . "[0] " . ABSPATH . "images/thumb/" . $img . ".jpg";
 			exec($command);
 			
-			$command = "convert " . ABSPATH . "images/thumb/" . $img . ".jpg " . ABSPATH . "images/thumb/" . $img;
+			$command = "convert " . ABSPATH . "images/thumb/" . $img . ".jpg " . ABSPATH . 
+						"images/thumb/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . "images/full/" . $img . " " . ABSPATH . "images/thumb/" . $img;
+			$command = "convert -resize '" . $thumb . "' -quality 35 " . ABSPATH . 
+						"images/full/" . $img . " " . ABSPATH . "images/thumb/" . $img;
 		}
 		exec($command);
 		
 		if($type == "gif"){
-			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "images/full/" . $img . "[0] " . ABSPATH . "images/index/" . $img . ".jpg";		
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . 
+						"images/full/" . $img . "[0] " . ABSPATH . "images/index/" . $img . ".jpg";		
 			exec($command);
 			
-			$command = "convert " . ABSPATH . "images/index/" . $img . ".jpg " . ABSPATH . "images/index/" . $img;
+			$command = "convert " . ABSPATH . "images/index/" . $img . ".jpg " . 
+						ABSPATH . "images/index/" . $img;
 		}
 		else{
-			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . "images/full/" . $img . " " . ABSPATH . "images/index/" . $img;
+			$command = "convert -resize '" . $norm . "' -quality 35 " . ABSPATH . 
+						"images/full/" . $img . " " . ABSPATH . "images/index/" . $img;
 		}
 		exec($command);
 		
@@ -253,7 +259,8 @@ class lncln{
 			return;
 		}
 		
-		$time = !$this->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
+		$time = !$this->user->permissions['isAdmin'] ? 
+			array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
 		
 		$query = array(
 			'type' => 'SELECT',
@@ -345,14 +352,13 @@ class lncln{
 
 	/**
 	 * Creates the Prev Next links on the page
-	 * @todo Rename to prev_next()
 	 * @since 0.5.0
 	 * 
 	 * @param $bottom bool If it's a bottom link
 	 * 
 	 * @return string Contains the links Prev Next
 	 */
-	function prevNext($bottom = false){
+	function prev_next($bottom = false){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
 		$script = URL . $this->module . "/";
@@ -366,25 +372,37 @@ class lncln{
 		
 		$script .= $tempParams;
 		
-		$output = $bottom == true ? "<div id='bPrevNext'>" : "<div class='prev_next'>";
+		$output = $bottom == true ? "<div id='bPrevNext'>\n" : "<div class='prev_next'>\n";
 		
 		if ($this->page == 1 && $this->page != $this->maxPage){
-	        $output .= "<a href='" . $script . ($this->page + 1) . "' >Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page + 1) . "' >Next page</a>\n";
 	    }
 	    elseif(($this->page == 1 && $this->page == $this->maxPage) || $this->page == 0){
 	    	$output .= "";
 	    }
 	    elseif($this->page == $this->maxPage){
-	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>\n";
 	    }
 	    else{
-	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>
-	        <a href='" . $script . ($this->page + 1) . "' >Next page</a>";
+	        $output .= "<a href='" . $script . ($this->page - 1) . "' >Prev page</a>\n" . 
+	        			"<a href='" . $script . ($this->page + 1) . "' >Next page</a>";
 	    }
 	    
-	    $output .= $bottom == true ? "</div>" : "</div>";
+	    $output .= $bottom == true ? "</div>\n" : "</div>\n";
 	    
 	    return $output;
+	}
+	
+	/**
+	 * Temporary link function for old prev_next() name
+	 * @deprecated 
+	 * 
+	 * @param $bottom bool If it's a bottom link
+	 * 
+	 * @return string Contains the links Prev Next
+	 */
+	function prevNext($bottom = false){
+		return $this->prev_next($bottom);
 	}
 
 	/**
@@ -397,8 +415,24 @@ class lncln{
 	function dequeue($image){
 		$id = $this->db->prep_sql($image);
 		
-		$sql = "UPDATE images SET queue = 0, report = 0 WHERE id = " . $id . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'images',
+			'set' => array(
+				'queue' => 0,
+				'report' => 0,
+				),
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
 	}
 		
 	/**
@@ -411,8 +445,22 @@ class lncln{
 	 * @return string Whether it deleted it or not
 	 */
 	function delete($image){
-		$sql = "SELECT type FROM images WHERE id = " . $image . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('type'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $image,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+		
 		if($this->db->num_rows() == 1){
 			$type = $this->db->fetch_one();
 		}
@@ -421,9 +469,9 @@ class lncln{
 		}
 	
 		$sql = "DELETE FROM images WHERE id = " . $image . " LIMIT 1";
-		mysql_query($sql);
+		$this->db->query($sql);
 		
-		//use and @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
+		//use an @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
 		@unlink(ABSPATH . "images/full/" . $image . "." . $type['type']);
 		@unlink(ABSPATH . "images/thumb/" . $image . "." . $type['type']);
 		@unlink(ABSPATH . "images/index/" . $image . "." . $type['type']);
@@ -458,8 +506,22 @@ class lncln{
 	 */
 	function increaseView($image){
 		if(is_numeric($image)){
-			$sql = "UPDATE images SET view = view + 1 WHERE id = " . $image;
-			$this->db->query($sql);
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'images',
+				'set' => array(
+					'view' => '!`view` + 1',
+					),
+				'where' => array(
+					array(
+						'field' => 'id',
+						'compare' => '=',
+						'value' => $image,
+						),
+					),
+				);
+			
+			$this->db->query($query);
 		}
 	}
 		
@@ -472,8 +534,16 @@ class lncln{
 	 * @return string The Latest news
 	 */
 	function getNews(){
-		$sql = "SELECT news, postTime, title FROM `news` ORDER BY id DESC LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('news', 'postTime', 'title'),
+			'table' => 'news',
+			'order' => array('DESC', array('id')),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+		
 		$row = $this->db->fetch_one();
 		
 		return $row;
@@ -493,8 +563,21 @@ class lncln{
 		if(!is_numeric((int)$id))
 			return "";
 		
-		$sql = "SELECT type FROM images WHERE id = " . $id . " LIMIT 1";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('type'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
 		
 		if($this->db->num_rows() == 1){
 			$row = $this->db->fetch_one();
