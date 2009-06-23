@@ -11,34 +11,9 @@
  * @package lncln
  */ 
 
-if(isset($_GET['thumb'])){
-	$extra = "&thumb=true";
-}
-
-$extra .= str_replace("&amp;", "&", $lncln->extra);
-
-$scriptLocation = $lncln->script == "image.php" ? 
-	$scriptLocation = URL . $lncln->script . "?img=" . $_GET['img'] . $extra :
-	URL . $lncln->script . "?page=" . $_GET['page'] . $extra;
-
-if($_GET['post'] == true){
-	$lncln->upload();
-	header("location:". URL . "index.php");
-	exit();
-}
-
-if(isset($_GET['delete']) && $lncln->user->permissions['delete'] == 1){
-	$deletion = $lncln->delete($_GET['delete']);
-	header("location:" . $scriptLocation . "#" . $_GET['delete']);
-	exit();
-}
-
-if(isset($_GET['obscene']) && $lncln->user->permissions['obscene'] == 1){
-	$obscene = $lncln->obscene($_GET['obscene']);
-	header("location:" . $scriptLocation . "#" . $_GET['obscene']);
-	exit();
-}
-
+/*
+ * Doesn't work
+ * @todo make it its own module or integrate it into the module with thumbnail
 if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	$id = $this->db->prep_sql($_GET['refresh']);
 	
@@ -52,6 +27,7 @@ if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	header("location:" . $scriptLocation . "#" . $_GET['refresh']);
 	exit();
 }
+*/
 
 if($lncln->module == "thumbnail"){
 	$_SESSION['thumbnail'] = $lncln->params[0] == "on" ? 1 : 0;
@@ -60,7 +36,9 @@ if($lncln->module == "thumbnail"){
 }
 
 foreach($lncln->modules as $module){
-	if($lncln->action == true && $lncln->module == strtolower($module->name) && $lncln->user->permissions[strtolower($module->name)] == 1){
+	if($lncln->action == true && $lncln->module == strtolower($module->name) && 
+		$lncln->user->permissions[strtolower($module->name)] == 1){
+		
 		if(!isset($_POST['id']) || $_POST['id'] == "")
 			$id = end($lncln->params);
 		else
@@ -75,4 +53,3 @@ foreach($lncln->modules as $module){
 		exit();
 	}
 }
-?>
