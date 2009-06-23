@@ -55,8 +55,14 @@ class Display{
 		
 		$this->lncln = $lncln;
 		
-		$sql = "SELECT * FROM settings";
-		$this->db->query($sql);
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('*'),
+			'table' => 'settings',
+			);
+		
+		$this->db->query($query);
+		
 		$results = $this->db->fetch_all();
 				
 		foreach($results as $row){
@@ -87,14 +93,16 @@ class Display{
 	 * @return string Links to css
 	 */
 	function include_css(){
-		$output = "\t<link type='text/css' rel='stylesheet' href='" . URL . "theme/" . THEME . "/style.css' />\n";
+		$output = "\t<link type='text/css' rel='stylesheet' href='" . URL . "theme/" . 
+					THEME . "/style.css' />\n";
 		
 		foreach($this->lncln->modules as $module){
 			$name = strtolower($module->name);
 			$file = "modules/" . $name . "/" . $name . ".css";
 			
 			if(file_exists(ABSPATH . $file)){
-				$output .= "\t<link type='text/css' rel='stylesheet' href='" . URL . $file . "' />\n";
+				$output .= "\t<link type='text/css' rel='stylesheet' href='" . 
+							URL . $file . "' />\n";
 			}
 		}
 		
