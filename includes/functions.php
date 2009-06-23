@@ -52,16 +52,19 @@ function tempName($name){
 function createInput($input, $id, $extra = ""){
 	switch($input['type']){
 		case "text":
-			return "<input type='text' name='images[$id][" . $input['name'] . "]' value='" . $input['value'] . "' " . $extra . " />";
+			return "<input type='text' name='images[$id][" . $input['name'] . 
+					"]' value='" . $input['value'] . "' " . $extra . " />";
 		case "textarea":
-			return "<textarea name='images[$id][" . $input['name'] . "]' " . $extra . " rows='10' cols='50'>" . $input['value'] . "</textarea>";
+			return "<textarea name='images[$id][" . $input['name'] . "]' " . 
+					$extra . " rows='10' cols='50'>" . $input['value'] . "</textarea>";
 		case "select":
 			$output = "<select name='images[$id][" . $input['name'] . "]' " . $extra . ">";
 			
 			foreach($input['options'] as $option){
 				$selected = $option['name'] == $input['value'] ? "selected" : "";
 				
-				$output .= "<option value='" . $option['id'] . "' $selected>" . $option['name'] . "</option>";
+				$output .= "<option value='" . $option['id'] . "' $selected>" . 
+							$option['name'] . "</option>";
 			}
 			
 			$output .= "</select>";
@@ -81,7 +84,8 @@ function create_form($form){
 		$file = " enctype='multipart/form-data' ";
 	}
 	
-	$output .= "<form action='" . URL . $form['action'] . "' method='" . $form['method'] ."' $file>\n";
+	$output .= "<form action='" . URL . $form['action'] . "' method='" . 
+				$form['method'] ."' $file>\n";
 	$output .= "\t<div>\n";
 	$output .= "\t\t<table>\n";
 	
@@ -91,14 +95,17 @@ function create_form($form){
 		switch($input['type']){
 			case 'text':
 				$output .= "\t\t\t\t<td>" . $input['title'] . ":</td>\n";
-				$output .= "\t\t\t\t<td><input type='text' name='" . $input['name'] . "' value='" . $input['value'] . "'/></td>\n";
+				$output .= "\t\t\t\t<td><input type='text' name='" . $input['name'] . 
+							"' value='" . $input['value'] . "'/></td>\n";
 				break;
 			case 'password':
 				$output .= "\t\t\t\t<td>" . $input['title'] . ":</td>\n";
-				$output .= "\t\t\t\t<td><input type='password' name='" . $input['name'] . "'/></td>\n";
+				$output .= "\t\t\t\t<td><input type='password' name='" . 
+							$input['name'] . "'/></td>\n";
 				break;
 			case 'hidden':
-				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . $input['name'] ."' value='" . $input['value'] . "'></td>\n";
+				$output .= "\t\t\t\t<td colspan='2'><input type='hidden' name='" . 
+					$input['name'] ."' value='" . $input['value'] . "'></td>\n";
 				break;
 			case 'select':
 				$output .= "\t\t\t\t<td>" . $input['title'] . ":</td>\n";
@@ -111,13 +118,15 @@ function create_form($form){
 						$selected = "";
 					}
 					
-					$output .= "\t\t\t\t\t<option value='" . $option['value'] . "'$selected>" . $option['name'] . "</option>\n";
+					$output .= "\t\t\t\t\t<option value='" . $option['value'] . 
+								"'$selected>" . $option['name'] . "</option>\n";
 				}
 				$output .= "\t\t\t\t</select></td>\n";
 				break;
 			case 'textarea':
 				$output .= "\t\t\t\t<td>" . $input['title'] . ":</td>\n";
-				$output .= "\t\t\t\t<td><textarea name='" . $input['name'] . "'  rows='10' cols='50'>" . $input['value'] . "</textarea>";
+				$output .= "\t\t\t\t<td><textarea name='" . $input['name'] . 
+							"' rows='10' cols='50'>" . $input['value'] . "</textarea>";
 				break;
 			case 'description':
 				$output .= "\t\t\t\t<td colspan='2'>" . $input['title'] . "</td>\n";
