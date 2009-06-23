@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * module.php
  * 
@@ -388,4 +388,3 @@ class Tags extends Module{
 		return str_replace("+", " ", $string);
 	}
 }
-?>
