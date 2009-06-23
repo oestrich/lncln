@@ -77,7 +77,9 @@ class Database{
 	 * @since 0.13.0
 	 */
 	public function connect(){
-		$this->conn = @mysql_connect($this->config['server'], $this->config['username'], $this->config['password']);
+		$this->conn = @mysql_connect($this->config['server'], 
+										$this->config['username'], 
+										$this->config['password']);
 		
 		if(!$this->conn){
 			echo mysql_error();
@@ -259,7 +261,7 @@ class Database{
 		
 		if(is_array($query['order'])){
 			$sql .= " ORDER BY " . implode(", ", $this->grave_fields($query['order'][1])) .
-				" " . $query['order'][0];
+					" " . $query['order'][0];
 		}
 		
 		if(is_array($query['limit'])){
@@ -390,7 +392,8 @@ class Database{
 				}
 				if(array_key_exists("field", $query[$key])){
 					$string = "`" . $query[$key]['field'] . "` " . $query[$key]['compare'] . " ";
-					$string .= is_numeric($query[$key]['value']) ? $query[$key]['value'] : "'" . $this->prep_sql($query[$key]['value']) . "'";
+					$string .= is_numeric($query[$key]['value']) ? 
+						$query[$key]['value'] : "'" . $this->prep_sql($query[$key]['value']) . "'";
 					
 					$sql[] = $string;
 				}
