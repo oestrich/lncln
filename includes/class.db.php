@@ -241,6 +241,8 @@ class Database{
 				return $this->create_sql_select($query);
 			case "UPDATE":
 				return $this->create_sql_update($query);
+			case 'CREATE TABLE':
+				return $this->create_sql_create_Table($query);
 		}
 	}
 	
@@ -311,6 +313,85 @@ class Database{
 
 			if(isset($query['limit'][1]))
 				$sql .= ", " . $query['limit'][1];
+		}
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create the CREATE TABLE SQL
+	 * @since 0.13.0
+	 * 
+	 * @param array $query CREATE TABLE style array
+	 * 
+	 * @return string Complete query
+	 */
+	public function create_sql_create_table($query){
+		$sql = "CREATE TABLE IF NOT EXISTS ";
+		$sql .= '`' . $query['table'] . "` (\n";
+		
+		foreach($query['fields'] as $field => $desc){
+			$sql .= '  `' . $field . '` ';
+			
+			$sql .= $this->create_sql_type($desc);
+			
+			// auto_increment, unsigned, etc	
+			if(isset($desc['attributes'])){
+				foreach($desc['attributes'] as $key => $attr){
+					if($attr == true){
+						$sql .= strtoupper($key) . ' ';
+					}
+				}
+			}
+			
+			$sql .= $desc['null'] == true ? 'NULL ' : 'NOT NULL ';
+			
+			if(isset($desc['default']))
+				$sql .= "default '" . $desc['default'] . "' ";
+			
+			$sql .= ",\n";
+		}
+		
+		if(isset($query['primary key'])){
+			$sql .= "  PRIMARY KEY (";
+			$query['primary key'] = $this->grave_fields($query['primary key']);
+			
+			$sql .= implode(", ", $query['primary key']);
+			$sql .= "),\n";
+		}
+		
+		$sql = substr($sql, 0, -2) . "\n);";
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create the type part of the CREATE TABLE SQL
+	 * @since 0.13.0
+	 * 
+	 * @param array $query The descriptors of each field
+	 * 
+	 * @return string Complete type section
+	 */
+	public function create_sql_type(&$query){
+		$sql = $query['type'] . " ";
+		
+		if(isset($query['size'])){
+			$sql .= '( ';
+			switch($query['type']){
+				case 'enum':
+					foreach($query['options'] as &$option){
+						$option = "'" . $option . "'";
+					}
+				
+					$sql .= implode(', ', $query['options']);
+					break;
+				
+				default:
+					$sql .= $query['size'];
+			}
+			
+			$sql .= ' ) ';
 		}
 		
 		return $sql;
