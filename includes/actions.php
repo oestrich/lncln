@@ -11,9 +11,11 @@
  * @package lncln
  */ 
 
-/*
+/**
  * Doesn't work
  * @todo make it its own module or integrate it into the module with thumbnail
+ */
+/*
 if(isset($_GET['refresh']) && $lncln->user->permissions['refresh'] == 1){
 	$id = $this->db->prep_sql($_GET['refresh']);
 	
