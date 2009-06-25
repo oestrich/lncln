@@ -14,6 +14,7 @@
 /**
  * Called when module is first enabled.
  * @todo Move news into it's own module
+ * @todo Move settings into admin module
  * @since 0.13.0
  * 
  * @return array An array of queries that need to be run
@@ -121,6 +122,32 @@ function index_install(){
 				),
 			'news' => array(
 				'type' => 'text',
+				'null' => false,
+				),
+			),
+		'primary key' => array('id'),
+		);
+	
+	$schema[] = array(
+		'type' => 'CREATE TABLE',
+		'table' => 'settings',
+		'fields' => array(
+			'id' => array(
+				'id' => 'int',
+				'size' => 11,
+				'null' => false,
+				'attributes' => array(
+					'auto_increment' => true,
+					),
+				),
+			'name' => array(
+				'type' => 'varchar',
+				'size' => 255,
+				'null' => false,
+				),
+			'value' => array(
+				'type' => 'varchar',
+				'size' => 255,
 				'null' => false,
 				),
 			),
