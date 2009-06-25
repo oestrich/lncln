@@ -285,6 +285,8 @@ class Database{
 				return $this->create_sql_update($query);
 			case 'CREATE TABLE':
 				return $this->create_sql_create_Table($query);
+			case 'INSERT':
+				return $this->create_sql_insert($query);
 		}
 	}
 	
@@ -356,6 +358,41 @@ class Database{
 			if(isset($query['limit'][1]))
 				$sql .= ", " . $query['limit'][1];
 		}
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create INSERT SQL
+	 * @since 0.13.0
+	 * 
+	 * @param array $query INSERT style array
+	 * 
+	 * @return string Complete SQL
+	 */
+	public function create_sql_insert($query){
+		$sql = 'INSERT INTO ';
+		$sql .= '`' . $query['table'] . '` ';
+		$sql .= '(';
+		$sql .= implode(', ', $this->create_sql_grave_fields($query['fields']));
+		$sql .= ") VALUES \n";
+		
+		foreach($query['values'] as $row){
+			$sql .= '( ';
+			foreach($row as $value){
+				if(is_numeric($value)){
+					$sql .= $value;
+				}
+				else{
+					$sql .= "'" . $value . "'";
+				}
+				$sql .= ', ';
+			}
+				
+			$sql = substr($sql, 0, -2) . "),\n";
+		}
+		
+		$sql = substr($sql, 0, -2);
 		
 		return $sql;
 	}
