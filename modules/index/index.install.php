@@ -13,6 +13,7 @@
 
 /**
  * Called when module is first enabled.
+ * @todo Move news into it's own module
  * @since 0.13.0
  * 
  * @return array An array of queries that need to be run
@@ -91,6 +92,36 @@ function index_install(){
 				'size' => 2,
 				'null' => false,
 				'default' => 0,
+				),
+			),
+		'primary key' => array('id'),
+		);
+	
+	$schema[] = array(
+		'type' => 'CREATE TABLE',
+		'table' => 'news',
+		'fields' => array(
+			'id' => array(
+				'type' => 'int',
+				'size' => 8,
+				'null' => false,
+				'attributes' => array(
+					'auto_increment' => truem
+					),
+				),
+			'postTime' => array(
+				'type' => 'int',
+				'size' => 32,
+				'null' => false,
+				),
+			'title' => array(
+				'type' => 'varchar',
+				'size' => 50,
+				'null' => false,
+				),
+			'news' => array(
+				'type' => 'text',
+				'null' => false,
 				),
 			),
 		'primary key' => array('id'),
