@@ -11,8 +11,14 @@
  * @package lncln
  */
 
+/**
+ * Called when module is first enabled.
+ * @since 0.13.0
+ * 
+ * @return array An array of queries that need to be run
+ */
 function obscene_install(){
-	$schema = array(
+	$schema[] = array(
 		'type' => 'CREATE TABLE',
 		'table' => 'images',
 		'fields' => array(
