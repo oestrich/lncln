@@ -107,5 +107,33 @@ function groups_install(){
 		'primary key' => array('id'),
 		);
 	
+	$schema[] = array(
+		'type' => 'INSERT',
+		'table' => 'groups',
+		'fields' => array(
+			'id',
+			'name',
+			'upload',
+			'index',
+			'numIndex',
+			'report',
+			'reportValue',
+			'ratings',
+			'ratingsValue',
+			'obscene',
+			'refresh',
+			'delete',
+			'captions',
+			'tags',
+			'albums',
+			),
+		'values' => array(
+			array(1, 'Anonymous', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+			array(2, 'New User', 1, 1, 5, 1, 3, 1, 1, 0, 0, 0, 0, 1, 0),
+			array(3, 'Trusted User', 1, 1, 20, 1, 5, 1, 3, 1, 0, 0, 1, 1, 1),
+			array(4, 'Admin', 1, 1, 0, 1, 5, 1, 5, 1, 1, 1, 1, 1, 1),
+			),
+		);
+	
 	return $schema;
 }
