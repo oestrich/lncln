@@ -8,7 +8,7 @@
  * @version 0.13.0 $Id$
  * @license license.txt GNU General Public License version 3
  * 
- * @package
+ * @package lncln
  */
 
 /**
