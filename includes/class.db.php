@@ -256,13 +256,13 @@ class Database{
 	 */
 	public function create_sql_select($query){
 		$sql = "SELECT ";
-		$sql .= implode(", ", $this->grave_fields($query['fields']));
+		$sql .= implode(", ", $this->create_sql_grave_fields($query['fields']));
 		$sql .= " FROM `" . $query['table'] . "`";
 		
-		$sql .= $this->create_where($query['where']);
+		$sql .= $this->create_sql_where($query['where']);
 		
 		if(is_array($query['order'])){
-			$sql .= " ORDER BY " . implode(", ", $this->grave_fields($query['order'][1])) .
+			$sql .= " ORDER BY " . implode(", ", $this->create_sql_grave_fields($query['order'][1])) .
 					" " . $query['order'][0];
 		}
 		
@@ -306,7 +306,7 @@ class Database{
 		
 		$sql = substr($sql, 0, -2);
 		
-		$sql .= $this->create_where($query['where']);
+		$sql .= $this->create_sql_where($query['where']);
 		
 		if(is_array($query['limit'])){
 			$sql .= " LIMIT " . $query['limit'][0];
@@ -334,7 +334,7 @@ class Database{
 		
 		if(isset($query['primary key'])){
 			$sql .= "  PRIMARY KEY (";
-			$query['primary key'] = $this->grave_fields($query['primary key']);
+			$query['primary key'] = $this->create_sql_grave_fields($query['primary key']);
 			
 			$sql .= implode(", ", $query['primary key']);
 			$sql .= "),\n";
@@ -442,7 +442,7 @@ class Database{
 	 *
 	 * @return array
 	 */
-	public function grave_fields($fields){
+	public function create_sql_grave_fields($fields){
 		foreach($fields as &$field){
 			if($field == '*')
 				continue;
@@ -464,7 +464,7 @@ class Database{
 	 *
 	 * @return string Complete WHERE seciont
 	 */
-	public function create_where($where){
+	public function create_sql_where($where){
 		if(!is_array($where)){
 			return "";
 		}
