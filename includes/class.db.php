@@ -228,6 +228,48 @@ class Database{
 	}
 	
 	/**
+	 * Starts the timer
+	 * @since 0.13.0
+	 */
+	public function start_timer(){
+		$this->time_start = microtime(true);
+	}
+	
+	/**
+	 * Stops the timer and adds to the total
+	 * @since 0.13.0
+	 */
+	public function stop_timer(){
+		$this->total_time += microtime(true) - $this->time_start;
+	}
+	
+	/**
+	 * Prepares SQL for querying
+	 * @since 0.13.0
+	 * 
+	 * @param string $sql SQL
+	 * 
+	 * @return "clean" SQL
+	 */
+	public function prep_sql($sql){
+		if(!$this->conn){
+			$this->connect();
+		}
+		
+		return mysql_real_escape_string($sql);
+	}
+	
+	/**
+	 * Print out total number of queries from a page
+	 * @since 0.13.0
+	 * 
+	 * @return int Number of queries
+	 */
+	public function get_queries(){
+		return $this->num_queries;
+	}
+	
+	/**
 	 * Creates SQL from provided array
 	 * @since 0.13.0
 	 *
@@ -519,47 +561,5 @@ class Database{
 		}
 		
 		return $sql;
-	}
-	
-	/**
-	 * Starts the timer
-	 * @since 0.13.0
-	 */
-	public function start_timer(){
-		$this->time_start = microtime(true);
-	}
-	
-	/**
-	 * Stops the timer and adds to the total
-	 * @since 0.13.0
-	 */
-	public function stop_timer(){
-		$this->total_time += microtime(true) - $this->time_start;
-	}
-	
-	/**
-	 * Prepares SQL for querying
-	 * @since 0.13.0
-	 * 
-	 * @param string $sql SQL
-	 * 
-	 * @return "clean" SQL
-	 */
-	public function prep_sql($sql){
-		if(!$this->conn){
-			$this->connect();
-		}
-		
-		return mysql_real_escape_string($sql);
-	}
-	
-	/**
-	 * Print out total number of queries from a page
-	 * @since 0.13.0
-	 * 
-	 * @return int Number of queries
-	 */
-	public function get_queries(){
-		return $this->num_queries;
 	}
 }
