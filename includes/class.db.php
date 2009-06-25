@@ -255,7 +255,7 @@ class Database{
 	 * @return string Complete query
 	 */
 	public function create_sql_select($query){
-		$sql = $query['type'] . " ";
+		$sql = "SELECT ";
 		$sql .= implode(", ", $this->grave_fields($query['fields']));
 		$sql .= " FROM `" . $query['table'] . "`";
 		
@@ -285,7 +285,7 @@ class Database{
 	 * @return string Complete query
 	 */
 	public function create_sql_update($query){
-		$sql = $query['type'] . " ";
+		$sql = "UPDATE ";
 		$sql .= '`' . $query['table'] . '` ';
 		$sql .= "SET ";
 		
