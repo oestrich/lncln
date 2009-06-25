@@ -133,7 +133,7 @@ function index_install(){
 		'table' => 'settings',
 		'fields' => array(
 			'id' => array(
-				'id' => 'int',
+				'type' => 'int',
 				'size' => 11,
 				'null' => false,
 				'attributes' => array(
@@ -152,6 +152,22 @@ function index_install(){
 				),
 			),
 		'primary key' => array('id'),
+		);
+	
+	$schema[] = array(
+		'type' => 'INSERT',
+		'table' => 'settings',
+		'fields' => array('id', 'name', 'value'),
+		'values' => array(
+			array(1, 'title', 'The Archive'),
+			array(2, 'version', '0.12.1'),
+			array(3, 'theme', 'bbl'),
+			array(4, 'perpage', '3'),
+			array(5, 'tbp', '10'),
+			array(6, 'default_group', '2'),
+			array(7, 'register', '1'),
+			array(8, 'default_rss_keyword', 'safe'),
+			),
 		);
 	
 	return $schema;
