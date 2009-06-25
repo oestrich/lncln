@@ -330,27 +330,7 @@ class Database{
 		$sql = "CREATE TABLE IF NOT EXISTS ";
 		$sql .= '`' . $query['table'] . "` (\n";
 		
-		foreach($query['fields'] as $field => $desc){
-			$sql .= '  `' . $field . '` ';
-			
-			$sql .= $this->create_sql_type($desc);
-			
-			// auto_increment, unsigned, etc	
-			if(isset($desc['attributes'])){
-				foreach($desc['attributes'] as $key => $attr){
-					if($attr == true){
-						$sql .= strtoupper($key) . ' ';
-					}
-				}
-			}
-			
-			$sql .= $desc['null'] == true ? 'NULL ' : 'NOT NULL ';
-			
-			if(isset($desc['default']))
-				$sql .= "default '" . $desc['default'] . "' ";
-			
-			$sql .= ",\n";
-		}
+		$sql .= $this->create_sql_table_fields($query['fields']);
 		
 		if(isset($query['primary key'])){
 			$sql .= "  PRIMARY KEY (";
@@ -392,6 +372,63 @@ class Database{
 			}
 			
 			$sql .= ' ) ';
+		}
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create ALTER style SQL.
+	 * @since 0.13.0 
+	 * 
+	 * @param array $query ALTER TABLE style array
+	 * 
+	 * @return string Complete SQL
+	 */
+	public function create_sql_alter_table($query){
+		$sql = "ALTER TABLE ";
+		$sql .= '`' . $query['table'] . '` ';
+		switch($query['option']){
+			case 'add column':
+				$sql .= "ADD (\n";
+				$sql .= $this->create_sql_table_fields($query['fields']);
+				break;
+		}
+		
+		$sql = substr($sql, 0, -2) . "\n)";
+		
+		return $sql;
+	}
+	
+	/**
+	 * Make field section for both c_s_create_table() and c_s_alter_table()
+	 * @since 0.13.0
+	 * 
+	 * @param array $fields 'fields' section of array
+	 * 
+	 * @return string Fields section of SQL
+	 */
+	public function create_sql_table_fields($fields){
+		foreach($fields as $field => $desc){
+			$sql .= '  `' . $field . '` ';
+			
+			$sql .= $this->create_sql_type($desc);
+			
+			// auto_increment, unsigned, etc	
+			if(isset($desc['attributes'])){
+				foreach($desc['attributes'] as $key => $attr){
+					if($attr == true){
+						$sql .= strtoupper($key) . ' ';
+					}
+				}
+			}
+			
+			$sql .= $desc['null'] == true ? 'NULL ' : 'NOT NULL ';
+			
+			if(isset($desc['default']))
+				$sql .= "default '" . $desc['default'] . "' ";
+			
+			$sql .= ",\n";
 		}
 		
 		return $sql;
