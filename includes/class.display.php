@@ -66,7 +66,7 @@ class Display{
 		$results = $this->db->fetch_all();
 				
 		foreach($results as $row){
-			$this->settings[$row['name']] = $row['value'];
+			$this->settings[$row['name']] = unserialize($row['value']);
 		}
 		
 		define("THEME", $this->settings['theme']);

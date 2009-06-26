@@ -95,6 +95,11 @@ class lncln{
 	public $action = false;
 	
 	/**
+	 * @var array Settings for lncln
+	 */
+	public $settings = array();
+	
+	/**
 	 * Gets the class ready for action!
 	 * @since 0.6.0
 	 * 
@@ -133,6 +138,8 @@ class lncln{
 			$this->module = "index";
 			$_SESSION['URL'] = $this->module;
 		}
+		
+		$this->settings_load();
 	}
 	
 	/**
@@ -607,5 +614,51 @@ class lncln{
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Load settings from the database
+	 * @since 0.13.0
+	 */
+	public function settings_load(){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('name', 'value'),
+			'table' => 'settings',
+			);
+		
+		$this->db->query($query);
+		
+		foreach($this->db->fetch_all() as $row){
+			$this->settings[$row['name']] = unserialize($row['value']);
+		}
+	}
+	
+	/**
+	 * Change a setting for lncln
+	 * @since 0.13.0
+	 * 
+	 * @param string $name Setting name
+	 * @param mixed $value Value to be saved
+	 */
+	public function setting_set($name, $value){
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'settings',
+			'set' => array(
+				'value' => serialize($value),
+				),
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => $name,
+					),
+				), 
+			);
+		
+		$this->db->query($query);
+		
+		$this->settings[$name] = $value;
 	}
 }

@@ -146,8 +146,7 @@ function index_install(){
 				'null' => false,
 				),
 			'value' => array(
-				'type' => 'varchar',
-				'size' => 255,
+				'type' => 'text',
 				'null' => false,
 				),
 			),
