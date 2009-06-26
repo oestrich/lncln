@@ -11,6 +11,7 @@
  * @package lncln
  */
 
+/** Starts off lncln */
 require_once("load.php");
 
 /**
