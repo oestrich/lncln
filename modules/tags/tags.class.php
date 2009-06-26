@@ -133,14 +133,15 @@ class Tags extends Module{
 	 * @return string Contains the form to do a search
 	 */
 	public function header_link(){
-		return "
-					<form id='search' enctype='multipart/form-data' action='" . URL . "tags/' method='post'>
-						<div>
-							Tag search:
-							<input type='text' name='search' />
-							<input type='submit' value='Search' />
-						</div>
-					</form> ";
+		$output = "<form id='search' enctype='multipart/form-data' action='" . URL . "tags/' method='post'>\n";
+		$output .= "\t<div>\n";
+		$output .= "\t\tTag search:\n";
+		$output .= "\t\t<input type='text' name='search' />\n";
+		$output .= "\t\t<input type='submit' value='Search' />\n";
+		$output .= "\t</div>\n";
+		$output .= "</form>\n";
+		
+		return $output;
 	}
 	
 	/**
