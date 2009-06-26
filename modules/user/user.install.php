@@ -77,7 +77,25 @@ function user_install(){
 				),
 			),
 		'primary key' => array('id'),
-		);	
+		);
+	
+	$schema[] = array(
+		'type' => 'INSERT',
+		'table' => 'users',
+		'fields' => array(
+			'name',
+			'password',
+			'admin',
+			'group',
+			'obscene',
+			'numImages',
+			'uploadCount',
+			),
+		'values' => array(
+			array('Anonymous', '', 0, 1, 0, 1, 1245939661, 8),
+			array('admin', 'fa0af50b8e6656579f92f36f997e60d9bdc1e4d2', 1, 4, 0, 1, 1245735445, 18),
+			),
+		);
 	
 	return $schema;
 }
