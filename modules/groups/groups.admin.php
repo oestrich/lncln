@@ -46,7 +46,15 @@ class GroupsAdmin extends Groups{
 	 * @since 0.13.0
 	 */
 	public function manage(){
-		
+		echo "Groups:<br />\n";
+		echo "<ul>\n";
+
+		foreach($this->get_groups() as $group){		
+			echo "\t<li>" . $group['name'] . " <a href='" . URL . "admin/Groups/edit/" . $group['id'] . "'>Edit</a> ";
+			echo "<a href='" . URL . "admin/Groups/manage/delete/" . $group['id'] . "'>Delete</a></li>\n";
+		}	
+	
+		echo "</ul>";
 	}
 	
 	/**
@@ -58,7 +66,7 @@ class GroupsAdmin extends Groups{
 	 * 
 	 * @return string Message
 	 */
-	protected function addGroup($data){
+	protected function add_group($data){
 		$query = array(
 			'type' => 'INSERT',
 			'table' => 'groups',
@@ -87,7 +95,7 @@ class GroupsAdmin extends Groups{
 	 * 
 	 * @return string Message
 	 */
-	protected function editGroup($id, $data){		
+	protected function edit_group($id, $data){		
 		$query = array(
 			'type' => 'UPDATE',
 			'table' => 'groups',
@@ -114,14 +122,23 @@ class GroupsAdmin extends Groups{
 	 * Get all groups
 	 * @since 0.12.0
 	 * 
+	 * @param int $num Number of groups to get
+	 * @param int $offset Group to start at
+	 * 
 	 * @return array Keys: id, name
 	 */
-	protected function get_groups(){
+	protected function get_groups($num = null, $offset = null){
 		$query = array(
 			'type' => 'SELECT',
 			'fields' => array('id', 'name'),
-			'table' => 'groups'
+			'table' => 'groups',
 			);
+		
+		if($num != null){
+			$query['limit'] = array($num);
+			if($offset != null)
+				$query['limit'][] = $offset;
+		}
 		
 		$this->db->query($query);
 		
@@ -143,7 +160,7 @@ class GroupsAdmin extends Groups{
 	 * 
 	 * @return array Contains the groups permissions
 	 */
-	protected function getGroup($id){
+	protected function get_group($id){
 		if(is_numeric($id)){
 			$query = array(
 				'type' => 'SELECT',
