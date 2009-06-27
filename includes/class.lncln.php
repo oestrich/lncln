@@ -642,23 +642,39 @@ class lncln{
 	 * @param mixed $value Value to be saved
 	 */
 	public function setting_set($name, $value){
-		$query = array(
-			'type' => 'UPDATE',
-			'table' => 'settings',
-			'set' => array(
-				'value' => serialize($value),
-				),
-			'where' => array(
-				array(
-					'field' => 'name',
-					'compare' => '=',
-					'value' => $name,
+		$value = serialize($value);
+		
+		if(isset($this->settings[$name])){
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'settings',
+				'set' => array(
+					'value' => $value,
 					),
-				), 
-			);
+				'where' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => $name,
+						),
+					),
+				);
+			
+			$this->db->query($query);
+		}
+		else{
+			$query = array(
+				'type' => 'INSERT',
+				'table' => 'settings',
+				'fields' => array('name', 'value'),
+				'values' => array(
+					array($name, $value),
+					),
+				);
+			
+			$this->db->query($query);
+		}
 		
-		$this->db->query($query);
-		
-		$this->settings[$name] = $value;
+		$this->settings[$name] = unserialize($value);
 	}
 }
