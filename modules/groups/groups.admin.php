@@ -44,8 +44,50 @@ class GroupsAdmin extends Groups{
 	/**
 	 * Manage groups, links to edit and delete
 	 * @since 0.13.0
+	 * 
+	 * @uses get_groups()
+	 * @uses delete_group()
 	 */
 	public function manage(){
+		if($this->lncln->params[2] == "delete"){
+			if(is_numeric($_POST['group'])){
+				$this->lncln->display->message($this->delete_group($this->lncln->params[3], $_POST['group']));
+			}
+			
+			$group = $this->get_group($_GET['group']);
+	
+			echo "Move all users from " . $group['name'] . " to which group?<br />";
+
+			$form = array(
+				'action' => 'admin/Groups/manage/delete/' . $this->lncln->params[3],
+				'method' => 'post',
+				'inputs' => array(),
+				'file' => false,
+				'submit' => 'Submit',
+				);
+
+			$form['inputs'][] = array(
+				'title' => 'Group',
+				'name' => 'group',
+				'type' => 'select',
+				'options' => array(),
+				);
+				
+			foreach($this->get_groups() as $group){
+				if($group['id'] == $this->lncln->params[3])
+					continue;
+				
+				$form['inputs'][0]['options'][] = array(
+					'name' => $group['name'],
+					'value' => $group['id'],
+					);
+			}
+			
+			create_form($form);
+			
+			return "";
+		}
+		
 		echo "Groups:<br />\n";
 		echo "<ul>\n";
 
@@ -55,6 +97,16 @@ class GroupsAdmin extends Groups{
 		}	
 	
 		echo "</ul>";
+	}
+	
+	/**
+	 * Edit a group
+	 * @since 0.13.0
+	 * 
+	 * @uses edit_group()
+	 */
+	public function edit(){
+		
 	}
 	
 	/**
@@ -193,9 +245,9 @@ class GroupsAdmin extends Groups{
 	 * 
 	 * @return string Message
 	 */
-	protected function deleteGroup($id, $moveTo){
+	protected function delete_group($id, $moveTo){
 		if(is_numeric($id) && is_numeric($moveTo)){
-			$group = $this->getGroup($id);
+			$group = $this->get_group($id);
 			
 			$query = array(
 				'type' => 'UPDATE',
