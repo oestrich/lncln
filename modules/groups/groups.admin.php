@@ -39,7 +39,116 @@ class GroupsAdmin extends Groups{
 			);
 		
 		return $action;
-	}	
+	}
+	
+	/**
+	 * Add a new group
+	 * @since 0.13.0
+	 */
+	public function add(){
+		if(isset($_POST['name'])){
+			$this->lncln->display->message($this->add_group($_POST) . 
+				" Click <a href='" . URL . "admin/Groups/manage'>here</a> to continue managing groups.");
+		}
+		
+		$form = array(
+			'action' => 'admin/Groups/add',
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Submit',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Name',
+			'name' => 'name',
+			'type' => 'text',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Upload',
+			'name' => 'upload',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+
+		$form['inputs'][] = array(
+			'title' => 'Directly to the index',
+			'name' => 'index',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Report',
+			'name' => 'report',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Report value',
+			'name' => 'reportValue',
+			'type' => 'text',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Rate',
+			'name' => 'ratings',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Rate value',
+			'name' => 'ratingsValue',
+			'type' => 'text',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use obscene',
+			'name' => 'obscene',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use refresh',
+			'name' => 'refresh',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use delete',
+			'name' => 'delete',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use captions',
+			'name' => 'captions',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use tags',
+			'name' => 'tags',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Manage albums',
+			'name' => 'albums',
+			'type' => 'select',
+			'options' => $this->select_options(),
+			);
+		
+		create_form($form);
+	}
 	
 	/**
 	 * Edit a group
@@ -389,7 +498,7 @@ class GroupsAdmin extends Groups{
 	 * 
 	 * @return array Option section of form input array
 	 */
-	protected function select_options($selected){
+	protected function select_options($selected = null){
 		$options = array(
 			array(
 				'name' => 'No',
