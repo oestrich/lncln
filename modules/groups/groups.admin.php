@@ -31,10 +31,11 @@ class GroupsAdmin extends Groups{
 					'add' => 'Add group',
 					'manage' => 'Manage groups',
 					'edit' => '',
+					'settings' => 'Groups settings',
 					),
 				),
 			'quick' => array(
-				'add', 'manage',
+				'add', 'manage', 'settings',
 				),
 			);
 		
@@ -322,6 +323,35 @@ class GroupsAdmin extends Groups{
 		}	
 	
 		echo "</ul>";
+	}
+	
+	/**
+	 * Manage group settings
+	 * @since 0.13.0
+	 */
+	public function settings(){
+		if(isset($_POST['group_listing'])){
+			$this->lncln->setting_set('group_listing', $_POST['group_listing']);
+			$this->lncln->display->message("Settings changed. " .
+				"Click <a href='" . URL ."admin/Groups/settings/'>here</a> to continue.");
+		}
+		
+		$form = array(
+			'action' => 'admin/Groups/settings/',
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Submit',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Allow listing members',
+			'name' => 'group_listing',
+			'type' => 'select',
+			'options' => $this->select_options($this->lncln->settings['group_listing']),
+			);
+		
+		create_form($form);
 	}
 
 	/**
