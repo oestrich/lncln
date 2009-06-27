@@ -381,6 +381,14 @@ class GroupsAdmin extends Groups{
 		return $groups;
 	}
 	
+	/**
+	 * Create the options section of the form for yes or no permissions
+	 * @since 0.13.0
+	 * 
+	 * @param int $selected 0 for No, 1 for Yes
+	 * 
+	 * @return array Option section of form input array
+	 */
 	protected function select_options($selected){
 		$options = array(
 			array(
