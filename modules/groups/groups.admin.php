@@ -106,7 +106,113 @@ class GroupsAdmin extends Groups{
 	 * @uses edit_group()
 	 */
 	public function edit(){
+		if(isset($_POST['name'])){
+			$this->lncln->display->message($this->edit_group($this->lncln->params[2], $_POST) . 
+				" Click <a href='" . URL . "admin/Groups/manage'>here</a> to continue managing groups.");
+		}
 		
+		$group = $this->get_group($this->lncln->params[2]);
+
+		$form = array(
+			'action' => 'admin/Groups/edit/' . $group['id'],
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Submit',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Name',
+			'name' => 'name',
+			'type' => 'text',
+			'value' => $group['name'],
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Upload',
+			'name' => 'upload',
+			'type' => 'select',
+			'options' => $this->select_options($group['upload']),
+			);
+
+		$form['inputs'][] = array(
+			'title' => 'Directly to the index',
+			'name' => 'index',
+			'type' => 'select',
+			'options' => $this->select_options($group['index']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Report',
+			'name' => 'report',
+			'type' => 'select',
+			'options' => $this->select_options($group['report']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Report value',
+			'name' => 'reportValue',
+			'type' => 'text',
+			'value' => $group['reportValue'],
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Rate',
+			'name' => 'ratings',
+			'type' => 'select',
+			'options' => $this->select_options($group['ratings']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Rate value',
+			'name' => 'ratingsValue',
+			'type' => 'text',
+			'value' => $group['ratingsValue'],
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use obscene',
+			'name' => 'obscene',
+			'type' => 'select',
+			'options' => $this->select_options($group['obscene']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use refresh',
+			'name' => 'refresh',
+			'type' => 'select',
+			'options' => $this->select_options($group['refresh']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use delete',
+			'name' => 'delete',
+			'type' => 'select',
+			'options' => $this->select_options($group['delete']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use captions',
+			'name' => 'captions',
+			'type' => 'select',
+			'options' => $this->select_options($group['captions']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Use tags',
+			'name' => 'tags',
+			'type' => 'select',
+			'options' => $this->select_options($group['tags']),
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Manage albums',
+			'name' => 'albums',
+			'type' => 'select',
+			'options' => $this->select_options($group['albums']),
+			);
+		
+		create_form($form);
 	}
 	
 	/**
@@ -273,5 +379,23 @@ class GroupsAdmin extends Groups{
 					"admin/Groups/manage'>here</a> to continue managing groups.";
 		}
 		return "";
+	}
+	
+	
+	protected function select_options($selected){
+		$options = array(
+			array(
+				'name' => 'No',
+				'value' => 0,
+				'selected' => $selected == 0 ? true : false,
+				),
+			array(
+				'name' => 'Yes',
+				'value' => 1,
+				'selected' => $selected == 1 ? true : false,
+				),
+			);
+		
+		return $options;
 	}
 }
