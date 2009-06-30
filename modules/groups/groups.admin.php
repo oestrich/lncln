@@ -487,40 +487,6 @@ class GroupsAdmin extends Groups{
 	}
 	
 	/**
-	 * Get all groups
-	 * @since 0.12.0
-	 * 
-	 * @param int $num Number of groups to get
-	 * @param int $offset Group to start at
-	 * 
-	 * @return array Keys: id, name
-	 */
-	protected function get_groups($num = null, $offset = null){
-		$query = array(
-			'type' => 'SELECT',
-			'fields' => array('id', 'name'),
-			'table' => 'groups',
-			);
-		
-		if($num != null){
-			$query['limit'] = array($num);
-			if($offset != null)
-				$query['limit'][] = $offset;
-		}
-		
-		$this->db->query($query);
-		
-		foreach($this->db->fetch_all() as $row){
-			$groups[] = array(
-				"id" => $row['id'],
-				"name" => $row['name']
-				);
-		}
-		
-		return $groups;
-	}
-	
-	/**
 	 * Create the options section of the form for yes or no permissions
 	 * @since 0.13.0
 	 * 

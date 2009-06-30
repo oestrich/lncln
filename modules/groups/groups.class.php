@@ -27,4 +27,93 @@ class Groups extends Module{
 	 * @var string Display name for module
 	 */
 	public $displayName = "Groups";
+	
+	/**
+	 * Print out a list of groups and their members
+	 * @since 0.13.0
+	 */
+	public function index(){
+		if($this->lncln->settings['group_listing'] == 1){
+			if(isset($this->lncln->params[0]) && is_numeric($this->lncln->params[0])){
+				echo "Group members:<br />\n";
+				echo "<ul>\n";
+				
+				foreach($this->get_group_members($this->lncln->params[0]) as $user){
+					echo "<li>" . $user['name'] . "</li>\n";
+				}
+				
+				echo "</ul>";
+			}
+			else{
+				foreach($this->get_groups() as $group){
+					echo "<a href='" . URL . "groups/" . $group['id']. "'>"; 
+					echo $group['name'] . "</a><br />\n";
+				}
+			}
+		}
+		else{
+			header("location:" . URL . "index/");
+		}
+	}
+	
+	/**
+	 * Get a group's members based on the ID
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Group ID
+	 * 
+	 * @return array 
+	 */
+	protected function get_group_members($id){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'name'),
+			'table' => 'users',
+			'where' => array(
+				array(
+					'field' => 'group',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
+		
+		return $this->db->fetch_all();
+	}
+	
+	/**
+	 * Get all groups
+	 * @since 0.12.0
+	 * 
+	 * @param int $num Number of groups to get
+	 * @param int $offset Group to start at
+	 * 
+	 * @return array Keys: id, name
+	 */
+	protected function get_groups($num = null, $offset = null){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('id', 'name'),
+			'table' => 'groups',
+			);
+		
+		if($num != null){
+			$query['limit'] = array($num);
+			if($offset != null)
+				$query['limit'][] = $offset;
+		}
+		
+		$this->db->query($query);
+		
+		foreach($this->db->fetch_all() as $row){
+			$groups[] = array(
+				"id" => $row['id'],
+				"name" => $row['name']
+				);
+		}
+		
+		return $groups;
+	}
 }
