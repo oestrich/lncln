@@ -332,6 +332,7 @@ class GroupsAdmin extends Groups{
 	public function settings(){
 		if(isset($_POST['group_listing'])){
 			$this->lncln->setting_set('group_listing', $_POST['group_listing']);
+			$this->lncln->setting_set('default_group', $_POST['default_group']);
 			$this->lncln->display->message("Settings changed. " .
 				"Click <a href='" . URL ."admin/Groups/settings/'>here</a> to continue.");
 		}
@@ -350,6 +351,22 @@ class GroupsAdmin extends Groups{
 			'type' => 'select',
 			'options' => $this->select_options($this->lncln->settings['group_listing']),
 			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Default group',
+			'name' => 'default_group',
+			'type' => 'select',
+			'options' => array(),
+			);
+		
+		foreach($this->get_groups() as $group){
+			$form['inputs'][1]['options'][] = array(
+				'name' => $group['name'],
+				'value' => $group['id'],
+				'selected' => $this->lncln->settings['default_group'] == $group['id'] ? 
+					true : false,
+				);
+		}
 		
 		create_form($form);
 	}
