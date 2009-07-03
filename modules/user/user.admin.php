@@ -32,10 +32,11 @@ class UserAdmin extends User{
 					'add' => 'Add user',
 					'manage' => 'Manage users',
 					'edit' => '',
+					'settings' => 'Change settings',
 					),
 				),
 			'quick' => array(
-				'add', 'manage',
+				'add', 'manage', 'settings',
 				),
 			);
 		
@@ -231,6 +232,46 @@ class UserAdmin extends User{
 			header("location:" . URL . "admin/User/manage/");
 			exit;
 		}
+	}
+	
+	/**
+	 * Change user settings
+	 * @since 0.13.0
+	 */
+	public function settings(){
+		if($_POST['register'] != ""){
+			$this->lncln->setting_set('register', $_POST['register']);
+			$this->lncln->display->message("Settings changed. " .
+				"Click <a href='" . URL ."admin/User/settings/'>here</a> to continue.");
+		}
+		
+		$form = array(
+			'action' => 'admin/User/settings/',
+			'method' => 'post',
+			'inputs' => array(),
+			'file' => false,
+			'submit' => 'Submit',
+			);
+		
+		$form['inputs'][] = array(
+			'title' => 'Allow registration',
+			'name' => 'register',
+			'type' => 'select',
+			'options' => array(
+				array(
+					'name' => 'No',
+					'value' => 0,
+					'selected' => $this->lncln->settings['register'] == 0 ? true : false,
+					),
+				array(
+					'name' => 'Yes',
+					'value' => 1,
+					'selected' => $this->lncln->settings['register'] == 1 ? true : false,
+					),
+				),
+			);
+		
+		create_form($form);
 	}
 	
 	/**
