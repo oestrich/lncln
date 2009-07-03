@@ -231,7 +231,7 @@ class UserAdmin extends User{
 	 * 
 	 * @param array $user User information
 	 */
-	public function edit_user($user){
+	protected function edit_user($user){
 		$username = $this->db->prep_sql($user['username']);
 		$password = $this->db->prep_sql($user['password']);
 		$password_confirm = $this->db->prep_sql($user['password_confirm']);
