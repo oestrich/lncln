@@ -54,6 +54,11 @@ class Database{
 	public $total_time = 0;
 	
 	/**
+	 * @var If true, only print queries not execute
+	 */
+	public $debug = false;
+	
+	/**
 	 * Construct for database class, takes settings or uses config.php's ones
 	 * @since 0.13.0
 	 * 
@@ -114,6 +119,11 @@ class Database{
 		
 		if(is_array($sql)){
 			$sql = $this->create_sql($sql);
+		}
+		
+		if($this->debug == true){
+			echo "\n" . $sql . "\n";
+			return true;
 		}
 
 		$this->start_timer();
@@ -287,6 +297,8 @@ class Database{
 				return $this->create_sql_create_Table($query);
 			case 'INSERT':
 				return $this->create_sql_insert($query);
+			case 'ALTER':
+				return $this->create_sql_alter_table($query);
 		}
 	}
 	
