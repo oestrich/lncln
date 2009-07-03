@@ -151,6 +151,8 @@ class UserAdmin extends User{
 		if(is_numeric($id)){
 			if($_POST['username'] != ""){
 				$this->edit_user($_POST);
+				$this->lncln->display->message("User updated. Click " .
+						"<a href='" . URL . "User/manage/'>here</a> to continue.");
 			}
 			
 			$user = $this->get_user($id);
@@ -165,8 +167,14 @@ class UserAdmin extends User{
 			
 			$form['inputs'][] = array(
 				'title' => 'Username',
-				'type' => 'text',
+				'type' => 'hidden',
 				'name' => 'username',
+				'value' => $user['name'],
+				);
+			
+			$form['inputs'][] = array(
+				'title' => 'Username: ' . $user['name'],
+				'type' => 'description',
 				'value' => $user['name'],
 				);
 			
