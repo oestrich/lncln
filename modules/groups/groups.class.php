@@ -57,6 +57,62 @@ class Groups extends Module{
 	}
 	
 	/**
+	 * Add a permission, boolean only
+	 * @since 0.13.0
+	 * 
+	 * @param string $name
+	 * @param bool $admin Default permission for admins
+	 * 
+	 * @return bool 
+	 */
+	public function add_permission($name, $admin){
+		$query = 'DESCRIBE `groups`';
+		$this->db->query($query);
+		
+		foreach($this->db->fetch_all() as $row){
+			if($row['Field'] == $name){
+				return false;
+			}
+		}
+		
+		$query = array(
+			'type' => 'ALTER',
+			'table' => 'groups',
+			'option' => 'add column',
+			'fields' => array(
+				$name => array(
+					'type' => 'int',
+					'size' => 1,
+					'null' => false,
+					'default' => 0,
+					),
+				),
+			);
+		
+		$this->db->query($query);
+		
+		//Update the admin group for their permission
+		$query = array(
+			'type' => 'UPDATE',
+			'table' => 'groups',
+			'set' => array(
+				$name => $admin,
+				),
+			'where' => array(
+				array(
+					'field' => 'name',
+					'compare' => '=',
+					'value' => 'admin',
+					),
+				),
+			);
+		
+		$this->db->query($query);
+		
+		return true;
+	}
+	
+	/**
 	 * Get a group's members based on the ID
 	 * @since 0.13.0
 	 * 
