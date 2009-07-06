@@ -289,9 +289,9 @@ class Database{
 	 */
 	public function create_sql($query){
 		switch($query['type']){
-			case "SELECT":
+			case 'SELECT':
 				return $this->create_sql_select($query);
-			case "UPDATE":
+			case 'UPDATE':
 				return $this->create_sql_update($query);
 			case 'CREATE TABLE':
 				return $this->create_sql_create_Table($query);
