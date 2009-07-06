@@ -294,7 +294,7 @@ class Database{
 			case 'UPDATE':
 				return $this->create_sql_update($query);
 			case 'CREATE TABLE':
-				return $this->create_sql_create_Table($query);
+				return $this->create_sql_create_table($query);
 			case 'INSERT':
 				return $this->create_sql_insert($query);
 			case 'ALTER':
