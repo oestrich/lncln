@@ -290,6 +290,7 @@ class Database{
 	public function create_sql($query){
 		switch($query['type']){
 			case 'SELECT':
+			case 'SELECT DISTINCT':
 				return $this->create_sql_select($query);
 			case 'UPDATE':
 				return $this->create_sql_update($query);
@@ -312,6 +313,10 @@ class Database{
 	 */
 	public function create_sql_select($query){
 		$sql = "SELECT ";
+		
+		if($query['type'] == 'SELECT DISTINCT')
+			$sql .= 'DISTINCT ';
+		
 		$sql .= implode(", ", $this->create_sql_grave_fields($query['fields']));
 		$sql .= " FROM `" . $query['table'] . "`";
 		
