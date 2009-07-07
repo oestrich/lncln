@@ -441,50 +441,6 @@ class lncln{
 		
 		$this->db->query($query);
 	}
-		
-	/**
-	 * Removes an image.  First deletes the image from sql and then unlinks
-	 * the image itself and then the two thumbnails
-	 * @since 0.5.0
-	 * 
-	 * @param int $image The image to be deleted
-	 * 
-	 * @return string Whether it deleted it or not
-	 */
-	function delete($image){
-		$query = array(
-			'type' => 'SELECT',
-			'fields' => array('type'),
-			'table' => 'images',
-			'where' => array(
-				array(
-					'field' => 'id',
-					'compare' => '=',
-					'value' => $image,
-					),
-				),
-			'limit' => array(1),
-			);
-		
-		$this->db->query($query);
-		
-		if($this->db->num_rows() == 1){
-			$type = $this->db->fetch_one();
-		}
-		else{
-			return "No such image.";
-		}
-	
-		$sql = "DELETE FROM images WHERE id = " . $image . " LIMIT 1";
-		$this->db->query($sql);
-		
-		//use an @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
-		@unlink(ABSPATH . "images/full/" . $image . "." . $type['type']);
-		@unlink(ABSPATH . "images/thumb/" . $image . "." . $type['type']);
-		@unlink(ABSPATH . "images/index/" . $image . "." . $type['type']);
-		
-		return "Successfully deleted.";
-	}
 
 	/**
 	 * Debug function to print out the private variables;

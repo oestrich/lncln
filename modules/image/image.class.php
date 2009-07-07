@@ -33,7 +33,7 @@ class Image extends Module{
 	 * Such as albums or search
 	 * @since 0.13.0
 	 */
-	public function index(){
+	public function index(){		
 		$this->prepareImage();
 		
 		$this->lncln->get_data();
@@ -46,6 +46,27 @@ class Image extends Module{
 		else{
 			echo "No such image.";
 		}
+	}
+	
+	public function edit($id, $data){
+		if($data[1] == "delete"){
+			if($this->lncln->user->permissions['delete'] == 0)
+				return "Cannot delete";
+			
+			return $this->delete($id);
+		}
+	}
+	
+	public function icon($id){
+		if($this->lncln->user->permissions['delete'] == 1){
+			$output = "<a href='" . URL . "action/image/delete/" . $id . "' " .
+						"onclick=\"return confirm('Are you sure you want to delete this?');\">\n";
+			$output .= "\t<img src='" . URL . "theme/" . THEME . "/images/delete.png' " .
+						"alt='Delete' title='Delete' style='border: none;'/>\n";
+			$output .= "</a>\n";
+		}
+		
+		return $output;
 	}
 	
 	/**
@@ -75,5 +96,49 @@ class Image extends Module{
 		$this->lncln->maxPage = 1;
 		
 		$_SESSION['thumbnail'] = 0;
+	}	
+	
+	/**
+	 * Removes an image.  First deletes the image from sql and then unlinks
+	 * the image itself and then the two thumbnails
+	 * @since 0.5.0
+	 * 
+	 * @param int $image The image to be deleted
+	 * 
+	 * @return string Whether it deleted it or not
+	 */
+	protected function delete($image){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('type'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $image,
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+		
+		if($this->db->num_rows() == 1){
+			$type = $this->db->fetch_one();
+		}
+		else{
+			return "No such image.";
+		}
+	
+		$sql = "DELETE FROM images WHERE id = " . $image . " LIMIT 1";
+		$this->db->query($sql);
+		
+		//use an @ sign so that it won't throw an error, probably meaning it wasn't there to begin with
+		@unlink(ABSPATH . "images/full/" . $image . "." . $type['type']);
+		@unlink(ABSPATH . "images/thumb/" . $image . "." . $type['type']);
+		@unlink(ABSPATH . "images/index/" . $image . "." . $type['type']);
+		
+		return "Successfully deleted.";
 	}
 }

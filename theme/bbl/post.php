@@ -86,11 +86,6 @@ if($lncln->user->permissions['refresh'] == 1):?>
 			<img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/>
 		</a>
 <?endif;
-if($lncln->user->permissions['delete']):?>
-		<a href="<?=$action;?>&amp;delete=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to delete this?');">
-			<img src="<?echo URL;?>theme/<?echo THEME;?>/images/delete.png" alt="Delete" title="Delete" style='border: none;'/>
-		</a>
-<?endif;
 */
 
 if($small):?>
