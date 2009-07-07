@@ -48,6 +48,15 @@ class Image extends Module{
 		}
 	}
 	
+	/**
+	 * Action for deleting images
+	 * @since 0.13.0
+	 * 
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
+	 * 
+	 * @return string Completion message
+	 */
 	public function edit($id, $data){
 		if($data[1] == "delete"){
 			if($this->lncln->user->permissions['delete'] == 0)
@@ -57,6 +66,14 @@ class Image extends Module{
 		}
 	}
 	
+	/**
+	 * Delete icon
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
+	 * 
+	 * @return string Icon underneath the image
+	 */
 	public function icon($id){
 		if($this->lncln->user->permissions['delete'] == 1){
 			$output = "<a href='" . URL . "action/image/delete/" . $id . "' " .
