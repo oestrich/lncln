@@ -38,17 +38,19 @@ if($lncln->module == "thumbnail"){
 }
 
 foreach($lncln->modules as $module){
-	if($lncln->action == true && $lncln->module == strtolower($module->name) && 
-		$lncln->user->permissions[strtolower($module->name)] == 1){
+	if($lncln->action == true && $lncln->module == strtolower($module->name)){
 		
 		if(!isset($_POST['id']) || $_POST['id'] == "")
 			$id = end($lncln->params);
 		else
 			$id = $_POST['id'];
+		
 		if(method_exists($module, "edit")){
 			//$_POST[$lncln->module] is the POST field that corresponds to the module in question
 			//$lncln->params[0] is a sub_action
 			$module->edit($id, array($_POST[$lncln->module], $lncln->params[0]));
+		}
+		else{
 		}
 
 		header("location:" . URL . $_SESSION['URL'] . "#" . $id);
