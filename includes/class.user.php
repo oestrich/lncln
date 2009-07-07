@@ -171,8 +171,8 @@ class MainUser{
 
         //removes any cookies that may have been set.
         if(!isset($_COOKIE['password']) && $_COOKIE['username']){
-            setcookie("username", "", time() - (60 * 60 * 24));
-            setcookie("password", "", time() - (60 * 60 * 24));
+            setcookie("username", "", time() - (60 * 60 * 24), URL);
+            setcookie("password", "", time() - (60 * 60 * 24), URL);
             header("location:". URL . "index.php");
         }
     }
@@ -312,7 +312,7 @@ class MainUser{
 				'password' => $newPassword,
 				);
 			
-			setcookie("password", $newPassword, time() + (60 * 60 * 24));
+			setcookie("password", $newPassword, time() + (60 * 60 * 24), URL);
 		}
 		
 		$query = array(

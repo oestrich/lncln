@@ -104,19 +104,19 @@ class User extends Module{
 		
 		$form['inputs'][] = array(
 			'title' => 'Old Password',
-			'type' => 'text',
+			'type' => 'password',
 			'name' => 'password',
 			);
 		
 		$form['inputs'][] = array(
 			'title' => 'New Password',
-			'type' => 'text',
+			'type' => 'password',
 			'name' => 'newPassword',
 			);
 			
 		$form['inputs'][] = array(
 			'title' => 'New Password',
-			'type' => 'text',
+			'type' => 'password',
 			'name' => 'newPasswordConfirm',
 			);
 		
