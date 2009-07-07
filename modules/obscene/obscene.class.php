@@ -142,7 +142,10 @@ class Obscene extends Module{
 	 * @param int $id ID of image
 	 * @param array $data Extra material needed, tag information, etc
 	 */	
-	public function edit($id, $data){		
+	public function edit($id, $data){
+		if($this->lncln->user->permissions['obscene'] == 0)
+			return "Cannot edit";
+		
 		$query = array(
 			'type' => 'SELECT',
 			'fields' => array('type', 'obscene'),
