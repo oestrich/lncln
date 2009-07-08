@@ -76,17 +76,6 @@ foreach($lncln->modules as $module){
 		echo $module->icon($image['id']) . "\n";
 	}
 }
-/**
- * These do not work in the new system
- * @todo Move them into some module
- */
-/*
-if($lncln->user->permissions['refresh'] == 1):?>
-		<a href="<?=$action;?>&amp;refresh=<?echo $image['id'];?>" onclick="return confirm('Are you sure you want to refresh?');">
-			<img src="<?echo URL;?>theme/<?echo THEME;?>/images/refresh.png" alt="Refresh" title="Refresh" style='border: none;'/>
-		</a>
-<?endif;
-*/
 
 if($small):?>
 		</div>

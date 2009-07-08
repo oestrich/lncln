@@ -27,6 +27,33 @@ class Upload extends Module{
 	 * @var string Display name of module
 	 */
 	public $displayName = "Upload";
+	
+	public function edit($id, $data){
+		if($this->lncln->user->permissions['refresh'] == 0)
+			return "Cannot refresh image";
+		
+		if($data[1] != "refresh")
+			return false;
+		
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('type'),
+			'table' => 'images',
+			'where' => array(
+				array(
+					'field' => 'id',
+					'compare' => '=',
+					'value' => $id,
+					),
+				),
+			);
+		
+		$this->db->query($query);
+		
+		$row = $this->db->fetch_one();
+		
+		$this->lncln->thumbnail($id . "." . $row['type']);
+	}
 
 	/**
 	 * Shows the upload box
@@ -54,6 +81,17 @@ class Upload extends Module{
 			$output .= "\t</div>\n";
 			$output .= "</form>\n";
 		}
+		
+		return $output;
+	}
+	
+	public function icon($id){
+		if($this->lncln->user->permissions['refresh'] == 0)
+			return "";
+		
+		$output  = "<a href='" . URL . "action/upload/refresh/" . $id . "' onclick=\"return confirm('Are you sure you want to refresh?');\">\n";
+		$output .= "<img src='" . URL . "theme/" . THEME . "/images/refresh.png' alt='Refresh' title='Refresh' style='border: none;'/>\n";
+		$output .= "</a>\n";
 		
 		return $output;
 	}
