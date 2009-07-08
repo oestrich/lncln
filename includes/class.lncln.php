@@ -106,7 +106,7 @@ class lncln{
 	 * @param string $action Which type of page is being loaded
 	 * @param array $params any extra parameters that will be passed onto the action
 	 */
-	function __construct($action = "none", $params = array()){	
+	public function __construct($action = "none", $params = array()){	
 		//Pull in the database class that was already started.
 		$this->db = get_db();
 		
@@ -146,7 +146,7 @@ class lncln{
 	 * Loads parameters set by the URL
 	 * @since 0.13.0
 	 */
-	function loadParams(){
+	public function loadParams(){
 		$q = $_GET['q'];
 		
 		$this->params = split("/", $q);
@@ -163,7 +163,7 @@ class lncln{
 	 * @todo make modules configurable by the admin panel
 	 * @since 0.13.0
 	 */
-	function loadModules(){
+	public function loadModules(){
 		global $modules_enabled;
 		
 		$this->modules_enabled = $modules_enabled;
@@ -201,7 +201,7 @@ class lncln{
 	 * 
 	 * @param string $img String containing the filename of the image
 	 */
-	function thumbnail($img){
+	public function thumbnail($img){
 		$size = getimagesize(CURRENT_IMG_DIRECTORY . $img);
 		
 		$type = split("\.", $img);
@@ -260,7 +260,7 @@ class lncln{
 	 * Creates the data required for listImages.php
 	 * @since 0.5.0
 	 */
-	function get_data(){		
+	public function get_data(){		
 		if(count($this->imagesToGet) == 0){
 			$this->images = array();
 			return;
@@ -365,7 +365,7 @@ class lncln{
 	 * 
 	 * @return string Contains the links Prev Next
 	 */
-	function prev_next($bottom = false){
+	public function prev_next($bottom = false){
 		$extra = $this->type == "thumb" ? "&amp;thumb=true" : "";
 		
 		$script = URL . $this->module . "/";
@@ -408,7 +408,7 @@ class lncln{
 	 * 
 	 * @return string Contains the links Prev Next
 	 */
-	function prevNext($bottom = false){
+	public function prevNext($bottom = false){
 		return $this->prev_next($bottom);
 	}
 
@@ -419,7 +419,7 @@ class lncln{
 	 * 
 	 * @param int $image The image that is to be removed
 	 */
-	function dequeue($image){
+	public function dequeue($image){
 		$id = $this->db->prep_sql($image);
 		
 		$query = array(
@@ -446,7 +446,7 @@ class lncln{
 	 * Debug function to print out the private variables;
 	 * @since 0.9.0
 	 */
-	function debug(){		
+	public function debug(){		
 		echo "script: " . $this->script . "\n";
 
 		echo "page: " . $this->page . "\n";
@@ -467,7 +467,7 @@ class lncln{
 	 * 
 	 * @param $image int Id of image
 	 */
-	function increaseView($image){
+	public function increaseView($image){
 		if(is_numeric($image)){
 			$query = array(
 				'type' => 'UPDATE',
@@ -496,7 +496,7 @@ class lncln{
 	 * 
 	 * @return string The Latest news
 	 */
-	function getNews(){
+	public function getNews(){
 		$query = array(
 			'type' => 'SELECT',
 			'fields' => array('news', 'postTime', 'title'),
@@ -522,7 +522,7 @@ class lncln{
 	 * 
 	 * @return string URL to image requested
 	 */
-	function getImagePath($id, $size = "full"){
+	public function getImagePath($id, $size = "full"){
 		if(!is_numeric((int)$id))
 			return "";
 		
@@ -560,7 +560,7 @@ class lncln{
 	 * 
 	 * @return bool True if image is small
 	 */
-	function check_small($id){
+	public function check_small($id){
 		foreach($this->modules as $module){
 			if(method_exists($module, "small")){
 				if($module->small($id) == true){
