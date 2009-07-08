@@ -158,7 +158,7 @@ class Upload extends Module{
 	 * This allows for taging, captions, etc
 	 * @since 0.10.0
 	 */
-	function start_upload(){
+	protected function start_upload(){
 	 	$_SESSION['uploaded'] = true;
 		$_SESSION['pages'] = 0;
 	 	
@@ -216,7 +216,7 @@ class Upload extends Module{
 	 * direct input.
 	 * @since 0.5.0
 	 */
-	function finish_upload($name, $data){
+	protected function finish_upload($name, $data){
 		if($data['tags'] == ""){
 			$_SESSION['upload'][$_SESSION['uploadKey'][$name]] = 3;
 			unlink(CURRENT_IMG_TEMP_DIRECTORY . $name);
