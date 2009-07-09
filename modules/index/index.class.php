@@ -130,12 +130,11 @@ class Index extends Module{
 		return $output;
 	}
 	
-	
 	/**
 	 * The function that makes the index go round
 	 * @since 0.9.0
 	 */
-	protected function prepare_index(){
+	public function prepare_index(){
 		$this->lncln->moderationOn = true;
 		$time = !$this->lncln->user->permissions['isAdmin'] ? array('field' => 'postTime', 'compare' => '<=', 'value' =>time()) : array();
 		
