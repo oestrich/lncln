@@ -95,7 +95,7 @@ class Image extends Module{
 	 * Function that makes image.php go round
 	 * @since 0.9.0
 	 */
-	private function prepareImage(){
+	private function prepare_image(){
 		$image = (int)$this->lncln->params[0];
 		
 		if(isset($image) && is_numeric($image)){
@@ -113,7 +113,7 @@ class Image extends Module{
 		$this->lncln->maxPage = 1;
 		
 		$_SESSION['thumbnail'] = 0;
-	}	
+	}
 	
 	/**
 	 * Removes an image.  First deletes the image from sql and then unlinks
