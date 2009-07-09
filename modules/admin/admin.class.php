@@ -70,7 +70,7 @@ class Admin extends Module{
 						echo "<span style='font-size: 1.5em;'>" . $name . "</span><br />";
 						foreach($group as $url => $name){
 							if($name != ""){
-								echo "<a href='" . URL . "admin/" . $module . "/$url'>" . $name . "</a><br />\n";
+								echo "<a href='" . URL . "admin/" . $module . "/$url/'>" . $name . "</a><br />\n";
 							}
 						}
 					}
@@ -276,7 +276,7 @@ class Admin extends Module{
 					//See if they match one of the quick links
 					foreach($module['quick'] as $quick){
 						if($quick == $url){
-							echo "<a href='" . URL . "admin/" . $key . "/" . $url ."'>" . $name . "</a><br />";
+							echo "<a href='" . URL . "admin/" . $key . "/" . $url ."/'>" . $name . "</a><br />";
 						}
 					}
 				}
