@@ -28,6 +28,15 @@ class Upload extends Module{
 	 */
 	public $displayName = "Upload";
 	
+	/**
+	 * Action for deleting images
+	 * @since 0.13.0
+	 * 
+	 * @param int $id ID of image
+	 * @param array $data Extra material needed, tag information, etc
+	 * 
+	 * @return string Completion message
+	 */
 	public function edit($id, $data){
 		if($this->lncln->user->permissions['refresh'] == 0)
 			return "Cannot refresh image";
@@ -85,6 +94,14 @@ class Upload extends Module{
 		return $output;
 	}
 	
+	/**
+	 * Delete icon
+	 * @since 0.13.0
+	 * 
+	 * @param int $id Image ID
+	 * 
+	 * @return string Icon underneath the image
+	 */
 	public function icon($id){
 		if($this->lncln->user->permissions['refresh'] == 0)
 			return "";
