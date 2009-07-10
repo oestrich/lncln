@@ -377,7 +377,7 @@ class lncln{
 		if(substr($tempParams, -1) != "/" && $tempParams != "")
 			$tempParams .= "/";
 		
-		$script .= $tempParams;
+		$script .= str_replace(" ", "+", $tempParams);
 		
 		$output = $bottom == true ? "<div id='bPrevNext'>\n" : "<div class='prev_next'>\n";
 		
