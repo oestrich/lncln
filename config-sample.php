@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * config.php
  * 
@@ -52,4 +52,5 @@ $modules_enabled = array(
 	"user" => "User",
 	"rss" => "RSS",
 	"upload" => "Upload",
+	"groups" => "Groups",
 	);
