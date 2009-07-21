@@ -128,14 +128,15 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `name`, `value`) VALUES
-(1, 'title', 'The Archive'),
-(2, 'version', '0.12.1'),
-(3, 'theme', 'bbl'),
-(4, 'perpage', '3'),
-(5, 'tbp', '10'),
-(6, 'default_group', '2'),
-(7, 'register', '1'),
-(8, 'default_rss_keyword', 'safe');
+(1, 'title', 's:11:"The Archive";'),
+(2, 'version', 's:6:"0.13.0";'),
+(3, 'theme', 's:3:"bbl";'),
+(4, 'perpage', 'i:3;'),
+(5, 'tbp', 'i:10;'),
+(6, 'default_group', 'i:2;'),
+(7, 'register', 'i:1;'),
+(8, 'default_rss_keyword', 's:4:"safe";');
+
 
 -- --------------------------------------------------------
 
