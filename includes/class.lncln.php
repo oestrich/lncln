@@ -186,12 +186,11 @@ class lncln{
 			4 => array("tags"),
 		);
 		
-		$this->modules_enabled = $this->db->fetch_all();
+		foreach($this->db->fetch_all() as $module){
+			$this->modules_enabled[$module['folder']] = $module['class'];
+		}
 		
-		foreach($this->modules_enabled as $module){
-			$folder = $module['folder'];
-			$class = $module['class'];
-			
+		foreach($this->modules_enabled as $folder => $class){
 			/** Include the main class file for modules */
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
 			/** Include the info file for modules */
