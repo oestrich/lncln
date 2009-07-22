@@ -163,10 +163,21 @@ class lncln{
 	 * @todo make modules configurable by the admin panel
 	 * @since 0.13.0
 	 */
-	public function loadModules(){
-		global $modules_enabled;
+	public function loadModules(){		
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('class', 'folder'),
+			'table' => 'modules',
+			'where' => array(
+				array(
+					'field' => 'enabled',
+					'compare' => '=',
+					'value' => 1,
+					),
+				),
+			);
 		
-		$this->modules_enabled = $modules_enabled;
+		$this->db->query($query);
 		
 		$this->display->rows = array(
 			1 => array("index", "albums", "obscene", "user"),
@@ -175,7 +186,12 @@ class lncln{
 			4 => array("tags"),
 		);
 		
-		foreach($this->modules_enabled as $folder => $class){
+		$this->modules_enabled = $this->db->fetch_all();
+		
+		foreach($this->modules_enabled as $module){
+			$folder = $module['folder'];
+			$class = $module['class'];
+			
 			/** Include the main class file for modules */
 			include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
 			/** Include the info file for modules */
