@@ -39,10 +39,11 @@ class AdminAdmin extends Admin{
 			'urls' => array(
 				'Main' => array(
 					'info' => 'Currently installed modules',
+					'manage' => 'Manage modules',
 					),
 				),
 			'quick' => array(
-				'info'
+				'info', 'manage',
 				),
 			);
 		
@@ -79,5 +80,13 @@ class AdminAdmin extends Admin{
 			echo "</table>\n";
 			echo "<br />";
 		}
+	}
+	
+	/**
+	 * Enable/disable modules
+	 * @since 0.14.0
+	 */
+	public function manage(){
+		
 	}
 }
