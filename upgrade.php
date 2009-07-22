@@ -46,6 +46,7 @@ function upgrade_settings(){
  * @since 0.14.0
  */
 function upgrade_modules_install(){
+	global $modules_enabled;
 	$db = get_db();
 	
 	$query = array(
@@ -58,13 +59,17 @@ function upgrade_modules_install(){
 				'null' => false,
 				'attributes' => array(
 					'unsigned' => true,
-					'zerofill' => true,
 					'auto_increment' => true,
 					),
 				),
 			'name' => array(
 				'type' => 'varchar',
 				'size' => 32,
+				'null' => false,
+				),
+			'description' => array(
+				'type' => 'varchar',
+				'size' => 256,
 				'null' => false,
 				),
 			'class' => array(
@@ -81,6 +86,7 @@ function upgrade_modules_install(){
 				'type' => 'tinyint',
 				'size' => 1,
 				'null' => false,
+				'default' => 0,
 				),
 			'version' => array(
 				'type' => 'varchar',
@@ -91,7 +97,39 @@ function upgrade_modules_install(){
 		'primary key' => array('id'),
 		);
 	
-	echo $db->create_sql($query);
+	$db->query($query);
+	
+	ksort($modules_enabled);
+	
+	foreach($modules_enabled as $folder => $module){
+		$mod_info = $module . "_info";
+		$mod_info = $mod_info();
+		
+		$query = array(
+			'type' => 'INSERT',
+			'table' => 'modules',
+			'fields' => array(
+				'name',
+				'description',
+				'class',
+				'folder',
+				'enabled',
+				'version',
+				),
+			'values' => array(
+				array(
+					$mod_info['name'],
+					$mod_info['description'],
+					$mod_info['class'],
+					$folder,
+					1,
+					$mod_info['version'],
+					),
+				),
+			);
+		
+		$db->query($query);
+	}
 }
 
 upgrade_modules_install();
