@@ -17,12 +17,7 @@
  * 
  * @package lncln
  */
-class AdminAdmin extends Admin{
-	/**
-	 * @var bool If the variables are set: false call set_vars() 
-	 */	
-	public $variables_set = false;
-	
+class AdminAdmin extends Admin{	
 	/**
 	 * Sets things that the parent class has
 	 * @since 0.13.0
@@ -59,9 +54,7 @@ class AdminAdmin extends Admin{
 	 * @since 0.13.0
 	 */
 	public function info(){
-		if(!$this->set){
-			$this->set_vars();
-		}
+		$this->set_vars();
 		
 		foreach($this->info as $info){
 			$requires = join(" ", $info['requires']);
