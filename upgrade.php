@@ -41,4 +41,57 @@ function upgrade_settings(){
 	}
 }
 
-upgrade_settings();
+/**
+ * Function to load enabled modules into the database
+ * @since 0.14.0
+ */
+function upgrade_modules_install(){
+	$db = get_db();
+	
+	$query = array(
+		'type' => 'CREATE TABLE',
+		'table' => 'modules',
+		'fields' => array(
+			'id' => array(
+				'type' => 'int',
+				'size' => 8,
+				'null' => false,
+				'attributes' => array(
+					'unsigned' => true,
+					'zerofill' => true,
+					'auto_increment' => true,
+					),
+				),
+			'name' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
+			'class' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
+			'folder' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
+			'enabled' => array(
+				'type' => 'tinyint',
+				'size' => 1,
+				'null' => false,
+				),
+			'version' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
+			),
+		'primary key' => array('id'),
+		);
+	
+	echo $db->create_sql($query);
+}
+
+upgrade_modules_install();
