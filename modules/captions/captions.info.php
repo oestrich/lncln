@@ -23,6 +23,7 @@ function captions_info(){
 		'class' => 'Captions',
 		'description' => 'Add captions to pictures',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

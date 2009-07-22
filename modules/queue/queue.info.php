@@ -23,6 +23,7 @@ function queue_info(){
 		'class' => 'Queue',
 		'description' => 'Creates a queue for new uploaded images',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array('index', 'admin'),
 	);

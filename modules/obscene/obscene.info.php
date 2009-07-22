@@ -23,6 +23,7 @@ function obscene_info(){
 		'class' => 'Obscene',
 		'description' => 'Allows you to make images obscene and shrink',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'optional',
 		'requires' => array('index', 'rss'),
 	);

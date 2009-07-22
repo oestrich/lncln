@@ -23,6 +23,7 @@ function user_info(){
 		'class' => 'User',
 		'description' => 'Logging in/out, change settings',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

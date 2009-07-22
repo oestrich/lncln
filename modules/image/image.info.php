@@ -23,6 +23,7 @@ function image_info(){
 		'class' => 'Image',
 		'description' => 'Display only a single image',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

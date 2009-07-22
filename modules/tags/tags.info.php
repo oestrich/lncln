@@ -23,6 +23,7 @@ function tags_info(){
 		'class' => 'Tags',
 		'description' => 'Add tags to images',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

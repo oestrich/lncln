@@ -93,6 +93,11 @@ function upgrade_modules_install(){
 				'size' => 32,
 				'null' => false,
 				),
+			'lncln_version' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
 			),
 		'primary key' => array('id'),
 		);
@@ -115,6 +120,7 @@ function upgrade_modules_install(){
 				'folder',
 				'enabled',
 				'version',
+				'lncln_version',
 				),
 			'values' => array(
 				array(
@@ -124,6 +130,7 @@ function upgrade_modules_install(){
 					$folder,
 					1,
 					$mod_info['version'],
+					$mod_info['lncln_version'],
 					),
 				),
 			);

@@ -23,6 +23,7 @@ function ratings_info(){
 		'class' => 'Ratings',
 		'description' => 'Have images be rated by your users',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

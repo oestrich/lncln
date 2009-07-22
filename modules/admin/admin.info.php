@@ -23,6 +23,7 @@ function admin_info(){
 		'class' => 'Admin',
 		'description' => 'The admin panel',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

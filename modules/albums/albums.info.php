@@ -23,6 +23,7 @@ function albums_info(){
 		'class' => 'Albums',
 		'description' => 'Create albums to seperate pictures',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

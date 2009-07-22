@@ -23,6 +23,7 @@ function groups_info(){
 		'class' => 'Groups',
 		'description' => 'User permissions',
 		'version' => '0.13.0',
+		'lncln_version' => '0.13.0',
 		'package' => 'core',
 		'requires' => array(),
 	);
