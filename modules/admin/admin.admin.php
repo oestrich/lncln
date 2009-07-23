@@ -87,6 +87,28 @@ class AdminAdmin extends Admin{
 	 * @since 0.14.0
 	 */
 	public function manage(){
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('*'),
+			'table' => 'modules',
+			'order' => array('ASC', array('package', 'name')),
+			);
 		
+		$this->db->query($query);
+		
+		$modules = array();
+		
+		foreach($this->db->fetch_all() as $module){
+			$modules[$module['package']][] = $module;
+		}
+		
+		foreach($modules as $name => $package){
+			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
+			echo "<div class='admin_package_modules'>";
+			foreach($package as $module){
+				echo $module['name'] . " - " . $module['version'] . "\n<br />";
+			}
+			echo "</div>";
+		}
 	}
 }

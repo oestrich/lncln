@@ -39,3 +39,12 @@
 .admin_content{
 	background-color: #222222;
 }
+
+.admin_package{
+	font-size: 1.25em;
+	padding-bottom: 10px;
+}
+
+.admin_package_modules{
+	padding-left: 10px;
+}
