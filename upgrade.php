@@ -11,6 +11,8 @@
  * @package lncln
  */
 
+$GLOBALS['upgrade'] = true;
+
 /** Starts off lncln */
 require_once("load.php");
 
@@ -47,6 +49,15 @@ function upgrade_settings(){
  */
 function upgrade_modules_install(){
 	global $modules_enabled;
+	
+	// Include the files since its not included during an upgrade
+	foreach($modules_enabled as $folder => $class){
+		/** Include the main class file for modules */
+		include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".class.php");
+		/** Include the info file for modules */
+		include_once(ABSPATH . "modules/" . $folder . "/" . $folder . ".info.php");
+	}
+	
 	$db = get_db();
 	
 	$query = array(
@@ -88,6 +99,11 @@ function upgrade_modules_install(){
 				'null' => false,
 				'default' => 0,
 				),
+			'package' => array(
+				'type' => 'varchar',
+				'size' => 32,
+				'null' => false,
+				),
 			'version' => array(
 				'type' => 'varchar',
 				'size' => 32,
@@ -119,6 +135,7 @@ function upgrade_modules_install(){
 				'class',
 				'folder',
 				'enabled',
+				'package',
 				'version',
 				'lncln_version',
 				),
@@ -129,6 +146,7 @@ function upgrade_modules_install(){
 					$mod_info['class'],
 					$folder,
 					1,
+					$mod_info['package'],
 					$mod_info['version'],
 					$mod_info['lncln_version'],
 					),

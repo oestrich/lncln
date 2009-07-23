@@ -55,6 +55,7 @@ $GLOBALS['db'] = new Database();
 $GLOBALS['lncln'] = new lncln();
 
 /**
- * This little thing caused a lot of problems before it was moved out.
+ * If upgrading, skip this
  */
-$lncln->loadModules();
+if($upgrade == false)
+	$lncln->loadModules();
