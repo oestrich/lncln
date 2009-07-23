@@ -22,8 +22,8 @@ function index_info(){
 		'name' => 'Settings',
 		'class' => 'Index',
 		'description' => 'Manage settings for lncln',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

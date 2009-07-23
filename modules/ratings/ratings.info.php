@@ -18,15 +18,15 @@
  * @return array Information for the Ratings module
  */
 function ratings_info(){
-	$ratings = array(
+	$info = array(
 		'name' => 'Ratings',
 		'class' => 'Ratings',
 		'description' => 'Have images be rated by your users',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);
 	
-	return $ratings;
+	return $info;
 }

@@ -2,7 +2,7 @@
 /**
  * rss.info.php
  * 
- * 
+ * Information for the RSS module
  * 
  * @copyright (C) 2009 Eric Oestrich
  * @version 0.14.0 $Id$
@@ -22,8 +22,8 @@ function rss_info(){
 		'name' => 'RSS',
 		'class' => 'RSS',
 		'description' => 'Create an RSS feed',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

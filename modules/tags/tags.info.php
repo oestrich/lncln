@@ -18,15 +18,15 @@
  * @return Information for the Tags module
  */
 function tags_info(){
-	$tags = array(
+	$info = array(
 		'name' => 'Tags',
 		'class' => 'Tags',
 		'description' => 'Add tags to images',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);
 	
-	return $tags;
+	return $info;
 }

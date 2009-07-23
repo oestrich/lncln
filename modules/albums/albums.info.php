@@ -18,15 +18,15 @@
  * @return array Information for Albums
  */
 function albums_info(){
-	$albums = array(
+	$info = array(
 		'name' => 'Albums',
 		'class' => 'Albums',
 		'description' => 'Create albums to seperate pictures',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);
 	
-	return $albums;
+	return $info;
 }

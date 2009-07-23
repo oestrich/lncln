@@ -22,8 +22,8 @@ function upload_info(){
 		'name' => 'Upload',
 		'class' => 'Upload',
 		'description' => 'Upload images to lncln',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

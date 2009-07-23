@@ -22,8 +22,8 @@ function report_info(){
 		'name' => 'Report',
 		'class' => 'Report',
 		'description' => 'Report bad images and stick them back in the queue',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);

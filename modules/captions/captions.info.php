@@ -18,15 +18,15 @@
  * @return array Information for Captions module
  */
 function captions_info(){
-	$captions = array(
+	$info = array(
 		'name' => 'Captions',
 		'class' => 'Captions',
 		'description' => 'Add captions to pictures',
-		'version' => '0.13.0',
-		'lncln_version' => '0.13.0',
+		'version' => '0.14.0-1',
+		'lncln_version' => '0.14.0',
 		'package' => 'core',
 		'requires' => array(),
 	);
 	
-	return $captions;
+	return $info;
 }
