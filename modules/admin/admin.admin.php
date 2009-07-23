@@ -98,15 +98,34 @@ class AdminAdmin extends Admin{
 		
 		$modules = array();
 		
-		foreach($this->db->fetch_all() as $module){
-			$modules[$module['package']][] = $module;
-		}
+		$scanned = scandir(ABSPATH . "modules");
 		
-		foreach($modules as $name => $package){
+		array_shift($scanned);
+		array_shift($scanned);
+		
+		foreach($scanned as $module){
+			if(file_exists(ABSPATH . "modules/" . $module . "/" . $module . ".info.php")){
+				// Include new modules' info file
+				include_once ABSPATH . "modules/" . $module . "/" . $module . ".info.php";
+			
+				$module = $module . "_info";
+				$module = $module();
+				
+				$modules['scanned'][$module['name']] = $module;
+			}
+		}
+
+		foreach($this->db->fetch_all() as $module){
+			$modules['db'][$module['name']] = $module;
+			
+			$modules['package'][$module['package']][] = $module['name'];
+		}
+
+		foreach($modules['package'] as $name => $package){
 			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
 			echo "<div class='admin_package_modules'>";
 			foreach($package as $module){
-				echo $module['name'] . " - " . $module['version'] . "\n<br />";
+				echo $modules['db'][$module]['name'] . " - " . $modules['db'][$module]['version'] . "\n<br />";
 			}
 			echo "</div>";
 		}
