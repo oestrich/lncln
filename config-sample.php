@@ -47,7 +47,6 @@ $modules_enabled = array(
 	"ratings" => "Ratings", 
 	"index" => "Index", 
 	"image" => "Image",
-	"obscene" => "Obscene",
 	"queue" => "Queue",
 	"user" => "User",
 	"rss" => "RSS",
