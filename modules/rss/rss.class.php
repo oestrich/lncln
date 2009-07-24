@@ -102,6 +102,10 @@ class RSS extends Module{
 			}
 		}
 		
+		if(count($keywords) == 0){
+			return array();
+		}
+		
 		foreach($keywords as $set){
 			foreach($set as $keyword){
 				$words[] = $keyword[0];
@@ -119,7 +123,7 @@ class RSS extends Module{
 	 * @param array $rss First term is the type of rss feed (all/safe)
 	 */
 	protected function prepare_rss(){
-		$safe = array();
+		$extra = array();
 		
 		foreach($this->lncln->modules as $module){
 			if(method_exists($module, "rss_keyword")){
@@ -127,13 +131,15 @@ class RSS extends Module{
 			}
 		}
 		
-		foreach($keywords as $set){
-			foreach($set as $keyword){
-				if($this->lncln->params[0] == $keyword[0]){
-					$safe = $keyword[1];
-				}
-				elseif($this->lncln->params[0] == "" && $this->lncln->display->settings['default_rss_keyword'] == $keyword[0]){
-					$safe = $keyword[1];
+		if(count($keywords) > 0 ){
+			foreach($keywords as $set){
+				foreach($set as $keyword){
+					if($this->lncln->params[0] == $keyword[0]){
+						$extra = $keyword[1];
+					}
+					elseif($this->lncln->params[0] == "" && $this->lncln->display->settings['default_rss_keyword'] == $keyword[0]){
+						$extra = $keyword[1];
+					}
 				}
 			}
 		}
@@ -149,7 +155,7 @@ class RSS extends Module{
 						'compare' => '=',
 						'value' => 0,
 						),
-					$safe,
+					$extra,
 					),
 				),
 			);
@@ -169,7 +175,7 @@ class RSS extends Module{
 							'compare' => '<=',
 							'value' => time(),
 							),
-							$safe,
+							$extra,
 						),
 					),
 				'order' => array(
