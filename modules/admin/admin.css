@@ -41,7 +41,9 @@
 }
 
 .admin_package{
-	font-size: 1.25em;
+	background-color: #222222;
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 
 .admin_package_modules{

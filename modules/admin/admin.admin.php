@@ -151,8 +151,8 @@ class AdminAdmin extends Admin{
 			if(count($package) == 0)
 				continue;
 			
-			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
-			echo "<ul>";
+			echo "<span style='font-size: 1.25em;'>" . ucwords($name) . "</span>\n<br />";
+			echo "<ul class='admin_package'>";
 			foreach($package as $module){
 				echo "<li>";
 				echo "<span class='admin_package_modules'>" . $modules['db'][$module]['name'] . "</span> - ";
