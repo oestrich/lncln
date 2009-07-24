@@ -300,6 +300,8 @@ class Database{
 				return $this->create_sql_insert($query);
 			case 'ALTER':
 				return $this->create_sql_alter_table($query);
+			case 'DELETE':
+				return $this->create_sql_delete($query);
 		}
 	}
 	
@@ -410,6 +412,29 @@ class Database{
 		}
 		
 		$sql = substr($sql, 0, -2);
+		
+		return $sql;
+	}
+	
+	/**
+	 * Create DELETE SQL
+	 * @since 0.14.0
+	 * 
+	 * @param array $query QUERY style array
+	 * 
+	 * @return string Complete SQL
+	 */
+	public function create_sql_delete($query){
+		$sql = 'DELETE FROM ';
+		$sql .= '`' . $query['table'] . '` ';
+		$sql .= $this->create_sql_where($query['where']) . ' ';
+		
+		if(is_array($query['limit'])){
+			$sql .= 'LIMIT ' . $query['limit'][0];
+			
+			if(isset($query['limit'][1]))
+				$sql .= ', ' . $query['limit'][1];
+		}
 		
 		return $sql;
 	}
