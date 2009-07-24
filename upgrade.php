@@ -114,6 +114,10 @@ function upgrade_modules_install(){
 				'size' => 32,
 				'null' => false,
 				),
+			'requires' => array(
+				'type' => 'text',
+				'null' => false,
+				),
 			),
 		'primary key' => array('id'),
 		);
@@ -138,6 +142,7 @@ function upgrade_modules_install(){
 				'package',
 				'version',
 				'lncln_version',
+				'requires',
 				),
 			'values' => array(
 				array(
@@ -149,6 +154,7 @@ function upgrade_modules_install(){
 					$mod_info['package'],
 					$mod_info['version'],
 					$mod_info['lncln_version'],
+					serialize($mod_info['requires']),
 					),
 				),
 			);
