@@ -49,3 +49,9 @@
 .admin_package_modules{
 	font-size: 1.125em;
 }
+
+.admin_warning{
+	background-color: #dd0000;
+	margin-bottom: 10px;
+	padding: 10px;
+}

@@ -117,6 +117,17 @@ class AdminAdmin extends Admin{
 					$modules['package'][$module['package']][] = $module['name'];
 					$modules['db'][$module['name']] = $module;
 				}
+				else{
+					if($modules['db'][$module['name']]['version'] != $module['version']){
+						echo "<div class='admin_warning'>";
+						echo "Bad version number on " . $module['name'] . ". ";
+						echo "lncln thinks it's " . $modules['db'][$module['name']]['version'];
+						echo ", but is actually " . $module['version'] . ". ";
+						echo "Please replace " . $module['name'] . " with version ";
+						echo $modules['db'][$module['name']]['version'] . ".";
+						echo "</div>";
+					}
+				}
 			}
 			else{
 				$this->add_module(strtolower($module['class']));
