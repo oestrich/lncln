@@ -1,33 +1,16 @@
 /* $Id$ */
 
-Upgrading from 0.12.0
+Upgrading from 0.13.0
 ---------------------
 
 Make sure your site is backed up before attempting an upgrade.
 
+Also, make sure you are logged in as an admin before upgrading.
+I cannot stress this enough, the upgrade WILL NOT WORK if you 
+are not logged in.
+
 The recommended way to upgrade is to remove everything but the
 images folder.  Upload the new version of lncln and apply these
 SQL commands:
-
- ALTER TABLE `groups` CHANGE `tag` `tags` INT( 1 ) NOT NULL ;
- 
- ALTER TABLE `groups` CHANGE `album` `albums` INT( 1 ) NOT NULL ;
- 
- ALTER TABLE `groups` CHANGE `caption` `captions` INT( 1 ) NOT NULL ;
- 
- RENAME TABLE `rating`  TO `ratings` ;
- 
- ALTER TABLE `ratings` CHANGE `upDown` `rating` INT( 1 ) NOT NULL;
- 
- ALTER TABLE `groups` CHANGE `rate` `ratings` INT( 1 ) NOT NULL ,
-	CHANGE `rateValue` `ratingsValue` INT( 2 ) NOT NULL DEFAULT '0' ;
-
- ALTER TABLE `images` DROP `numComments` ;
- 
- ALTER TABLE `images` ADD `tags` TEXT NOT NULL ;
-
- UPDATE `settings` SET `name` = 'default_group' WHERE `settings`.`id` =6 LIMIT 1 ;
- 
- INSERT INTO `settings` ( `id` , `name` , `value` ) VALUES ( NULL , 'default_rss_keyword', 'safe');
 
 If you have any other problems, please visit the forums.

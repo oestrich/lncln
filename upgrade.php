@@ -165,4 +165,8 @@ function upgrade_modules_install(){
 
 if($lncln->user->permissions['isAdmin'] == true){
 	upgrade_modules_install();
+	echo "Upgrade successful";
+}
+else{
+	echo "You must be an admin to access this page.";
 }
