@@ -34,7 +34,7 @@ class Image extends Module{
 	 * @since 0.13.0
 	 */
 	public function index(){		
-		$this->prepareImage();
+		$this->prepare_image();
 		
 		$this->lncln->get_data();
 		
