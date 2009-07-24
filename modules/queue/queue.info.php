@@ -25,7 +25,7 @@ function queue_info(){
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
 		'package' => 'Image',
-		'requires' => array('Image', 'Admin'),
+		'requires' => array('Image'),
 	);
 	
 	return $info;
