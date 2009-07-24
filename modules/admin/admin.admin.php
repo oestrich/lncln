@@ -85,6 +85,8 @@ class AdminAdmin extends Admin{
 	/**
 	 * Enable/disable modules
 	 * @since 0.14.0
+	 * 
+	 * @todo Seperate the sections in "------"
 	 */
 	public function manage(){
 		$query = array(
@@ -98,6 +100,146 @@ class AdminAdmin extends Admin{
 		
 		$modules = array();
 		
+		$modules['scanned'] = $this->scan_modules_dir();
+
+		foreach($this->db->fetch_all() as $module){
+			$modules['db'][$module['name']] = $module;
+			
+			$modules['package'][$module['package']][] = $module['name'];
+		}
+		
+		// -------------------------------------------		
+		
+		// Searching for modules not in the database and adding them to the list
+		foreach($modules['scanned'] as $module){
+			if(array_key_exists($module['package'], $modules['package'])){
+				if(in_array($module['name'], $modules['package'][$module['package']]) == false){
+					$modules['package'][$module['package']][] = $module['name'];
+					$modules['db'][$module['name']] = $module;
+				}
+			}
+			else{
+				$this->add_module(strtolower($module['class']));
+				
+				$modules['package'][$module['package']][] = $module['name'];
+				$modules['db'][$module['name']] = $module;
+			}
+		}
+		
+		// -------------------------------------------
+		
+		$scanned_keys = array_keys($modules['scanned']);
+		$db_keys = array_keys($modules['db']);
+		
+		foreach(array_diff($db_keys, $scanned_keys) as $module){
+			$package = $modules['db'][$module]['package'];
+			$key = array_search($module, $modules['package'][$package]);
+						
+			$this->remove_module($module);
+			unset($modules['db'][$module]);
+			unset($modules['package'][$package][$key]);
+		}
+		
+		// -------------------------------------------
+				
+		// Free up some memory
+		unset($modules['scanned']);
+		// Sort packages alphabetically
+		ksort($modules['package']);
+
+		foreach($modules['package'] as $name => $package){
+			if(count($package) == 0)
+				continue;
+			
+			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
+			echo "<ul>";
+			foreach($package as $module){
+				echo "<li>" . $modules['db'][$module]['name'] . " - ";
+				echo $modules['db'][$module]['version'] . "</li>\n";
+			}
+			echo "</ul>";
+		}
+	}
+	
+	/**
+	 * Add a module to the database
+	 * @since 0.14.0
+	 * 
+	 * @param string $name Module's name/folder
+	 */
+	protected function add_module($name){
+		$module = $name . "_info";
+		$module = $module();
+		
+		$query = array(
+			'type' => 'INSERT',
+			'table' => 'modules',
+			'fields' => array(
+				'name',
+				'description',
+				'class',
+				'folder',
+				'enabled',
+				'package',
+				'version',
+				'lncln_version',
+				'requires',
+				),
+			'values' => array(
+				array(
+					$module['name'],
+					$module['description'],
+					$module['class'],
+					$name,
+					0,
+					$module['package'],
+					$module['version'],
+					$module['lncln_version'],
+					serialize($module['requires']),
+					),
+				),
+			);
+		
+		$this->db->query($query);
+	}
+	
+	/**
+	 * Remove a module from the database
+	 * @since 0.14.0
+	 * 
+	 * @param string $name Module name
+	 */
+	protected function remove_module($name){
+		$query = array(
+			'type' => 'DELETE',
+			'table' => 'modules',
+			'where' => array(
+				'AND' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => ucwords($name),
+						),
+					array(
+						'field' => 'enabled',
+						'compare' => '=',
+						'value' => 0,
+						),
+					),
+				),
+			'limit' => array(1),
+			);
+		
+		$this->db->query($query);
+	}
+	
+	/**
+	 * Scan the modules directory for new modules
+	 * @since 0.14.0
+	 * 
+	 * @return array Information on all scanned in modules
+	 */
+	protected function scan_modules_dir(){
 		$scanned = scandir(ABSPATH . "modules");
 		
 		array_shift($scanned);
@@ -111,42 +253,10 @@ class AdminAdmin extends Admin{
 				$module = $module . "_info";
 				$module = $module();
 				
-				$modules['scanned'][$module['name']] = $module;
-			}
-		}
-
-		foreach($this->db->fetch_all() as $module){
-			$modules['db'][$module['name']] = $module;
-			
-			$modules['package'][$module['package']][] = $module['name'];
-		}
-				
-		// Searching for modules not in the database and adding them to the list
-		foreach($modules['scanned'] as $module){
-			if(array_key_exists($module['package'], $modules['package'])){
-				if(in_array($module['name'], $modules['package'][$module['package']]) == false){
-					$modules['package'][$module['package']][] = $module['name'];
-					$modules['db'][$module['name']] = $module;
-				}
-			}
-			else{
-				$modules['package'][$module['package']][] = $module['name'];
-				$modules['db'][$module['name']] = $module;
+				$modules[$module['name']] = $module;
 			}
 		}
 		
-		// Free up some memory
-		unset($modules['scanned']);
-		// Sort packages alphabetically
-		ksort($modules['package']);
-
-		foreach($modules['package'] as $name => $package){
-			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
-			echo "<div class='admin_package_modules'>";
-			foreach($package as $module){
-				echo $modules['db'][$module]['name'] . " - " . $modules['db'][$module]['version'] . "\n<br />";
-			}
-			echo "</div>";
-		}
+		return $modules;
 	}
 }
