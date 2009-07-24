@@ -24,7 +24,7 @@ function admin_info(){
 		'description' => 'The admin panel',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
+		'package' => 'Core',
 		'requires' => array(),
 	);
 	

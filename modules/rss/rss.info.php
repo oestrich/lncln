@@ -24,7 +24,7 @@ function rss_info(){
 		'description' => 'Create an RSS feed',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
+		'package' => 'Core',
 		'requires' => array(),
 	);
 	

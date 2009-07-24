@@ -24,7 +24,7 @@ function image_info(){
 		'description' => 'Display only a single image',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
+		'package' => 'Image',
 		'requires' => array(),
 	);
 	

@@ -24,7 +24,7 @@ function user_info(){
 		'description' => 'Logging in/out, change settings',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
+		'package' => 'Core',
 		'requires' => array(),
 	);
 	

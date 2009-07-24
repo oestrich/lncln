@@ -24,8 +24,8 @@ function albums_info(){
 		'description' => 'Create albums to seperate pictures',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
-		'requires' => array(),
+		'package' => 'Image',
+		'requires' => array('Image'),
 	);
 	
 	return $info;

@@ -24,8 +24,8 @@ function queue_info(){
 		'description' => 'Creates a queue for new uploaded images',
 		'version' => '0.14.0-1',
 		'lncln_version' => '0.14.0',
-		'package' => 'core',
-		'requires' => array('index', 'admin'),
+		'package' => 'Image',
+		'requires' => array('Image', 'Admin'),
 	);
 	
 	return $info;
