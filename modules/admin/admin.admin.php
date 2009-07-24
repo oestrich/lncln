@@ -120,6 +120,25 @@ class AdminAdmin extends Admin{
 			
 			$modules['package'][$module['package']][] = $module['name'];
 		}
+				
+		// Searching for modules not in the database and adding them to the list
+		foreach($modules['scanned'] as $module){
+			if(array_key_exists($module['package'], $modules['package'])){
+				if(in_array($module['name'], $modules['package'][$module['package']]) == false){
+					$modules['package'][$module['package']][] = $module['name'];
+					$modules['db'][$module['name']] = $module;
+				}
+			}
+			else{
+				$modules['package'][$module['package']][] = $module['name'];
+				$modules['db'][$module['name']] = $module;
+			}
+		}
+		
+		// Free up some memory
+		unset($modules['scanned']);
+		// Sort packages alphabetically
+		ksort($modules['package']);
 
 		foreach($modules['package'] as $name => $package){
 			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
