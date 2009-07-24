@@ -2,7 +2,7 @@
  * admin.css
  *
  * @copyright (C) 2009 Eric Oestrich
- * @version 0.12.0 $Id$
+ * @version 0.14.0-1 $Id$
  * @license license.txt GNU General Public License version 3
  */
  
@@ -42,9 +42,8 @@
 
 .admin_package{
 	font-size: 1.25em;
-	padding-bottom: 10px;
 }
 
 .admin_package_modules{
-	padding-left: 10px;
+	font-size: 1.125em;
 }

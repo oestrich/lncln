@@ -154,8 +154,11 @@ class AdminAdmin extends Admin{
 			echo "<span class='admin_package'>" . ucwords($name) . "</span>\n<br />";
 			echo "<ul>";
 			foreach($package as $module){
-				echo "<li>" . $modules['db'][$module]['name'] . " - ";
-				echo $modules['db'][$module]['version'] . "</li>\n";
+				echo "<li>";
+				echo "<span class='admin_package_modules'>" . $modules['db'][$module]['name'] . "</span> - ";
+				echo $modules['db'][$module]['version'] . "<br />";
+				echo $modules['db'][$module]['description'];
+				echo "</li>\n";
 			}
 			echo "</ul>";
 		}
