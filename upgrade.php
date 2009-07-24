@@ -163,4 +163,6 @@ function upgrade_modules_install(){
 	}
 }
 
-upgrade_modules_install();
+if($lncln->user->permissions['isAdmin'] == true){
+	upgrade_modules_install();
+}
