@@ -157,22 +157,64 @@ class AdminAdmin extends Admin{
 		unset($modules['scanned']);
 		// Sort packages alphabetically
 		ksort($modules['package']);
+		
+		echo "<form style='width: 714px;'>\n";
+		echo "\t<div>\n";
 
 		foreach($modules['package'] as $name => $package){
 			if(count($package) == 0)
 				continue;
 			
-			echo "<span style='font-size: 1.25em;'>" . ucwords($name) . "</span>\n<br />";
-			echo "<ul class='admin_package'>";
+			echo "\t\t<fieldset>\n";
+			echo "\t\t\t<legend>" . ucwords($name) . ":</legend>\n";
+			echo "\t\t\t<table style='width: 714px;'>\n";
+			echo "\t\t\t\t<tr>\n";
+          	echo "\t\t\t\t\t<td class='column'>Enable</td>\n";
+          	echo "\t\t\t\t\t<td class='column'>Module</td>\n";
+          	echo "\t\t\t\t\t<td class='column'>Version</td>\n";
+          	echo "\t\t\t\t\t<td class='column description'>Description</td>\n";
+          	echo "\t\t\t\t\t<td class='column'>Requirements</td>\n";
+        	echo "\t\t\t\t</tr>\n";
+        	echo "\t\t\t\t<tr>\n";
+          	echo "\t\t\t\t\t<td colspan='6'><hr /></td>\n";
+        	echo "\t\t\t\t</tr>\n";
 			foreach($package as $module){
-				echo "<li>";
-				echo "<span class='admin_package_modules'>" . $modules['db'][$module]['name'] . "</span> - ";
-				echo $modules['db'][$module]['version'] . "<br />";
-				echo $modules['db'][$module]['description'];
-				echo "</li>\n";
+				if($name == "Core"){
+					$modules['db'][$module]['disabled'] = true;
+				}
+				
+				$modules['db'][$module]['requires'] = unserialize($modules['db'][$module]['requires']);
+				
+				foreach($modules['db'][$module]['requires'] as $required){
+					$this->disabled_modules($modules['db'], $required);
+				}
+				
+				if(count($modules['db'][$module]['requires']) == 0){
+					$modules['db'][$module]['requires'] = "None";
+				}
+				else{
+					$modules['db'][$module]['requires'] = join($modules['db'][$module]['requires'], ", ");
+				}
+				
+				$checkbox = $modules['db'][$module]['enabled'] == true ? "checked " : "";
+				$checkbox .= $modules['db'][$module]['disabled'] == true ? "disabled" : "";
+				
+				echo "\t\t\t\t<tr>\n";
+				echo "\t\t\t\t\t<td class='column'><input type='checkbox' " . $checkbox . "/></td>\n";
+				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['name'] . "</td>\n";
+				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['version'] . "</td>\n";
+				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['description'] . "</td>\n";
+				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['requires'] . "</td>\n";
+				
+				echo "\t\t\t\t</tr>\n";
 			}
-			echo "</ul>";
+			echo "\t\t\t</table>\n";
+			echo "\t\t</fieldset>\n";
 		}
+		echo "\t\t<br />\n";
+		echo "\t\t<input type='submit' value='Enable Modules' />\n";
+		echo "\t</div>\n";
+		echo "</form>";
 	}
 	
 	/**
@@ -215,6 +257,21 @@ class AdminAdmin extends Admin{
 			);
 		
 		$this->db->query($query);
+	}
+	
+	/**
+	 * Disable changing modules that are required
+	 * @since 0.14.0
+	 * 
+	 * @param array &$packages List of modules
+	 */
+	protected function disabled_modules(&$packages, $name){
+		foreach($packages as &$module){
+			if($module['name'] == $name && $module['disabled'] == false){
+				$module['disabled'] = true;
+			}
+			unset($module);
+		}
 	}
 	
 	/**
