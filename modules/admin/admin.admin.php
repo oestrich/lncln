@@ -88,7 +88,7 @@ class AdminAdmin extends Admin{
 	 * 
 	 * @todo Seperate the sections in "------"
 	 */
-	public function manage(){
+	public function manage(){		
 		$query = array(
 			'type' => 'SELECT',
 			'fields' => array('*'),
@@ -152,13 +152,28 @@ class AdminAdmin extends Admin{
 		}
 		
 		// -------------------------------------------
+		
+		foreach($modules['package'] as $package){
+			foreach($package as $module){
+				$modules['db'][$module]['requires'] = unserialize($modules['db'][$module]['requires']);
+				foreach($modules['db'][$module]['requires'] as $required){
+					$this->disabled_modules($modules['db'], $required);
+				}
+			}
+		}
+		
+		// -------------------------------------------
+		
+		if(isset($_POST['modules'])){
+			$this->manage_modules($_POST['modules'], $modules);
+		}
 				
 		// Free up some memory
 		unset($modules['scanned']);
 		// Sort packages alphabetically
 		ksort($modules['package']);
 		
-		echo "<form style='width: 714px;'>\n";
+		echo "<form action='" . URL . "admin/Admin/manage/' method='post' style='width: 714px;'>\n";
 		echo "\t<div>\n";
 
 		foreach($modules['package'] as $name => $package){
@@ -182,13 +197,7 @@ class AdminAdmin extends Admin{
 				if($name == "Core"){
 					$modules['db'][$module]['disabled'] = true;
 				}
-				
-				$modules['db'][$module]['requires'] = unserialize($modules['db'][$module]['requires']);
-				
-				foreach($modules['db'][$module]['requires'] as $required){
-					$this->disabled_modules($modules['db'], $required);
-				}
-				
+								
 				if(count($modules['db'][$module]['requires']) == 0){
 					$modules['db'][$module]['requires'] = "None";
 				}
@@ -200,7 +209,8 @@ class AdminAdmin extends Admin{
 				$checkbox .= $modules['db'][$module]['disabled'] == true ? "disabled" : "";
 				
 				echo "\t\t\t\t<tr>\n";
-				echo "\t\t\t\t\t<td class='column'><input type='checkbox' " . $checkbox . "/></td>\n";
+				echo "\t\t\t\t\t<td class='column'>";
+				echo "<input type='checkbox' " . $checkbox . " name='modules[" . $modules['db'][$module]['name'] . "]'/></td>\n";
 				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['name'] . "</td>\n";
 				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['version'] . "</td>\n";
 				echo "\t\t\t\t\t<td class='column'>" . $modules['db'][$module]['description'] . "</td>\n";
@@ -267,11 +277,95 @@ class AdminAdmin extends Admin{
 	 */
 	protected function disabled_modules(&$packages, $name){
 		foreach($packages as &$module){
-			if($module['name'] == $name && $module['disabled'] == false){
+			if(($module['name'] == $name && $module['disabled'] == false) || $module['package'] == 'Core'){
 				$module['disabled'] = true;
 			}
 			unset($module);
 		}
+	}
+	
+	/**
+	 * Enable or disable modules
+	 * @since 0.14.0
+	 * 
+	 * @param array $enabled Modules being changed
+	 * @param array $modules Array created by $this->manage()
+	 */
+	protected function manage_modules($enabled, $modules){
+		$enabled_temp = $enabled;
+		$enabled = array();
+		
+		foreach($enabled_temp as $module => $value){
+			if($value == "on")
+				$enabled[] = $module;
+			
+			if($modules['db'][$module]['enabled'] == 0){
+				$query = array(
+					'type' => 'UPDATE',
+					'table' => 'modules',
+					'set' => array(
+						'enabled' => 1,
+						),
+					'where' => array(
+						array(
+							'field' => 'name',
+							'compare' => '=',
+							'value' => $module,
+							),
+						),
+					);
+				
+				$this->db->query($query);
+			}		
+		}
+		
+		$query = array(
+			'type' => 'SELECT',
+			'fields' => array('name'),
+			'table' => 'modules',
+			'where' => array(
+				array(
+					'field' => 'enabled',
+					'compare' => '=',
+					'value' => 1,
+					),
+				),
+			);
+		
+		$this->db->query($query);
+				
+		foreach($this->db->fetch_all() as $value){
+			$db_enabled[] = $value['name'];
+		}
+		
+		$disabled = array_diff($db_enabled, $enabled);
+		
+		//print_r($modules['db']);
+		
+		foreach($disabled as $module){			
+			if($modules['db'][$module]['disabled'] == 1){
+				continue;
+			}
+			
+			$query = array(
+				'type' => 'UPDATE',
+				'table' => 'modules',
+				'set' => array(
+					'enabled' => 0,
+					),
+				'where' => array(
+					array(
+						'field' => 'name',
+						'compare' => '=',
+						'value' => $module,
+						),
+					),
+				);
+			
+			$this->db->query($query);
+		}
+		
+		header("location:" . URL . "admin/Admin/manage/");
 	}
 	
 	/**
